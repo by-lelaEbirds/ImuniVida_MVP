@@ -1,12 +1,12 @@
-/* Reset Básico e Fontes */
+/* Reset Básico e Fontes iOS */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background-color: #f0f2f5;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: #333;
+    color: #1c1c1e; /* Cor de texto padrão do iOS */
     padding: 20px;
 }
 
@@ -19,7 +19,7 @@ body {
 /* Simulador do Dispositivo (iPhone) */
 .iphone-simulator {
     width: 375px;
-    height: 812px; /* Proporção do iPhone X/11/12 */
+    height: 812px; 
     background: #111;
     border: 10px solid #111;
     border-radius: 40px;
@@ -31,10 +31,10 @@ body {
 .screen {
     width: 100%;
     height: 100%;
-    background: #ffffff;
+    background: #f9f9f9; /* Fundo iOS 'grouped' */
     border-radius: 30px;
     position: relative;
-    overflow: hidden; /* Garante que o conteúdo não saia da tela */
+    overflow: hidden; 
 }
 
 .notch {
@@ -49,57 +49,141 @@ body {
     z-index: 100;
 }
 
-/* Estrutura das Páginas */
+/* Barra de Status iOS */
+.status-bar {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    right: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    z-index: 50;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.status-bar .time {
+    margin-left: -5px;
+}
+.status-bar .status-icons {
+    display: flex;
+    gap: 4px;
+    font-size: 1rem;
+}
+.status-bar ion-icon {
+    font-weight: 700;
+}
+.iphone-simulator[data-theme="light"] .status-bar {
+    color: #111;
+}
+
+/* Indicador Home iOS */
+.home-indicator {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 135px;
+    height: 5px;
+    background: #bbb;
+    border-radius: 5px;
+    z-index: 100;
+}
+.iphone-simulator[data-theme="light"] .home-indicator {
+     background: #444;
+}
+
+
+/* --- Estrutura e Animação das Páginas --- */
 .page {
-    display: none; /* Todas as páginas começam escondidas */
+    position: absolute;
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
     flex-direction: column;
+    background: #f0f2f5; /* Fundo padrão */
+    /* Animação de transição */
+    transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
 .page.active {
-    display: flex; /* A página ativa é mostrada */
+    transform: translateX(0);
+    z-index: 10;
 }
+.page.inactive-right {
+    transform: translateX(100%);
+    z-index: 5;
+}
+.page.inactive-left {
+    transform: translateX(-30%); /* Efeito de 'parallax' do iOS ao sair */
+    z-index: 5;
+    opacity: 0.7;
+}
+
+/* --- Componentes --- */
 
 /* Cabeçalhos */
 .header-main {
-    padding: 50px 20px 15px 20px; /* Espaço para o notch */
+    padding: 55px 20px 15px 20px; /* Mais espaço para status bar */
     background: linear-gradient(135deg, #00A8E8, #007EA7);
     color: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .header-main h1 {
     font-size: 1.8rem;
+    font-weight: 700;
 }
 
 .header-page {
-    padding: 50px 20px 15px 20px;
+    padding: 55px 15px 15px 15px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: center; /* Centraliza título no iOS */
     background-color: #f9f9f9;
     border-bottom: 1px solid #ddd;
-}
-.header-page span {
-    cursor: pointer;
-    font-size: 28px;
-    color: #007EA7;
+    position: relative; /* Para o botão voltar */
 }
 .header-page h1 {
-    font-size: 1.3rem;
-    color: #333;
+    font-size: 1.1rem; /* Títulos de subpágina são menores */
+    font-weight: 600;
+    color: #111;
 }
+.header-back {
+    position: absolute;
+    left: 10px;
+    top: 50px;
+    background: none;
+    border: none;
+    color: #007EA7;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+.header-back ion-icon {
+    font-size: 1.5rem;
+    margin-right: -2px;
+}
+
 
 /* Conteúdo Principal */
 .content {
     flex-grow: 1;
     padding: 20px;
-    overflow-y: auto; /* Permite rolagem se o conteúdo for grande */
-    padding-bottom: 80px; /* Espaço para a nav inferior */
+    overflow-y: auto;
+    padding-bottom: 80px; 
+}
+.content-description {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 15px;
 }
 
-/* --- Componentes Específicos --- */
-
-/* Tela de Login  */
+/* Tela de Login */
 #page-login .content {
     display: flex;
     flex-direction: column;
@@ -107,56 +191,35 @@ body {
     text-align: center;
     justify-content: center;
 }
-.logo {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 20px;
-}
-.gov-logo {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-}
-.small-text {
-    font-size: 0.8rem;
-    color: #777;
-    margin-top: 15px;
-}
+#page-login.page { background: white; }
+.logo { width: 120px; height: 120px; margin-bottom: 20px; }
+.gov-logo { width: 24px; height: 24px; margin-right: 10px; }
+.small-text { font-size: 0.8rem; color: #777; margin-top: 15px; }
 
-/* Botões */
+/* Botões (Estilo iOS) */
 .btn {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     padding: 14px 20px;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px; /* Mais arredondado */
     cursor: pointer;
     margin-top: 20px;
     gap: 8px;
 }
-.btn-primary {
-    background-color: #007EA7;
-    color: white;
-}
-.btn-primary.btn-alert {
-    background-color: #d9534f; /* Vermelho para atraso */
-}
-.btn-primary:hover {
-    background-color: #005f7a;
-}
-.btn-secondary {
-    background-color: #f0f0f0;
-    color: #333;
-}
+.btn ion-icon { font-size: 1.2rem; }
+.btn-primary { background-color: #007EA7; color: white; }
+.btn-primary.btn-alert { background-color: #d9534f; }
+.btn-primary:hover { background-color: #005f7a; }
+.btn-secondary { background-color: #e5e5ea; color: #007EA7; font-weight: 500;}
 
-/* Cards (Dependentes)  */
+/* Cards (Estilo iOS) */
 .card {
     background: #fff;
-    border: 1px solid #e0e0e0;
     border-radius: 12px;
     padding: 15px;
     margin-bottom: 15px;
@@ -164,110 +227,75 @@ body {
     align-items: center;
     gap: 15px;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
 }
-.card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-}
-.card-icon {
-    font-size: 36px;
-    color: #00A8E8;
-}
+.card:hover { background-color: #f6f6f6; }
+.card-icon { font-size: 36px; color: #00A8E8; }
 .card-info {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    flex-grow: 1; /* Faz a info ocupar o espaço */
 }
-.card-info strong {
-    font-size: 1.1rem;
-}
-.card-info span {
-    font-size: 0.9rem;
-    color: #555;
-}
+.card-info strong { font-size: 1.1rem; }
+.card-info span { font-size: 0.9rem; color: #555; }
+.card-arrow { font-size: 1.2rem; color: #c7c7cc; }
 
-/* Status das Doses  */
-.status-pendente {
-    color: #f0ad4e; /* Laranja/Amarelo */
-    font-weight: 600;
-}
-.status-atrasada {
-    color: #d9534f; /* Vermelho */
-    font-weight: 600;
-}
-.status-completa {
-    color: #5cb85c; /* Verde */
-}
 
-/* Lista de Vacinas  */
-.vaccine-list {
+/* Status das Doses */
+.status-pendente { color: #f0ad4e; font-weight: 600; }
+.status-atrasada { color: #d9534f; font-weight: 600; }
+.status-completa { color: #5cb85c; }
+
+/* Lista de Vacinas (Estilo iOS Inset Grouped) */
+.vaccine-list.inset {
     list-style: none;
     width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
 }
 .vaccine-list li {
     display: flex;
     align-items: center;
-    padding: 15px;
+    padding: 12px 15px;
     border-bottom: 1px solid #f0f0f0;
     gap: 15px;
 }
-.vaccine-list li:last-child {
-    border-bottom: none;
+.vaccine-list li:last-child { border-bottom: none; }
+.vaccine-list li ion-icon { font-size: 1.8rem; }
+.list-item-info {
+    display: flex;
+    flex-direction: column;
 }
-.vaccine-list li strong {
-    flex-grow: 1;
-}
-.vaccine-list li span:last-child {
-    font-size: 0.85rem;
-    color: #777;
-}
-.vaccine-list li .status-completa,
-.vaccine-list li .status-pendente,
-.vaccine-list li .status-atrasada {
-    font-size: 1.4rem;
-    font-weight: 700;
-}
+.list-item-info strong { font-size: 1rem; font-weight: 500; }
+.list-item-info span { font-size: 0.85rem; color: #777; }
 
-/* Tela de Agendamento  */
+
+/* Tela de Agendamento */
 .map-placeholder {
     width: 100%;
-    height: 150px;
-    background: #e9e9e9;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #888;
+    height: 180px;
+    border-radius: 12px;
+    overflow: hidden;
     margin: 20px 0;
 }
+.map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
 .card-ubs {
-    background: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    background: #fff;
+    border-radius: 12px;
     padding: 15px;
     margin-top: 10px;
 }
-.card-ubs strong {
-    font-size: 1.1rem;
-}
-.card-ubs span {
-    display: block;
-    font-size: 0.9rem;
-    color: #555;
-    margin: 5px 0;
-}
+.card-ubs strong { font-size: 1.1rem; }
+.card-ubs span { display: block; font-size: 0.9rem; color: #555; margin: 5px 0; }
 
-/* Tela de Incentivos  */
-.incentive-status {
-    text-align: center;
-    margin-bottom: 25px;
-}
+/* Tela de Incentivos */
+#page-incentives .content { background: #f0f2f5; }
+.incentive-status { text-align: center; margin-bottom: 25px; }
 .progress-bar {
     width: 100%;
-    height: 20px;
+    height: 10px; /* Mais fino */
     background: #e0e0e0;
     border-radius: 10px;
     margin-top: 10px;
@@ -276,34 +304,23 @@ body {
 .progress {
     height: 100%;
     background: #5cb85c;
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 600;
-    line-height: 20px;
+    border-radius: 10px;
 }
 .incentive-card {
     border-radius: 12px;
     padding: 25px;
     text-align: center;
-    border: 2px dashed #ccc;
+    background: #fff;
 }
-.incentive-card.locked {
-    background: #f9f9f9;
-    color: #888;
-}
+.incentive-card.locked { color: #888; }
 .incentive-card.unlocked {
     background: #e6ffed;
-    border: 2px solid #5cb85c;
+    border: 1px solid #5cb85c;
     color: #2e7d32;
     display: none; /* JS vai mostrar isso */
 }
-.icon-lock {
+.incentive-card ion-icon {
     font-size: 40px;
-    margin-bottom: 10px;
-}
-.icon-unlocked {
-    font-size: 40px;
-    color: #5cb85c;
     margin-bottom: 10px;
 }
 .benefit {
@@ -317,21 +334,23 @@ body {
 }
 
 
-/* Navegação Inferior */
+/* Navegação Inferior (Estilo iOS Tab Bar) */
 .bottom-nav {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 70px;
-    background: #ffffff;
+    height: 83px; /* Altura padrão da Tab Bar com home indicator */
+    background: rgba(249, 249, 249, 0.95); /* Efeito de vidro fosco */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid #ddd;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
     padding-top: 8px;
-    padding-bottom: 10px; /* Espaço de segurança para iPhone */
-    z-index: 10;
+    padding-bottom: 30px; /* Espaço para o home indicator */
+    z-index: 20;
 }
 .nav-item {
     display: flex;
@@ -340,11 +359,12 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 0.75rem;
-    color: #888;
+    font-size: 0.7rem; /* Menor no iOS */
+    color: #8e8e93; /* Cor inativa iOS */
 }
-.nav-item .material-icons {
+.nav-item ion-icon {
     font-size: 24px;
+    margin-bottom: 2px;
 }
 .nav-item.active {
     color: #007EA7; /* Cor primária */
