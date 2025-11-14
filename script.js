@@ -19,42 +19,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!nextPage || (currentPage && currentPage.id === pageId)) return;
 
-        // *** CORREÇÃO DO BUG DE SOBREPOSIÇÃO ***
+        // *** CORREÇÃO DO BUG DE TROCA DE ABA (V8) ***
+        const isTabSwitch = rootPages.includes(currentPage.id) && rootPages.includes(pageId);
+
+        // 1. Limpa todas as páginas de classes de transição
+        // Isso evita que uma página fique "presa" em um estado (ex: inactive-left)
         allPages.forEach(page => {
-            if (page.id !== pageId && page.id !== currentPage.id) {
-                page.classList.remove('active', 'inactive-left');
-                page.classList.add('inactive-right');
-            }
+            page.classList.remove('inactive-left', 'inactive-right', 'fade-transition');
+            // Não remove 'active' ainda da página atual
         });
 
-        // 1. Lógica de Animação
-        if (direction === 'forward') {
+        // 2. Lógica de Animação
+        if (isTabSwitch) {
+            // É uma troca de aba (Início <-> Incentivos)
+            // Usa uma transição de FADE (ou simplesmente troca)
+            currentPage.classList.add('fade-transition');
+            nextPage.classList.add('fade-transition');
+            
+            currentPage.classList.remove('active');
+            nextPage.classList.add('active');
+
+        } else if (direction === 'forward') {
+            // É uma navegação "para frente" (drill-down)
             currentPage.classList.remove('active');
             currentPage.classList.add('inactive-left');
-            nextPage.classList.remove('inactive-right');
             nextPage.classList.add('active');
+
         } else if (direction === 'back') {
+            // É uma navegação "para trás"
             currentPage.classList.remove('active');
             currentPage.classList.add('inactive-right');
-            nextPage.classList.remove('inactive-left', 'inactive-right');
             nextPage.classList.add('active');
         }
 
-        // 2. Atualiza Tema da Status Bar (Corrigido para Home)
+        // 3. Atualiza Tema da Status Bar
         simulator.dataset.theme = lightThemePages.includes(pageId) ? 'light' : 'dark';
 
-        // 3. Lógica do Botão Voltar
+        // 4. Lógica do Botão Voltar
         if (pageId === 'page-schedule' && originPageId) {
             scheduleBackButton.dataset.page = originPageId;
         }
         
-        // 4. Controla visibilidade da Tab Bar
+        // 5. Controla visibilidade da Tab Bar
         simulator.classList.toggle('nav-is-visible', rootPages.includes(pageId));
 
-        // 5. Atualiza o ícone ativo da Tab Bar
+        // 6. Atualiza o ícone ativo da Tab Bar
         updateBottomNav(pageId);
 
-        // 6. Atualiza o estado global
+        // 7. Atualiza o estado global
         simulator.dataset.currentPage = pageId;
     }
 
@@ -77,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
             icons[1].setAttribute('name', 'star-outline');
         }
     }
-
 
     // --- Lógica de Dependentes (localStorage) ---
 
@@ -110,16 +121,14 @@ document.addEventListener('DOMContentLoaded', () => {
         dependentListContainer.insertAdjacentHTML('beforeend', cardHTML);
     }
     
-
     // --- Event Listeners ---
 
-    // *** OUVINTE DE NAVEGAÇÃO PRINCIPAL (CORRIGIDO V7) ***
-    // Lida com cliques de NAVEGAÇÃO e cliques de AÇÃO.
+    // Ouvinte de Navegação Principal (Event Delegation)
     simulator.addEventListener('click', (e) => {
         const navTrigger = e.target.closest('[data-page]');
         const actionTrigger = e.target.closest('#btn-confirm-vaccine');
 
-        // Caso 1: Clique de Navegação (botões, cards, etc.)
+        // Caso 1: Clique de Navegação
         if (navTrigger) {
             e.preventDefault();
             e.stopPropagation();
@@ -139,19 +148,20 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             e.stopPropagation();
             
-            // Simula o desbloqueio do benefício
+            // 1. Desbloqueia o benefício
             alert("Agendamento Confirmado!\n\n(Simulação) Após a aplicação na UBS, o sistema confirmará a dose e desbloqueará o incentivo.");
             document.getElementById('incentive-locked').style.display = 'none';
             document.getElementById('incentive-unlocked').style.display = 'block';
 
-            // Simula a Gamificação
-            const firstDoseBadge = document.getElementById('badge-first-dose');
-            if (firstDoseBadge.classList.contains('locked')) { // Só roda se estiver bloqueada
+            // 2. Desbloqueia a Medalha (Gamificação)
+            const firstDoseBadge = document.querySelector('[data-badge-id="first-dose"]');
+            if (firstDoseBadge && firstDoseBadge.classList.contains('locked')) {
                 alert("🏆 Medalha Desbloqueada: Primeira Dose!");
                 firstDoseBadge.classList.remove('locked');
             }
             
-            showPage('page-incentives', 'forward'); // Leva para a tela de incentivos
+            // 3. Navega para a tela de incentivos
+            showPage('page-incentives', 'forward');
         }
     });
 
@@ -164,7 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!name || !dob) return; 
 
         const newDependent = { id: Date.now(), name: name, dob: dob };
-
         saveDependent(newDependent);
         renderDependentCard(newDependent); 
         
@@ -175,5 +184,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Inicialização ---
     loadDependents(); 
     updateBottomNav(simulator.dataset.currentPage);
-
 });
