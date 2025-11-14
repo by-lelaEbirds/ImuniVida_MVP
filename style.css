@@ -593,3 +593,129 @@ body {
     margin: 0;
     color: #a0aec0;
 }
+
+
+/* =================================================
+ * INÍCIO: BLOCO DE CSS ADICIONADO (CORREÇÕES)
+ * =================================================
+ */
+
+/* * Classe de ajuda para fontes especiais (ícones de status, setas).
+ * 'sans-serif' força o navegador a usar um glifo padrão.
+ */
+.sf-font {
+    font-family: sans-serif;
+}
+
+/* * Corrige a semântica de <i> para <span> nos ícones de app.
+ * Também reseta o 'font-style' caso <i> seja usado.
+ */
+.app-icon-visual {
+    font-size: 32px;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal; /* Remove itálico se usar <i> */
+}
+
+/* --- Ícones da Homescreen --- */
+.app-icon[data-app="imunivida"] .app-icon-visual {
+    background: white;
+    color: #00A8E8;
+}
+.app-icon[data-app="calendar"] .app-icon-visual {
+    background: white;
+}
+.app-icon[data-app="camera"] .app-icon-visual {
+    background: #ddd;
+}
+.app-icon[data-app="photos"] .app-icon-visual {
+    background: white;
+}
+.app-icon[data-app="maps"] .app-icon-visual {
+    background: white;
+}
+
+/* --- Ícones da Dock --- */
+.dock .app-icon[data-app="phone"] .app-icon-visual {
+    background: #38a169;
+    color: white;
+}
+.dock .app-icon[data-app="safari"] .app-icon-visual {
+    background: #007EA7;
+    color: white;
+}
+.dock .app-icon[data-app="messages"] .app-icon-visual {
+    background: #38a169;
+    color: white;
+}
+.dock .app-icon[data-app="music"] .app-icon-visual {
+    background: #fa2a40;
+    color: white;
+}
+
+/* --- Ícones de Botões e Listas --- */
+#page-login .logo-icon {
+    font-style: normal;
+}
+
+#card-add-dependent .card-icon-add {
+    font-size: 36px;
+    color: #007EA7;
+    font-style: normal;
+}
+
+.card-arrow {
+    font-family: sans-serif;
+}
+
+.header-back i.sf-font {
+    font-size: 1.5rem;
+    margin-right: 2px;
+    font-style: normal;
+}
+
+.vaccine-list-icon {
+    font-size: 1.8rem;
+    font-style: normal;
+}
+
+.btn i {
+    font-size: 1.2rem;
+    font-style: normal;
+}
+
+.points-card .points-icon {
+    font-size: 48px;
+    color: #FFD166;
+    font-style: normal;
+}
+
+.reward-icon i {
+    font-size: 24px;
+    color: #007EA7;
+    font-style: normal;
+}
+
+.badge i {
+    font-size: 36px;
+    color: #00A8E8;
+    font-style: normal;
+}
+.badge.locked i {
+    color: #ccc;
+}
+.badge:not(.locked) i {
+    color: #5cb85c;
+}
+
+/* * Corrige o ícone de 'spin' do login (ligado ao JS)
+ */
+.btn-primary.is-loading i {
+    display: inline-block;
+    animation: ph-spin 1s linear infinite;
+}
