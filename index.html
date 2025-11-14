@@ -9,168 +9,194 @@
 </head>
 <body>
 
-    <div class="iphone-simulator" data-theme="dark" data-current-page="page-homescreen">
-        <div class="dynamic-island"></div>
-        <div class="status-bar">
-            <span class="time">9:41</span>
-            <div class="status-icons">
-                <i class="ph-bold ph-wifi-high"></i>
-                <i class="ph-bold ph-battery-full"></i>
+    <div class="main-container">
+
+        <div class="iphone-simulator" data-theme="dark" data-current-page="page-homescreen">
+            <div class="dynamic-island"></div>
+            <div class="status-bar">
+                <span class="time">9:41</span>
+                <div class="status-icons">
+                    <i class="ph-bold ph-wifi-high"></i>
+                    <i class="ph-bold ph-battery-full"></i>
+                </div>
             </div>
+
+            <div class="screen">
+                
+                <div id="page-homescreen" class="page active">
+                    <div class="wallpaper"></div>
+                    <main class="icon-grid">
+                        <div class="app-icon" data-page="page-login" data-direction="forward">
+                            <i class="ph-fill ph-shield-plus" style="color: #00A8E8; background: white;"></i>
+                            <span>ImuniVida</span>
+                        </div>
+                        <div class="app-icon"><i class="ph-fill ph-calendar-blank" style="color: red; background: white;"></i><span>Calendário</span></div>
+                        <div class="app-icon"><i class="ph-fill ph-camera" style="color: #555; background: #ddd;"></i><span>Câmera</span></div>
+                        <div class="app-icon"><i class="ph-fill ph-image" style="color: #00A8E8; background: white;"></i><span>Fotos</span></div>
+                        <div class="app-icon"><i class="ph-fill ph-map-trifold" style="color: #38a169; background: white;"></i><span>Mapas</span></div>
+                    </main>
+                    <footer class="dock">
+                        <div class="app-icon"><i class="ph-fill ph-phone" style="color: white; background: #38a169;"></i></div>
+                        <div class="app-icon"><i class="ph-fill ph-compass" style="color: white; background: #007EA7;"></i></div>
+                        <div class="app-icon"><i class="ph-fill ph-chat-teardrop-text" style="color: white; background: #38a169;"></i></div>
+                        <div class="app-icon"><i class="ph-fill ph-music-note" style="color: white; background: #fa2a40;"></i></div>
+                    </footer>
+                </div>
+
+                <div id="page-login" class="page inactive-right">
+                    <header class="header-main"><h1>ImuniVida</h1></header>
+                    <main class="content">
+                        <i class="ph-fill ph-shield-plus logo-icon"></i>
+                        <p>Seu assistente de imunização infantil.</p>
+                        
+                        <button class="btn btn-primary" id="btn-login-gov" data-page="page-dashboard" data-direction="forward">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Gov.br_logo.svg" alt="Gov.br" class="gov-logo">
+                            Entrar com Gov.br
+                        </button>
+                        
+                        <p class="small-text">Autenticação segura via sistema de identificação nacional.</p>
+                    </main>
+                </div>
+
+                <div id="page-dashboard" class="page inactive-right page-with-nav">
+                    <header class="header-main"><h1>Início</h1></header>
+                    <main class="content">
+                        <div class="card status-card">
+                            <div class="status-item"><span>Próxima Dose</span><strong>Febre Amarela (Ana)</strong></div>
+                            <div class="status-item overdue"><span>Atrasadas</span><strong>1 Dose (João)</strong></div>
+                        </div>
+                        <h3 class="content-subtitle">Meus Dependentes</h3>
+                        <div id="dependent-list-container">
+                            <div class="card" data-page="page-calendar-ana" data-direction="forward">
+                                <img class="card-icon-img" src="https://picsum.photos/seed/ana/80/80" alt="Ana">
+                                <div class="card-info"><strong>Ana Silva (3 anos)</strong><span>Próxima dose: <strong>Febre Amarela</strong></span><span class="status-pendente">1 dose pendente</span></div>
+                                <i class="ph ph-caret-right card-arrow"></i>
+                            </div>
+                            <div class="card" data-page="page-calendar-joao" data-direction="forward">
+                                <img class="card-icon-img" src="https://picsum.photos/seed/joao/80/80" alt="João">
+                                <div class="card-info"><strong>João Souza (5 anos)</strong><span>Próxima dose: <strong>Tríplice Viral</strong></span><span class="status-atrasada">1 dose atrasada!</span></div>
+                                <i class="ph ph-caret-right card-arrow"></i>
+                            </div>
+                        </div>
+                        <div class="card" data-page="page-add-dependent" data-direction="forward">
+                            <i class="ph-fill ph-plus-circle card-icon" style="color: #007EA7;"></i>
+                            <div class="card-info"><strong>Adicionar Dependente</strong></div>
+                            <i class="ph ph-caret-right card-arrow"></i>
+                        </div>
+                    </main>
+                </div>
+
+                <div id="page-add-dependent" class="page inactive-right">
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Novo Dependente</h1></header>
+                    <main class="content">
+                        <form id="form-add-dependent">
+                            <div class="form-group-inset">
+                                <div class="form-group"><label for="input-name">Nome Completo</label><input type="text" id="input-name" class="form-input" placeholder="Ex: Maria Clara" required></div>
+                                <div class="form-group"><label for="input-dob">Data de Nascimento</label><input type="date" id="input-dob" class="form-input" required></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><i class="ph ph-download-simple"></i>Salvar Dependente</button>
+                        </form>
+                    </main>
+                </div>
+
+                <div id="page-calendar-ana" class="page inactive-right">
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Calendário (Ana)</h1></header>
+                    <main class="content"><ul class="vaccine-list inset"><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>BCG</strong> (Dose Única)<span>Aplicada em 10/01/2022</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Aplicada em 10/01/2022</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Rotavírus</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Penta</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li><li><i class="ph-fill ph-warning-circle status-pendente"></i><div class="list-item-info"><strong>Febre Amarela</strong> (Reforço)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-ana" data-direction="forward"><i class="ph ph-map-pin"></i>Agendar Dose Pendente</button></main>
+                </div>
+                <div id="page-calendar-joao" class="page inactive-right">
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Calendário (João)</h1></header>
+                    <main class="content"><ul class="vaccine-list inset"><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Penta</strong> (Reforço 1)<span>Concluído</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Poliomielite</strong> (Reforço 1)<span>Concluído</span></div></li><li><i class="ph-fill ph-warning status-atrasada"></i><div class="list-item-info"><strong>Tríplice Viral</strong> (Reforço)<span>Atrasada desde 01/10/2025</span></div></li></ul><button class="btn btn-primary btn-alert" data-page="page-schedule" data-origin="page-calendar-joao" data-direction="forward"><i class="ph ph-warning"></i>Agendar Dose Atrasada</button></main>
+                </div>
+                <div id="page-calendar-generic" class="page inactive-right">
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1 id="generic-calendar-title">Calendário</h1></header>
+                    <main class="content"><p class="content-description">Este é um calendário simulado para o novo dependente.</p><ul class="vaccine-list inset"><li><i class="ph-fill ph-warning-circle status-pendente"></i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-generic" data-direction="forward"><i class="ph ph-map-pin"></i>Agendar Dose</button></main>
+                </div>
+
+                <div id="page-schedule" class="page inactive-right">
+                    <header class="header-page">
+                        <button class="header-back" id="schedule-back-button" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button>
+                        <h1>Agendar Vacina</h1>
+                    </header>
+                    <main class="content">
+                        <p class="content-description">Usando sua localização para encontrar η UBS mais próxima...</p>
+                        <figure class="map-placeholder"><img src="https://picsum.photos/seed/mapa/600/400" alt="Simulação de mapa da cidade"></figure>
+                        <div class="ubs-list">
+                            <strong>Postos de Saúde Próximos:</strong>
+                            <div class="card-ubs">
+                                <strong>UBS Vila Saúde</strong>
+                                <span>Rua das Flores, 123 - <strong>(1.2km)</strong></span>
+                                <button class="btn btn-secondary" id="btn-confirm-vaccine">Confirmar Agendamento</button>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+                
+                <div id="page-incentives" class="page inactive-right page-with-nav">
+                    <header class="header-main"><h1>Incentivos</h1></header>
+                    <main class="content">
+                        <div class="card points-card">
+                            <i class="ph-fill ph-star-four"></i>
+                            <div class="points-info"><span>Seus Pontos Imuni</span><strong id="user-points-display">0</strong></div>
+                        </div>
+                        <h3 class="content-subtitle">Recompensas para Resgatar</h3>
+                        <div class="card reward-card" id="reward-farmacia">
+                            <div class="reward-icon"><i class="ph-fill ph-pill"></i></div>
+                            <div class="reward-info"><strong>15% Desconto Farmácia</strong><span>Custo: 1000 Pontos</span></div>
+                            <button class="btn btn-secondary btn-redeem" disabled>Resgatar</button>
+                        </div>
+                        <div class="card reward-card" id="reward-ir">
+                            <div class="reward-icon"><i class="ph-fill ph-file-text"></i></div>
+                            <div class="reward-info"><strong>Abatimento no IR</strong><span>Custo: 5000 Pontos</span></div>
+                            <button class="btn btn-secondary btn-redeem" disabled>Resgatar</button>
+                        </div>
+                        <h3 class="content-subtitle">Minhas Conquistas</h3>
+                        <div class="achievements-grid">
+                            <div class="badge locked" data-badge-id="first-dose"><i class="ph-fill ph-medal"></i><span>Primeira Dose</span></div>
+                            <div class="badge locked" data-badge-id="full-calendar"><i class="ph-fill ph-shield-check"></i><span>Super Protegido</span></div>
+                            <div class="badge locked" data-badge-id="champion"><i class="ph-fill ph-trophy"></i><span>Campeão</span></div>
+                        </div>
+                    </main>
+                </div>
+
+                <nav class="bottom-nav">
+                    <button data-page="page-dashboard" class="nav-item">
+                        <i class="ph-regular ph-house"></i>
+                        <span>Início</span>
+                    </button>
+                    <button data-page="page-incentives" class="nav-item">
+                        <i class="ph-regular ph-star"></i>
+                        <span>Incentivos</span>
+                    </button>
+                </nav>
+            </div>
+            
+            <div class="home-indicator"></div>
         </div>
 
-        <div class="screen">
-            
-            <div id="page-homescreen" class="page active">
-                <div class="wallpaper"></div>
-                <main class="icon-grid">
-                    <div class="app-icon" data-page="page-login" data-direction="forward">
-                        <i class="ph-fill ph-shield-plus" style="color: #00A8E8; background: white;"></i>
-                        <span>ImuniVida</span>
-                    </div>
-                    <div class="app-icon"><i class="ph-fill ph-calendar-blank" style="color: red; background: white;"></i><span>Calendário</span></div>
-                    <div class="app-icon"><i class="ph-fill ph-camera" style="color: #555; background: #ddd;"></i><span>Câmera</span></div>
-                    <div class="app-icon"><i class="ph-fill ph-image" style="color: #00A8E8; background: white;"></i><span>Fotos</span></div>
-                    <div class="app-icon"><i class="ph-fill ph-map-trifold" style="color: #38a169; background: white;"></i><span>Mapas</span></div>
-                </main>
-                <footer class="dock">
-                    <div class="app-icon"><i class="ph-fill ph-phone" style="color: white; background: #38a169;"></i></div>
-                    <div class="app-icon"><i class="ph-fill ph-compass" style="color: white; background: #007EA7;"></i></div>
-                    <div class="app-icon"><i class="ph-fill ph-chat-teardrop-text" style="color: white; background: #38a169;"></i></div>
-                    <div class="app-icon"><i class="ph-fill ph-music-note" style="color: white; background: #fa2a40;"></i></div>
-                </footer>
+        <div class="project-annotation anno-left" style="top: 20%;">
+            <div class="annotation-text">
+                <h3>Problema Central</h3>
+                [cite_start]<p>Queda na cobertura vacinal por desinformação e barreiras logísticas[cite: 84, 87].</p>
             </div>
+            <div class="annotation-line" style="width: 100px;"></div>
+        </div>
 
-            <div id="page-login" class="page inactive-right">
-                <header class="header-main"><h1>ImuniVida</h1></header>
-                <main class="content">
-                    <i class="ph-fill ph-shield-plus logo-icon"></i>
-                    <p>Seu assistente de imunização infantil.</p>
-                    
-                    <button class="btn btn-primary" id="btn-login-gov" data-page="page-dashboard" data-direction="forward">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Gov.br_logo.svg" alt="Gov.br" class="gov-logo">
-                        Entrar com Gov.br
-                    </button>
-                    
-                    <p class="small-text">Autenticação segura via sistema de identificação nacional.</p>
-                </main>
+        <div class="project-annotation anno-right" style="top: 40%;">
+            <div class="annotation-line" style="width: 120px;"></div>
+            <div class="annotation-text">
+                <h3>Solução: Gamificação</h3>
+                [cite_start]<p>Incentivos econômicos (desconto / IR) para engajar responsáveis[cite: 94, 95, 96].</p>
             </div>
-
-            <div id="page-dashboard" class="page inactive-right page-with-nav">
-                <header class="header-main"><h1>Início</h1></header>
-                <main class="content">
-                    <div class="card status-card">
-                        <div class="status-item"><span>Próxima Dose</span><strong>Febre Amarela (Ana)</strong></div>
-                        <div class="status-item overdue"><span>Atrasadas</span><strong>1 Dose (João)</strong></div>
-                    </div>
-                    <h3 class="content-subtitle">Meus Dependentes</h3>
-                    <div id="dependent-list-container">
-                        <div class="card" data-page="page-calendar-ana" data-direction="forward">
-                            <img class="card-icon-img" src="https://picsum.photos/seed/ana/80/80" alt="Ana">
-                            <div class="card-info"><strong>Ana Silva (3 anos)</strong><span>Próxima dose: <strong>Febre Amarela</strong></span><span class="status-pendente">1 dose pendente</span></div>
-                            <i class="ph ph-caret-right card-arrow"></i>
-                        </div>
-                        <div class="card" data-page="page-calendar-joao" data-direction="forward">
-                            <img class="card-icon-img" src="https://picsum.photos/seed/joao/80/80" alt="João">
-                            <div class="card-info"><strong>João Souza (5 anos)</strong><span>Próxima dose: <strong>Tríplice Viral</strong></span><span class="status-atrasada">1 dose atrasada!</span></div>
-                            <i class="ph ph-caret-right card-arrow"></i>
-                        </div>
-                    </div>
-                     <div class="card" data-page="page-add-dependent" data-direction="forward">
-                        <i class="ph-fill ph-plus-circle card-icon" style="color: #007EA7;"></i>
-                        <div class="card-info"><strong>Adicionar Dependente</strong></div>
-                        <i class="ph ph-caret-right card-arrow"></i>
-                    </div>
-                </main>
-            </div>
-
-            <div id="page-add-dependent" class="page inactive-right">
-                <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Novo Dependente</h1></header>
-                <main class="content">
-                    <form id="form-add-dependent">
-                        <div class="form-group-inset">
-                            <div class="form-group"><label for="input-name">Nome Completo</label><input type="text" id="input-name" class="form-input" placeholder="Ex: Maria Clara" required></div>
-                             <div class="form-group"><label for="input-dob">Data de Nascimento</label><input type="date" id="input-dob" class="form-input" required></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary"><i class="ph ph-download-simple"></i>Salvar Dependente</button>
-                    </form>
-                </main>
-            </div>
-
-            <div id="page-calendar-ana" class="page inactive-right">
-                <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Calendário (Ana)</h1></header>
-                <main class="content"><ul class="vaccine-list inset"><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>BCG</strong> (Dose Única)<span>Aplicada em 10/01/2022</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Aplicada em 10/01/2022</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Rotavírus</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Penta</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li><li><i class="ph-fill ph-warning-circle status-pendente"></i><div class="list-item-info"><strong>Febre Amarela</strong> (Reforço)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-ana" data-direction="forward"><i class="ph ph-map-pin"></i>Agendar Dose Pendente</button></main>
-            </div>
-            <div id="page-calendar-joao" class="page inactive-right">
-                 <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Calendário (João)</h1></header>
-                 <main class="content"><ul class="vaccine-list inset"><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Penta</strong> (Reforço 1)<span>Concluído</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Poliomielite</strong> (Reforço 1)<span>Concluído</span></div></li><li><i class="ph-fill ph-warning status-atrasada"></i><div class="list-item-info"><strong>Tríplice Viral</strong> (Reforço)<span>Atrasada desde 01/10/2025</span></div></li></ul><button class="btn btn-primary btn-alert" data-page="page-schedule" data-origin="page-calendar-joao" data-direction="forward"><i class="ph ph-warning"></i>Agendar Dose Atrasada</button></main>
-            </div>
-            <div id="page-calendar-generic" class="page inactive-right">
-                 <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1 id="generic-calendar-title">Calendário</h1></header>
-                 <main class="content"><p class="content-description">Este é um calendário simulado para o novo dependente.</p><ul class="vaccine-list inset"><li><i class="ph-fill ph-warning-circle status-pendente"></i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-generic" data-direction="forward"><i class="ph ph-map-pin"></i>Agendar Dose</button></main>
-            </div>
-
-            <div id="page-schedule" class="page inactive-right">
-                <header class="header-page">
-                     <button class="header-back" id="schedule-back-button" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button>
-                    <h1>Agendar Vacina</h1>
-                </header>
-                <main class="content">
-                    <p class="content-description">Usando sua localização para encontrar η UBS mais próxima...</p>
-                    <figure class="map-placeholder"><img src="https://picsum.photos/seed/mapa/600/400" alt="Simulação de mapa da cidade"></figure>
-                     <div class="ubs-list">
-                        <strong>Postos de Saúde Próximos:</strong>
-                        <div class="card-ubs">
-                            <strong>UBS Vila Saúde</strong>
-                            <span>Rua das Flores, 123 - <strong>(1.2km)</strong></span>
-                            <button class="btn btn-secondary" id="btn-confirm-vaccine">Confirmar Agendamento</button>
-                        </div>
-                    </div>
-                </main>
-            </div>
-            
-            <div id="page-incentives" class="page inactive-right page-with-nav">
-                <header class="header-main"><h1>Incentivos</h1></header>
-                <main class="content">
-                    <div class="card points-card">
-                        <i class="ph-fill ph-star-four"></i>
-                        <div class="points-info"><span>Seus Pontos Imuni</span><strong id="user-points-display">0</strong></div>
-                    </div>
-                    <h3 class="content-subtitle">Recompensas para Resgatar</h3>
-                    <div class="card reward-card" id="reward-farmacia">
-                        <div class="reward-icon"><i class="ph-fill ph-pill"></i></div>
-                        <div class="reward-info"><strong>15% Desconto Farmácia</strong><span>Custo: 1000 Pontos</span></div>
-                        <button class="btn btn-secondary btn-redeem" disabled>Resgatar</button>
-                    </div>
-                    <div class="card reward-card" id="reward-ir">
-                        <div class="reward-icon"><i class="ph-fill ph-file-text"></i></div>
-                        <div class="reward-info"><strong>Abatimento no IR</strong><span>Custo: 5000 Pontos</span></div>
-                        <button class="btn btn-secondary btn-redeem" disabled>Resgatar</button>
-                    </div>
-                    <h3 class="content-subtitle">Minhas Conquistas</h3>
-                    <div class="achievements-grid">
-                        <div class="badge locked" data-badge-id="first-dose"><i class="ph-fill ph-medal"></i><span>Primeira Dose</span></div>
-                        <div class="badge locked" data-badge-id="full-calendar"><i class="ph-fill ph-shield-check"></i><span>Super Protegido</span></div>
-                        <div class="badge locked" data-badge-id="champion"><i class="ph-fill ph-trophy"></i><span>Campeão</span></div>
-                    </div>
-                </main>
-            </div>
-
-            <nav class="bottom-nav">
-                <button data-page="page-dashboard" class="nav-item">
-                    <i class="ph-regular ph-house"></i>
-                    <span>Início</span>
-                </button>
-                <button data-page="page-incentives" class="nav-item">
-                    <i class="ph-regular ph-star"></i>
-                    <span>Incentivos</span>
-                </button>
-            </nav>
         </div>
         
-        <div class="home-indicator"></div>
-    </div>
-
-    <script src="script.js"></script>
+        <div class="project-annotation anno-right" style="top: 65%;">
+            <div class="annotation-line" style="width: 80px;"></div>
+            <div class="annotation-text">
+                <h3>Tecnologia (MVP)</h3>
+                [cite_start]<p>Protótipo JS/CSS/HTML com login Gov.br simulado e navegação[cite: 90, 92].</p>
+            </div>
+        </div>
+    
+    </div> <script src="script.js"></script>
 </body>
 </html>
