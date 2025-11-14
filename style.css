@@ -194,14 +194,11 @@ body {
     flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
-    /* Padding padrão para o home indicator */
     padding-bottom: 30px; 
 }
-/* Aumenta o padding se a barra de navegação estiver visível */
 .page-with-nav .content {
     padding-bottom: 80px; 
 }
-
 
 /* Tela de Login */
 #page-login .content {
@@ -279,10 +276,9 @@ body {
     font-size: 1rem;
     padding: 5px 0;
     outline: none;
-    background: none; /* Garante que não tenha fundo branco */
+    background: none;
 }
 .form-input[type="date"] { color: #555; }
-
 
 /* Status das Doses */
 .status-pendente { color: #f0ad4e; font-weight: 600; }
@@ -357,11 +353,9 @@ body {
     padding-top: 8px;
     padding-bottom: 30px;
     z-index: 20;
-    /* Começa escondido */
     transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
-/* JS adiciona esta classe ao .iphone-simulator */
 .iphone-simulator.nav-is-visible .bottom-nav {
     transform: translateY(0);
 }
