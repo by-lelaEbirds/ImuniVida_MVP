@@ -84,7 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // 5. Controla visibilidade da Tab Bar
-        simulator.classList.toggle('nav-is-visible', rootPages.includes(pageId));
+        // Adiciona uma pequena pausa para a transição de página ser mais suave
+        setTimeout(() => {
+            simulator.classList.toggle('nav-is-visible', rootPages.includes(pageId));
+        }, 100);
 
         // 6. Atualiza o ícone ativo da Tab Bar
         updateBottomNav(pageId);
@@ -177,7 +180,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // --- FIM DA CORREÇÃO ---
         
-        const ageText = age > 0 ? `${age} anos` : 'menos de 1 ano';
+        let ageText;
+        if (age > 0) {
+            ageText = `${age} ano${age > 1 ? 's' : ''}`;
+        } else {
+            // Calcula a idade em meses se for menor que 1 ano
+            let months = (today.getFullYear() - birthDate.getFullYear()) * 12;
+            months -= birthDate.getMonth();
+            months += today.getMonth();
+            
+            // Ajuste para o dia do mês
+            if (today.getDate() < birthDate.getDate()) {
+                months--;
+            }
+            
+            if (months > 0) {
+                ageText = `${months} me${months > 1 ? 'ses' : 's'}`;
+            } else {
+                ageText = 'Recém-nascido';
+            }
+        }
         
         const cardHTML = `
             <div class="card" data-page="page-calendar-generic" data-name="${dependent.name}" data-direction="forward">
