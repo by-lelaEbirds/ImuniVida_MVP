@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImuniVida - Protótipo V12 (Tapa Monstro)</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-</head>
+    </head>
 <body>
 
     <div class="main-container">
@@ -15,9 +14,9 @@
             <div class="dynamic-island"></div>
             <div class="status-bar">
                 <span class="time">9:41</span>
-                <div class="status-icons">
-                    <i class="ph-bold ph-wifi-high"></i>
-                    <i class="ph-bold ph-battery-full"></i>
+                <div class="status-icons" style="font-family: sans-serif; gap: 4px; font-size: 1.2rem;">
+                    <div>📶</div>
+                    <div>🔋</div>
                 </div>
             </div>
 
@@ -26,27 +25,27 @@
                 <div id="page-homescreen" class="page active">
                     <div class="wallpaper"></div>
                     <main class="icon-grid">
-                        <div class="app-icon" data-page="page-login" data-direction="forward">
-                            <i class="ph-fill ph-shield-plus" style="color: #00A8E8; background: white;"></i>
+                        <div class="app-icon" data-page="page-login" data-direction="forward" style="font-family: sans-serif;">
+                            <i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: #00A8E8; background: white;">🛡️</i>
                             <span>ImuniVida</span>
                         </div>
-                        <div class="app-icon"><i class="ph-fill ph-calendar-blank" style="color: red; background: white;"></i><span>Calendário</span></div>
-                        <div class="app-icon"><i class="ph-fill ph-camera" style="color: #555; background: #ddd;"></i><span>Câmera</span></div>
-                        <div class="app-icon"><i class="ph-fill ph-image" style="color: #00A8E8; background: white;"></i><span>Fotos</span></div>
-                        <div class="app-icon"><i class="ph-fill ph-map-trifold" style="color: #38a169; background: white;"></i><span>Mapas</span></div>
+                        <div class="app-icon" style="font-family: sans-serif;"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; background: white;">📅</i><span>Calendário</span></div>
+                        <div class="app-icon" style="font-family: sans-serif;"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; background: #ddd;">📷</i><span>Câmera</span></div>
+                        <div class="app-icon" style="font-family: sans-serif;"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; background: white;">🖼️</i><span>Fotos</span></div>
+                        <div class="app-icon" style="font-family: sans-serif;"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; background: white;">🗺️</i><span>Mapas</span></div>
                     </main>
-                    <footer class="dock">
-                        <div class="app-icon"><i class="ph-fill ph-phone" style="color: white; background: #38a169;"></i></div>
-                        <div class="app-icon"><i class="ph-fill ph-compass" style="color: white; background: #007EA7;"></i></div>
-                        <div class="app-icon"><i class="ph-fill ph-chat-teardrop-text" style="color: white; background: #38a169;"></i></div>
-                        <div class="app-icon"><i class="ph-fill ph-music-note" style="color: white; background: #fa2a40;"></i></div>
+                    <footer class="dock" style="font-family: sans-serif;">
+                        <div class="app-icon"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; background: #38a169;">📞</i></div>
+                        <div class="app-icon"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; background: #007EA7;">🧭</i></div>
+                        <div class="app-icon"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; background: #38a169;">💬</i></div>
+                        <div class="app-icon"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; background: #fa2a40;">🎵</i></div>
                     </footer>
                 </div>
 
                 <div id="page-login" class="page inactive-right">
                     <header class="header-main"><h1>ImuniVida</h1></header>
-                    <main class="content">
-                        <i class="ph-fill ph-shield-plus logo-icon"></i>
+                    <main class="content" style="font-family: sans-serif;">
+                        <i class="logo-icon" style="font-size: 100px; color: #00A8E8; margin-bottom: 20px;">🛡️</i>
                         <p>Seu assistente de imunização infantil.</p>
                         
                         <button class="btn btn-primary" id="btn-login-gov" data-page="page-dashboard" data-direction="forward">
@@ -80,51 +79,51 @@
                             <div class="card" data-page="page-calendar-ana" data-direction="forward">
                                 <img class="card-icon-img" src="https://picsum.photos/seed/ana-silva-child/80/80" alt="Ana">
                                 <div class="card-info"><strong>Ana Silva (3 anos)</strong><span>Próxima dose: <strong>Febre Amarela</strong></span><span class="status-pendente">1 dose pendente</span></div>
-                                <i class="ph ph-caret-right card-arrow"></i>
+                                <i class="card-arrow" style="font-family: sans-serif;">❯</i>
                             </div>
                             <div class="card" data-page="page-calendar-joao" data-direction="forward">
                                 <img class="card-icon-img" src="https://picsum.photos/seed/joao-souza-child/80/80" alt="João">
                                 <div class="card-info"><strong>João Souza (5 anos)</strong><span>Próxima dose: <strong>Tríplice Viral</strong></span><span class="status-atrasada">1 dose atrasada!</span></div>
-                                <i class="ph ph-caret-right card-arrow"></i>
+                                <i class="card-arrow" style="font-family: sans-serif;">❯</i>
                             </div>
                         </div>
-                        <div class="card" id="card-add-dependent" data-page="page-add-dependent" data-direction="forward">
-                            <i class="ph-fill ph-plus-circle card-icon" style="color: #007EA7;"></i>
+                        <div class="card" id="card-add-dependent" data-page="page-add-dependent" data-direction="forward" style="font-family: sans-serif;">
+                            <i class="card-icon" style="font-size: 36px; color: #007EA7;">➕</i>
                             <div class="card-info"><strong>Adicionar Dependente</strong></div>
-                            <i class="ph ph-caret-right card-arrow"></i>
+                            <i class="card-arrow" style="font-family: sans-serif;">❯</i>
                         </div>
                     </main>
                 </div>
 
                 <div id="page-add-dependent" class="page inactive-right">
-                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Novo Dependente</h1></header>
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i style="font-size: 1.5rem; margin-right: 2px; font-family: sans-serif;">❮</i>Voltar</button><h1>Novo Dependente</h1></header>
                     <main class="content">
                         <form id="form-add-dependent">
                             <div class="form-group-inset">
                                 <div class="form-group"><label for="input-name">Nome Completo</label><input type="text" id="input-name" class="form-input" placeholder="Ex: Maria Clara" required></div>
                                 <div class="form-group"><label for="input-dob">Data de Nascimento</label><input type="date" id="input-dob" class="form-input" required></div>
                             </div>
-                            <button type="submit" class="btn btn-primary"><i class="ph ph-download-simple"></i>Salvar Dependente</button>
+                            <button type="submit" class="btn btn-primary" style="font-family: sans-serif;"><i style="font-size: 1.2rem;">📥</i>Salvar Dependente</button>
                         </form>
                     </main>
                 </div>
 
                 <div id="page-calendar-ana" class="page inactive-right">
-                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Calendário (Ana)</h1></header>
-                    <main class="content"><ul class="vaccine-list inset"><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>BCG</strong> (Dose Única)<span>Aplicada em 10/01/2022</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Aplicada em 10/01/2022</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Rotavírus</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Penta</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li><li><i class="ph-fill ph-warning-circle status-pendente"></i><div class="list-item-info"><strong>Febre Amarela</strong> (Reforço)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-ana" data-direction="forward"><i class="ph ph-map-pin"></i>Agendar Dose Pendente</button></main>
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i style="font-size: 1.5rem; margin-right: 2px; font-family: sans-serif;">❮</i>Voltar</button><h1>Calendário (Ana)</h1></header>
+                    <main class="content" style="font-family: sans-serif;"><ul class="vaccine-list inset"><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>BCG</strong> (Dose Única)<span>Aplicada em 10/01/2022</span></div></li><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Aplicada em 10/01/2022</span></div></li><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>Rotavírus</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>Penta</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li><li><i class="status-pendente" style="font-size: 1.8rem;">⚠️</i><div class="list-item-info"><strong>Febre Amarela</strong> (Reforço)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-ana" data-direction="forward"><i style="font-size: 1.2rem;">📍</i>Agendar Dose Pendente</button></main>
                 </div>
                 <div id="page-calendar-joao" class="page inactive-right">
-                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Calendário (João)</h1></header>
-                    <main class="content"><ul class="vaccine-list inset"><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Penta</strong> (Reforço 1)<span>Concluído</span></div></li><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Poliomielite</strong> (Reforço 1)<span>Concluído</span></div></li><li><i class="ph-fill ph-warning status-atrasada"></i><div class="list-item-info"><strong>Tríplice Viral</strong> (Reforço)<span>Atrasada desde 01/10/2025</span></div></li></ul><button class="btn btn-primary btn-alert" data-page="page-schedule" data-origin="page-calendar-joao" data-direction="forward"><i class="ph ph-warning"></i>Agendar Dose Atrasada</button></main>
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i style="font-size: 1.5rem; margin-right: 2px; font-family: sans-serif;">❮</i>Voltar</button><h1>Calendário (João)</h1></header>
+                    <main class="content" style="font-family: sans-serif;"><ul class="vaccine-list inset"><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>Penta</strong> (Reforço 1)<span>Concluído</span></div></li><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>Poliomielite</strong> (Reforço 1)<span>Concluído</span></div></li><li><i class="status-atrasada" style="font-size: 1.8rem;">❗</i><div class="list-item-info"><strong>Tríplice Viral</strong> (Reforço)<span>Atrasada desde 01/10/2025</span></div></li></ul><button class="btn btn-primary btn-alert" data-page="page-schedule" data-origin="page-calendar-joao" data-direction="forward"><i style="font-size: 1.2rem;">⚠️</i>Agendar Dose Atrasada</button></main>
                 </div>
                 <div id="page-calendar-generic" class="page inactive-right">
-                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1 id="generic-calendar-title">Calendário</h1></header>
-                    <main class="content"><p class="content-description">Este é um calendário simulado para o novo dependente.</p><ul class="vaccine-list inset"><li><i class="ph-fill ph-warning-circle status-pendente"></i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-generic" data-direction="forward"><i class="ph ph-map-pin"></i>Agendar Dose</button></main>
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i style="font-size: 1.5rem; margin-right: 2px; font-family: sans-serif;">❮</i>Voltar</button><h1 id="generic-calendar-title">Calendário</h1></header>
+                    <main class="content" style="font-family: sans-serif;"><p class="content-description">Este é um calendário simulado para o novo dependente.</p><ul class="vaccine-list inset"><li><i class="status-pendente" style="font-size: 1.8rem;">⚠️</i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-generic" data-direction="forward"><i style="font-size: 1.2rem;">📍</i>Agendar Dose</button></main>
                 </div>
 
                 <div id="page-schedule" class="page inactive-right">
                     <header class="header-page">
-                        <button class="header-back" id="schedule-back-button" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button>
+                        <button class="header-back" id="schedule-back-button" data-direction="back"><i style="font-size: 1.5rem; margin-right: 2px; font-family: sans-serif;">❮</i>Voltar</button>
                         <h1>Agendar Vacina</h1>
                     </header>
                     <main class="content">
@@ -155,40 +154,39 @@
                         <h1>Incentivos</h1>
                     </header>
 
-                    <main class="content">
+                    <main class="content" style="font-family: sans-serif;">
                         <div class="card points-card">
-                            <i class="ph-fill ph-star-four"></i>
+                            <i style="font-size: 48px; color: #FFD166;">✨</i>
                             <div class="points-info"><span>Seus Pontos Imuni</span><strong id="user-points-display">0</strong></div>
                         </div>
                         <h3 class="content-subtitle">Recompensas para Resgatar</h3>
                         <div class="card reward-card" id="reward-farmacia">
-                            <div class="reward-icon"><i class="ph-fill ph-pill"></i></div>
+                            <div class="reward-icon"><i style="font-size: 24px; color: #007EA7;">💊</i></div>
                             <div class="reward-info"><strong>15% Desconto Farmácia</strong><span>Custo: 1000 Pontos</span></div>
                             <button class="btn btn-secondary btn-redeem" disabled>Resgatar</button>
                         </div>
                         <div class="card reward-card" id="reward-ir">
-                            <div class="reward-icon"><i class="ph-fill ph-file-text"></i></div>
+                            <div class="reward-icon"><i style="font-size: 24px; color: #007EA7;">🧾</i></div>
                             <div class="reward-info"><strong>Abatimento no IR</strong><span>Custo: 5000 Pontos</span></div>
                             <button class="btn btn-secondary btn-redeem" disabled>Resgatar</button>
                         </div>
                         <h3 class="content-subtitle">Minhas Conquistas</h3>
                         <div class="achievements-grid">
-                            <div class="badge locked" data-badge-id="first-dose"><i class="ph-fill ph-medal"></i><span>Primeira Dose</span></div>
-                            <div class="badge locked" data-badge-id="full-calendar"><i class="ph-fill ph-shield-check"></i><span>Super Protegido</span></div>
-                            <div class="badge locked" data-badge-id="champion"><i class="ph-fill ph-trophy"></i><span>Campeão</span></div>
+                            <div class="badge locked" data-badge-id="first-dose"><i style="font-size: 36px; color: #00A8E8;">🏅</i><span>Primeira Dose</span></div>
+                            <div class="badge locked" data-badge-id="full-calendar"><i style="font-size: 36px; color: #00A8E8;">🛡️</i><span>Super Protegido</span></div>
+                            <div class="badge locked" data-badge-id="champion"><i style="font-size: 36px; color: #00A8E8;">🏆</i><span>Campeão</span></div>
                         </div>
                     </main>
                 </div>
 
                 <nav class="bottom-nav">
                     <button data-page="page-dashboard" class="nav-item">
-                        <img src="image_79873a.png" class="nav-icon icon-regular" alt="Início">
-                        <img src="image_41f6c4.png" class="nav-icon icon-active" alt="Início Ativo">
-                        <span>Início</span>
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzhlOGU5MyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yNDEuOTIsMTEyLjgzLDE0NC44LDMxLjJBNzkuMTIsNzkuMTIsMCwwLDAsMTI4LDExLjUsNzkuMTIsNzkuMTIsMCwwLDAsMTEuMTEsMTEzLjM5YTE2LjEsMTYuMSwwLDAsMCwxLjI5LDIyLjc5YTE2LjI0LDE2LjI0LDAsMCwwLDIyLjUsMS4zNEwxMjgsNTguMjNsMTAzLjEsNzkuN2E4LDgsMCwwLDAtNS40NywxNC4yMmE4Ljc5LDguNzksMCwwLDAtMy40NS0uNzZMMTIsMTM4LjQ0VjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy40OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWk0xMjgsMjhhNjMsNjMsMCwwLDEsNTEuNDUsMjkuMzZMMTI4LDEwNC43N2E4LDgsMCwwLDEtMTIuMTItMS4yOFpNMjQsMjA5VjEzMS41Nmw0MCwyNC40NVYyMDlaTTI0LDEyMS44NiwxMjgsNTMuNzhsMTA0LDEwNEgyNFpNMTc2LDIwOUgxNDRWMTE0LjEzTDE3Niw5My43NVpNMjMyLDIwOVMyMDAsMjA5LDIwMCwyMDlWMTEwLjY5bDMwLjUxLTE4LjY0YTEuNjIsMS42MiwwLDAsMSwxLjQ5LDBSaDBaIi8+PC9zdmc+" class="nav-icon icon-regular" alt="Início">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwN0VBNyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yNDEuOTIsMTExLjE3YTE2LDE2LDAsMCwwLTIyLjI5LDEuNUwxMjgsMTk1Ljc3LDM2LjM4LDExMi42N2ExNiwxNiwwLDAsMC0yMy45NCwyMS4zNmwxMDQsMTMwYTE2LDE2LDAsMCwwLDIyLjkxLDBsMTA0LTEzMEExNiwxNiwwLDAsMCwyNDEuOTIsMTExLjE3WiIvPjwvc3ZnPg==" class="nav-icon icon-active" alt="Início Ativo" style="transform: rotate(180deg); margin-top: -2px;"> <span>Início</span>
                     </button>
                     <button data-page="page-incentives" class="nav-item">
-                        <img src="image_73a985.png" class="nav-icon icon-regular" alt="Incentivos">
-                        <img src="image_388b6f.png" class="nav-icon icon-active" alt="Incentivos Ativo">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzhlOGU5MyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMzkuNjEsMTM3Ljg1YTE2LDE2LDAsMCwwLTIwLjMxLTEuMTZMMjA4LDE0Mi4xVjEyMGE4LDgsMCwwLDAtOC04aC0zMmE4LDgsMCwwLDAtOCw4djIyLjFsLTEyLjY5LTUuNDRhMTYsMTYsMCwwLDAtMTQuNjIsMEwxMjAsMTQyLjFWMTA0YTgsOCwwLDAsMC04LThINzJhOCw4LDAsMCwwLTgsOHY0NS4ybC04LjA5LDguMzlhMTYsMTYsMCwwLDAtNC42NywyMS43N2wzMiw5NmE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVpNMTcyLDEyOEgzMnYxNloiLz48L3N2Zz4=" class="nav-icon icon-regular" alt="Incentivos">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwN0VBNyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMzkuNjEsMTM3Ljg1YTE2LDE2LDAsMCwwLTIwLjMxLTEuMTZMMjA4LDE0Mi4xVjEyMGE4LDgsMCwwLDAtOC04aC0zMmE4LDgsMCwwLDAtOCw4djIyLjFsLTEyLjY5LTUuNDRhMTYsMTYsMCwwLDAtMTQuNjIsMEwxMjAsMTQyLjFWMTA0YTgsOCwwLDAsMC04LThINzJhOCw4LDAsMCwwLTgsOHY0NS4ybC04LjA5LDguMzlhMTYsMTYsMCwwLDAtNC42NywyMS43N2wzMiw5NmE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVoiLz48L3N2Zz4=" class="nav-icon icon-active" alt="Incentivos Ativo">
                         <span>Incentivos</span>
                     </button>
                 </nav>
@@ -231,7 +229,7 @@
             <div class="annotation-text">
                 <h3>Tecnologia (MVP)</h3>
                 <p>Protótipo JS/CSS/HTML com login Gov.br simulado e navegação.</p>
-            </div
+            </div>
         </div>
         <div class="project-annotation anno-right" style="top: 70%;">
             <div class="annotation-line" style="width: 100px;"></div>
