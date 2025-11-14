@@ -183,7 +183,6 @@ body {
     transform: translateX(-30%);
     opacity: 0.7;
 }
-
 #page-homescreen.active { z-index: 2; }
 
 /* --- Componentes --- */
