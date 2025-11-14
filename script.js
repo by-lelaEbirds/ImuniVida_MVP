@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Variáveis Globais ---
     const simulator = document.querySelector('.iphone-simulator');
+    const allPages = document.querySelectorAll('.page');
     const formAddDependent = document.getElementById('form-add-dependent');
     const dependentListContainer = document.getElementById('dependent-list-container');
     const scheduleBackButton = document.getElementById('schedule-back-button');
@@ -9,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Páginas que mostram a Tab Bar inferior
     const rootPages = ['page-dashboard', 'page-incentives']; 
+    // Páginas com header claro (que precisam de texto escuro na status bar)
+    const lightThemePages = ['page-login', 'page-add-dependent', 'page-schedule', 'page-calendar-ana', 'page-calendar-joao', 'page-calendar-generic'];
 
     // --- Funções Principais ---
 
@@ -20,6 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextPage = document.getElementById(pageId);
 
         if (!nextPage || (currentPage && currentPage.id === pageId)) return;
+
+        // *** CORREÇÃO DO BUG DE SOBREPOSIÇÃO (V6) ***
+        // Garante que todas as outras páginas estejam 100% inativas
+        allPages.forEach(page => {
+            if (page.id !== pageId && page.id !== currentPage.id) {
+                page.classList.remove('active', 'inactive-left');
+                page.classList.add('inactive-right'); // Força todas para a "pilha" inativa
+            }
+        });
 
         // 1. Lógica de Animação
         if (direction === 'forward') {
@@ -34,21 +46,18 @@ document.addEventListener('DOMContentLoaded', () => {
             nextPage.classList.add('active');
         }
 
-        // 2. Atualiza Tema da Status Bar
-        const lightThemePages = ['page-homescreen', 'page-login', 'page-add-dependent', 'page-schedule', 'page-calendar-ana', 'page-calendar-joao', 'page-calendar-generic'];
+        // 2. Atualiza Tema da Status Bar (CORREÇÃO V6)
+        // Se a página estiver na lista 'lightThemePages', usa tema 'light' (texto preto)
+        // Senão, usa 'dark' (texto branco) - corrigido para page-homescreen
         simulator.dataset.theme = lightThemePages.includes(pageId) ? 'light' : 'dark';
 
-        // 3. Lógica do Botão Voltar (Correção de Fluxo)
+        // 3. Lógica do Botão Voltar
         if (pageId === 'page-schedule' && originPageId) {
             scheduleBackButton.dataset.page = originPageId;
         }
         
-        // 4. Controla visibilidade da Tab Bar (Navegação Inferior)
-        if (rootPages.includes(pageId)) {
-            simulator.classList.add('nav-is-visible');
-        } else {
-            simulator.classList.remove('nav-is-visible');
-        }
+        // 4. Controla visibilidade da Tab Bar
+        simulator.classList.toggle('nav-is-visible', rootPages.includes(pageId));
 
         // 5. Atualiza o ícone ativo da Tab Bar
         updateBottomNav(pageId);
@@ -98,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const age = new Date().getFullYear() - new Date(dependent.dob).getFullYear();
         const ageText = age > 0 ? `${age} anos` : 'menos de 1 ano';
         
-        // Criamos o HTML do novo card
         const cardHTML = `
             <div class="card" data-page="page-calendar-generic" data-name="${dependent.name}">
                 <ion-icon name="person-circle-outline" class="card-icon"></ion-icon>
@@ -110,18 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 <ion-icon name="chevron-forward-outline" class="card-arrow"></ion-icon>
             </div>
         `;
-        // Simplesmente inserimos o HTML. O Event Delegation vai cuidar do clique.
         dependentListContainer.insertAdjacentHTML('beforeend', cardHTML);
     }
     
 
     // --- Event Listeners ---
 
-    // *** OUVINTE DE NAVEGAÇÃO PRINCIPAL (EVENT DELEGATION) ***
-    // Este é o único ouvinte de clique para toda a navegação.
-    // Ele é mais eficiente e corrige o bug de novos dependentes.
+    // Ouvinte de Navegação Principal (Event Delegation)
     simulator.addEventListener('click', (e) => {
-        // Encontra o elemento clicável mais próximo que tenha [data-page]
         const trigger = e.target.closest('[data-page]');
         
         if (trigger) {
@@ -132,18 +136,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const direction = trigger.dataset.direction || 'forward';
             const originPage = simulator.dataset.currentPage;
 
-            // Lógica especial para o calendário genérico
             if (targetPage === 'page-calendar-generic') {
                 const dependentName = trigger.dataset.name || 'Dependente';
                 document.getElementById('generic-calendar-title').innerText = `Calendário (${dependentName})`;
             }
 
-            // Lógica especial para o botão de confirmação
+            // Ação de confirmar vacina
             if (trigger.id === 'btn-confirm-vaccine') {
                 alert("Agendamento Confirmado!\n\n(Simulação) Após a aplicação na UBS, o sistema confirmará a dose e desbloqueará o incentivo.");
                 document.getElementById('incentive-locked').style.display = 'none';
                 document.getElementById('incentive-unlocked').style.display = 'block';
-                showPage('page-incentives', 'forward'); // Navega para incentivos
+                showPage('page-incentives', 'forward');
             } else {
                 // Navegação normal
                 showPage(targetPage, direction, originPage);
@@ -157,19 +160,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = document.getElementById('input-name').value;
         const dob = document.getElementById('input-dob').value;
         
-        if (!name || !dob) return; // Validação simples
+        if (!name || !dob) return; 
 
         const newDependent = { id: Date.now(), name: name, dob: dob };
 
         saveDependent(newDependent);
-        renderDependentCard(newDependent); // Renderiza o card
+        renderDependentCard(newDependent); 
         
-        showPage('page-dashboard', 'back'); // Volta para a dashboard
+        showPage('page-dashboard', 'back'); 
         formAddDependent.reset();
     });
 
     // --- Inicialização ---
-    loadDependents(); // Carrega os dependentes salvos ao iniciar
-    updateBottomNav(simulator.dataset.currentPage); // Garante que a Tab Bar esteja no estado correto (oculta)
+    loadDependents(); 
+    updateBottomNav(simulator.dataset.currentPage);
 
 });
