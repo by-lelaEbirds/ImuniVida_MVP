@@ -178,26 +178,22 @@ body {
 
 /* --- Componentes --- */
 
-/* * =================================================
- * TAPA 1: O Header "Large Title"
- * (Telas de Início e Incentivos)
- * =================================================
- */
+/* Header "Large Title" */
 .header-main {
     padding: 55px 20px 15px 20px;
-    background: #f0f2f5; /* Limpo, sem cor */
-    color: #1c1c1e; /* Texto escuro */
+    background: #f0f2f5; 
+    color: #1c1c1e;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: opacity 0.3s ease; /* Animação TAPA 8 */
+    transition: opacity 0.3s ease;
 }
 .header-main h1 {
-    font-size: 2.1rem; /* 34px - Padrão iOS */
+    font-size: 2.1rem; 
     font-weight: 700;
 }
 
-/* TAPA 6: Avatar do Usuário */
+/* Avatar do Usuário */
 .header-profile-pic {
     width: 40px;
     height: 40px;
@@ -206,11 +202,7 @@ body {
     object-fit: cover;
 }
 
-/* * =================================================
- * TAPA 2: O Header de "Vidro" (Glassmorphism)
- * (Escondido, aparece no scroll)
- * =================================================
- */
+/* Header "Glassmorphism" (Fixo) */
 .header-sticky {
     position: absolute;
     top: 0;
@@ -218,13 +210,13 @@ body {
     right: 0;
     z-index: 15;
     padding: 55px 20px 15px 20px;
-    background: rgba(249, 249, 249, 0.85); /* TAPA 2: Fundo de vidro */
-    backdrop-filter: blur(15px); /* TAPA 2: Efeito blur */
+    background: rgba(249, 249, 249, 0.85); 
+    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid #e5e5ea;
     
-    opacity: 0; /* TAPA 4: Escondido por padrão */
-    transform: translateY(-20px); /* Animação sutil */
+    opacity: 0;
+    transform: translateY(-20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .header-sticky h1 {
@@ -234,18 +226,14 @@ body {
     text-align: center;
 }
 
-/* * =================================================
- * TAPAs 7 & 8: O Estado "Scrolled"
- * Ativado via JS
- * =================================================
- */
+/* Estado "Scrolled" */
 .page.scrolled .header-sticky {
-    opacity: 1; /* TAPA 7: Mostra o header de vidro */
+    opacity: 1;
     transform: translateY(0);
 }
 .page.scrolled .header-main {
-    opacity: 0; /* TAPA 8: Esconde o título grande */
-    pointer-events: none; /* Evita cliques fantasmas */
+    opacity: 0;
+    pointer-events: none;
 }
 
 
@@ -274,14 +262,9 @@ body {
 }
 .header-back i { font-size: 1.5rem; margin-right: 2px; }
 
-/*
- * =================================================
- * TAPA 8: Ajuste de padding do conteúdo
- * =================================================
- */
+/* Conteúdo Principal */
 .content {
     flex-grow: 1;
-    /* O padding-top foi movido para os headers */
     padding: 0 20px 20px 20px; 
     overflow-y: auto;
 }
@@ -289,11 +272,9 @@ body {
     padding-bottom: 100px; 
 }
 #page-login .content {
-    /* Reset para a tela de login que é diferente */
     padding: 20px;
     justify-content: center;
 }
-
 
 .content-subtitle {
     font-size: 1.1rem;
@@ -374,7 +355,17 @@ body {
     border-radius: 50%;
     object-fit: cover;
 }
-.card-info { display: flex; flex-direction: column; gap: 2px; flex-grow: 1; }
+/* * =================================================
+ * REFINAMENTO: Formatação (Respiro)
+ * Aumentado o 'gap' de 2px para 4px.
+ * =================================================
+ */
+.card-info { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 4px; /* AUMENTADO de 2px para 4px */
+    flex-grow: 1; 
+}
 .card-info strong { font-size: 1.1rem; }
 .card-info span { font-size: 0.9rem; color: #555; }
 .card-arrow { font-size: 1.2rem; color: #c7c7cc; }
@@ -386,7 +377,6 @@ body {
     justify-content: space-around;
     padding: 20px;
     cursor: default;
-    /* O card de status é o primeiro, sem margem em cima */
     margin-top: 0; 
 }
 .status-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
@@ -417,12 +407,22 @@ body {
 .list-item-info span { font-size: 0.85rem; color: #777; }
 
 /* Tela de Agendamento */
-.map-placeholder { width: 100%; height: 180px; border-radius: 12px; overflow: hidden; margin: 20px 0; background-color: #e0e0e0; }
-.map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+.map-placeholder { 
+    width: 100%; 
+    height: 180px; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    margin: 20px 0; 
+    background-color: #e0e0e0; 
+}
+.map-placeholder img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Garante que a imagem do mapa cubra a área */
+}
 .card-ubs { background: #fff; border-radius: 12px; padding: 15px; margin-top: 10px; }
 .card-ubs strong { font-size: 1.1rem; }
 .card-ubs span { display: block; font-size: 0.9rem; color: #555; margin: 5px 0; }
-/* Correção de contraste (herdada de .page) */
 #page-schedule .content-description {
     color: #555;
 }
