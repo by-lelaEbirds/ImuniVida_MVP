@@ -9,14 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const STORAGE_KEY_DEPENDENTS = 'imuniVidaDependents';
     const STORAGE_KEY_GAME = 'imuniVidaGame';
     
+    // Ícones da Barra de Navegação
+    const navIcons = {
+        home: document.querySelector('.nav-item[data-page="page-dashboard"] i'),
+        incentives: document.querySelector('.nav-item[data-page="page-incentives"] i')
+    };
+    
     const rootPages = ['page-dashboard', 'page-incentives']; 
     const lightThemePages = ['page-login', 'page-add-dependent', 'page-schedule', 'page-calendar-ana', 'page-calendar-joao', 'page-calendar-generic'];
 
     // --- Funções Principais ---
 
     /**
-     * Função de navegação principal (V12)
-     * Lógica de troca de aba instantânea para evitar bugs de sobreposição.
+     * Função de navegação principal (V11)
+     * Bug de sobreposição CORRIGIDO
      */
     function showPage(pageId, direction = 'forward', originPageId = null) {
         const currentPage = document.querySelector('.page.active');
@@ -38,10 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 2. Lógica de Animação
         if (isTabSwitch) {
-            // Troca de aba (Início <-> Incentivos) - INSTANTÂNEA
-            currentPage.classList.add('tab-transition');
-            nextPage.classList.add('tab-transition');
-            
+            // *** CORREÇÃO DO BUG DE SOBREPOSIÇÃO ***
+            // Troca de aba é INSTANTÂNEA. Sem animação, sem sobreposição.
             currentPage.classList.remove('active');
             currentPage.style.opacity = 0;
             currentPage.style.zIndex = 1;
@@ -53,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (direction === 'forward') {
             // Navegação "para frente" (Slide)
             currentPage.classList.remove('active');
-            currentPage.classList.add('inactive-left');
+            currentPage.classList.add('inactive-left'); // Animação de saída
             
             nextPage.classList.add('active');
             nextPage.style.opacity = 1;
@@ -62,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (direction === 'back') {
             // Navegação "para trás" (Slide)
             currentPage.classList.remove('active');
-            currentPage.classList.add('inactive-right');
+            currentPage.classList.add('inactive-right'); // Animação de saída
             
             nextPage.classList.add('active');
             nextPage.style.opacity = 1;
@@ -86,41 +90,30 @@ document.addEventListener('DOMContentLoaded', () => {
         // 7. Atualiza o estado global
         simulator.dataset.currentPage = pageId;
 
-        // 8. Atualiza UIs dinâmicas
+        // 8. Se for a tela de incentivos, atualiza os pontos
         if (pageId === 'page-incentives') {
             updateIncentivesPage();
-        }
-        if (pageId === 'page-dashboard') {
-            checkDashboardStatus(); // Atualiza o header dinâmico
         }
     }
 
     /**
-     * Atualiza os ícones da barra de navegação (V12)
-     * CORRIGIDO: Seleciona os ícones toda vez para evitar "stale references"
+     * Atualiza os ícones da barra de navegação (V11 - Phosphor)
+     * CORRIGIDO para o bug do ícone invisível
      */
     function updateBottomNav(pageId) {
         const navButtons = document.querySelectorAll('.nav-item');
-        const homeButton = navButtons[0];
-        const incentivesButton = navButtons[1];
-        
-        // CORREÇÃO: Encontra o ícone <i> DENTRO do botão toda vez
-        const homeIcon = homeButton.querySelector('i');
-        const incentivesIcon = incentivesButton.querySelector('i');
+        navButtons.forEach(button => button.classList.remove('active'));
 
-        // Reseta todos
-        homeButton.classList.remove('active');
-        incentivesButton.classList.remove('active');
-        if (homeIcon) homeIcon.className = 'ph-regular ph-house';
-        if (incentivesIcon) incentivesIcon.className = 'ph-regular ph-star';
+        // Reseta todos os ícones para "regular" (vazado)
+        navIcons.home.className = 'ph-regular ph-house';
+        navIcons.incentives.className = 'ph-regular ph-star';
 
-        // Seta o ativo
         if (pageId === 'page-dashboard') {
-            homeButton.classList.add('active');
-            if (homeIcon) homeIcon.className = 'ph-fill ph-house'; // Preenchido
+            navButtons[0].classList.add('active');
+            navIcons.home.className = 'ph-fill ph-house'; // Preenchido
         } else if (pageId === 'page-incentives') {
-            incentivesButton.classList.add('active');
-            if (incentivesIcon) incentivesIcon.className = 'ph-fill ph-star'; // Preenchido
+            navButtons[1].classList.add('active');
+            navIcons.incentives.className = 'ph-fill ph-star'; // Preenchido
         }
     }
 
@@ -134,6 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(STORAGE_KEY_GAME, JSON.stringify(data));
     }
 
+    /**
+     * Atualiza a UI da tela de Incentivos com dados do localStorage
+     */
     function updateIncentivesPage() {
         const data = getGameData();
         
@@ -145,27 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const rewardIrBtn = document.querySelector('#reward-ir .btn-redeem');
         if (rewardIrBtn) rewardIrBtn.disabled = data.points < 5000;
 
+        // Reseta todas as medalhas para 'locked'
         document.querySelectorAll('.badge').forEach(b => b.classList.add('locked'));
+        // Desbloqueia as que estão no save
         data.badges.forEach(badgeId => {
             const badgeEl = document.querySelector(`[data-badge-id="${badgeId}"]`);
             if (badgeEl) badgeEl.classList.remove('locked');
         });
-    }
-
-    /**
-     * NOVO (V12): Verifica o status do dashboard para o Header Dinâmico
-     */
-    function checkDashboardStatus() {
-        const header = document.querySelector('#page-dashboard .header-main');
-        if (!header) return;
-        
-        const hasOverdue = document.querySelector('#dependent-list-container .status-atrasada');
-        
-        if (hasOverdue) {
-            header.dataset.status = 'warning';
-        } else {
-            header.dataset.status = 'normal';
-        }
     }
 
     function loadDependents() {
@@ -183,17 +165,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const age = new Date().getFullYear() - new Date(dependent.dob).getFullYear();
         const ageText = age > 0 ? `${age} anos` : 'menos de 1 ano';
         
-        const isOverdue = Math.random() < 0.3; // 30% de chance de estar atrasado
-        const statusClass = isOverdue ? 'status-atrasada' : 'status-pendente';
-        const statusText = isOverdue ? 'Vacina atrasada!' : 'Calendário pendente';
-
         const cardHTML = `
             <div class="card" data-page="page-calendar-generic" data-name="${dependent.name}">
                 <img class="card-icon-img" src="https://picsum.photos/seed/${dependent.id}/80/80" alt="${dependent.name}">
                 <div class="card-info">
                     <strong>${dependent.name} (${ageText})</strong>
-                    <span>${statusText}</span>
-                    <span class="${statusClass}">Simulado</span>
+                    <span>Calendário pendente</span>
+                    <span class="status-pendente">Simulado</span>
                 </div>
                 <i class="ph ph-caret-right card-arrow"></i>
             </div>
@@ -207,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const navTrigger = e.target.closest('[data-page]');
         const actionTrigger = e.target.closest('#btn-confirm-vaccine');
 
+        // Caso 1: Clique de Navegação
         if (navTrigger) {
             e.preventDefault(); e.stopPropagation();
             const targetPage = navTrigger.dataset.page;
@@ -219,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             showPage(targetPage, direction, originPage);
         
+        // Caso 2: Clique de Ação (Confirmar Agendamento)
         } else if (actionTrigger) {
             e.preventDefault(); e.stopPropagation();
             
@@ -236,9 +216,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('incentive-unlocked').style.display = 'block';
             
             showPage('page-incentives', 'forward');
+Example
         }
     });
 
+    // Formulário de Adicionar Dependente
     formAddDependent.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('input-name').value;
@@ -248,15 +230,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const newDependent = { id: Date.now(), name: name, dob: dob };
         saveDependent(newDependent);
         renderDependentCard(newDependent); 
-        
         showPage('page-dashboard', 'back'); 
         formAddDependent.reset();
     });
 
     // --- Inicialização ---
     loadDependents(); 
-    updateIncentivesPage();
-    checkDashboardStatus(); 
+    updateIncentivesPage(); // Carrega pontos e medalhas
     simulator.classList.remove('nav-is-visible');
     simulator.dataset.theme = 'dark';
 });
