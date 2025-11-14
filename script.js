@@ -260,5 +260,3 @@ document.addEventListener('DOMContentLoaded', () => {
     simulator.classList.remove('nav-is-visible');
     simulator.dataset.theme = 'dark';
 });
-
-// ** CORREÇÃO: Removida a palavra 'Example' que estava causando o SyntaxError **
