@@ -10,9 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const STORAGE_KEY_GAME = 'imuniVidaGame';
     
     // Ícones da Barra de Navegação
-    const navIcons = {
-        home: document.querySelector('.nav-item[data-page="page-dashboard"] i'),
-        incentives: document.querySelector('.nav-item[data-page="page-incentives"] i')
+    // MODIFICADO: Agora seleciona os BOTÕES (nav-item)
+    const navItems = {
+        home: document.querySelector('.nav-item[data-page="page-dashboard"]'),
+        incentives: document.querySelector('.nav-item[data-page="page-incentives"]')
     };
     
     const rootPages = ['page-dashboard', 'page-incentives']; 
@@ -25,8 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Funções Principais ---
 
     /**
-     * Função de navegação principal (V11)
-     * Bug de sobreposição CORRIGIDO
+     * Função de navegação principal
      */
     function showPage(pageId, direction = 'forward', originPageId = null) {
         const currentPage = document.querySelector('.page.active');
@@ -34,13 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!nextPage || (currentPage && currentPage.id === pageId)) return;
 
-        const isTabSwitch = rootPages.includes(currentPage.id) && rootPages.includes(pageId);
+        const isTabSwitch = rootPages.includes(currentPage?.id) && rootPages.includes(pageId);
 
         // 1. Limpa classes de animação de todas as páginas
         allPages.forEach(page => {
             page.classList.remove('inactive-left', 'inactive-right', 'tab-transition');
-            // Esconde todas as páginas que não são a atual
-            if (page.id !== currentPage.id) {
+            if (page.id !== currentPage?.id) {
                 page.style.opacity = 0;
                 page.style.zIndex = 1;
             }
@@ -48,30 +47,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 2. Lógica de Animação
         if (isTabSwitch) {
-            // *** CORREÇÃO DO BUG DE SOBREPOSIÇÃO ***
-            // Troca de aba é INSTANTÂNEA. Sem animação, sem sobreposição.
-            currentPage.classList.remove('active');
-            currentPage.style.opacity = 0;
-            currentPage.style.zIndex = 1;
-            
+            if (currentPage) {
+                currentPage.classList.remove('active');
+                currentPage.style.opacity = 0;
+                currentPage.style.zIndex = 1;
+            }
             nextPage.classList.add('active');
             nextPage.style.opacity = 1;
             nextPage.style.zIndex = 10;
 
         } else if (direction === 'forward') {
-            // Navegação "para frente" (Slide)
-            currentPage.classList.remove('active');
-            currentPage.classList.add('inactive-left'); // Animação de saída
-            
+            if (currentPage) {
+                currentPage.classList.remove('active');
+                currentPage.classList.add('inactive-left');
+            }
             nextPage.classList.add('active');
             nextPage.style.opacity = 1;
             nextPage.style.zIndex = 10;
 
         } else if (direction === 'back') {
-            // Navegação "para trás" (Slide)
-            currentPage.classList.remove('active');
-            currentPage.classList.add('inactive-right'); // Animação de saída
-            
+            if (currentPage) {
+                currentPage.classList.remove('active');
+                currentPage.classList.add('inactive-right');
+            }
             nextPage.classList.add('active');
             nextPage.style.opacity = 1;
             nextPage.style.zIndex = 10;
@@ -102,31 +100,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * =================================================
-     * CORREÇÃO DE BUG (Ícone Transparente)
-     * Função reescrita para usar 'classList' e
-     * garantir que os estados (regular/fill)
-     * sejam trocados corretamente.
+     * REFINAMENTO: Lógica dos Ícones de Navegação
+     * Agora controla a classe 'active' nos botões.
      * =================================================
      */
     function updateBottomNav(pageId) {
-        const navButtons = document.querySelectorAll('.nav-item');
-        navButtons.forEach(button => button.classList.remove('active'));
+        // Reseta ambos
+        if (navItems.home) navItems.home.classList.remove('active');
+        if (navItems.incentives) navItems.incentives.classList.remove('active');
 
-        // 1. Reseta ambos os ícones para o estado 'regular'
-        navIcons.home.classList.remove('ph-fill');
-        navIcons.home.classList.add('ph-regular');
-        navIcons.incentives.classList.remove('ph-fill');
-        navIcons.incentives.classList.add('ph-regular');
-
-        // 2. Ativa o ícone da página atual
+        // Ativa o correto
         if (pageId === 'page-dashboard') {
-            navButtons[0].classList.add('active');
-            navIcons.home.classList.remove('ph-regular');
-            navIcons.home.classList.add('ph-fill');
+            if (navItems.home) navItems.home.classList.add('active');
         } else if (pageId === 'page-incentives') {
-            navButtons[1].classList.add('active');
-            navIcons.incentives.classList.remove('ph-regular');
-            navIcons.incentives.classList.add('ph-fill');
+            if (navItems.incentives) navItems.incentives.classList.add('active');
         }
     }
 
@@ -140,13 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(STORAGE_KEY_GAME, JSON.stringify(data));
     }
 
-    /**
-     * Atualiza a UI da tela de Incentivos com dados do localStorage
-     */
     function updateIncentivesPage() {
         const data = getGameData();
         
-        document.getElementById('user-points-display').innerText = data.points;
+        const pointsDisplay = document.getElementById('user-points-display');
+        if (pointsDisplay) {
+            pointsDisplay.innerText = data.points;
+        }
 
         const rewardFarmaciaBtn = document.querySelector('#reward-farmacia .btn-redeem');
         if (rewardFarmaciaBtn) rewardFarmaciaBtn.disabled = data.points < 1000;
@@ -154,9 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rewardIrBtn = document.querySelector('#reward-ir .btn-redeem');
         if (rewardIrBtn) rewardIrBtn.disabled = data.points < 5000;
 
-        // Reseta todas as medalhas para 'locked'
         document.querySelectorAll('.badge').forEach(b => b.classList.add('locked'));
-        // Desbloqueia as que estão no save
         data.badges.forEach(badgeId => {
             const badgeEl = document.querySelector(`[data-badge-id="${badgeId}"]`);
             if (badgeEl) badgeEl.classList.remove('locked');
@@ -186,15 +171,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span>Calendário pendente</span>
                     <span class="status-pendente">Simulado</span>
                 </div>
-                <i class="ph ph-caret-right card-arrow"></i>
+                <i class="card-arrow" style="font-family: sans-serif;">❯</i>
             </div>
         `;
-        dependentListContainer.insertAdjacentHTML('beforeend', cardHTML);
+        if (dependentListContainer) {
+            dependentListContainer.insertAdjacentHTML('beforeend', cardHTML);
+        }
     }
     
     /*
     =================================================
-    BLOCO: EFEITO 3D MOUSE-MOVE (Adicionado anteriormente)
+    BLOCO: EFEITO 3D MOUSE-MOVE
     =================================================
     */
     
@@ -212,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rotateY = x * maxRotate;
 
         simulator.style.transition = 'none';
-        simulator.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        simulator.style.transform = \`rotateX(\${rotateX}deg) rotateY(\${rotateY}deg)\`;
     });
 
     document.body.addEventListener('mouseleave', () => {
@@ -229,116 +216,115 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Event Listeners ---
 
-    simulator.addEventListener('click', (e) => {
-        
-        // --- REFINAMENTO: Lógica de Simulação de Login ---
-        // Variáveis de gatilho
-        const loginTrigger = e.target.closest('#btn-login-gov');
-        const navTrigger = e.target.closest('[data-page]');
-        const actionTrigger = e.target.closest('#btn-confirm-vaccine');
-        const redeemTrigger = e.target.closest('.btn-redeem');
-
-        // Caso 0: Clique de Login Simulado (DEVE VIR PRIMEIRO)
-        if (loginTrigger && !loginTrigger.disabled) {
-            e.preventDefault();
-            e.stopPropagation();
+    if(simulator) {
+        simulator.addEventListener('click', (e) => {
             
-            // Desabilita e mostra o loading
-            loginTrigger.disabled = true;
-            loginTrigger.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Autenticando...';
+            const loginTrigger = e.target.closest('#btn-login-gov');
+            const navTrigger = e.target.closest('[data-page]');
+            const actionTrigger = e.target.closest('#btn-confirm-vaccine');
+            const redeemTrigger = e.target.closest('.btn-redeem');
 
-            // Simula a autenticação (2 segundos)
-            setTimeout(() => {
-                showPage('page-dashboard', 'forward');
+            // Caso 0: Clique de Login Simulado
+            if (loginTrigger && !loginTrigger.disabled) {
+                e.preventDefault();
+                e.stopPropagation();
                 
-                // Reseta o botão para o estado original
-                loginTrigger.disabled = false;
-                loginTrigger.innerHTML = btnLoginGovOriginalHTML;
-            }, 2000);
-        }
+                loginTrigger.disabled = true;
+                loginTrigger.innerHTML = '<i class="ph-spin" style="font-family: sans-serif; display: inline-block; animation: ph-spin 1s linear infinite;">🔄</i> Autenticando...';
 
-        // Caso 1: Clique de Navegação (Padrão)
-        // (Garante que os outros gatilhos não sejam de navegação)
-        else if (navTrigger && !actionTrigger && !redeemTrigger && !loginTrigger) {
-            e.preventDefault(); e.stopPropagation();
-            const targetPage = navTrigger.dataset.page;
-            const direction = navTrigger.dataset.direction || 'forward';
-            const originPage = simulator.dataset.currentPage;
-
-            if (targetPage === 'page-calendar-generic') {
-                const dependentName = navTrigger.dataset.name || 'Dependente';
-                document.getElementById('generic-calendar-title').innerText = `Calendário (${dependentName})`;
+                setTimeout(() => {
+                    showPage('page-dashboard', 'forward');
+                    loginTrigger.disabled = false;
+                    loginTrigger.innerHTML = btnLoginGovOriginalHTML;
+                }, 2000);
             }
-            showPage(targetPage, direction, originPage);
-        
-        // Caso 2: Clique de Ação (Confirmar Agendamento)
-        } else if (actionTrigger) {
-            e.preventDefault(); e.stopPropagation();
-            
-            let gameData = getGameData();
-            gameData.points += 100;
-            alert("Agendamento Confirmado! 🏆 +100 Pontos Imuni!");
 
-            if (!gameData.badges.includes('first-dose')) {
-                gameData.badges.push('first-dose');
-                alert("Medalha Desbloqueada: Primeira Dose!");
-            }
-            
-            saveGameData(gameData);
-            showPage('page-dashboard', 'back');
-        
-        // Caso 3: Clique de Resgate de Recompensa
-        } else if (redeemTrigger && !redeemTrigger.disabled) {
-            e.preventDefault();
-            e.stopPropagation();
-            const rewardCard = redeemTrigger.closest('.reward-card');
-            const cost = rewardCard.id === 'reward-farmacia' ? 1000 : 5000;
-            let gameData = getGameData();
+            // Caso 1: Clique de Navegação
+            else if (navTrigger && !actionTrigger && !redeemTrigger && !loginTrigger) {
+                e.preventDefault(); 
+                e.stopPropagation();
+                const targetPage = navTrigger.dataset.page;
+                const direction = navTrigger.dataset.direction || 'forward';
+                const originPage = simulator.dataset.currentPage;
 
-            if (gameData.points >= cost) {
-                gameData.points -= cost;
+                if (targetPage === 'page-calendar-generic') {
+                    const dependentName = navTrigger.dataset.name || 'Dependente';
+                    const titleEl = document.getElementById('generic-calendar-title');
+                    if(titleEl) titleEl.innerText = \`Calendário (\${dependentName})\`;
+                }
+                showPage(targetPage, direction, originPage);
+            
+            // Caso 2: Clique de Ação (Confirmar Agendamento)
+            } else if (actionTrigger) {
+                e.preventDefault(); 
+                e.stopPropagation();
+                
+                let gameData = getGameData();
+                gameData.points += 100;
+                alert("Agendamento Confirmado! 🏆 +100 Pontos Imuni!");
+
+                if (!gameData.badges.includes('first-dose')) {
+                    gameData.badges.push('first-dose');
+                    alert("Medalha Desbloqueada: Primeira Dose!");
+                }
+                
                 saveGameData(gameData);
-                updateIncentivesPage();
-                alert(`Recompensa resgatada! Você gastou ${cost} pontos.`);
-            } else {
-                alert('Pontos insuficientes para resgatar esta recompensa.');
+                showPage('page-dashboard', 'back');
+            
+            // Caso 3: Clique de Resgate de Recompensa
+            } else if (redeemTrigger && !redeemTrigger.disabled) {
+                e.preventDefault();
+                e.stopPropagation();
+                const rewardCard = redeemTrigger.closest('.reward-card');
+                const cost = rewardCard.id === 'reward-farmacia' ? 1000 : 5000;
+                let gameData = getGameData();
+
+                if (gameData.points >= cost) {
+                    gameData.points -= cost;
+                    saveGameData(gameData);
+                    updateIncentivesPage();
+                    alert(\`Recompensa resgatada! Você gastou \${cost} pontos.\`);
+                } else {
+                    alert('Pontos insuficientes para resgatar esta recompensa.');
+                }
             }
-        }
-    });
+        });
+    }
 
     // Formulário de Adicionar Dependente
-    formAddDependent.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('input-name').value;
-        const dob = document.getElementById('input-dob').value;
-        if (!name || !dob) return; 
+    if (formAddDependent) {
+        formAddDependent.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nameInput = document.getElementById('input-name');
+            const dobInput = document.getElementById('input-dob');
+            
+            if(!nameInput || !dobInput) return;
 
-        const newDependent = { id: Date.now(), name: name, dob: dob };
-        saveDependent(newDependent);
-        renderDependentCard(newDependent); 
-        showPage('page-dashboard', 'back'); 
-        formAddDependent.reset();
-    });
+            const name = nameInput.value;
+            const dob = dobInput.value;
+            if (!name || !dob) return; 
+
+            const newDependent = { id: Date.now(), name: name, dob: dob };
+            saveDependent(newDependent);
+            renderDependentCard(newDependent); 
+            showPage('page-dashboard', 'back'); 
+            formAddDependent.reset();
+        });
+    }
 
     /*
     =================================================
-    TAPA 3 & 5: MÁGICA DO SCROLL (Collapsing Header)
+    MÁGICA DO SCROLL (Collapsing Header)
     =================================================
     */
     function initializeScrollMagic() {
-        // Pega todas as páginas que têm a barra de navegação
         const pagesWithNav = document.querySelectorAll('.page-with-nav');
         
         pagesWithNav.forEach(page => {
             const contentArea = page.querySelector('.content');
             if (contentArea) {
-                // Adiciona o listener de scroll em CADA área de conteúdo
                 contentArea.addEventListener('scroll', () => {
                     const scrollTop = contentArea.scrollTop;
-                    
-                    // Adiciona/Remove a classe '.scrolled' na PÁGINA
-                    // O 'scrollThreshold' (30) é a distância de scroll
-                    // antes da animação começar.
                     const scrollThreshold = 30;
                     if (scrollTop > scrollThreshold) {
                         page.classList.add('scrolled');
@@ -352,8 +338,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Inicialização ---
     loadDependents(); 
-    updateIncentivesPage(); // Carrega pontos e medalhas
-    initializeScrollMagic(); // TAPA 3: Ativa o listener de scroll
-    simulator.classList.remove('nav-is-visible');
-    simulator.dataset.theme = 'dark';
+    updateIncentivesPage();
+    initializeScrollMagic();
+    
+    // Inicia na tela de homescreen (simulação de boot)
+    // showPage('page-homescreen'); // Não é necessário se 'active' já está no HTML
+    updateBottomNav('page-homescreen'); // Garante que nenhum ícone esteja ativo
+    if(simulator) {
+        simulator.classList.remove('nav-is-visible');
+        simulator.dataset.theme = 'dark';
+    }
 });
