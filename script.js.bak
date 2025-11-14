@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ageText = age > 0 ? `${age} anos` : 'menos de 1 ano';
         
         const cardHTML = `
-            <div class="card" data-page="page-calendar-generic" data-name="${dependent.name}" data-direction="forward">
+            <div class="card" data-page="page-calendar-generic" data-name="${dependent.name}">
                 <img class="card-icon-img" src="https://picsum.photos/seed/${dependent.id}/80/80" alt="${dependent.name}">
                 <div class="card-info">
                     <strong>${dependent.name} (${ageText})</strong>
@@ -184,10 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
     simulator.addEventListener('click', (e) => {
         const navTrigger = e.target.closest('[data-page]');
         const actionTrigger = e.target.closest('#btn-confirm-vaccine');
-        const redeemTrigger = e.target.closest('.btn-redeem');
 
         // Caso 1: Clique de Navegação
-        if (navTrigger && !actionTrigger && !redeemTrigger) {
+        if (navTrigger) {
             e.preventDefault(); e.stopPropagation();
             const targetPage = navTrigger.dataset.page;
             const direction = navTrigger.dataset.direction || 'forward';
@@ -213,24 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             saveGameData(gameData);
-            showPage('page-dashboard', 'back');
-        
-        // Caso 3: Clique de Resgate de Recompensa
-        } else if (redeemTrigger && !redeemTrigger.disabled) {
-            e.preventDefault();
-            e.stopPropagation();
-            const rewardCard = redeemTrigger.closest('.reward-card');
-            const cost = rewardCard.id === 'reward-farmacia' ? 1000 : 5000;
-            let gameData = getGameData();
-
-            if (gameData.points >= cost) {
-                gameData.points -= cost;
-                saveGameData(gameData);
-                updateIncentivesPage();
-                alert(`Recompensa resgatada! Você gastou ${cost} pontos.`);
-            } else {
-                alert('Pontos insuficientes para resgatar esta recompensa.');
-            }
+            document.getElementById('incentive-locked').style.display = 'none';
+            document.getElementById('incentive-unlocked').style.display = 'block';
+            
+            showPage('page-incentives', 'forward');
+Example
         }
     });
 
