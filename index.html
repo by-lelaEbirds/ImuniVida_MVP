@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - Protótipo V9 (Polido)</title>
+    <title>ImuniVida - Protótipo V10 (Gamificado)</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-</head>
+    </head>
 <body>
 
     <div class="iphone-simulator" data-theme="dark" data-current-page="page-homescreen">
@@ -14,8 +13,8 @@
         <div class="status-bar">
             <span class="time">9:41</span>
             <div class="status-icons">
-                <i class="ph-bold ph-wifi-high"></i>
-                <i class="ph-bold ph-battery-full"></i>
+                <img class="status-icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iI2ZmZmZmZiIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yNDQuODEgMTM3LjgyYTEyIDEyIDAgMCAwLTEwLjQyLTYuNDVMNDggMjguMzFhMTIgMTIgMCAwIDAtMTMuMTMgMTYuMjZsMTg2LjQgMTAzLjQxYTEyIDEyIDAgMCAwIDEzLjU0LTIuMjFsOS43MS05LjcxYTEyIDEyIDAgMCAwIC4yNy0xOC4yNFpNMjA4IDc1LjYybC00OCAxNi44QTE1OC40MyAxNTguNDMgMCAwIDAgNjIuMzkgMTYzbDE2LjggNDhhMTU4LjQzIDE1OC44MyAwIDAgMCA3Ni4yMi05Ny42MmwxNC4zMS00MC42N2EyMCAyMCAwIDAgMCAuMjgtNy4xWm0tODMuNjEgMTI4LjIxbC00MS4zMiAxNGExOTkuMzEgMTk5LjMxIDAgMCAxLTU5LjQxLTUxLjU1bDE0LTQxLjMxbDE4LjEuNS4yIDEuOWMyLjM0IDIwLjggMTAuMyA0MC4yNSAyMi41OSA1Ny4xN2wxLjkuMmwxOC4yLjRaTTI0MCAyMDAuNGwtOS43MS05LjcxbC0yNC41OCAyNC41OGExMiAxMiAwIDAgMCAwIDE2Ljk4bDkuNzEgOS43MWExMiAxMiAwIDAgMCAxNi45OCAwTDI0MCAyMTcuMzhaTTIwMi4yOCA2NS4xN2wtMTQuMzEgNDAuNjdBMTgwLjI1IDE4MC4yNSAwIDAgMCA1OC4zMiAxODYuMVYzNGExMiAxMiAwIDAgMSA3LjQzLTExLjExWiIvPjwvc3ZnPg==">
+                <img class="status-icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iI2ZmZmZmZiIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yNDIgODhoLTIuMzhBMTIgMTIgMCAwIDAgMjI4IDEwMHY1NmExMiAxMiAwIDAgMCAxMiAxMmgxMi4zOGExNiAxNiAwIDAgMCAwLTMyWm0tNDQgNDBhNCA0IDAgMCAxLTQgNFY5MmE0IDQgMCAwIDEgNC00aDI4djU2aC0yOGE0IDQgMCAwIDEgLTQtNFptLTMyLjkxLTk5LjA5bDQtMTZhMTIgMTIgMCAwIDAtMjIuMTggMEw4My4wOSAxMjguOTEbC0xNi00YTEyIDEyIDAgMCAwLTExLjU3IDE1LjE2bDE2IDRhMTIgMTIgMCAwIDAgNC41MiAxbDQuODkuNzNhMTIgMTIgMCAwIDAgOS43Mi0xMC41OEw5NC4zIDEzMC43bDIxLjc4LTUuNDRsLTIuNzIgMTEuMDVhMTIgMTIgMCAwIDAgMTAuNTggOS43MmwxLjI4LjE4QTEyIDEyIDAgMCAwIDEzNi41IDg2bC0xLjYyLTYuNDhhMTIgMTIgMCAwIDAgNC40My04LjgybDUuNDQtMjEuNzhsMTIuMTkgNDguNzZhMTIgMTIgMCAwIDAgMTEuMzcgOC4zbDMuMTkuNDVhMTIgMTIgMCAwIDAgMTAuNTgtOS43MmwxLjYzLTYuNTFhMTIgMTIgMCAwIDAgMTEuMzcgOC4zbDMuMTkuNDVhMTIgMTIgMCAwIDAgMTAuNTgtOS43Mmw4LjE0LTMyLjU2YTEyIDEyIDAgMSAwLTIzLjE5LTUuOEwxNTMuNjIgNzguN2wtMy4xOS0uNDVhMTIgMTIgMCAwIDAtMTAuNTggOS4yOEwxMzMuMDkgOTRMNzQuMzEgNzguMDlhMTIgMTIgMCAwIDAtMTUuMTYgMTEuNTdsMTYgNEwxMzMuMDkgNDQuOTFsMzguMTgtOS41NGExMiAxMiAwIDEgMCA4LjgyLTQuNDNsNi40OC0yNS45M2ExMiAxMiAwIDEgMCAyMy4xOSA1LjhsLTUuNDQgMjEuNzhaIi8+PC9zdmc+">
             </div>
         </div>
 
@@ -23,27 +22,22 @@
             
             <div id="page-homescreen" class="page active">
                 <div class="wallpaper"></div> <main class="icon-grid">
-                    <div class="app-icon"><i class="ph-fill ph-calendar-blank" style="color: red; background: white;"></i><span>Calendário</span></div>
-                    <div class="app-icon"><i class="ph-fill ph-camera" style="color: #555; background: #ddd;"></i><span>Câmera</span></div>
-                    <div class="app-icon"><i class="ph-fill ph-image" style="color: #00A8E8; background: white;"></i><span>Fotos</span></div>
-                    <div class="app-icon"><i class="ph-fill ph-map-trifold" style="color: #38a169; background: white;"></i><span>Mapas</span></div>
+                    <div class="app-icon" data-page="page-login"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNjBweCIgaGVpZ2h0PSI2MHB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDxyZWN0IGZpbGw9IiNGRkZGRkYiIHg9IjAiIHk9IjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcng9IjEzLjMzIj48L3JlY3Q+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5LCA5KSIgZmlsbD0iIzAwQThFOCI+CiAgICAgIDxwYXRoIGQ9Ik0yMSwyQzMxLDIsMzkuMDUsOC4zNSw0MC44LDE3LjY1QzM4LjIsMTcuMTUsMzUuNSwxNywzMi41LDE3QzI1LjMsMTcsMTguOSwxOS4yLDE0LjgsMjMuM0MyNSwyNy44LDMxLjcsMzEuNSwzNi4yLDM4LjVMNDIsMzBDNDIsMTQuNDUsMzIuNTUsMiwxMSwyQzEwLjgsMiwxMC41LDIsMTAuMywyLjA1QzEzLjgsMiwxNy40LDIsMjEsMlpNOC44LDMuNUM0LjIsNi44LDAsMTIuOCwwLDE5LjdDMCwyMy4yLDEsMjYuNSwyLjcsMjkuNUM5LjYsMjQuNSwxNS43LDIzLDIwLjcsMjNDMjcuMywyMywzMiwyNS43LDM1LDMxQzM3LjgsMzMuOCwzOS43LDM2LjYsNDEsNDAuNUM0MS41LDM5LjUsNDIsMzguNCw0MiwzNy4yVjMyLjVDNDIsMjYuMSwzOC4yLDIwLjcsMzIuOCwxNi4zQzI4LjEsMTIuNCwyMC4yLDguNCwxMy45LDguNEMxMS4xLDguNCw4LjQsOSw2LjEsMTAuM0M3LjYsNy40LDgsNS4yLDguOCwzLjVaTTEwLjYsMzMuMkMxMCwzNSwxMCwzNi41LDEwLDM4LjJDMTAsNDAuOCwxMC40LDQyLjUsMTEuMSw0NC4xQzExLjMsNDQuMywxMS41LDQ0LjUsMTEuNyw0NC43QzIwLjgsNDIuMywzMC4xLDM2LDMxLjgsMjUuMUMyNS4zLDMwLDE4LDMyLjQsMTAuNiwzMy4yWiI+PC9wYXRoPgogICAgPC9nPgogIDwvZz4KPC9zdmc+Cg=="><span>ImuniVida</span></div>
+                    <div class="app-icon"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNjBweCIgaGVpZ2h0PSI2MHB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDxyZWN0IGZpbGw9IiNGRkZGRkYiIHg9IjAiIHk9IjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcng9IjEzLjMzIj48L3JlY3Q+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMCwgMTApIj4KICAgICAgPHJlY3QgZmlsbD0iI0ZGRkZGRiIgeD0iMyIgeT0iMiIgd2lkdGg9IjM0IiBoZWlnaHQ9IjgiIHJ4PSIyIj48L3JlY3Q+CiAgICAgIDxjaXJjbGUgZmlsbD0iI0VBNEMzQyIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjIiIGN4PSI4IiBjeT0iNiIgcj0iMyI+PC9jaXJjbGU+CiAgICAgIDxjaXJjbGUgZmlsbD0iI0VBNEMzQyIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjIiIGN4PSIxNCIgY3k9IjYiIHI9IjMiPjwvY2lyY2xlPgogICAgICA8cGF0aCBkPSJNMzMsMEw3LDBDMy4xMzQxLDAsMCwzLjEzNDEsMCw3TDAsMzNDMCwzNi44NjU5LDMuMTM0MSw0MCw3LDQwTDMzLDQwQzM2Ljg2NTksNDAsNDAsMzYuODY1OSw0MCwzM0wwLDdaIiBmaWxsPSIjRjJGMkYyIj48L3BhdGg+CiAgICAgIDxwYXRoIGQ9Ik0zMyw4TDcsOEM1LjM0MzIsOCw0LDkuMzQzMiw0LDEwTDQsMzNDNCwzNC42NTY4LDUuMzQzMiwzNiw3LDM2TDMzLDM2QzM0LjY1NOCwzNiwzNiwzNC42NTY4LDM2LDMzTDMsMTBDMzYsOS4zNDMyLDM0LjY1NjgsOCwzMyw4WiIgZmlsbD0iI0ZBRkFGQSI+PC9wYXRoPgogICAgICA8dGV4dCBmb250LWZhbWlseT0ic3lzdGVtLWJvbGQsIEJsaW5rTWFjU3lzdGVtRm9udCIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNFQTREM0MiPgogICAgICAgIDx0c3BhbiB4PSIxMi41MjM0IiB5PSIzMiI+MTQ8L3RzcGFuPgogICAgICA8L3RleHQ+CiAgICAgIDx0ZXh0IGZvbnQtZmFtaWx5PSJzeXN0ZW0tcmVndWxhciwgQmxpbmtNYWNTeXN0ZW1Gb250IiBmb250LXNpemU9IjgiIGZpbGw9IiNFQTREM0MiPgogICAgICAgIDx0c3BhbiB4PSIxMy4wNTQ3IiB5PSIyMCI+VUE8L3RzcGFuPgogICAgICA8L3RleHQ+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"><span>Calendário</span></div>
+                    <div class="app-icon"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNjBweCIgaGVpZ2h0PSI2MHB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDxyZWN0IGZpbGw9IiMyNzI3MjUiIHg9IjAiIHk9IjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcng9IjEzLjMzIj48L3JlY3Q+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4LCAxMykiIGZpbGw9IiM5RDlEOTAiPgogICAgICA8cGF0aCBkPSJNNTAuOCwxNC40QzUwLjgsMTEuMyw0OC4zLDguOCw0NS4yLDguOEw0NCw4LjhMNDQuNCw3LjJDNTEsNy4yLDUxLDQuNCw0OC4zLDQuNEM0NS43LDQuNCw0NCw1LDQ0LDcuNkwzNS42LDcuNkMzNS42LDQuOSwzMy4zLDIuOCwzMC40LDIuOEMyNy41LDIuOCwyNS4yLDQuOSwyNS4yLDcuNkwxNi44LDcuNkMxNi44LDQuOSwxNC43LDIuOCwxMS42LDIuOEM4LjcsMi44LDYuNCw0LjksNi40LDcuNkwxLjYsNy4yQzEuNiw1LDAsNSwwLDcuMkMwLDkuNCwxLjYsMTEuMiwxLjYsMTEuMkw2LjQsMTEuMkM2LjQsMTMuMyw4LjcsMTUuNiwxMS42LDE1LjZDMTQuNywxNS42LDE2LjgsMTMuMywxNi44LDExLjJMNDAuNCwxMS4yQzQwLjQsMTMuMyw0Mi45LDE1LjYsNDYsMTUuNkM0OC45LDE1LjYsNTEsMTMuMyw1MC44LDEwLjZDNTEsMTAuOCw1MC44LDEyLjgsNTAuOCwxNC40WiBNNDAuOCwyOC40QzQwLjgsMzIuMSwzNy43LDM1LDM0LDM1TDgsMzVDNC4zLDM1LDEuMiwzMi4xLDEuMiwxOC40QzEuMiwxNC43LDQuMywxMS42LDgsMTEuNkMzLjUsMTEuNiwxLjIsMTQuNSwxLjIsMThDMS4yLDI1LjQsNi40LDMxLjIsMTQuNCwzMS4yTDM3LjYsMzEuMkMzNy42LDIzLjYsNDIuOCwxOCw0Mi44LDE4QzQyLjgsMTQuNSwzOS43LDExLjYsMzYsMTEuNkw0MC40LDExLjZDMzkuNywxMyw0MC44LDE1LjUsNDAuOCwxOC40WiBNMjguOCwyMy4yQzI4LjgsMjUuOSwyNi43LDI4LDI0LDI4QzIxLjMsMjgsMTkuMiwyNS45LDE5LjIsMjMuMkMxOS4yLDIwLjUsMjEuMywxOC40LDI0LDE4LjRDMjYuNywxOC40LDI4LjgsMjAuNSwyOC44LDIzLjJaIj48L3BhdGg+CiAgICA8L2c+CiAgICA8Y2lyY2xlIGZpbGw9IiM0NjQ2NDUiIGN4PSI1MS41IiBjeT0iOS41IiByPSI0LjUiPjwvY2lyY2xlPgogIDwvZz4KPC9zdmc+Cg=="><span>Câmera</span></div>
+                    <div class="app-icon"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNjBweCIgaGVpZ2h0PSI2MHB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDxyZWN0IGZpbGw9IiNGRkZGRkYiIHg9IjAiIHk9IjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcng9IjEzLjMzIj48L3JlY3Q+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5LCA5KSIgZmlsbD0iIzU3QjZGRCI+CiAgICAgIDxwYXRoIGQ9Ik0zMy4zLDE5LjRDMy4zLDguNywxMiwyLDMyLjUsMkMzNS4xLDIsMzcuNSwyLjUsMzkuNywzLjJDNDIsNS4xLDQxLjYsOC4yLDM5LjUsMTAuM0MzNy4zLDEyLjUsMzQsMTIuNSwzMS44LDEwLjVDMzEuMywxMC4yLDMwLjcsOS42LDMwLDkuM0MyOC4xLDgsMjYuMiw4LjYsMjQuNiw5LjVDMjIsMTEsMjAuOCwxMy40LDIwLjIsMTZDMjAuMiwxOC44LDIyLjQsMjEsMjUuMiwyMUMyOCwyMSwzMC4yLDE4LjgsMzAuMiwxNkMzMC4yLDE1LjYsMzAuMiwxNS4zLDMwLjMsMTQuOUMzMi45LDE0LjYsMzUuMSwxNS45LDM2LjMsMThDMzguMSwyMS4xLDM2LjksMjQuOSwzMy44LDI2LjdDMTkuMSwzNC45LDI3LjksNDQsNDIsNDRDMzQuMSw0NCwyMy41LDM1LjYsMTQuOCwyMEM3LjQsMTEuMywxNi40LDMuMywzMy4zLDE5LjRaIj48L3BhdGg+CiAgICA8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNS44LCAyMS4xKSIgZmlsbD0iIzM0QTJGRCI+CiAgICAgIDxwYXRoIGQ9Ik0yMC4xLDMuMkMxOCwyLjUsMTUuNSwyLjMsMTMsMy4yQzUuMiw1LDAsMTIsMCwxMi4zQzAsMTIuNywyLjMsMTYuOSw2LjEsMTkuNkMxMS4xLDIzLjUsMTkuMiwyMC44LDE5LjIsMTYuNUMxOS4yLDE1LjUsMTkuOCwxNC42LDIwLjYsMTQuMkMyMS44LDEzLjYsMjIuNSwxMi4zLDIyLjEsMTEuMUMyMS43LDkuNCwyMC4zLDguNCwxOS4xLDguMkMxOSw4LjIsMTguOSw4LjIsMTguOCw4LjJDMTkuOCw2LjgsMjAuOCw0LjgsMjAuMSwzLjJaIj48L3BhdGg+CiAgICA8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyOC4xLCAxNS4xKSIgZmlsbD0iI0ZGRkYwMCI+CiAgICAgIDxwYXRoIGQ9Ik0xMy4zLDVDMTMuMyw3LjgsMTEsMTAsOC4yLDEwQzUuNSwxMCwzLjIsNy44LDMuMiw1QzMuMiwxLjgsNS41LDAsOC4yLDBDMTEsMCwxMy4zLDIuMiwxMy4zLDVaIj48L3BhdGg+CiAgICA8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5LjYsIDMwLjEpIiBmaWxsPSIjRjY0NzU5Ij4KICAgICAgPHBhdGggZD0iTTIyLjIsMTIuOEMyMi4yLDE1LjYsMTkuOSwxOCwxNy4yLDE4QzE0LjUsMTgsMTIuMiwxNS42LDEyLjIsMTIuOEMxMi4yLDkuOSwxNC41LDcuNSwxNy4yLDcuNUMxOS45LDcuNSwyMi4yLDkuOSwyMi4yLDEyLjhaIj48L3BhdGg+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"><span>Fotos</span></div>
+                    <div class="app-icon"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNjBweCIgaGVpZ2h0PSI2MHB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDxyZWN0IGZpbGw9IiNGRkZGRkYiIHg9IjAiIHk9IjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcng9IjEzLjMzIj48L3JlY3Q+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5LCA5KSIgZmlsbD0iIzQzQTY0NCI+CiAgICAgIDxwYXRoIGQ9Ik0zMy42LDBMOC40LDBDNC43LDAsMS42LDMuMSwxLjYsNi45TDEuNiwzNS4xQzEuNiwzOC45LDQuNyw0Miw4LjQsNDJMNDIsNDJMMzMuNiw0MkMzNy4zLDQyLDQwLjQsMzguOSw0MC40LDM1LjFMNDAuNCw2LjlDNDAuNCwzLjEsMzcuMywwLDMzLjYsMFoiIGZpbGw9IiNGMUY4RUMiPjwvcGF0aD4KICAgICAgPHBhdGggZD0iTTQyLDEwLjRMMzYuOCw5QzM1LjcsOC43LDM0LjUsOS4zLDM0LjEsMTAuNEwzMS43LDE2LjJMMC44LDIzLjhDMC4zLDI0LC0wLjEsMjQuNywwLjEsMjUuM0MwLjIsMjUuOSwwLjcsMjYuMywxLjMsMjYuM0wzMCwzNC40TDI3LjYsNDAuMkMyNy4yLDQxLjMsMjcuOCw0Mi42LDI4LjksNDIuOUwzNC4yLDQ0LjRMODIsMzQuNEM0Mi44LDM0LDQzLjEsMzMuMyw0Mi45LDMyLjdDNDIuNywzMi4xLDQyLjIsMzEuNyw0MS42LDMxLjdMMzQuMSwxOS45TDM2LjUsMTQuMUMzNi45LDEzLDM2LjMsMTEuOCwzNS4xLDExLjVMMzEuNCwxMC40TDQyLDEwLjRaIiBmaWxsPSIjRkZDNzA1IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC4zLCAtMS4yKSI+PC9wYXRoPgogICAgICA8cGF0aCBkPSJNMzAuNSwyMy4yTDEuMywyMy4yQzAuNywyMy4yLDAuMiwyMi44LDAsMjIuMkMwLjEsMjEuNiwxLjMsMjEuNCwxLjMsMjEuNEwzMC41LDEzLjNDMzEuMSwxMy4zLDMxLjYsMTMuNywzMS44LDE0LjNDMzEuNiwxNC45LDI3LjksMjMuMiwzMC41LDIzLjJaIiBmaWxsPSIjRkZFN0E5Ij48L3BhdGg+CiAgICAgIDxwYXRoIGQ9Ik04LjQsMEwzMy42LDBDMzcuMywwLDQwLjQsMy4xLDQwLjQsNi45TDQwLjQsMzUuMUM0MC40LDM4LjksMzcuMyw0MiwzMy42LDQyTDMzLjYsNDJDOC40LDQyQzQuNyw0MiwxLjYsMzguOSwxLjYsMzUuMUMxLjYsMzEuMywxLjYsMTkuOSwxLjYsNi45QzEuNiwzLjEsNC43LDAsOC40LDBaIiBmaWxsPSIjNEFBRjU3Ij48L3BhdGg+CiAgICAgIDxwYXRoIGQ9Ik0zMCwxMy4zTDEuMywxMy4zQzAuNywxMy4zLDAuMiwxMi45LDAsMTIuM0MwLjIsMTEuNywxLjMsMTEuNCwxLjMsMTEuNEwzMCwzLjNDMzAuNiwzLjMsMzEuMSwzLjcsMzEuMyw0LjNDMzEuMSw0LjksMjcuNCwxMy4zLDMwLDEzLjNaIiBmaWxsPSIjNkNERTc3Ij48L3BhdGg+CiAgICAgIDxjaXJjbGUgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRTc0QzM5IiBzdHJva2Utd2lkdGg9IjIiIGN4PSIyMSIgY3k9IjIzIiByPSI1Ij48L2NpcmNsZT4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo="><span>Mapas</span></div>
                 </main>
                 <footer class="dock">
-                    <div class="app-icon"><i class="ph-fill ph-phone" style="color: white; background: #38a169;"></i></div>
-                    <div class="app-icon"><i class="ph-fill ph-compass" style="color: white; background: #007EA7;"></i></div>
-                    <div class="app-icon" data-page="page-login">
-                        <i class="ph-fill ph-shield-plus" style="color: #00A8E8; background: white;"></i>
-                        <span>ImuniVida</span>
-                    </div>
+                    <div class="app-icon"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNjBweCIgaGVpZ2h0PSI2MHB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDxyZWN0IGZpbGw9IiMzNEEyNEUiIHg9IjAiIHk9IjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcng9IjEzLjMzIj48L3JlY3Q+CiAgICA8cGF0aCBkPSJNNTMuNSwzOC4yQzUzLjUsNDEuOCw0Ny45LDUxLDQ3LjksNTFDNDcuOSw1MSw0Mi4yLDQxLjgsNDIuMiwzOC4yQzQyLjIsMzQuNiw0NC44LDMxLjgsNDcuOSwzMS44QzUxLDMxLjgsNTMuNSwzNC42LDUzLjUsMzguMlpNMTkuOCw0MC4xQzE5LjgsNDIsMTYuMyw0OC4yLDE2LjMsNDguMkMxNi4zLDQ4LjIsMTIuNyw0MiwxMi43LDQwLjEMMTIuNywzOC4xLDE0LjMsMzYuNSwxNi4zLDM2LjVDMTguMiwzNi41LDE5LjgsMzguMSwxOS44LDQwLjFaTTMwLDZDMzUuOSw2LDQxLDExLjEsNDEsMTdDNDEsMjIuOSwzNS45LDI4LDMwLDI4QzI0LjEsMjgsMTksMjIuOSwxOSwxN0MxOSwxMS4xLDI0LjEsNiwzMCw2WiIgZmlsbD0iI0ZGRkZGRiIgb3BhY2l0eT0iMC4zIj48L3BhdGg+CiAgICA8cGF0aCBkPSJNNTEuOCwzMi43QzUxLjgsMzUuOCw0Ny4xLDQzLjIsNDcuMSw0My4yQzQ3LjEsNDMuMiw0Mi40LDM1LjgsNDIuNCwzMi43QzQyLjQsMjkuNiw0NC41LDI3LjQsNDcuMSwyNy40QzQ5LjcsMjcuNCw1MS44LDI5LjYsNTEuOCwzMi43Wk0xOCwxOC4xQzE4LDE5LjUsMTUuNywyMy4xLDE1LjcsMjMuMUMxNS43LDIzLjEsMTMuMywxOS41LDEzLjMsMTguMUMxMy4zLDE2LjYsMTQuNCwxNS41LDE1LjcsMTUuNUMxNywxNS41LDE4LDE2LjYsMTgsMTguMVpNNDEuNCwzOC4yQzQxLjQsNDEuOCwzNi41LDQ5LjYsMzYuNSw0OS42QzM2LjUsNDkuNiwzMS42LDQxLjgsMzEuNiwzOC4yQzMxLjYsMzQuNiwzMy44LDMxLjgsMzYuNSwzMS44QzM5LjIsMzEuOCw0MS40LDM0LjYsNDEuNCwzOC4yWiIgZmlsbD0iI0ZGRkZGRiIgb3BhY2l0eT0iMC42Ij48L3BhdGg+CiAgICA8cGF0aCBkPSJNMzMuOCwxMS4xQzMzLjgsMTQuMiwzMCwxNy45LDMwLDE3LjlDMzAsMTcuOSwyNi4yLDE0LjIsMjYuMiwxMS4xQzI2LjIsOCwyOCw1LjgsMzAsNS44QzMyLDUuOCwzMy44LDgsMzMuOCwxMS4xWiIgZmlsbD0iI0ZGRkZGRiI+PC9wYXRoPgogIDwvZz4KPC9zdmc+Cg=="></div>
+                    <div class="app-icon"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNjBweCIgaGVpZ2h0PSI2MHB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDxyZWN0IGZpbGw9IiMwMEE5NkMiIHg9IjAiIHk9IjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcng9IjEzLjMzIj48L3JlY3Q+CiAgICA8cGF0aCBkPSJNMzAsMEM0Ni42LDAgNjAsMTMuNCw2MCwzMEM2MCw0Ni42LDQ2LjYsNjAsMzAsNjBDMTMuNCw2MCwwLDQ2LjYsMCwzMEMwLDEzLjQsMTMuNCwwLDMwLDBaIiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjMiPjwvcGF0aD4KICAgIDxwYXRoIGQ9Ik0yOS43LDUzLjNDMTYuNyw1My4zLDYuMSw0Mi41LDYuMSwyOS4xQzYuMSwxNS43LDE2LjcsNSwyOS43LDVDNDIuNyw1LDUzLjMsMTUuNyw1My4zLDI5LjFDNTMuMyw0Mi41LDQyLjcsNTMuMywyOS43LDUzLjNaIiBmaWxsPSIjRkZGRkZGIj48L3BhdGg+CiAgICA8cGF0aCBkPSJNNDguNCwzMC4zQzQ4LjEsNDAuNiw0MC4xLDQ5LjIsMzAuMSw0OS41QzE5LjYsNDkuOCwxMSw0MS4yLDEwLjcsMzAuOEMxMC40LDIwLjQsMTguNCwxMS45LDI4LjcsMTEuNkM0MCwxMSw0OC44LDIwLjEsNDguNCwzMC4zWiIgZmlsbD0iI0Y0RjRGNCI+PC9wYXRoPgogICAgPHBhdGggZD0iTTI5LjcsMTFMMzAuMSwxMS45QzMyLjMsMTcuNiwzMy44LDIzLjUsMzMuOCwyOS4xQzMzLjgsMzQuNywzMi4zLDQwLjYsMzAuMSw0Ni4zTDI5LjcsNDcuMkMyNi45LDQ2LjQsMjQuMyw0NSwyMi4xLDQzLjJDMTkuOCw0MS40LDE3LjksMzkuMywxNi40LDM3QzE0LjgsMzQuNywxMy44LDMyLjMsMTMuNCwzMC4zTDEzLjQsMjcuOUMxMy44LDI1LjksMTQuOCwyMy41LDE2LjQsMjEuMkMxNy45LDE4LjksMTkuOCwxNi44LDIyLjEsMTVDMjQuMywxMy4yLDI2LjksMTEuOCwyOS43LDExWiIgZmlsbD0iI0ZGRkZGRiI+PC9wYXRoPgogICAgPGxpbmUgeDE9IjMwLjUiIHkxPSI2LjEiIHgyPSIzMC41IiB5MjU9IjUyLjciIHN0cm9rZT0iI0Q4NTYzQSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuNSwgMS43KSI+PC9saW5lPgogIDwvZz4KPC9zdmc+Cg=="></div>
                 </footer>
             </div>
 
             <div id="page-login" class="page inactive-right">
-                <header class="header-main">
-                    <h1>ImuniVida</h1>
-                </header>
+                <header class="header-main"><h1>ImuniVida</h1></header>
                 <main class="content">
-                    <i class="ph-fill ph-shield-plus logo-icon"></i>
+                    <img class="logo-img" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNjBweCIgaGVpZ2h0PSI2MHB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDxyZWN0IGZpbGw9IiNGRkZGRkYiIHg9IjAiIHk9IjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcng9IjEzLjMzIj48L3JlY3Q+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5LCA5KSIgZmlsbD0iIzAwQThFOCI+CiAgICAgIDxwYXRoIGQ9Ik0yMSwyQzMxLDIsMzkuMDUsOC4zNSw0MC44LDE3LjY1QzM4LjIsMTcuMTUsMzUuNSwxNywzMi41LDE3QzI1LjMsMTcsMTguOSwxOS4yLDE0LjgsMjMuM0MyNSwyNy44LDMxLjcsMzEuNSwzNi4yLDM4LjVMNDIsMzBDNDIsMTQuNDUsMzIuNTUsMiwxMSwyQzEwLjgsMiwxMC41LDIsMTAuMywyLjA1QzEzLjgsMiwxNy40LDIsMjEsMlpNOC44LDMuNUM0LjIsNi44LDAsMTIuOCwwLDE5LjdDMCwyMy4yLDEsMjYuNSwyLjcsMjkuNUM5LjYsMjQuNSwxNS43LDIzLDIwLjcsMjNDMjcuMywyMywzMiwyNS43LDM1LDMxQzM3LjgsMzMuOCwzOS43LDM2LjYsNDEsNDAuNUM0MS41LDM5LjUsNDIsMzguNCw0MiwzNy4yVjMyLjVDNDIsMjYuMSwzOC4yLDIwLjcsMzIuOCwxNi4zQzI4LjEsMTIuNCwyMC4yLDguNCwxMy45LDguNEMxMS4xLDguNCw4LjQsOSw2LjEsMTAuM0M3LjYsNy40LDgsNS4yLDguOCwzLjVaTTEwLjYsMzMuMkMxMCwzNSwxMCwzNi41LDEwLDM4LjJDMTAsNDAuOCwxMC40LDQyLjUsMTEuMSw0NC4xQzExLjMsNDQuMywxMS41LDQ0LjUsMTEuNyw0NC43QzIwLjgsNDIuMywzMC4xLDM2LDMxLjgsMjUuMUMyNS4zLDMwLDE4LDMyLjQsMTAuNiwzMy4yWiI+PC9wYXRoPgogICAgPC9nPgogIDwvZz4KPC9zdmc+Cg==" alt="Logo ImuniVida">
                     <p>Seu assistente de imunização infantil.</p>
                     <button class="btn btn-primary" data-page="page-dashboard">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Gov.br_logo.svg" alt="Gov.br" class="gov-logo">
@@ -54,24 +48,21 @@
             </div>
 
             <div id="page-dashboard" class="page inactive-right page-with-nav">
-                <header class="header-main">
-                    <h1>Início</h1>
-                </header>
+                <header class="header-main"><h1>Início</h1></header>
                 <main class="content">
                     <div class="card status-card">
                         <div class="status-item"><span>Próxima Dose</span><strong>Febre Amarela (Ana)</strong></div>
                         <div class="status-item overdue"><span>Atrasadas</span><strong>1 Dose (João)</strong></div>
                     </div>
-
                     <h3 class="content-subtitle">Meus Dependentes</h3>
                     <div id="dependent-list-container">
                         <div class="card" data-page="page-calendar-ana">
-                            <i class="ph-fill ph-user-circle card-icon"></i>
+                            <img class="card-icon-img" src="https://picsum.photos/seed/ana/80/80" alt="Ana">
                             <div class="card-info"><strong>Ana Silva (3 anos)</strong><span>Próxima dose: <strong>Febre Amarela</strong></span><span class="status-pendente">1 dose pendente</span></div>
                             <i class="ph ph-caret-right card-arrow"></i>
                         </div>
                         <div class="card" data-page="page-calendar-joao">
-                            <i class="ph-fill ph-user-circle card-icon"></i>
+                            <img class="card-icon-img" src="https://picsum.photos/seed/joao/80/80" alt="João">
                             <div class="card-info"><strong>João Souza (5 anos)</strong><span>Próxima dose: <strong>Tríplice Viral</strong></span><span class="status-atrasada">1 dose atrasada!</span></div>
                             <i class="ph ph-caret-right card-arrow"></i>
                         </div>
@@ -85,10 +76,7 @@
             </div>
 
             <div id="page-add-dependent" class="page inactive-right">
-                <header class="header-page">
-                    <button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button>
-                    <h1>Novo Dependente</h1>
-                </header>
+                <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Novo Dependente</h1></header>
                 <main class="content">
                     <form id="form-add-dependent">
                         <div class="form-group-inset">
@@ -102,12 +90,30 @@
 
             <div id="page-calendar-ana" class="page inactive-right">
                 <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Calendário (Ana)</h1></header>
-                <main class="content"><ul class="vaccine-list inset"><li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>BCG</strong> (Dose Única)<span>Aplicada em 10/01/2022</span></div></li><li><i class="ph-fill ph-warning-circle status-pendente"></i><div class="list-item-info"><strong>Febre Amarela</strong> (Reforço)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-ana"><i class="ph ph-map-pin"></i>Agendar Dose Pendente</button></main>
+                <main class="content">
+                    <ul class="vaccine-list inset">
+                        <li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>BCG</strong> (Dose Única)<span>Aplicada em 10/01/2022</span></div></li>
+                        <li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Aplicada em 10/01/2022</span></div></li>
+                        <li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Rotavírus</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li>
+                        <li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Penta</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li>
+                        <li><i class="ph-fill ph-warning-circle status-pendente"></i><div class="list-item-info"><strong>Febre Amarela</strong> (Reforço)<span>Pendente - Agendar</span></div></li>
+                    </ul>
+                    <button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-ana"><i class="ph ph-map-pin"></i>Agendar Dose Pendente</button>
+                </main>
             </div>
+
             <div id="page-calendar-joao" class="page inactive-right">
                  <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1>Calendário (João)</h1></header>
-                 <main class="content"><ul class="vaccine-list inset"><li><i class="ph-fill ph-warning status-atrasada"></i><div class="list-item-info"><strong>Tríplice Viral</strong> (Reforço)<span>Atrasada desde 01/10/2025</span></div></li></ul><button class="btn btn-primary btn-alert" data-page="page-schedule" data-origin="page-calendar-joao"><i class="ph ph-warning"></i>Agendar Dose Atrasada</button></main>
+                 <main class="content">
+                    <ul class="vaccine-list inset">
+                        <li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Penta</strong> (Reforço 1)<span>Concluído</span></div></li>
+                        <li><i class="ph-fill ph-check-circle status-completa"></i><div class="list-item-info"><strong>Poliomielite</strong> (Reforço 1)<span>Concluído</span></div></li>
+                        <li><i class="ph-fill ph-warning status-atrasada"></i><div class="list-item-info"><strong>Tríplice Viral</strong> (Reforço)<span>Atrasada desde 01/10/2025</span></div></li>
+                    </ul>
+                    <button class="btn btn-primary btn-alert" data-page="page-schedule" data-origin="page-calendar-joao"><i class="ph ph-warning"></i>Agendar Dose Atrasada</button>
+                </main>
             </div>
+
             <div id="page-calendar-generic" class="page inactive-right">
                  <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="ph ph-caret-left"></i>Voltar</button><h1 id="generic-calendar-title">Calendário</h1></header>
                  <main class="content"><p class="content-description">Este é um calendário simulado para o novo dependente.</p><ul class="vaccine-list inset"><li><i class="ph-fill ph-warning-circle status-pendente"></i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-generic"><i class="ph ph-map-pin"></i>Agendar Dose</button></main>
@@ -137,16 +143,32 @@
                     <h1>Incentivos</h1>
                 </header>
                 <main class="content">
-                    <h3 class="content-subtitle">Benefício Principal</h3>
-                    <div id="incentive-locked" class="incentive-card locked">
-                        <i class="ph-fill ph-lock-key"></i>
-                        <strong>Desconto Bloqueado</strong>
+                    <div class="card points-card">
+                        <i class="ph-fill ph-star-four"></i>
+                        <div class="points-info">
+                            <span>Seus Pontos Imuni</span>
+                            <strong id="user-points-display">0</strong>
+                        </div>
                     </div>
-                    <div id="incentive-unlocked" class="incentive-card unlocked">
-                        <i class="ph-fill ph-lock-key-open"></i>
-                        <strong>Benefício Desbloqueado!</strong>
-                        <div class="benefit"><strong>15% de Desconto</strong></div>
+
+                    <h3 class="content-subtitle">Recompensas para Resgatar</h3>
+                    <div class="card reward-card" id="reward-farmacia">
+                        <div class="reward-icon"><i class="ph-fill ph-pill"></i></div>
+                        <div class="reward-info">
+                            <strong>15% Desconto Farmácia</strong>
+                            <span>Custo: 1000 Pontos</span>
+                        </div>
+                        <button class="btn btn-secondary btn-redeem" disabled>Resgatar</button>
                     </div>
+                    <div class="card reward-card" id="reward-ir">
+                        <div class="reward-icon"><i class="ph-fill ph-file-text"></i></div>
+                        <div class="reward-info">
+                            <strong>Abatimento no IR</strong>
+                            <span>Custo: 5000 Pontos</span>
+                        </div>
+                        <button class="btn btn-secondary btn-redeem" disabled>Resgatar</button>
+                    </div>
+
                     <h3 class="content-subtitle">Minhas Conquistas</h3>
                     <div class="achievements-grid">
                         <div class="badge locked" data-badge-id="first-dose">
@@ -166,14 +188,28 @@
             </div>
 
             <nav class="bottom-nav">
-                <button data-page="page-dashboard" class="nav-item"><i class="ph-regular ph-house"></i>Início</button>
-                <button data-page="page-incentives" class="nav-item"><i class="ph-regular ph-star"></i>Incentivos</button>
+                <button data-page="page-dashboard" class="nav-item">
+                    <img id="nav-icon-home" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjOGU4ZTkzIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIwOC4wNCAxMjRsLTgwLTgwYTEyIDEyIDAgMCAwLTE3IDBsLTgwIDgwYTEyIDEyIDAgMCAwLTEuNTIgMTcuMzFsLjE3LjE5QTEyIDEyIDAgMCAwIDQwIDE0NGg4djY0YTEyIDEyIDAgMCAwIDEyIDEyaDMyYTEyIDEyIDAgMCAwIDEyLTEyVjE2OGg0OHY0MGExMiAxMiAwIDAgMCAxMiAxMmgzMmExMiAxMiAwIDAgMCAxMi0xMHYtNjRoOGExMiAxMiAwIDAgMCAxMC4zMS0xOS44MWwtLjE3LS4xOVpNMTkyIDIwOEgxNjB2LTQwYTEyIDEyIDAgMCAwLTEyLTEySDEwOGExMiAxMiAwIDAgMC0xMiAxMnY0MEg2NFYxMzEuMDlsNjMuMzEtNjMuMzJhNCA0IDAgMCAxIDUuMzggMGw2My4zMSA2My4zMloiLz48L3N2Zz4=">
+                    <span>Início</span>
+                </button>
+                <button data-page="page-incentives" class="nav-item">
+                    <img id="nav-icon-incentives" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjOGU4ZTkzIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzNC4yIDEwNy4xOWwtNjIgMjBhMTIgMTIgMCAwIDEtNy42My0xMS4wNmwyMC02MmM1LjM4LTE2LjU3LTE1LjkzLTMwLjczLTMxLjQxLTIzLjM4bC00OC4wOCAyMy4xMmExMiAxMiAwIDAgMCAwIDIxLjVsNDguMDggMjMuMTFjMTUuNDggNy4zNSAzNi43OS02LjgxIDMxLjQxLTIzLjM4bC0yMC02MmMtLjIzLS42OS0uMTUtMS40My4wNy0yLjA3bDIuNTgtMy4xOCAxOC4yMyA1Ni4yOWExMiAxMiAwIDAgMCAyMS43OC03LjA4bC0xMi45Mi0zOS44MWMuNzMuMTggMS40Ny4yOCAyLjIyLjI4YzExLjQ2IDAgMjEuODMtNyAzMC4yOC0xNy40bDIuNTIgMi41MmExMiAxMiAwIDAgMCAxNy0xLjUybDguNDQtOC40NGExMiAxMiAwIDAgMCAxLjUyLTE3Wm0tMzYuMyAxNy42NWMtMTAuNjkgNy44My0yNS42IDcuODMtMzYuMjkgMGwtLjM1LS4yNWMtMTAuNjktNy44My0xMC42OS0yMC41NCAwLTI4LjM4bC4zNS0uMjVjMTAuNjktNy44MyAyNS42LTcuODMgMzYuMjkgMGwuMzUuMjVjMTAuNjkgNy44MyAxMC42OSAyMC41NCAwIDI4LjM4WiIvPjwvc3ZnPg==">
+                    <span>Incentivos</span>
+                </button>
             </nav>
+
+            <div id="nav-icon-data" 
+                data-home-outline="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjOGU4ZTkzIiB2aWV3Qm9yPSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIwOC4wNCAxMjRsLTgwLTgwYTEyIDEyIDAgMCAwLTE3IDBsLTgwIDgwYTEyIDEyIDAgMCAwLTEuNTIgMTcuMzFsLjE3LjE5QTEyIDEyIDAgMCAwIDQwIDE0NGg4djY0YTEyIDEyIDAgMCAwIDEyIDEyaDMyYTEyIDEyIDAgMCAwIDEyLTEyVjE2OGg0OHY0MGExMiAxMiAwIDAgMCAxMiAxMmgzMmExMiAxMiAwIDAgMCAxMi0xMHYtNjRoOGExMiAxMiAwIDAgMCAxMC4zMS0xOS44MWwtLjE3LS4xOVpNMTkyIDIwOEgxNjB2LTQwYTEyIDEyIDAgMCAwLTEyLTEySDEwOGExMiAxMiAwIDAgMC0xMiAxMnY0MEg2NFYxMzEuMDlsNjMuMzEtNjMuMzJhNCA0IDAgMCAxIDUuMzggMGw2My4zMSA2My4zMloiLz48L3N2Zz4="
+                data-home-fill="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjMDA3RUE3IiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIwOC4wNCAxMjRsLTgwLTgwYTEyIDEyIDAgMCAwLTE3IDBsLTgwIDgwYTEyIDEyIDAgMCAwLTEuNTIgMTcuMzFsLjE3LjE5QTEyIDEyIDAgMCAwIDQwIDE0NGg4djY0YTEyIDEyIDAgMCAwIDEyIDEyaDMyYTEyIDEyIDAgMCAwIDEyLTEyVjE2OGg0OHY0MGExMiAxMiAwIDAgMCAxMiAxMmgzMmExMiAxMiAwIDAgMCAxMi0xMHYtNjRoOGExMiAxMiAwIDAgMCAxMC4zMS0xOS44MWwtLjE3LS4xOVoiLz48L3N2Zz4="
+                data-incentives-outline="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjOGU4ZTkzIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzNC4yIDEwNy4xOWwtNjIgMjBhMTIgMTIgMCAwIDEtNy42My0xMS4wNmwyMC02MmM1LjM4LTE2LjU3LTE1LjkzLTMwLjczLTMxLjQxLTIzLjM4bC00OC4wOCAyMy4xMmExMiAxMiAwIDAgMCAwIDIxLjVsNDguMDggMjMuMTFjMTUuNDggNy4zNSAzNi43OS02LjgxIDMxLjQxLTIzLjM4bC0yMC02MmMtLjIzLS42OS0uMTUtMS40My4wNy0yLjA3bDIuNTgtMy4xOCAxOC4yMyA1Ni4yOWExMiAxMiAwIDAgMCAyMS43OC03LjA4bC0xMi45Mi0zOS44MWMuNzMuMTggMS40Ny4yOCAyLjIyLjI4YzExLjQ2IDAgMjEuODMtNyAzMC4yOC0xNy40bDIuNTIgMi41MmExMiAxMiAwIDAgMCAxNy0xLjUybDguNDQtOC40NGExMiAxMiAwIDAgMCAxLjUyLTE3Wm0tMzYuMyAxNy42NWMtMTAuNjkgNy44My0yNS42IDcuODMtMzYuMjkgMGwtLjM1LS4yNWMtMTAuNjktNy44My0xMC42OS0yMC41NCAwLTI4LjM4bC4zNS0uMjVjMTAuNjktNy44MyAyNS42LTcuODMgMzYuMjkgMGwuMzUuMjVjMTAuNjkgNy44MyAxMC42OSAyMC41NCAwIDI4LjM4WiIvPjwvc3ZnPg=="
+                data-incentives-fill="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjMDA3RUE3IiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzNC4yIDEwNy4xOWwtNjIgMjBhMTIgMTIgMCAwIDEtNy42My0xMS4wNmwyMC02MmM1LjM4LTE2LjU3LTE1LjkzLTMwLjczLTMxLjQxLTIzLjM4bC00OC4wOCAyMy4xMmExMiAxMiAwIDAgMCAwIDIxLjVsNDguMDggMjMuMTFjMTUuNDggNy4zNSAzNi43OS02LjgxIDMxLjQxLTIzLjM4bC0yMC02MmMtLjIzLS42OS0uMTUtMS40My4wNy0yLjA3bDIuNTgtMy4xOCAxOC4yMyA1Ni4yOWExMiAxMiAwIDAgMCAyMS43OC03LjA4bC0xMi45Mi0zOS44MWMuNzMuMTggMS40Ny4yOCAyLjIyLjI4YzExLjQ2IDAgMjEuODMtNyAzMC4yOC0xNy40bDIuNTIgMi41MmExMiAxMiAwIDAgMCAxNy0xLjUybDguNDQtOC40NGExMiAxMiAwIDAgMCAxLjUyLTE3Wk0xOTcuOSA5OC44NGMtMTAuNjktNy44My0yNS42LTcuODMtMzYuMjkgMGwtLjM1LS4yNWMtMTAuNjktNy44My0xMC42OS0yMC41NCAwLTI4LjM4bC4zNS0uMjVjMTAuNjktNy44MyAyNS42LTcuODMgMzYuMjkgMGwuMzUuMjVjMTAuNjkgNy44MyAxMC42OSAyMC41NCAwIDI4LjM4WiIvPjwvc3ZnPg=="
+            ></div>
+
         </div>
         
         <div class="home-indicator"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script> <script src="script.js"></script>
 </body>
 </html>
