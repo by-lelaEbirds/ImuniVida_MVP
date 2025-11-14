@@ -17,10 +17,6 @@ body {
     perspective: 1500px;
 }
 
-/* * REFINAMENTO: Animação do 'backgroundPan' removida 
- * pois o fundo agora é estático.
- */
-
 /* Simulador do Dispositivo (iPhone) */
 .iphone-simulator {
     width: 375px;
@@ -229,7 +225,15 @@ body {
     overflow-y: auto;
     padding-bottom: 30px; 
 }
-.page-with-nav .content { padding-bottom: 80px; }
+/* * =================================================
+ * CORREÇÃO DO OVERLAP (Print em anexo)
+ * Aumentado de 80px para 100px.
+ * =================================================
+ */
+.page-with-nav .content { 
+    padding-bottom: 100px; 
+}
+
 .content-subtitle {
     font-size: 1.1rem;
     font-weight: 600;
@@ -432,4 +436,70 @@ NOVA CLASSE: Animação de Spinner para Login
 @keyframes ph-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+}
+
+/* =================================================
+REFINAMENTO: Container Principal (Wrapper)
+=================================================
+*/
+.main-container {
+    position: relative;
+    /* Este container é o item flex (do body) e
+        serve como âncora (relative) para as anotações (absolute)
+    */
+}
+
+/* =================================================
+REFINAMENTO: Esqueleto do Projeto (Anotações)
+=================================================
+*/
+.project-annotation {
+    position: absolute;
+    color: #a0aec0; /* cinza claro */
+    max-width: 250px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: -1; /* Fica atrás do simulador se houver sobreposição */
+}
+
+.project-annotation.anno-left {
+    /* (Posição 'top' é inline) */
+    right: 50%; /* Alinha à metade do simulador */
+    margin-right: 220px; /* Empurra para a esquerda (largura_celular/2 + gap) */
+    text-align: right;
+}
+
+.project-annotation.anno-right {
+    /* (Posição 'top' é inline) */
+    left: 50%; /* Alinha à metade do simulador */
+    margin-left: 220px; /* Empurra para a direita */
+    text-align: left;
+}
+
+.annotation-line {
+    height: 1px;
+    background: #4a5568; /* cinza escuro */
+    flex-shrink: 0; /* Não encolhe */
+}
+
+.project-annotation.anno-left .annotation-line {
+    order: 2; /* Linha vem depois do texto */
+}
+.project-annotation.anno-left .annotation-text {
+    order: 1; /* Texto vem antes da linha */
+}
+
+.annotation-text h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e2e8f0; /* cinza mais claro */
+    margin: 0 0 5px 0;
+}
+
+.annotation-text p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+    color: #a0aec0;
 }
