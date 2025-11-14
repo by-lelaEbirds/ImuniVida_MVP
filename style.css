@@ -81,47 +81,41 @@ body {
 #page-homescreen .wallpaper {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-image: linear-gradient(170deg, #0d324d 0%, #005f7a 30%, #00A8E8 70%, #a2d2ff 100%);
+    /* Wallpaper Premium iOS 18 (Estável) */
+    background-image: url('https://i.imgur.com/0v2Rkyp.jpg');
+    background-size: cover;
+    background-position: center;
     z-index: 1;
 }
 .icon-grid {
     position: relative;
     z-index: 2;
-    padding: 60px 20px 20px 20px;
+    padding: 80px 25px 20px 25px; /* Alinhamento Corrigido */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 15px; /* Espaçamento Corrigido */
 }
 .app-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 8px; /* Espaçamento Corrigido */
     color: white;
     font-size: 0.7rem;
     font-weight: 500;
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     cursor: pointer;
 }
-.app-icon ion-icon {
-    font-size: 48px;
-    background: #f0f0f0;
-    border-radius: 12px;
-    padding: 5px;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.app-icon .app-icon-img {
+/* Estilo para ícones de Imagem (Alta Fidelidade) */
+.app-icon img, .app-icon .app-icon-img {
     width: 60px;
     height: 60px;
     border-radius: 12px;
     object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .app-icon span { text-align: center; }
+
 .dock {
     position: absolute;
     bottom: 30px;
@@ -133,10 +127,13 @@ body {
     -webkit-backdrop-filter: blur(15px);
     border-radius: 25px;
     z-index: 2;
-    display: flex;
-    justify-content: space-around;
+    display: grid; /* Alinhamento Corrigido */
+    grid-template-columns: repeat(4, 1fr);
     align-items: center;
-    padding: 0 10px;
+    padding: 0 15px;
+}
+.dock .app-icon {
+    gap: 0; /* Sem gap no dock */
 }
 .dock .app-icon span { display: none; }
 .dock .app-icon[data-page="page-login"] span { display: block; }
@@ -196,8 +193,15 @@ body {
     overflow-y: auto;
     padding-bottom: 30px; 
 }
-.page-with-nav .content {
-    padding-bottom: 80px; 
+.page-with-nav .content { padding-bottom: 80px; }
+.content-subtitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 /* Tela de Login */
@@ -252,32 +256,11 @@ body {
 .card-arrow { font-size: 1.2rem; color: #c7c7cc; }
 
 /* Formulário */
-.form-group-inset {
-    background: #fff;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    overflow: hidden;
-}
-.form-group {
-    padding: 12px 15px;
-    border-bottom: 1px solid #f0f0f0;
-}
+.form-group-inset { background: #fff; border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
+.form-group { padding: 12px 15px; border-bottom: 1px solid #f0f0f0; }
 .form-group:last-child { border-bottom: none; }
-.form-group label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #007EA7;
-    margin-bottom: 5px;
-}
-.form-input {
-    width: 100%;
-    border: none;
-    font-size: 1rem;
-    padding: 5px 0;
-    outline: none;
-    background: none;
-}
+.form-group label { display: block; font-size: 0.8rem; font-weight: 500; color: #007EA7; margin-bottom: 5px; }
+.form-input { width: 100%; border: none; font-size: 1rem; padding: 5px 0; outline: none; background: none; }
 .form-input[type="date"] { color: #555; }
 
 /* Status das Doses */
@@ -286,20 +269,8 @@ body {
 .status-completa { color: #5cb85c; }
 
 /* Lista de Vacinas */
-.vaccine-list.inset {
-    list-style: none;
-    width: 100%;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-}
-.vaccine-list li {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    border-bottom: 1px solid #f0f0f0;
-    gap: 15px;
-}
+.vaccine-list.inset { list-style: none; width: 100%; background: #fff; border-radius: 12px; overflow: hidden; }
+.vaccine-list li { display: flex; align-items: center; padding: 12px 15px; border-bottom: 1px solid #f0f0f0; gap: 15px; }
 .vaccine-list li:last-child { border-bottom: none; }
 .vaccine-list li ion-icon { font-size: 1.8rem; }
 .list-item-info { display: flex; flex-direction: column; }
@@ -307,34 +278,59 @@ body {
 .list-item-info span { font-size: 0.85rem; color: #777; }
 
 /* Tela de Agendamento */
-.map-placeholder {
-    width: 100%;
-    height: 180px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin: 20px 0;
-    background-color: #e0e0e0;
-}
-.map-placeholder img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+.map-placeholder { width: 100%; height: 180px; border-radius: 12px; overflow: hidden; margin: 20px 0; background-color: #e0e0e0; }
+.map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
 .card-ubs { background: #fff; border-radius: 12px; padding: 15px; margin-top: 10px; }
 .card-ubs strong { font-size: 1.1rem; }
 .card-ubs span { display: block; font-size: 0.9rem; color: #555; margin: 5px 0; }
 
-/* Tela de Incentivos */
-.incentive-card {
-    border-radius: 12px;
-    padding: 25px;
-    text-align: center;
-    background: #fff;
-}
+/* Tela de Incentivos e Gamificação */
+.incentive-card { border-radius: 12px; padding: 25px; text-align: center; background: #fff; }
 .incentive-card.locked { color: #888; }
 .incentive-card.unlocked { background: #e6ffed; border: 1px solid #5cb85c; color: #2e7d32; display: none; }
 .incentive-card ion-icon { font-size: 40px; margin-bottom: 10px; }
 .benefit { background: white; padding: 15px; border-radius: 8px; margin-top: 15px; color: #333; font-weight: 600; }
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+.badge {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.badge ion-icon {
+    font-size: 36px;
+    color: #00A8E8;
+}
+.badge span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+}
+.badge.locked {
+    background: #f0f0f0;
+    color: #aaa;
+}
+.badge.locked ion-icon {
+    color: #ccc;
+}
+#badge-first-dose { /* Badge de exemplo já ganha */
+    background: #e6ffed;
+    color: #2e7d32;
+}
+#badge-first-dose ion-icon {
+    color: #5cb85c;
+}
+
 
 /* Navegação Inferior (Lógica de Show/Hide) */
 .bottom-nav {
@@ -359,7 +355,6 @@ body {
 .iphone-simulator.nav-is-visible .bottom-nav {
     transform: translateY(0);
 }
-
 .nav-item {
     display: flex;
     flex-direction: column;
