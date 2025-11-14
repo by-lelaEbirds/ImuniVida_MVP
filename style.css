@@ -27,8 +27,8 @@ body {
     box-shadow: -10px 10px 30px rgba(0,0,0,0.1), -20px 20px 50px rgba(0,0,0,0.2);
     transition: transform 0.3s ease-out;
     will-change: transform; 
-    /* Garante que o indicador home não seja cortado */
-    padding-bottom: 10px; 
+    /* Adicionado padding-bottom para garantir que o home indicator não seja cortado */
+    padding-bottom: 10px;
 }
 
 .screen {
@@ -273,6 +273,13 @@ body {
     flex-grow: 1;
     padding: 0 20px 20px 20px; 
     overflow-y: auto;
+    /* Oculta a barra de rolagem para simular a experiência de app */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+/* Oculta a barra de rolagem para navegadores baseados em WebKit (Chrome, Safari) */
+.content::-webkit-scrollbar {
+    display: none;
 }
 .page-with-nav .content { 
     padding-bottom: calc(var(--nav-height) + 30px); /* Ajuste para a altura da nav bar + padding */
@@ -499,11 +506,7 @@ body {
 .iphone-simulator.nav-is-visible .bottom-nav {
     transform: translateY(0);
 }
-.iphone-simulator.nav-is-visible .home-indicator {
-    bottom: calc(var(--nav-height) + 10px);
-}iphone-simulator.nav-is-visible .bottom-nav {
-    transform: translateY(0);
-}
+
 .nav-item {
     display: flex;
     flex-direction: column;
