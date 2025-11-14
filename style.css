@@ -1,18 +1,13 @@
 /* Reset Básico e Fontes iOS */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    
-    /* * REFINAMENTO: Fundo escuro e estático (radial gradient).
-     * Isso dá mais foco ao simulador do celular.
-     */
     background-image: radial-gradient(circle at 50% 50%, #4a5568, #2d3748, #1a202c);
     background-size: 100% 100%;
-    
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: #fff; /* Trocado para branco para melhor contraste com o novo fundo */
+    color: #fff; 
     padding: 40px 20px;
     perspective: 1500px;
 }
@@ -23,31 +18,20 @@ body {
     height: 812px; 
     background: #111;
     border: 10px solid #111;
-    
-    /* * AJUSTE DE REALISMO: Bordas mais arredondadas (60px) 
-     * com base na imagem de referência.
-     */
     border-radius: 60px;
-    
     position: relative;
     overflow: hidden;
     transform: rotateX(3deg) rotateY(-4deg);
     box-shadow: -10px 10px 30px rgba(0,0,0,0.1), -20px 20px 50px rgba(0,0,0,0.2);
-    
     transition: transform 0.3s ease-out;
-    will-change: transform; /* Dica de performance para animações */
+    will-change: transform; 
 }
 
 .screen {
     width: 100%;
     height: 100%;
     background: #f9f9f9;
-    
-    /* * AJUSTE DE REALISMO: Bordas da tela (50px) 
-     * para acompanhar o simulador.
-     */
     border-radius: 50px;
-    
     position: relative;
     overflow: hidden; 
 }
@@ -102,7 +86,6 @@ body {
 #page-homescreen .wallpaper {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    /* CORRIGIDO: Usando seu wallpaper local */
     background-image: url('449380-1280.jpg');
     background-size: cover;
     background-position: center;
@@ -127,7 +110,6 @@ body {
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     cursor: pointer;
 }
-/* Estilo para ícones Phosphor <i> */
 .app-icon i {
     font-size: 32px;
     width: 60px;
@@ -170,20 +152,11 @@ body {
     display: flex;
     flex-direction: column;
     background: #f0f2f5;
-    /* Transição de SLIDE (Padrão) */
     transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
     z-index: 1;
     opacity: 0;
-
-    /* * =================================================
-     * CORREÇÃO DE BUG (Fonte Branca)
-     * Define a cor padrão do texto DENTRO do app 
-     * para escuro, corrigindo o bug de contraste.
-     * =================================================
-     */
-    color: #1c1c1e;
+    color: #1c1c1e; /* CORREÇÃO GLOBAL DE CONTRASTE */
 }
-/* Transição de FADE (para troca de abas) */
 .page.tab-transition {
     transition: opacity 0.2s ease-in-out;
 }
@@ -194,7 +167,7 @@ body {
 }
 .page.inactive-right {
     transform: translateX(100%);
-    opacity: 0; /* Começa opaco para slide-out */
+    opacity: 0;
 }
 .page.inactive-left {
     transform: translateX(-30%);
@@ -205,30 +178,85 @@ body {
 
 /* --- Componentes --- */
 
-/* =================================================
- * REFINAMENTO DE DESIGN (Apple Style)
- * Header principal agora é sólido, sem gradiente.
+/* * =================================================
+ * TAPA 1: O Header "Large Title"
+ * (Telas de Início e Incentivos)
  * =================================================
  */
 .header-main {
     padding: 55px 20px 15px 20px;
-    background: #007EA7; /* Gradiente removido */
-    color: white;
+    background: #f0f2f5; /* Limpo, sem cor */
+    color: #1c1c1e; /* Texto escuro */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: opacity 0.3s ease; /* Animação TAPA 8 */
 }
-.header-main h1 { font-size: 1.8rem; font-weight: 700; }
+.header-main h1 {
+    font-size: 2.1rem; /* 34px - Padrão iOS */
+    font-weight: 700;
+}
 
-/* =================================================
- * REFINAMENTO DE DESIGN (Apple Style)
- * Headers internos agora são brancos com borda sutil.
+/* TAPA 6: Avatar do Usuário */
+.header-profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    object-fit: cover;
+}
+
+/* * =================================================
+ * TAPA 2: O Header de "Vidro" (Glassmorphism)
+ * (Escondido, aparece no scroll)
  * =================================================
  */
+.header-sticky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 15;
+    padding: 55px 20px 15px 20px;
+    background: rgba(249, 249, 249, 0.85); /* TAPA 2: Fundo de vidro */
+    backdrop-filter: blur(15px); /* TAPA 2: Efeito blur */
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid #e5e5ea;
+    
+    opacity: 0; /* TAPA 4: Escondido por padrão */
+    transform: translateY(-20px); /* Animação sutil */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.header-sticky h1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111;
+    text-align: center;
+}
+
+/* * =================================================
+ * TAPAs 7 & 8: O Estado "Scrolled"
+ * Ativado via JS
+ * =================================================
+ */
+.page.scrolled .header-sticky {
+    opacity: 1; /* TAPA 7: Mostra o header de vidro */
+    transform: translateY(0);
+}
+.page.scrolled .header-main {
+    opacity: 0; /* TAPA 8: Esconde o título grande */
+    pointer-events: none; /* Evita cliques fantasmas */
+}
+
+
+/* Header de Páginas Internas (Voltar) */
 .header-page {
     padding: 55px 15px 15px 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff; /* Fundo branco */
-    border-bottom: 1px solid #e5e5ea; /* Borda sutil */
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e5ea;
     position: relative;
 }
 .header-page h1 { font-size: 1.1rem; font-weight: 600; color: #111; }
@@ -246,20 +274,26 @@ body {
 }
 .header-back i { font-size: 1.5rem; margin-right: 2px; }
 
-.content {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-    padding-bottom: 30px; 
-}
-/* * =================================================
- * CORREÇÃO DO OVERLAP (Print em anexo)
- * Aumentado de 80px para 100px.
+/*
+ * =================================================
+ * TAPA 8: Ajuste de padding do conteúdo
  * =================================================
  */
+.content {
+    flex-grow: 1;
+    /* O padding-top foi movido para os headers */
+    padding: 0 20px 20px 20px; 
+    overflow-y: auto;
+}
 .page-with-nav .content { 
     padding-bottom: 100px; 
 }
+#page-login .content {
+    /* Reset para a tela de login que é diferente */
+    padding: 20px;
+    justify-content: center;
+}
+
 
 .content-subtitle {
     font-size: 1.1rem;
@@ -275,7 +309,6 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    justify-content: center;
 }
 #page-login.page { background: white; }
 .logo-icon {
@@ -294,7 +327,7 @@ body {
     width: 100%;
     padding: 14px 20px;
     font-size: 1.05rem;
-    font-weight: 600; /* Tipografia mais forte */
+    font-weight: 600;
     border: none;
     border-radius: 12px;
     cursor: pointer;
@@ -306,7 +339,6 @@ body {
     opacity: 0.7;
     cursor: wait;
 }
-/* Feedback de clique */
 .btn:hover {
     transform: scale(1.02);
 }
@@ -314,11 +346,9 @@ body {
     transform: scale(0.98);
     opacity: 0.9;
 }
-
 .btn i { font-size: 1.2rem; }
 .btn-primary { background-color: #007EA7; color: white; }
 .btn-primary.btn-alert { background-color: #d9534f; }
-/* Botão secundário refinado */
 .btn-secondary { 
     background-color: #f0f2f5; 
     color: #007EA7; 
@@ -335,12 +365,6 @@ body {
     align-items: center;
     gap: 15px;
     cursor: pointer;
-    
-    /* =================================================
-    * REFINAMENTO DE DESIGN (Apple Style)
-    * Sombra mais suave e moderna.
-    * =================================================
-    */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 .card-icon { font-size: 36px; color: #00A8E8; }
@@ -362,6 +386,8 @@ body {
     justify-content: space-around;
     padding: 20px;
     cursor: default;
+    /* O card de status é o primeiro, sem margem em cima */
+    margin-top: 0; 
 }
 .status-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
 .status-item span { font-size: 0.8rem; font-weight: 500; opacity: 0.9; }
@@ -396,6 +422,10 @@ body {
 .card-ubs { background: #fff; border-radius: 12px; padding: 15px; margin-top: 10px; }
 .card-ubs strong { font-size: 1.1rem; }
 .card-ubs span { display: block; font-size: 0.9rem; color: #555; margin: 5px 0; }
+/* Correção de contraste (herdada de .page) */
+#page-schedule .content-description {
+    color: #555;
+}
 
 /* Tela de Incentivos (Gamificação V10) */
 .points-card {
@@ -410,14 +440,10 @@ body {
 .points-info span { font-size: 1rem; opacity: 0.9; }
 .points-info strong { font-size: 2.8rem; font-weight: 700; line-height: 1; }
 
-/* =================================================
- * REFINAMENTO DE DESIGN (Incentivos)
- * =================================================
- */
 .reward-card { 
     align-items: center; 
     gap: 15px; 
-    padding: 10px 15px; /* Mais compacto */
+    padding: 10px 15px;
 }
 .reward-icon { width: 45px; height: 45px; border-radius: 50%; background: #e5e5ea; display: flex; align-items: center; justify-content: center; }
 .reward-icon i { font-size: 24px; color: #007EA7; }
@@ -426,8 +452,8 @@ body {
 .reward-info span { font-size: 0.85rem; color: #555; }
 .btn-redeem { 
     width: auto; 
-    padding: 6px 12px; /* Menor */
-    font-size: 0.85rem; /* Menor */
+    padding: 6px 12px;
+    font-size: 0.85rem;
     font-weight: 600;
     margin-top: 0; 
 }
@@ -452,7 +478,7 @@ body {
     background: rgba(249, 249, 249, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid #e5e5ea; /* Borda sutil */
+    border-top: 1px solid #e5e5ea;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
@@ -475,90 +501,62 @@ body {
     font-size: 0.7rem;
     color: #8e8e93;
 }
-/* Estilos dos ícones da Tab Bar (Phosphor) */
 .nav-item i {
     font-size: 26px;
     margin-bottom: 2px;
 }
 .nav-item.active { color: #007EA7; }
-/* Ícones da Tab Bar Ativos (Preenchidos) */
 .nav-item.active i {
-    font-weight: 700; /* 'ph-fill' é ativado via JS mudando a classe */
+    font-weight: 700;
 }
 
-
-/* =================================================
-NOVA CLASSE: Animação de Spinner para Login
-=================================================
-*/
+/* Spinner de Login */
 .ph-spin {
     animation: ph-spin 1s linear infinite;
 }
-
 @keyframes ph-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
-/* =================================================
-REFINAMENTO: Container Principal (Wrapper)
-=================================================
-*/
+/* Container Principal (Wrapper) */
 .main-container {
     position: relative;
-    /* Este container é o item flex (do body) e
-        serve como âncora (relative) para as anotações (absolute)
-    */
 }
 
-/* =================================================
-REFINAMENTO: Esqueleto do Projeto (Anotações)
-=================================================
-*/
+/* Anotações do Esqueleto */
 .project-annotation {
     position: absolute;
-    color: #a0aec0; /* cinza claro */
+    color: #a0aec0;
     max-width: 250px;
     display: flex;
     align-items: center;
     gap: 15px;
-    z-index: -1; /* Fica atrás do simulador se houver sobreposição */
+    z-index: -1;
 }
-
 .project-annotation.anno-left {
-    /* (Posição 'top' é inline) */
-    right: 50%; /* Alinha à metade do simulador */
-    margin-right: 220px; /* Empurra para a esquerda (largura_celular/2 + gap) */
+    right: 50%;
+    margin-right: 220px;
     text-align: right;
 }
-
 .project-annotation.anno-right {
-    /* (Posição 'top' é inline) */
-    left: 50%; /* Alinha à metade do simulador */
-    margin-left: 220px; /* Empurra para a direita */
+    left: 50%;
+    margin-left: 220px;
     text-align: left;
 }
-
 .annotation-line {
     height: 1px;
-    background: #4a5568; /* cinza escuro */
-    flex-shrink: 0; /* Não encolhe */
+    background: #4a5568;
+    flex-shrink: 0;
 }
-
-.project-annotation.anno-left .annotation-line {
-    order: 2; /* Linha vem depois do texto */
-}
-.project-annotation.anno-left .annotation-text {
-    order: 1; /* Texto vem antes da linha */
-}
-
+.project-annotation.anno-left .annotation-line { order: 2; }
+.project-annotation.anno-left .annotation-text { order: 1; }
 .annotation-text h3 {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #e2e8f0; /* cinza mais claro */
+    color: #e2e8f0;
     margin: 0 0 5px 0;
 }
-
 .annotation-text p {
     font-size: 0.9rem;
     line-height: 1.4;
