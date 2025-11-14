@@ -19,37 +19,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!nextPage || (currentPage && currentPage.id === pageId)) return;
 
-        // *** CORREÇÃO DO BUG DE TROCA DE ABA (V8) ***
         const isTabSwitch = rootPages.includes(currentPage.id) && rootPages.includes(pageId);
 
-        // 1. Limpa todas as páginas de classes de transição
-        // Isso evita que uma página fique "presa" em um estado (ex: inactive-left)
+        // 1. Limpa classes de transição de todas as páginas
         allPages.forEach(page => {
             page.classList.remove('inactive-left', 'inactive-right', 'fade-transition');
-            // Não remove 'active' ainda da página atual
+            // Só esconde as que não são a atual ou a próxima
+            if (page.id !== currentPage.id && page.id !== pageId) {
+                page.style.opacity = 0;
+                page.style.zIndex = 1;
+            }
         });
 
         // 2. Lógica de Animação
         if (isTabSwitch) {
-            // É uma troca de aba (Início <-> Incentivos)
-            // Usa uma transição de FADE (ou simplesmente troca)
+            // Troca de aba (Início <-> Incentivos)
             currentPage.classList.add('fade-transition');
             nextPage.classList.add('fade-transition');
             
             currentPage.classList.remove('active');
+            currentPage.style.opacity = 0; // Garante que a antiga saia
+            currentPage.style.zIndex = 1;
+            
             nextPage.classList.add('active');
+            nextPage.style.opacity = 1;
+            nextPage.style.zIndex = 10;
 
         } else if (direction === 'forward') {
-            // É uma navegação "para frente" (drill-down)
+            // Navegação "para frente"
             currentPage.classList.remove('active');
             currentPage.classList.add('inactive-left');
+            
+            nextPage.classList.remove('inactive-right'); // Remove estado de "espera"
             nextPage.classList.add('active');
+            nextPage.style.opacity = 1;
+            nextPage.style.zIndex = 10;
 
         } else if (direction === 'back') {
-            // É uma navegação "para trás"
+            // Navegação "para trás"
             currentPage.classList.remove('active');
             currentPage.classList.add('inactive-right');
+            
+            nextPage.classList.remove('inactive-left', 'inactive-right');
             nextPage.classList.add('active');
+            nextPage.style.opacity = 1;
+            nextPage.style.zIndex = 10;
         }
 
         // 3. Atualiza Tema da Status Bar
@@ -72,21 +86,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateBottomNav(pageId) {
         const navButtons = document.querySelectorAll('.nav-item');
-        const icons = [navButtons[0].querySelector('ion-icon'), navButtons[1].querySelector('ion-icon')];
+        const icons = [navButtons[0].querySelector('i'), navButtons[1].querySelector('i')];
         
         navButtons.forEach(button => button.classList.remove('active'));
 
+        // Reseta os ícones para "regular" (vazado)
+        icons[0].className = 'ph-regular ph-house';
+        icons[1].className = 'ph-regular ph-star';
+
         if (pageId === 'page-dashboard') {
             navButtons[0].classList.add('active');
-            icons[0].setAttribute('name', 'home');
-            icons[1].setAttribute('name', 'star-outline');
+            icons[0].className = 'ph-fill ph-house'; // Preenchido
         } else if (pageId === 'page-incentives') {
             navButtons[1].classList.add('active');
-            icons[0].setAttribute('name', 'home-outline');
-            icons[1].setAttribute('name', 'star');
-        } else {
-            icons[0].setAttribute('name', 'home-outline');
-            icons[1].setAttribute('name', 'star-outline');
+            icons[1].className = 'ph-fill ph-star'; // Preenchido
         }
     }
 
@@ -109,13 +122,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const cardHTML = `
             <div class="card" data-page="page-calendar-generic" data-name="${dependent.name}">
-                <ion-icon name="person-circle-outline" class="card-icon"></ion-icon>
+                <i class="ph-fill ph-user-circle card-icon"></i>
                 <div class="card-info">
                     <strong>${dependent.name} (${ageText})</strong>
                     <span>Calendário pendente</span>
                     <span class="status-pendente">Simulado</span>
                 </div>
-                <ion-icon name="chevron-forward-outline" class="card-arrow"></ion-icon>
+                <i class="ph ph-caret-right card-arrow"></i>
             </div>
         `;
         dependentListContainer.insertAdjacentHTML('beforeend', cardHTML);
@@ -128,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const navTrigger = e.target.closest('[data-page]');
         const actionTrigger = e.target.closest('#btn-confirm-vaccine');
 
-        // Caso 1: Clique de Navegação
         if (navTrigger) {
             e.preventDefault();
             e.stopPropagation();
@@ -143,24 +155,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             showPage(targetPage, direction, originPage);
         
-        // Caso 2: Clique de Ação (Confirmar Agendamento)
         } else if (actionTrigger) {
             e.preventDefault();
             e.stopPropagation();
             
-            // 1. Desbloqueia o benefício
             alert("Agendamento Confirmado!\n\n(Simulação) Após a aplicação na UBS, o sistema confirmará a dose e desbloqueará o incentivo.");
             document.getElementById('incentive-locked').style.display = 'none';
             document.getElementById('incentive-unlocked').style.display = 'block';
 
-            // 2. Desbloqueia a Medalha (Gamificação)
             const firstDoseBadge = document.querySelector('[data-badge-id="first-dose"]');
             if (firstDoseBadge && firstDoseBadge.classList.contains('locked')) {
                 alert("🏆 Medalha Desbloqueada: Primeira Dose!");
                 firstDoseBadge.classList.remove('locked');
             }
             
-            // 3. Navega para a tela de incentivos
             showPage('page-incentives', 'forward');
         }
     });
@@ -183,5 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Inicialização ---
     loadDependents(); 
-    updateBottomNav(simulator.dataset.currentPage);
+    // Garante que a página inicial (Home) não tenha a Tab Bar
+    simulator.classList.remove('nav-is-visible');
+    // Define o tema inicial (Home)
+    simulator.dataset.theme = 'dark';
 });
