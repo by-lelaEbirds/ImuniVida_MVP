@@ -8,28 +8,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const scheduleBackButton = document.getElementById('schedule-back-button');
     const STORAGE_KEY = 'imuniVidaDependents';
     
-    // Páginas que mostram a Tab Bar inferior
     const rootPages = ['page-dashboard', 'page-incentives']; 
-    // Páginas com header claro (que precisam de texto escuro na status bar)
     const lightThemePages = ['page-login', 'page-add-dependent', 'page-schedule', 'page-calendar-ana', 'page-calendar-joao', 'page-calendar-generic'];
 
     // --- Funções Principais ---
 
-    /**
-     * Função principal para trocar de página com animação
-     */
     function showPage(pageId, direction = 'forward', originPageId = null) {
         const currentPage = document.querySelector('.page.active');
         const nextPage = document.getElementById(pageId);
 
         if (!nextPage || (currentPage && currentPage.id === pageId)) return;
 
-        // *** CORREÇÃO DO BUG DE SOBREPOSIÇÃO (V6) ***
-        // Garante que todas as outras páginas estejam 100% inativas
+        // *** CORREÇÃO DO BUG DE SOBREPOSIÇÃO ***
         allPages.forEach(page => {
             if (page.id !== pageId && page.id !== currentPage.id) {
                 page.classList.remove('active', 'inactive-left');
-                page.classList.add('inactive-right'); // Força todas para a "pilha" inativa
+                page.classList.add('inactive-right');
             }
         });
 
@@ -46,9 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nextPage.classList.add('active');
         }
 
-        // 2. Atualiza Tema da Status Bar (CORREÇÃO V6)
-        // Se a página estiver na lista 'lightThemePages', usa tema 'light' (texto preto)
-        // Senão, usa 'dark' (texto branco) - corrigido para page-homescreen
+        // 2. Atualiza Tema da Status Bar (Corrigido para Home)
         simulator.dataset.theme = lightThemePages.includes(pageId) ? 'light' : 'dark';
 
         // 3. Lógica do Botão Voltar
@@ -66,9 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
         simulator.dataset.currentPage = pageId;
     }
 
-    /**
-     * Atualiza o estado ativo da navegação inferior (Tab Bar)
-     */
     function updateBottomNav(pageId) {
         const navButtons = document.querySelectorAll('.nav-item');
         const icons = [navButtons[0].querySelector('ion-icon'), navButtons[1].querySelector('ion-icon')];
@@ -124,33 +113,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Event Listeners ---
 
-    // Ouvinte de Navegação Principal (Event Delegation)
+    // *** OUVINTE DE NAVEGAÇÃO PRINCIPAL (CORRIGIDO V7) ***
+    // Lida com cliques de NAVEGAÇÃO e cliques de AÇÃO.
     simulator.addEventListener('click', (e) => {
-        const trigger = e.target.closest('[data-page]');
-        
-        if (trigger) {
+        const navTrigger = e.target.closest('[data-page]');
+        const actionTrigger = e.target.closest('#btn-confirm-vaccine');
+
+        // Caso 1: Clique de Navegação (botões, cards, etc.)
+        if (navTrigger) {
             e.preventDefault();
             e.stopPropagation();
 
-            const targetPage = trigger.dataset.page;
-            const direction = trigger.dataset.direction || 'forward';
+            const targetPage = navTrigger.dataset.page;
+            const direction = navTrigger.dataset.direction || 'forward';
             const originPage = simulator.dataset.currentPage;
 
             if (targetPage === 'page-calendar-generic') {
-                const dependentName = trigger.dataset.name || 'Dependente';
+                const dependentName = navTrigger.dataset.name || 'Dependente';
                 document.getElementById('generic-calendar-title').innerText = `Calendário (${dependentName})`;
             }
+            showPage(targetPage, direction, originPage);
+        
+        // Caso 2: Clique de Ação (Confirmar Agendamento)
+        } else if (actionTrigger) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Simula o desbloqueio do benefício
+            alert("Agendamento Confirmado!\n\n(Simulação) Após a aplicação na UBS, o sistema confirmará a dose e desbloqueará o incentivo.");
+            document.getElementById('incentive-locked').style.display = 'none';
+            document.getElementById('incentive-unlocked').style.display = 'block';
 
-            // Ação de confirmar vacina
-            if (trigger.id === 'btn-confirm-vaccine') {
-                alert("Agendamento Confirmado!\n\n(Simulação) Após a aplicação na UBS, o sistema confirmará a dose e desbloqueará o incentivo.");
-                document.getElementById('incentive-locked').style.display = 'none';
-                document.getElementById('incentive-unlocked').style.display = 'block';
-                showPage('page-incentives', 'forward');
-            } else {
-                // Navegação normal
-                showPage(targetPage, direction, originPage);
+            // Simula a Gamificação
+            const firstDoseBadge = document.getElementById('badge-first-dose');
+            if (firstDoseBadge.classList.contains('locked')) { // Só roda se estiver bloqueada
+                alert("🏆 Medalha Desbloqueada: Primeira Dose!");
+                firstDoseBadge.classList.remove('locked');
             }
+            
+            showPage('page-incentives', 'forward'); // Leva para a tela de incentivos
         }
     });
 
