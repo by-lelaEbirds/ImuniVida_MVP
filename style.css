@@ -1,8 +1,7 @@
 /* Reset Básico e Fontes iOS */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    /* NOVO: Fundo animado (Pancada no Design) */
-    background: linear-gradient(-45deg, #e0e7ff, #c7d2fe, #a5b4fc, #818cf8);
+    background-image: linear-gradient(-45deg, #e0e7ff, #c7d2fe, #a5b4fc, #818cf8);
     background-size: 400% 400%;
     animation: backgroundPan 15s ease infinite;
     display: flex;
@@ -73,12 +72,7 @@ body {
     color: #111;
 }
 .iphone-simulator[data-theme="dark"] .status-bar { color: #fff; }
-.status-bar .status-icons { display: flex; gap: 6px; align-items: center; }
-.status-icon {
-    height: 16px;
-    width: 16px;
-    filter: drop-shadow(0 0 1px rgba(0,0,0,0.3));
-}
+.status-bar .status-icons { display: flex; gap: 6px; font-size: 1.1rem; }
 
 /* Indicador Home iOS */
 .home-indicator {
@@ -98,6 +92,7 @@ body {
 #page-homescreen .wallpaper {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
+    /* CORRIGIDO: Usando seu wallpaper local */
     background-image: url('449380-1280.jpg');
     background-size: cover;
     background-position: center;
@@ -122,13 +117,16 @@ body {
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     cursor: pointer;
 }
-/* Ícones <img> da Homescreen */
-.app-icon img, .app-icon .app-icon-img {
+/* Estilo para ícones Phosphor <i> */
+.app-icon i {
+    font-size: 32px;
     width: 60px;
     height: 60px;
     border-radius: 12px;
-    object-fit: cover;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .app-icon span { text-align: center; }
 
@@ -162,9 +160,14 @@ body {
     display: flex;
     flex-direction: column;
     background: #f0f2f5;
+    /* Transição de SLIDE (Padrão) */
     transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
     z-index: 1;
-    opacity: 0; /* Começa invisível */
+    opacity: 0;
+}
+/* Transição de FADE (para troca de abas) */
+.page.tab-transition {
+    transition: opacity 0.2s ease-in-out;
 }
 .page.active {
     transform: translateX(0);
@@ -173,15 +176,11 @@ body {
 }
 .page.inactive-right {
     transform: translateX(100%);
-    opacity: 1; /* Precisa de opacidade para a animação de saída */
+    opacity: 0; /* Começa opaco para slide-out */
 }
 .page.inactive-left {
     transform: translateX(-30%);
     opacity: 0.7;
-}
-/* Transição de Aba (Fade) */
-.page.tab-transition {
-    transition: opacity 0.2s ease-in-out, transform 0s;
 }
 
 #page-homescreen.active { z-index: 2; }
@@ -241,7 +240,11 @@ body {
     justify-content: center;
 }
 #page-login.page { background: white; }
-.logo-img { width: 120px; height: 120px; margin-bottom: 20px; }
+.logo-icon {
+    font-size: 100px;
+    color: #00A8E8;
+    margin-bottom: 20px;
+}
 .gov-logo { height: 24px; margin-right: 10px; }
 .small-text { font-size: 0.8rem; color: #777; margin-top: 15px; }
 
@@ -331,7 +334,7 @@ body {
 .card-ubs strong { font-size: 1.1rem; }
 .card-ubs span { display: block; font-size: 0.9rem; color: #555; margin: 5px 0; }
 
-/* NOVO: Tela de Incentivos (Gamificação V10) */
+/* Tela de Incentivos (Gamificação V10) */
 .points-card {
     background: linear-gradient(135deg, #007EA7, #00506a);
     color: white;
@@ -340,80 +343,25 @@ body {
     gap: 20px;
     padding: 25px;
 }
-.points-card i {
-    font-size: 48px;
-    color: #FFD166;
-}
-.points-info span {
-    font-size: 1rem;
-    opacity: 0.9;
-}
-.points-info strong {
-    font-size: 2.5rem;
-    font-weight: 700;
-    line-height: 1;
-}
-.reward-card {
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-}
-.reward-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #e5e5ea;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.reward-icon i {
-    font-size: 24px;
-    color: #007EA7;
-}
-.reward-info {
-    flex-grow: 1;
-}
+.points-card i { font-size: 48px; color: #FFD166; }
+.points-info span { font-size: 1rem; opacity: 0.9; }
+.points-info strong { font-size: 2.5rem; font-weight: 700; line-height: 1; }
+.reward-card { align-items: center; gap: 15px; padding: 15px; }
+.reward-icon { width: 45px; height: 45px; border-radius: 50%; background: #e5e5ea; display: flex; align-items: center; justify-content: center; }
+.reward-icon i { font-size: 24px; color: #007EA7; }
+.reward-info { flex-grow: 1; }
 .reward-info strong { font-size: 1rem; }
 .reward-info span { font-size: 0.85rem; color: #555; }
-.btn-redeem {
-    width: auto;
-    padding: 8px 15px;
-    font-size: 0.9rem;
-    margin-top: 0;
-}
-.btn-redeem:not(:disabled) {
-    background-color: #007EA7;
-    color: white;
-}
+.btn-redeem { width: auto; padding: 8px 15px; font-size: 0.9rem; margin-top: 0; }
+.btn-redeem:not(:disabled) { background-color: #007EA7; color: white; }
 
 .achievements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-.badge {
-    background: #fff;
-    border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-}
+.badge { background: #fff; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease; }
 .badge i { font-size: 36px; color: #00A8E8; }
 .badge span { font-size: 0.8rem; font-weight: 500; text-align: center; }
-.badge.locked {
-    background: #f0f0f0;
-    color: #aaa;
-    filter: grayscale(100%);
-    opacity: 0.7;
-}
+.badge.locked { background: #f0f0f0; color: #aaa; filter: grayscale(100%); opacity: 0.7; }
 .badge.locked i { color: #ccc; }
-.badge:not(.locked) {
-    background: #e6ffed;
-    color: #2e7d32;
-    transform: scale(1.05); /* Efeito de "pop" */
-}
+.badge:not(.locked) { background: #e6ffed; color: #2e7d32; transform: scale(1.05); }
 .badge:not(.locked) i { color: #5cb85c; }
 
 /* Navegação Inferior (Lógica de Show/Hide) */
@@ -449,11 +397,13 @@ body {
     font-size: 0.7rem;
     color: #8e8e93;
 }
-.nav-item img {
-    width: 26px;
-    height: 26px;
+/* Estilos dos ícones da Tab Bar (Phosphor) */
+.nav-item i {
+    font-size: 26px;
     margin-bottom: 2px;
 }
 .nav-item.active { color: #007EA7; }
-/* Esconde o local de dados dos ícones */
-#nav-icon-data { display: none; }
+/* Ícones da Tab Bar Ativos (Preenchidos) */
+.nav-item.active i {
+    font-weight: 700; /* 'ph-fill' é ativado via JS mudando a classe */
+}
