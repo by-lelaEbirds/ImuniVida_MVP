@@ -481,7 +481,13 @@ body {
 .badge:not(.locked) { background: #e6ffed; color: #2e7d32; transform: scale(1.05); }
 .badge:not(.locked) i { color: #5cb85c; }
 
-/* Navegação Inferior (Lógica de Show/Hide.bottom-nav {
+/* * =================================================
+ * CORREÇÃO DO BUG (Linha 333)
+ * =================================================
+ */
+
+/* Navegação Inferior (Lógica de Show/Hide) */
+.bottom-nav {
     position: absolute;
     bottom: 0;
     left: 0;
