@@ -10,30 +10,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const STORAGE_KEY_GAME = 'imuniVidaGame';
     
     // Ícones da Barra de Navegação
-    const navIconData = document.getElementById('nav-icon-data');
     const navIcons = {
-        home: {
-            outline: navIconData.dataset.homeOutline,
-            fill: navIconData.dataset.homeFill
-        },
-        incentives: {
-            outline: navIconData.dataset.incentivesOutline,
-            fill: navIconData.dataset.incentivesFill
-        }
+        home: document.querySelector('.nav-item[data-page="page-dashboard"] i'),
+        incentives: document.querySelector('.nav-item[data-page="page-incentives"] i')
     };
-    const navIconImgs = {
-        home: document.getElementById('nav-icon-home'),
-        incentives: document.getElementById('nav-icon-incentives')
-    };
-
+    
     const rootPages = ['page-dashboard', 'page-incentives']; 
     const lightThemePages = ['page-login', 'page-add-dependent', 'page-schedule', 'page-calendar-ana', 'page-calendar-joao', 'page-calendar-generic'];
 
     // --- Funções Principais ---
 
     /**
-     * Função de navegação principal (V10)
-     * Corrigida para eliminar bugs de sobreposição
+     * Função de navegação principal (V11)
+     * Bug de sobreposição CORRIGIDO
      */
     function showPage(pageId, direction = 'forward', originPageId = null) {
         const currentPage = document.querySelector('.page.active');
@@ -43,21 +32,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isTabSwitch = rootPages.includes(currentPage.id) && rootPages.includes(pageId);
 
-        // 1. Limpa todas as páginas
+        // 1. Limpa classes de animação de todas as páginas
         allPages.forEach(page => {
-            page.classList.remove('active', 'inactive-left', 'inactive-right', 'tab-transition');
+            page.classList.remove('inactive-left', 'inactive-right', 'tab-transition');
+            // Esconde todas as páginas que não são a atual
             if (page.id !== currentPage.id) {
-                page.style.zIndex = 1; // Reseta z-index
-                page.style.opacity = 0; // Esconde
+                page.style.opacity = 0;
+                page.style.zIndex = 1;
             }
         });
 
         // 2. Lógica de Animação
         if (isTabSwitch) {
-            // Troca de aba (Início <-> Incentivos)
-            currentPage.classList.add('tab-transition');
-            nextPage.classList.add('tab-transition');
-            
+            // *** CORREÇÃO DO BUG DE SOBREPOSIÇÃO ***
+            // Troca de aba é INSTANTÂNEA. Sem animação, sem sobreposição.
             currentPage.classList.remove('active');
             currentPage.style.opacity = 0;
             currentPage.style.zIndex = 1;
@@ -67,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nextPage.style.zIndex = 10;
 
         } else if (direction === 'forward') {
-            // Navegação "para frente"
+            // Navegação "para frente" (Slide)
             currentPage.classList.remove('active');
             currentPage.classList.add('inactive-left'); // Animação de saída
             
@@ -76,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nextPage.style.zIndex = 10;
 
         } else if (direction === 'back') {
-            // Navegação "para trás"
+            // Navegação "para trás" (Slide)
             currentPage.classList.remove('active');
             currentPage.classList.add('inactive-right'); // Animação de saída
             
@@ -109,22 +97,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Atualiza os ícones da barra de navegação (V10 - Prova de falhas)
+     * Atualiza os ícones da barra de navegação (V11 - Phosphor)
+     * CORRIGIDO para o bug do ícone invisível
      */
     function updateBottomNav(pageId) {
         const navButtons = document.querySelectorAll('.nav-item');
         navButtons.forEach(button => button.classList.remove('active'));
 
-        // Reseta todos para "outline"
-        navIconImgs.home.src = navIcons.home.outline;
-        navIconImgs.incentives.src = navIcons.incentives.outline;
+        // Reseta todos os ícones para "regular" (vazado)
+        navIcons.home.className = 'ph-regular ph-house';
+        navIcons.incentives.className = 'ph-regular ph-star';
 
         if (pageId === 'page-dashboard') {
             navButtons[0].classList.add('active');
-            navIconImgs.home.src = navIcons.home.fill; // Ativo
+            navIcons.home.className = 'ph-fill ph-house'; // Preenchido
         } else if (pageId === 'page-incentives') {
             navButtons[1].classList.add('active');
-            navIconImgs.incentives.src = navIcons.incentives.fill; // Ativo
+            navIcons.incentives.className = 'ph-fill ph-star'; // Preenchido
         }
     }
 
@@ -144,28 +133,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateIncentivesPage() {
         const data = getGameData();
         
-        // 1. Atualiza Pontos
-        const pointsDisplay = document.getElementById('user-points-display');
-        if (pointsDisplay) {
-            pointsDisplay.innerText = data.points;
-        }
+        document.getElementById('user-points-display').innerText = data.points;
 
-        // 2. Atualiza Botões de Resgate
         const rewardFarmaciaBtn = document.querySelector('#reward-farmacia .btn-redeem');
-        if (rewardFarmaciaBtn) {
-            rewardFarmaciaBtn.disabled = data.points < 1000;
-        }
+        if (rewardFarmaciaBtn) rewardFarmaciaBtn.disabled = data.points < 1000;
+        
         const rewardIrBtn = document.querySelector('#reward-ir .btn-redeem');
-        if (rewardIrBtn) {
-            rewardIrBtn.disabled = data.points < 5000;
-        }
+        if (rewardIrBtn) rewardIrBtn.disabled = data.points < 5000;
 
-        // 3. Atualiza Medalhas
+        // Reseta todas as medalhas para 'locked'
+        document.querySelectorAll('.badge').forEach(b => b.classList.add('locked'));
+        // Desbloqueia as que estão no save
         data.badges.forEach(badgeId => {
             const badgeEl = document.querySelector(`[data-badge-id="${badgeId}"]`);
-            if (badgeEl) {
-                badgeEl.classList.remove('locked');
-            }
+            if (badgeEl) badgeEl.classList.remove('locked');
         });
     }
 
@@ -222,23 +203,20 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault(); e.stopPropagation();
             
             let gameData = getGameData();
-            
-            // 1. Adiciona Pontos
             gameData.points += 100;
             alert("Agendamento Confirmado! 🏆 +100 Pontos Imuni!");
 
-            // 2. Desbloqueia Medalha
             if (!gameData.badges.includes('first-dose')) {
                 gameData.badges.push('first-dose');
                 alert("Medalha Desbloqueada: Primeira Dose!");
             }
             
-            // 3. Salva e atualiza UI
             saveGameData(gameData);
             document.getElementById('incentive-locked').style.display = 'none';
             document.getElementById('incentive-unlocked').style.display = 'block';
             
             showPage('page-incentives', 'forward');
+Example
         }
     });
 
@@ -258,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Inicialização ---
     loadDependents(); 
+    updateIncentivesPage(); // Carrega pontos e medalhas
     simulator.classList.remove('nav-is-visible');
     simulator.dataset.theme = 'dark';
 });
