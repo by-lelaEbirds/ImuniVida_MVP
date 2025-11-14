@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - Protótipo V2</title>
+    <title>ImuniVida - Protótipo V3</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="iphone-simulator">
-        <div class="notch"></div>
+    <div class="iphone-simulator" data-theme="light">
+        <div class="dynamic-island"></div>
+        
         <div class="status-bar">
             <span class="time">9:41</span>
             <div class="status-icons">
@@ -21,7 +22,27 @@
 
         <div class="screen">
             
-            <div id="page-login" class="page active">
+            <div id="page-homescreen" class="page active">
+                <div class="wallpaper"></div>
+                <main class="icon-grid">
+                    <div class="app-icon"><ion-icon name="calendar-outline" style="color: red;"></ion-icon><span>Calendário</span></div>
+                    <div class="app-icon"><ion-icon name="camera-outline" style="color: #888;"></ion-icon><span>Câmera</span></div>
+                    <div class="app-icon"><ion-icon name="images-outline" style="color: #00A8E8;"></ion-icon><span>Fotos</span></div>
+                    <div class="app-icon"><ion-icon name="map-outline" style="color: #5cb85c;"></ion-icon><span>Mapas</span></div>
+                    <div class="app-icon"><ion-icon name="settings-outline" style="color: #555;"></ion-icon><span>Ajustes</span></div>
+                    <div class="app-icon"><ion-icon name="mail-outline" style="color: #007EA7;"></ion-icon><span>Mail</span></div>
+                </main>
+                <footer class="dock">
+                    <div class="app-icon"><ion-icon name="call-outline" style="color: #5cb85c;"></ion-icon></div>
+                    <div class="app-icon"><ion-icon name="logo-apple" style="color: white;"></ion-icon></div>
+                    <div class="app-icon" id="app-icon-imunivida" data-page="page-login">
+                        <img src="https://i.imgur.com/g0j2g1C.png" class="app-icon-img">
+                        <span>ImuniVida</span>
+                    </div>
+                </footer>
+            </div>
+
+            <div id="page-login" class="page inactive-right">
                 <header class="header-main">
                     <h1>ImuniVida</h1>
                 </header>
@@ -41,26 +62,30 @@
                     <h1>Dependentes</h1>
                 </header>
                 <main class="content">
-                    <p class="content-description">Selecione um dependente para ver o calendário vacinal.</p>
-                    <div class="card" data-page="page-calendar">
-                        <ion-icon name="person-circle-outline" class="card-icon"></ion-icon>
-                        <div class="card-info">
-                            <strong>Ana Silva (3 anos)</strong>
-                            <span>Próxima dose: <strong>Febre Amarela</strong></span>
-                            <span class="status-pendente">1 dose pendente</span>
+                    <p class="content-description">Selecione um dependente para ver o calendário.</p>
+                    
+                    <div id="dependent-list-container">
+                        <div class="card" data-page="page-calendar-ana">
+                            <ion-icon name="person-circle-outline" class="card-icon"></ion-icon>
+                            <div class="card-info">
+                                <strong>Ana Silva (3 anos)</strong>
+                                <span>Próxima dose: <strong>Febre Amarela</strong></span>
+                                <span class="status-pendente">1 dose pendente</span>
+                            </div>
+                            <ion-icon name="chevron-forward-outline" class="card-arrow"></ion-icon>
                         </div>
-                        <ion-icon name="chevron-forward-outline" class="card-arrow"></ion-icon>
-                    </div>
-                    <div class="card" data-page="page-calendar-joao">
-                        <ion-icon name="person-circle-outline" class="card-icon"></ion-icon>
-                        <div class="card-info">
-                            <strong>João Souza (5 anos)</strong>
-                            <span>Próxima dose: <strong>Tríplice Viral</strong></span>
-                            <span class="status-atrasada">1 dose atrasada!</span>
+                        <div class="card" data-page="page-calendar-joao">
+                            <ion-icon name="person-circle-outline" class="card-icon"></ion-icon>
+                            <div class="card-info">
+                                <strong>João Souza (5 anos)</strong>
+                                <span>Próxima dose: <strong>Tríplice Viral</strong></span>
+                                <span class="status-atrasada">1 dose atrasada!</span>
+                            </div>
+                            <ion-icon name="chevron-forward-outline" class="card-arrow"></ion-icon>
                         </div>
-                        <ion-icon name="chevron-forward-outline" class="card-arrow"></ion-icon>
-                    </div>
-                     <div class="card" data-page="">
+                        </div>
+
+                     <div class="card" data-page="page-add-dependent">
                         <ion-icon name="add-circle-outline" class="card-icon" style="color: #007EA7;"></ion-icon>
                         <div class="card-info">
                             <strong>Adicionar Dependente</strong>
@@ -70,7 +95,36 @@
                 </main>
             </div>
 
-            <div id="page-calendar" class="page inactive-right">
+            <div id="page-add-dependent" class="page inactive-right">
+                <header class="header-page">
+                    <button class="header-back" data-page="page-dashboard" data-direction="back">
+                        <ion-icon name="chevron-back-outline"></ion-icon>
+                        Voltar
+                    </button>
+                    <h1>Novo Dependente</h1>
+                </header>
+                <main class="content">
+                    <form id="form-add-dependent">
+                        <div class="form-group-inset">
+                            <div class="form-group">
+                                <label for="input-name">Nome Completo</label>
+                                <input type="text" id="input-name" class="form-input" placeholder="Ex: Maria Clara" required>
+                            </div>
+                             <div class="form-group">
+                                <label for="input-dob">Data de Nascimento</label>
+                                <input type="date" id="input-dob" class="form-input" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <ion-icon name="save-outline"></ion-icon>
+                            Salvar Dependente
+                        </button>
+                    </form>
+                </main>
+            </div>
+
+
+            <div id="page-calendar-ana" class="page inactive-right">
                 <header class="header-page">
                     <button class="header-back" data-page="page-dashboard" data-direction="back">
                         <ion-icon name="chevron-back-outline"></ion-icon>
@@ -82,27 +136,14 @@
                     <ul class="vaccine-list inset">
                         <li>
                             <ion-icon name="checkmark-circle" class="status-completa"></ion-icon>
-                            <div class="list-item-info">
-                                <strong>BCG</strong> (Dose Única)
-                                <span>Aplicada em 10/01/2022</span>
-                            </div>
-                        </li>
-                        <li>
-                            <ion-icon name="checkmark-circle" class="status-completa"></ion-icon>
-                            <div class="list-item-info">
-                                <strong>Hepatite B</strong> (Dose 1)
-                                <span>Aplicada em 10/01/2022</span>
-                            </div>
+                            <div class="list-item-info"><strong>BCG</strong> (Dose Única)<span>Aplicada em 10/01/2022</span></div>
                         </li>
                         <li>
                             <ion-icon name="alert-circle" class="status-pendente"></ion-icon>
-                            <div class="list-item-info">
-                                <strong>Febre Amarela</strong> (Reforço)
-                                <span>Pendente - Agendar</span>
-                            </div>
+                            <div class="list-item-info"><strong>Febre Amarela</strong> (Reforço)<span>Pendente - Agendar</span></div>
                         </li>
                     </ul>
-                    <button class="btn btn-primary" data-page="page-schedule">
+                    <button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-ana">
                         <ion-icon name="location-outline"></ion-icon>
                         Agendar Dose Pendente
                     </button>
@@ -120,51 +161,59 @@
                 <main class="content">
                     <ul class="vaccine-list inset">
                         <li>
-                            <ion-icon name="checkmark-circle" class="status-completa"></ion-icon>
-                             <div class="list-item-info">
-                                <strong>Poliomielite</strong> (Dose 1, 2, 3)
-                                <span>Concluído</span>
-                            </div>
-                        </li>
-                         <li>
                             <ion-icon name="warning" class="status-atrasada"></ion-icon>
-                             <div class="list-item-info">
-                                <strong>Tríplice Viral</strong> (Reforço)
-                                <span>Atrasada desde 01/10/2025</span>
-                            </div>
+                             <div class="list-item-info"><strong>Tríplice Viral</strong> (Reforço)<span>Atrasada desde 01/10/2025</span></div>
                         </li>
                     </ul>
-                    <button class="btn btn-primary btn-alert" data-page="page-schedule">
+                    <button class="btn btn-primary btn-alert" data-page="page-schedule" data-origin="page-calendar-joao">
                         <ion-icon name="warning-outline"></ion-icon>
                         Agendar Dose Atrasada
                     </button>
                 </main>
             </div>
 
+            <div id="page-calendar-generic" class="page inactive-right">
+                 <header class="header-page">
+                    <button class="header-back" data-page="page-dashboard" data-direction="back">
+                        <ion-icon name="chevron-back-outline"></ion-icon>
+                        Voltar
+                    </button>
+                    <h1 id="generic-calendar-title">Calendário</h1>
+                </header>
+                <main class="content">
+                    <p class="content-description">Este é um calendário simulado para o novo dependente.</p>
+                    <ul class="vaccine-list inset">
+                         <li>
+                            <ion-icon name="alert-circle" class="status-pendente"></ion-icon>
+                             <div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Pendente - Agendar</span></div>
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-generic">
+                        <ion-icon name="location-outline"></ion-icon>
+                        Agendar Dose
+                    </button>
+                </main>
+            </div>
+
+
             <div id="page-schedule" class="page inactive-right">
                 <header class="header-page">
-                     <button class="header-back" data-page="page-calendar" data-direction="back">
+                     <button class="header-back" id="schedule-back-button" data-direction="back">
                         <ion-icon name="chevron-back-outline"></ion-icon>
                         Voltar
                     </button>
                     <h1>Agendar Vacina</h1>
                 </header>
                 <main class="content">
-                    <p class="content-description">Usando sua localização para encontrar a UBS mais próxima...</p>
                     <div class="map-placeholder">
                         <img src="https://i.imgur.com/jA4jO7s.png" alt="Simulação de Mapa"/>
                     </div>
-                    <div class="ubs-list">
+                     <div class="ubs-list">
                         <strong>Postos de Saúde Próximos:</strong>
                         <div class="card-ubs">
                             <strong>UBS Vila Saúde</strong>
                             <span>Rua das Flores, 123 - <strong>(1.2km)</strong></span>
                             <button class="btn btn-secondary" id="btn-confirm-vaccine">Confirmar Agendamento</button>
-                        </div>
-                        <div class="card-ubs">
-                            <strong>UBS Centro</strong>
-                            <span>Av. Principal, 500 - <strong>(2.5km)</strong></span>
-                            <button class="btn btn-secondary" disabled>Agendar</button>
                         </div>
                     </div>
                 </main>
@@ -175,34 +224,21 @@
                     <h1>Incentivos</h1>
                 </header>
                 <main class="content">
-                    <div class="incentive-status">
-                        <p>Complete o calendário vacinal para desbloquear benefícios.</p>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 80%;">80%</div>
-                        </div>
-                    </div>
-
                     <div id="incentive-locked" class="incentive-card locked">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <strong>Benefício Bloqueado</strong>
-                        <p>Confirme a última vacina para desbloquear seu incentivo econômico.</p>
                     </div>
-
                     <div id="incentive-unlocked" class="incentive-card unlocked">
                         <ion-icon name="lock-open-outline"></ion-icon>
                         <strong>Benefício Desbloqueado!</strong>
-                        <p>Parabéns! O calendário de Ana está completo. Você desbloqueou:</p>
-                        <div class="benefit">
-                           <strong>15% de Desconto</strong> em farmácias parceiras.
-                        </div>
+                        <div class="benefit"><strong>15% de Desconto</strong></div>
                     </div>
                 </main>
             </div>
 
             <nav class="bottom-nav">
                 <button data-page="page-dashboard" class="nav-item active">
-                    <ion-icon name="home-outline"></ion-icon>
-                    Início
+                    <ion-icon name="home"></ion-icon> Início
                 </button>
                 <button data-page="page-incentives" class="nav-item">
                     <ion-icon name="star-outline"></ion-icon>
