@@ -14,7 +14,7 @@
             <div class="dynamic-island"></div>
             <div class="status-bar">
                 <span class="time">9:41</span>
-                <div class="status-icons" style="font-family: sans-serif; gap: 4px; font-size: 1.2rem;">
+                <div class="status-icons sf-font">
                     <div>📶</div>
                     <div>🔋</div>
                 </div>
@@ -25,27 +25,47 @@
                 <div id="page-homescreen" class="page active">
                     <div class="wallpaper"></div>
                     <main class="icon-grid">
-                        <div class="app-icon" data-page="page-login" data-direction="forward" style="font-family: sans-serif;">
-                            <i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: #00A8E8; background: white;">🛡️</i>
+                        <div class="app-icon" data-page="page-login" data-direction="forward" data-app="imunivida">
+                            <span class="app-icon-visual">🛡️</span>
                             <span>ImuniVida</span>
                         </div>
-                        <div class="app-icon" style="font-family: sans-serif;"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; background: white;">📅</i><span>Calendário</span></div>
-                        <div class="app-icon" style="font-family: sans-serif;"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; background: #ddd;">📷</i><span>Câmera</span></div>
-                        <div class="app-icon" style="font-family: sans-serif;"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; background: white;">🖼️</i><span>Fotos</span></div>
-                        <div class="app-icon" style="font-family: sans-serif;"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; background: white;">🗺️</i><span>Mapas</span></div>
+                        <div class="app-icon" data-app="calendar">
+                            <span class="app-icon-visual">📅</span>
+                            <span>Calendário</span>
+                        </div>
+                        <div class="app-icon" data-app="camera">
+                            <span class="app-icon-visual">📷</span>
+                            <span>Câmera</span>
+                        </div>
+                        <div class="app-icon" data-app="photos">
+                            <span class="app-icon-visual">🖼️</span>
+                            <span>Fotos</span>
+                        </div>
+                        <div class="app-icon" data-app="maps">
+                            <span class="app-icon-visual">🗺️</span>
+                            <span>Mapas</span>
+                        </div>
                     </main>
-                    <footer class="dock" style="font-family: sans-serif;">
-                        <div class="app-icon"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; background: #38a169;">📞</i></div>
-                        <div class="app-icon"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; background: #007EA7;">🧭</i></div>
-                        <div class="app-icon"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; background: #38a169;">💬</i></div>
-                        <div class="app-icon"><i style="font-size: 32px; width: 60px; height: 60px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; background: #fa2a40;">🎵</i></div>
+                    <footer class="dock">
+                        <div class="app-icon" data-app="phone">
+                            <span class="app-icon-visual">📞</span>
+                        </div>
+                        <div class="app-icon" data-app="safari">
+                            <span class="app-icon-visual">🧭</span>
+                        </div>
+                        <div class="app-icon" data-app="messages">
+                            <span class="app-icon-visual">💬</span>
+                        </div>
+                        <div class="app-icon" data-app="music">
+                            <span class="app-icon-visual">🎵</span>
+                        </div>
                     </footer>
                 </div>
 
                 <div id="page-login" class="page inactive-right">
                     <header class="header-main"><h1>ImuniVida</h1></header>
-                    <main class="content" style="font-family: sans-serif;">
-                        <i class="logo-icon" style="font-size: 100px; color: #00A8E8; margin-bottom: 20px;">🛡️</i>
+                    <main class="content">
+                        <span class="logo-icon">🛡️</span>
                         <p>Seu assistente de imunização infantil.</p>
                         
                         <button class="btn btn-primary" id="btn-login-gov" data-page="page-dashboard" data-direction="forward">
@@ -79,55 +99,77 @@
                             <div class="card" data-page="page-calendar-ana" data-direction="forward">
                                 <img class="card-icon-img" src="https://picsum.photos/seed/ana-silva-child/80/80" alt="Ana">
                                 <div class="card-info"><strong>Ana Silva (3 anos)</strong><span>Próxima dose: <strong>Febre Amarela</strong></span><span class="status-pendente">1 dose pendente</span></div>
-                                <i class="card-arrow" style="font-family: sans-serif;">❯</i>
+                                <i class="card-arrow sf-font">❯</i>
                             </div>
                             <div class="card" data-page="page-calendar-joao" data-direction="forward">
                                 <img class="card-icon-img" src="https://picsum.photos/seed/joao-souza-child/80/80" alt="João">
                                 <div class="card-info"><strong>João Souza (5 anos)</strong><span>Próxima dose: <strong>Tríplice Viral</strong></span><span class="status-atrasada">1 dose atrasada!</span></div>
-                                <i class="card-arrow" style="font-family: sans-serif;">❯</i>
+                                <i class="card-arrow sf-font">❯</i>
                             </div>
                         </div>
-                        <div class="card" id="card-add-dependent" data-page="page-add-dependent" data-direction="forward" style="font-family: sans-serif;">
-                            <i class="card-icon" style="font-size: 36px; color: #007EA7;">➕</i>
+                        <div class="card" id="card-add-dependent" data-page="page-add-dependent" data-direction="forward">
+                            <span class="card-icon-add">➕</span>
                             <div class="card-info"><strong>Adicionar Dependente</strong></div>
-                            <i class="card-arrow" style="font-family: sans-serif;">❯</i>
+                            <i class="card-arrow sf-font">❯</i>
                         </div>
                     </main>
                 </div>
 
                 <div id="page-add-dependent" class="page inactive-right">
-                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i style="font-size: 1.5rem; margin-right: 2px; font-family: sans-serif;">❮</i>Voltar</button><h1>Novo Dependente</h1></header>
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="sf-font">❮</i>Voltar</button><h1>Novo Dependente</h1></header>
                     <main class="content">
                         <form id="form-add-dependent">
                             <div class="form-group-inset">
                                 <div class="form-group"><label for="input-name">Nome Completo</label><input type="text" id="input-name" class="form-input" placeholder="Ex: Maria Clara" required></div>
                                 <div class="form-group"><label for="input-dob">Data de Nascimento</label><input type="date" id="input-dob" class="form-input" required></div>
                             </div>
-                            <button type="submit" class="btn btn-primary" style="font-family: sans-serif;"><i style="font-size: 1.2rem;">📥</i>Salvar Dependente</button>
+                            <button type="submit" class="btn btn-primary"><i>📥</i>Salvar Dependente</button>
                         </form>
                     </main>
                 </div>
 
                 <div id="page-calendar-ana" class="page inactive-right">
-                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i style="font-size: 1.5rem; margin-right: 2px; font-family: sans-serif;">❮</i>Voltar</button><h1>Calendário (Ana)</h1></header>
-                    <main class="content" style="font-family: sans-serif;"><ul class="vaccine-list inset"><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>BCG</strong> (Dose Única)<span>Aplicada em 10/01/2022</span></div></li><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Aplicada em 10/01/2022</span></div></li><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>Rotavírus</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>Penta</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li><li><i class="status-pendente" style="font-size: 1.8rem;">⚠️</i><div class="list-item-info"><strong>Febre Amarela</strong> (Reforço)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-ana" data-direction="forward"><i style="font-size: 1.2rem;">📍</i>Agendar Dose Pendente</button></main>
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="sf-font">❮</i>Voltar</button><h1>Calendário (Ana)</h1></header>
+                    <main class="content">
+                        <ul class="vaccine-list inset">
+                            <li><i class="status-completa vaccine-list-icon">✅</i><div class="list-item-info"><strong>BCG</strong> (Dose Única)<span>Aplicada em 10/01/2022</span></div></li>
+                            <li><i class="status-completa vaccine-list-icon">✅</i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Aplicada em 10/01/2022</span></div></li>
+                            <li><i class="status-completa vaccine-list-icon">✅</i><div class="list-item-info"><strong>Rotavírus</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li>
+                            <li><i class="status-completa vaccine-list-icon">✅</i><div class="list-item-info"><strong>Penta</strong> (Dose 1)<span>Aplicada em 15/03/2022</span></div></li>
+                            <li><i class="status-pendente vaccine-list-icon">⚠️</i><div class="list-item-info"><strong>Febre Amarela</strong> (Reforço)<span>Pendente - Agendar</span></div></li>
+                        </ul>
+                        <button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-ana" data-direction="forward"><i>📍</i>Agendar Dose Pendente</button>
+                    </main>
                 </div>
                 <div id="page-calendar-joao" class="page inactive-right">
-                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i style="font-size: 1.5rem; margin-right: 2px; font-family: sans-serif;">❮</i>Voltar</button><h1>Calendário (João)</h1></header>
-                    <main class="content" style="font-family: sans-serif;"><ul class="vaccine-list inset"><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>Penta</strong> (Reforço 1)<span>Concluído</span></div></li><li><i class="status-completa" style="font-size: 1.8rem;">✅</i><div class="list-item-info"><strong>Poliomielite</strong> (Reforço 1)<span>Concluído</span></div></li><li><i class="status-atrasada" style="font-size: 1.8rem;">❗</i><div class="list-item-info"><strong>Tríplice Viral</strong> (Reforço)<span>Atrasada desde 01/10/2025</span></div></li></ul><button class="btn btn-primary btn-alert" data-page="page-schedule" data-origin="page-calendar-joao" data-direction="forward"><i style="font-size: 1.2rem;">⚠️</i>Agendar Dose Atrasada</button></main>
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="sf-font">❮</i>Voltar</button><h1>Calendário (João)</h1></header>
+                    <main class="content">
+                        <ul class="vaccine-list inset">
+                            <li><i class="status-completa vaccine-list-icon">✅</i><div class="list-item-info"><strong>Penta</strong> (Reforço 1)<span>Concluído</span></div></li>
+                            <li><i class="status-completa vaccine-list-icon">✅</i><div class="list-item-info"><strong>Poliomielite</strong> (Reforço 1)<span>Concluído</span></div></li>
+                            <li><i class="status-atrasada vaccine-list-icon">❗</i><div class="list-item-info"><strong>Tríplice Viral</strong> (Reforço)<span>Atrasada desde 01/10/2025</span></div></li>
+                        </ul>
+                        <button class="btn btn-primary btn-alert" data-page="page-schedule" data-origin="page-calendar-joao" data-direction="forward"><i>⚠️</i>Agendar Dose Atrasada</button>
+                    </main>
                 </div>
                 <div id="page-calendar-generic" class="page inactive-right">
-                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i style="font-size: 1.5rem; margin-right: 2px; font-family: sans-serif;">❮</i>Voltar</button><h1 id="generic-calendar-title">Calendário</h1></header>
-                    <main class="content" style="font-family: sans-serif;"><p class="content-description">Este é um calendário simulado para o novo dependente.</p><ul class="vaccine-list inset"><li><i class="status-pendente" style="font-size: 1.8rem;">⚠️</i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Pendente - Agendar</span></div></li></ul><button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-generic" data-direction="forward"><i style="font-size: 1.2rem;">📍</i>Agendar Dose</button></main>
+                    <header class="header-page"><button class="header-back" data-page="page-dashboard" data-direction="back"><i class="sf-font">❮</i>Voltar</button><h1 id="generic-calendar-title">Calendário</h1></header>
+                    <main class="content">
+                        <p class="content-description">Este é um calendário simulado para o novo dependente.</p>
+                        <ul class="vaccine-list inset">
+                            <li><i class="status-pendente vaccine-list-icon">⚠️</i><div class="list-item-info"><strong>Hepatite B</strong> (Dose 1)<span>Pendente - Agendar</span></div></li>
+                        </ul>
+                        <button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-generic" data-direction="forward"><i>📍</i>Agendar Dose</button>
+                    </main>
                 </div>
 
                 <div id="page-schedule" class="page inactive-right">
                     <header class="header-page">
-                        <button class="header-back" id="schedule-back-button" data-direction="back"><i style="font-size: 1.5rem; margin-right: 2px; font-family: sans-serif;">❮</i>Voltar</button>
+                        <button class="header-back" id="schedule-back-button" data-direction="back"><i class="sf-font">❮</i>Voltar</button>
                         <h1>Agendar Vacina</h1>
                     </header>
                     <main class="content">
-                        <p class="content-description">Usando sua localização para encontrar a UBS mais próxima...</p>
+                        <p class="content-description">Usando sua localização para encontrar η UBS mais próxima...</p>
                         
                         <figure class="map-placeholder">
                             <img src="image_b3de88.png" alt="Simulação de mapa de Curitiba com UBS">
@@ -154,27 +196,27 @@
                         <h1>Incentivos</h1>
                     </header>
 
-                    <main class="content" style="font-family: sans-serif;">
+                    <main class="content">
                         <div class="card points-card">
-                            <i style="font-size: 48px; color: #FFD166;">✨</i>
+                            <i class="points-icon">✨</i>
                             <div class="points-info"><span>Seus Pontos Imuni</span><strong id="user-points-display">0</strong></div>
                         </div>
                         <h3 class="content-subtitle">Recompensas para Resgatar</h3>
                         <div class="card reward-card" id="reward-farmacia">
-                            <div class="reward-icon"><i style="font-size: 24px; color: #007EA7;">💊</i></div>
+                            <div class="reward-icon"><i>💊</i></div>
                             <div class="reward-info"><strong>15% Desconto Farmácia</strong><span>Custo: 1000 Pontos</span></div>
                             <button class="btn btn-secondary btn-redeem" disabled>Resgatar</button>
                         </div>
                         <div class="card reward-card" id="reward-ir">
-                            <div class="reward-icon"><i style="font-size: 24px; color: #007EA7;">🧾</i></div>
+                            <div class="reward-icon"><i>🧾</i></div>
                             <div class="reward-info"><strong>Abatimento no IR</strong><span>Custo: 5000 Pontos</span></div>
                             <button class="btn btn-secondary btn-redeem" disabled>Resgatar</button>
                         </div>
                         <h3 class="content-subtitle">Minhas Conquistas</h3>
                         <div class="achievements-grid">
-                            <div class="badge locked" data-badge-id="first-dose"><i style="font-size: 36px; color: #00A8E8;">🏅</i><span>Primeira Dose</span></div>
-                            <div class="badge locked" data-badge-id="full-calendar"><i style="font-size: 36px; color: #00A8E8;">🛡️</i><span>Super Protegido</span></div>
-                            <div class="badge locked" data-badge-id="champion"><i style="font-size: 36px; color: #00A8E8;">🏆</i><span>Campeão</span></div>
+                            <div class="badge locked" data-badge-id="first-dose"><i>🏅</i><span>Primeira Dose</span></div>
+                            <div class="badge locked" data-badge-id="full-calendar"><i>🛡️</i><span>Super Protegido</span></div>
+                            <div class="badge locked" data-badge-id="champion"><i>🏆</i><span>Campeão</span></div>
                         </div>
                     </main>
                 </div>
@@ -186,7 +228,7 @@
                     </button>
                     <button data-page="page-incentives" class="nav-item">
                         <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzhlOGU5MyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMzkuNjEsMTM3Ljg1YTE2LDE2LDAsMCwwLTIwLjMxLTEuMTZMMjA4LDE0Mi4xVjEyMGE4LDgsMCwwLDAtOC04aC0zMmE4LDgsMCwwLDAtOCw4djIyLjFsLTEyLjY5LTUuNDRhMTYsMTYsMCwwLDAtMTQuNjIsMEwxMjAsMTQyLjFWMTA0YTgsOCwwLDAsMC04LThINzJhOCw4LDAsMCwwLTgsOHY0NS4ybC04LjA5LDguMzlhMTYsMTYsMCwwLDAtNC42NywyMS43N2wzMiw5NmE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVpNMTcyLDEyOEgzMnYxNloiLz48L3N2Zz4=" class="nav-icon icon-regular" alt="Incentivos">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwN0VBNyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMzkuNjEsMTM3Ljg1YTE2LDE2LDAsMCwwLTIwLjMxLTEuMTZMMjA4LDE0Mi4xVjEyMGE4LDgsMCwwLDAtOC04aC0zMmE4LDgsMCwwLDAtOCw4djIyLjFsLTEyLjY5LTUuNDRhMTYsMTYsMCwwLDAtMTQuNjIsMEwxMjAsMTQyLjFWMTA0YTgsOCwwLDAsMC04LThINzJhOCw4LDAsMCwwLTgsOHY0NS4ybC04LjA5LDguMzlhMTYsMTYsMCwwLDAtNC42NywyMS43N2wzMiw5NmE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVoiLz48L3N2Zz4=" class="nav-icon icon-active" alt="Incentivos Ativo">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwN0VBNyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMzkuNjEsMTM3Ljg1YTE2LDE2LDAsMCwwLTIwLjMxLTEuMTZMMjA4LDE0Mi4xVjEyMGE4LDgsMCwwLDAtOC04aC0zMmE4LDgsMCwwLDAtOCw4djIyLjFsLTEyLjY5LTUuNDRhMTYsMTYsMCwwLDAtMTQuNjIsMEwxMjAsMTQyLjFWMTA0YTgsOCwwLDAsMC04LThINzJhOCw4LDAsMCwwLTgsOHY0NS4ybC04LjA5LDguMzlhMTYsMTYsMCwwLDAtNC42NywyMS47N2wzMiw5NmE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVoiLz48L3N2Zz4=" class="nav-icon icon-active" alt="Incentivos Ativo">
                         <span>Incentivos</span>
                     </button>
                 </nav>
