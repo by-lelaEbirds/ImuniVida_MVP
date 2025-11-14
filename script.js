@@ -103,32 +103,30 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * =================================================
      * CORREÇÃO DE BUG (Ícone Transparente)
-     * Função reescrita para ser explícita e
-     * definir o estado de AMBOS os ícones.
+     * Função reescrita para usar 'classList' e
+     * garantir que os estados (regular/fill)
+     * sejam trocados corretamente.
      * =================================================
      */
     function updateBottomNav(pageId) {
         const navButtons = document.querySelectorAll('.nav-item');
         navButtons.forEach(button => button.classList.remove('active'));
 
-        // Lógica explícita para evitar o bug de "ícone transparente"
+        // 1. Reseta ambos os ícones para o estado 'regular'
+        navIcons.home.classList.remove('ph-fill');
+        navIcons.home.classList.add('ph-regular');
+        navIcons.incentives.classList.remove('ph-fill');
+        navIcons.incentives.classList.add('ph-regular');
+
+        // 2. Ativa o ícone da página atual
         if (pageId === 'page-dashboard') {
-            // Ativa o 'Início'
             navButtons[0].classList.add('active');
-            navIcons.home.className = 'ph-fill ph-house';
-            navIcons.incentives.className = 'ph-regular ph-star'; // Garante que o outro esteja regular
-
+            navIcons.home.classList.remove('ph-regular');
+            navIcons.home.classList.add('ph-fill');
         } else if (pageId === 'page-incentives') {
-            // Ativa o 'Incentivos'
             navButtons[1].classList.add('active');
-            navIcons.home.className = 'ph-regular ph-house'; // Garante que o outro esteja regular
-            navIcons.incentives.className = 'ph-fill ph-star';
-
-        } else {
-            // Nenhuma aba ativa (ex: tela de login)
-            // Reseta ambos para regular (embora a barra esteja oculta)
-            navIcons.home.className = 'ph-regular ph-house';
-            navIcons.incentives.className = 'ph-regular ph-star';
+            navIcons.incentives.classList.remove('ph-regular');
+            navIcons.incentives.classList.add('ph-fill');
         }
     }
 
