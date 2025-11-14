@@ -320,9 +320,40 @@ document.addEventListener('DOMContentLoaded', () => {
         formAddDependent.reset();
     });
 
+    /*
+    =================================================
+    TAPA 3 & 5: MÁGICA DO SCROLL (Collapsing Header)
+    =================================================
+    */
+    function initializeScrollMagic() {
+        // Pega todas as páginas que têm a barra de navegação
+        const pagesWithNav = document.querySelectorAll('.page-with-nav');
+        
+        pagesWithNav.forEach(page => {
+            const contentArea = page.querySelector('.content');
+            if (contentArea) {
+                // Adiciona o listener de scroll em CADA área de conteúdo
+                contentArea.addEventListener('scroll', () => {
+                    const scrollTop = contentArea.scrollTop;
+                    
+                    // Adiciona/Remove a classe '.scrolled' na PÁGINA
+                    // O 'scrollThreshold' (30) é a distância de scroll
+                    // antes da animação começar.
+                    const scrollThreshold = 30;
+                    if (scrollTop > scrollThreshold) {
+                        page.classList.add('scrolled');
+                    } else {
+                        page.classList.remove('scrolled');
+                    }
+                });
+            }
+        });
+    }
+
     // --- Inicialização ---
     loadDependents(); 
     updateIncentivesPage(); // Carrega pontos e medalhas
+    initializeScrollMagic(); // TAPA 3: Ativa o listener de scroll
     simulator.classList.remove('nav-is-visible');
     simulator.dataset.theme = 'dark';
 });
