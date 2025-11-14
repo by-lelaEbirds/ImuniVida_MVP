@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImuniVida - Protótipo MVP</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <div class="iphone-simulator">
+        <div class="notch"></div>
+        <div class="screen">
+            
+            <div id="page-login" class="page active">
+                <header class="header-main">
+                    <h1>ImuniVida</h1>
+                </header>
+                <main class="content">
+                    <img src="https://i.imgur.com/g0j2g1C.png" alt="Logo ImuniVida" class="logo">
+                    <p>Seu assistente de imunização infantil[cite: 2].</p>
+                    <button id="btn-login-gov" class="btn btn-primary">
+                        <img src="https://i.imgur.com/kS9Ym0m.png" alt="Gov.br" class="gov-logo">
+                        Entrar com Gov.br
+                    </button>
+                    <p class="small-text">Autenticação segura via sistema de identificação nacional[cite: 14].</p>
+                </main>
+            </div>
+
+            <div id="page-dashboard" class="page">
+                <header class="header-main">
+                    <h1>Meus Dependentes</h1>
+                </header>
+                <main class="content">
+                    <p>Selecione um dependente para ver o calendário vacinal.</p>
+                    <div class="card" data-page="page-calendar">
+                        <span class="material-icons card-icon">child_care</span>
+                        <div class="card-info">
+                            <strong>Ana Silva (3 anos)</strong>
+                            <span>Próxima dose: <strong>Febre Amarela</strong></span>
+                            <span class="status-pendente">1 dose pendente</span>
+                        </div>
+                    </div>
+                    <div class="card" data-page="page-calendar-joao">
+                        <span class="material-icons card-icon">child_care</span>
+                        <div class="card-info">
+                            <strong>João Souza (5 anos)</strong>
+                            <span>Próxima dose: <strong>Tríplice Viral</strong></span>
+                            <span class="status-atrasada">1 dose atrasada!</span>
+                        </div>
+                    </div>
+                     <div class="card" data-page="page-calendar">
+                        <span class="material-icons card-icon">add</span>
+                        <div class="card-info">
+                            <strong>Adicionar Dependente</strong>
+                            <span>Cadastre uma nova criança[cite: 14].</span>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <div id="page-calendar" class="page">
+                <header class="header-page">
+                    <span class="material-icons" data-page="page-dashboard">arrow_back</span>
+                    <h1>Calendário (Ana)</h1>
+                </header>
+                <main class="content">
+                    <ul class="vaccine-list">
+                        <li>
+                            <span class="status-completa">✔</span>
+                            <strong>BCG</strong> (Dose Única)
+                            <span>Aplicada em 10/01/2022</span>
+                        </li>
+                        <li>
+                            <span class="status-completa">✔</span>
+                            <strong>Hepatite B</strong> (Dose 1)
+                            <span>Aplicada em 10/01/2022</span>
+                        </li>
+                        <li>
+                            <span class="status-pendente">!</span>
+                            <strong>Febre Amarela</strong> (Reforço)
+                            <span>Pendente - Agendar</span>
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary" data-page="page-schedule">
+                        <span class="material-icons">location_on</span>
+                        Agendar Dose Pendente 
+                    </button>
+                </main>
+            </div>
+
+            <div id="page-calendar-joao" class="page">
+                <header class="header-page">
+                    <span class="material-icons" data-page="page-dashboard">arrow_back</span>
+                    <h1>Calendário (João)</h1>
+                </header>
+                <main class="content">
+                    <ul class="vaccine-list">
+                        <li>
+                            <span class="status-completa">✔</span>
+                            <strong>Poliomielite</strong> (Dose 1, 2, 3)
+                            <span>Concluído</span>
+                        </li>
+                         <li>
+                            <span class="status-atrasada">!</span>
+                            <strong>Tríplice Viral</strong> (Reforço) [cite: 7]
+                            <span>Atrasada desde 01/10/2025</span>
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary btn-alert" data-page="page-schedule">
+                        <span class="material-icons">warning</span>
+                        Agendar Dose Atrasada 
+                    </button>
+                </main>
+            </div>
+
+
+            <div id="page-schedule" class="page">
+                <header class="header-page">
+                    <span class="material-icons" data-page="page-calendar">arrow_back</span>
+                    <h1>Agendar Vacina</h1>
+                </header>
+                <main class="content">
+                    <p>Usando sua localização para encontrar a UBS mais próxima[cite: 14]...</p>
+                    <div class="map-placeholder">
+                                                <p>(Simulação de Mapa - Google Maps API)</p>
+                    </div>
+                    <div class="ubs-list">
+                        <strong>Postos de Saúde Próximos:</strong>
+                        <div class="card-ubs">
+                            <strong>UBS Vila Saúde</strong>
+                            <span>Rua das Flores, 123 - <strong>(1.2km)</strong></span>
+                            <button class="btn btn-secondary" id="btn-confirm-vaccine">Confirmar Agendamento</button>
+                        </div>
+                        <div class="card-ubs">
+                            <strong>UBS Centro</strong>
+                            <span>Av. Principal, 500 - <strong>(2.5km)</strong></span>
+                            <button class="btn btn-secondary" disabled>Agendar</button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            
+            <div id="page-incentives" class="page">
+                <header class="header-main">
+                    <h1>Incentivos</h1>
+                </header>
+                <main class="content">
+                    <div class="incentive-status">
+                        <p>Complete o calendário vacinal para desbloquear benefícios.</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 80%;">80%</div>
+                        </div>
+                    </div>
+
+                    <div id="incentive-locked" class="incentive-card locked">
+                        <span class="material-icons icon-lock">lock</span>
+                        <strong>Benefício Bloqueado</strong>
+                        <p>Confirme a última vacina para desbloquear seu incentivo econômico[cite: 14].</p>
+                    </div>
+
+                    <div id="incentive-unlocked" class="incentive-card unlocked" style="display: none;">
+                        <span class="material-icons icon-unlocked">lock_open</span>
+                        <strong>Benefício Desbloqueado!</strong>
+                        <p>Parabéns! O calendário de Ana está completo. Você desbloqueou:</p>
+                        <div class="benefit">
+                           <strong>15% de Desconto</strong> em farmácias parceiras[cite: 17].
+                        </div>
+                        <p class="small-text">(Ou abatimento no Imposto de Renda)[cite: 18].</p>
+                    </div>
+                </main>
+            </div>
+
+            <nav class="bottom-nav">
+                <button data-page="page-dashboard" class="nav-item active">
+                    <span class="material-icons">home</span>
+                    Início
+                </button>
+                <button data-page="page-incentives" class="nav-item">
+                    <span class="material-icons">star</span>
+                    Incentivos
+                </button>
+            </nav>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
