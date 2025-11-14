@@ -81,7 +81,6 @@ body {
 #page-homescreen .wallpaper {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    /* Wallpaper Premium iOS 18 (Estável) */
     background-image: url('https://i.imgur.com/0v2Rkyp.jpg');
     background-size: cover;
     background-position: center;
@@ -90,23 +89,22 @@ body {
 .icon-grid {
     position: relative;
     z-index: 2;
-    padding: 80px 25px 20px 25px; /* Alinhamento Corrigido */
+    padding: 80px 25px 20px 25px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px; /* Espaçamento Corrigido */
+    gap: 15px; 
 }
 .app-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px; /* Espaçamento Corrigido */
+    gap: 8px;
     color: white;
     font-size: 0.7rem;
     font-weight: 500;
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     cursor: pointer;
 }
-/* Estilo para ícones de Imagem (Alta Fidelidade) */
 .app-icon img, .app-icon .app-icon-img {
     width: 60px;
     height: 60px;
@@ -127,14 +125,12 @@ body {
     -webkit-backdrop-filter: blur(15px);
     border-radius: 25px;
     z-index: 2;
-    display: grid; /* Alinhamento Corrigido */
+    display: grid; 
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
     padding: 0 15px;
 }
-.dock .app-icon {
-    gap: 0; /* Sem gap no dock */
-}
+.dock .app-icon { gap: 0; }
 .dock .app-icon span { display: none; }
 .dock .app-icon[data-page="page-login"] span { display: block; }
 
@@ -148,10 +144,16 @@ body {
     display: flex;
     flex-direction: column;
     background: #f0f2f5;
+    /* Animação de SLIDE (padrão) */
     transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
-.page.active { transform: translateX(0); z-index: 10; }
-.page.inactive-right { transform: translateX(100%); z-index: 5; }
+/* Animação de FADE (para troca de abas) */
+.page.fade-transition {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.page.active { transform: translateX(0); z-index: 10; opacity: 1; }
+.page.inactive-right { transform: translateX(100%); z-index: 5; opacity: 1; }
 .page.inactive-left { transform: translateX(-30%); z-index: 5; opacity: 0.7; }
 #page-homescreen.active { z-index: 2; }
 
@@ -186,7 +188,6 @@ body {
 }
 .header-back ion-icon { font-size: 1.5rem; margin-right: -2px; }
 
-/* Conteúdo Principal (Padding dinâmico) */
 .content {
     flex-grow: 1;
     padding: 20px;
@@ -195,13 +196,11 @@ body {
 }
 .page-with-nav .content { padding-bottom: 80px; }
 .content-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #333;
     margin-top: 25px;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 10px;
 }
 
 /* Tela de Login */
@@ -255,6 +254,35 @@ body {
 .card-info span { font-size: 0.9rem; color: #555; }
 .card-arrow { font-size: 1.2rem; color: #c7c7cc; }
 
+/* NOVO: Card de Status Rápido */
+.status-card {
+    background: linear-gradient(135deg, #00A8E8, #007EA7);
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    cursor: default;
+}
+.status-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+}
+.status-item span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+.status-item strong {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.status-item.overdue strong {
+    color: #FFD166; /* Amarelo alerta */
+}
+
 /* Formulário */
 .form-group-inset { background: #fff; border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
 .form-group { padding: 12px 15px; border-bottom: 1px solid #f0f0f0; }
@@ -291,11 +319,7 @@ body {
 .incentive-card ion-icon { font-size: 40px; margin-bottom: 10px; }
 .benefit { background: white; padding: 15px; border-radius: 8px; margin-top: 15px; color: #333; font-weight: 600; }
 
-.achievements-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-}
+.achievements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
 .badge {
     background: #fff;
     border-radius: 12px;
@@ -306,30 +330,18 @@ body {
     justify-content: center;
     gap: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
 }
-.badge ion-icon {
-    font-size: 36px;
-    color: #00A8E8;
-}
-.badge span {
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-align: center;
-}
+.badge ion-icon { font-size: 36px; color: #00A8E8; }
+.badge span { font-size: 0.8rem; font-weight: 500; text-align: center; }
+/* Estilo de Emblema Bloqueado (V8) */
 .badge.locked {
     background: #f0f0f0;
     color: #aaa;
+    filter: grayscale(100%);
+    opacity: 0.7;
 }
-.badge.locked ion-icon {
-    color: #ccc;
-}
-#badge-first-dose { /* Badge de exemplo já ganha */
-    background: #e6ffed;
-    color: #2e7d32;
-}
-#badge-first-dose ion-icon {
-    color: #5cb85c;
-}
+.badge.locked ion-icon { color: #ccc; }
 
 
 /* Navegação Inferior (Lógica de Show/Hide) */
