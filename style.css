@@ -1,0 +1,409 @@
+/* Reset Básico e Fontes iOS */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-image: linear-gradient(-45deg, #e0e7ff, #c7d2fe, #a5b4fc, #818cf8);
+    background-size: 400% 400%;
+    animation: backgroundPan 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #1c1c1e;
+    padding: 40px 20px;
+    perspective: 1500px;
+}
+
+@keyframes backgroundPan {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Simulador do Dispositivo (iPhone) */
+.iphone-simulator {
+    width: 375px;
+    height: 812px; 
+    background: #111;
+    border: 10px solid #111;
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    transform: rotateX(3deg) rotateY(-4deg);
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.1), -20px 20px 50px rgba(0,0,0,0.2);
+    transition: transform 0.5s ease;
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    background: #f9f9f9;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden; 
+}
+
+/* Ilha Dinâmica (Pílula) */
+.dynamic-island {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 30px;
+    background: #111;
+    border-radius: 20px;
+    z-index: 100;
+}
+
+/* Barra de Status iOS */
+.status-bar {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    right: 20px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    z-index: 50;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #111;
+}
+.iphone-simulator[data-theme="dark"] .status-bar { color: #fff; }
+.status-bar .status-icons { display: flex; gap: 6px; font-size: 1.1rem; }
+
+/* Indicador Home iOS */
+.home-indicator {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 135px;
+    height: 5px;
+    background: #444;
+    border-radius: 5px;
+    z-index: 100;
+}
+.iphone-simulator[data-theme="dark"] .home-indicator { background: #bbb; }
+
+/* --- Tela Inicial (Home Screen) --- */
+#page-homescreen .wallpaper {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* CORRIGIDO: Usando seu wallpaper local */
+    background-image: url('449380-1280.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+.icon-grid {
+    position: relative;
+    z-index: 2;
+    padding: 80px 25px 20px 25px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px; 
+}
+.app-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+/* Estilo para ícones Phosphor <i> */
+.app-icon i {
+    font-size: 32px;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.app-icon span { text-align: center; }
+
+.dock {
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+    right: 10px;
+    height: 90px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 25px;
+    z-index: 2;
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    padding: 0 15px;
+}
+.dock .app-icon { gap: 0; }
+.dock .app-icon span { display: none; }
+.dock .app-icon[data-page="page-login"] span { display: block; }
+
+/* --- Estrutura e Animação das Páginas --- */
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    background: #f0f2f5;
+    /* Transição de SLIDE (Padrão) */
+    transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    z-index: 1;
+    opacity: 0;
+}
+/* Transição de FADE (para troca de abas) */
+.page.tab-transition {
+    transition: opacity 0.2s ease-in-out;
+}
+.page.active {
+    transform: translateX(0);
+    z-index: 10;
+    opacity: 1;
+}
+.page.inactive-right {
+    transform: translateX(100%);
+    opacity: 0; /* Começa opaco para slide-out */
+}
+.page.inactive-left {
+    transform: translateX(-30%);
+    opacity: 0.7;
+}
+
+#page-homescreen.active { z-index: 2; }
+
+/* --- Componentes --- */
+.header-main {
+    padding: 55px 20px 15px 20px;
+    background: linear-gradient(135deg, #00A8E8, #007EA7);
+    color: white;
+}
+.header-main h1 { font-size: 1.8rem; font-weight: 700; }
+.header-page {
+    padding: 55px 15px 15px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+.header-page h1 { font-size: 1.1rem; font-weight: 600; color: #111; }
+.header-back {
+    position: absolute;
+    left: 10px;
+    top: 50px;
+    background: none;
+    border: none;
+    color: #007EA7;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+.header-back i { font-size: 1.5rem; margin-right: 2px; }
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    padding-bottom: 30px; 
+}
+.page-with-nav .content { padding-bottom: 80px; }
+.content-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* Tela de Login */
+#page-login .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+#page-login.page { background: white; }
+.logo-icon {
+    font-size: 100px;
+    color: #00A8E8;
+    margin-bottom: 20px;
+}
+.gov-logo { height: 24px; margin-right: 10px; }
+.small-text { font-size: 0.8rem; color: #777; margin-top: 15px; }
+
+/* Botões */
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 20px;
+    gap: 8px;
+}
+.btn i { font-size: 1.2rem; }
+.btn-primary { background-color: #007EA7; color: white; }
+.btn-primary.btn-alert { background-color: #d9534f; }
+.btn-secondary { background-color: #e5e5ea; color: #007EA7; font-weight: 500;}
+
+/* Cards */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+.card-icon { font-size: 36px; color: #00A8E8; }
+.card-icon-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.card-info { display: flex; flex-direction: column; gap: 2px; flex-grow: 1; }
+.card-info strong { font-size: 1.1rem; }
+.card-info span { font-size: 0.9rem; color: #555; }
+.card-arrow { font-size: 1.2rem; color: #c7c7cc; }
+
+.status-card {
+    background: linear-gradient(135deg, #00A8E8, #007EA7);
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    cursor: default;
+}
+.status-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+.status-item span { font-size: 0.8rem; font-weight: 500; opacity: 0.9; }
+.status-item strong { font-size: 1.1rem; font-weight: 700; }
+.status-item.overdue strong { color: #FFD166; }
+
+/* Formulário */
+.form-group-inset { background: #fff; border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
+.form-group { padding: 12px 15px; border-bottom: 1px solid #f0f0f0; }
+.form-group:last-child { border-bottom: none; }
+.form-group label { display: block; font-size: 0.8rem; font-weight: 500; color: #007EA7; margin-bottom: 5px; }
+.form-input { width: 100%; border: none; font-size: 1rem; padding: 5px 0; outline: none; background: none; }
+.form-input[type="date"] { color: #555; }
+
+/* Status das Doses */
+.status-pendente { color: #f0ad4e; font-weight: 600; }
+.status-atrasada { color: #d9534f; font-weight: 600; }
+.status-completa { color: #5cb85c; }
+
+/* Lista de Vacinas */
+.vaccine-list.inset { list-style: none; width: 100%; background: #fff; border-radius: 12px; overflow: hidden; }
+.vaccine-list li { display: flex; align-items: center; padding: 12px 15px; border-bottom: 1px solid #f0f0f0; gap: 15px; }
+.vaccine-list li:last-child { border-bottom: none; }
+.vaccine-list li i { font-size: 1.8rem; }
+.list-item-info { display: flex; flex-direction: column; }
+.list-item-info strong { font-size: 1rem; font-weight: 500; }
+.list-item-info span { font-size: 0.85rem; color: #777; }
+
+/* Tela de Agendamento */
+.map-placeholder { width: 100%; height: 180px; border-radius: 12px; overflow: hidden; margin: 20px 0; background-color: #e0e0e0; }
+.map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+.card-ubs { background: #fff; border-radius: 12px; padding: 15px; margin-top: 10px; }
+.card-ubs strong { font-size: 1.1rem; }
+.card-ubs span { display: block; font-size: 0.9rem; color: #555; margin: 5px 0; }
+
+/* Tela de Incentivos (Gamificação V10) */
+.points-card {
+    background: linear-gradient(135deg, #007EA7, #00506a);
+    color: white;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+}
+.points-card i { font-size: 48px; color: #FFD166; }
+.points-info span { font-size: 1rem; opacity: 0.9; }
+.points-info strong { font-size: 2.5rem; font-weight: 700; line-height: 1; }
+.reward-card { align-items: center; gap: 15px; padding: 15px; }
+.reward-icon { width: 45px; height: 45px; border-radius: 50%; background: #e5e5ea; display: flex; align-items: center; justify-content: center; }
+.reward-icon i { font-size: 24px; color: #007EA7; }
+.reward-info { flex-grow: 1; }
+.reward-info strong { font-size: 1rem; }
+.reward-info span { font-size: 0.85rem; color: #555; }
+.btn-redeem { width: auto; padding: 8px 15px; font-size: 0.9rem; margin-top: 0; }
+.btn-redeem:not(:disabled) { background-color: #007EA7; color: white; }
+
+.achievements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+.badge { background: #fff; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+.badge i { font-size: 36px; color: #00A8E8; }
+.badge span { font-size: 0.8rem; font-weight: 500; text-align: center; }
+.badge.locked { background: #f0f0f0; color: #aaa; filter: grayscale(100%); opacity: 0.7; }
+.badge.locked i { color: #ccc; }
+.badge:not(.locked) { background: #e6ffed; color: #2e7d32; transform: scale(1.05); }
+.badge:not(.locked) i { color: #5cb85c; }
+
+/* Navegação Inferior (Lógica de Show/Hide) */
+.bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 83px;
+    background: rgba(249, 249, 249, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding-top: 8px;
+    padding-bottom: 30px;
+    z-index: 20;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+}
+.iphone-simulator.nav-is-visible .bottom-nav {
+    transform: translateY(0);
+}
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.7rem;
+    color: #8e8e93;
+}
+/* Estilos dos ícones da Tab Bar (Phosphor) */
+.nav-item i {
+    font-size: 26px;
+    margin-bottom: 2px;
+}
+.nav-item.active { color: #007EA7; }
+/* Ícones da Tab Bar Ativos (Preenchidos) */
+.nav-item.active i {
+    font-weight: 700; /* 'ph-fill' é ativado via JS mudando a classe */
+}
