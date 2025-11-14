@@ -1,17 +1,24 @@
 /* Reset Básico e Fontes iOS */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    /* NOVO: Fundo da página e perspectiva 3D */
-    background-image: radial-gradient(circle, #f0f2f5, #d9dce1);
+    /* NOVO: Fundo animado (Pancada no Design) */
+    background: linear-gradient(-45deg, #e0e7ff, #c7d2fe, #a5b4fc, #818cf8);
+    background-size: 400% 400%;
+    animation: backgroundPan 15s ease infinite;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     color: #1c1c1e;
     padding: 40px 20px;
-    perspective: 1500px; /* Prepara o "palco" 3D */
+    perspective: 1500px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
+
+@keyframes backgroundPan {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
 /* Simulador do Dispositivo (iPhone) */
 .iphone-simulator {
@@ -22,14 +29,9 @@ body {
     border-radius: 40px;
     position: relative;
     overflow: hidden;
-    /* NOVO: Efeito 3D e sombra premium */
     transform: rotateX(3deg) rotateY(-4deg);
-    box-shadow: -10px 10px 30px rgba(0,0,0,0.1), 
-                -20px 20px 50px rgba(0,0,0,0.2);
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.1), -20px 20px 50px rgba(0,0,0,0.2);
     transition: transform 0.5s ease;
-}
-.iphone-simulator:hover {
-    transform: rotateX(0deg) rotateY(0deg); /* Opcional: retifica ao passar o mouse */
 }
 
 .screen {
@@ -71,7 +73,12 @@ body {
     color: #111;
 }
 .iphone-simulator[data-theme="dark"] .status-bar { color: #fff; }
-.status-bar .status-icons { display: flex; gap: 6px; font-size: 1.1rem; }
+.status-bar .status-icons { display: flex; gap: 6px; align-items: center; }
+.status-icon {
+    height: 16px;
+    width: 16px;
+    filter: drop-shadow(0 0 1px rgba(0,0,0,0.3));
+}
 
 /* Indicador Home iOS */
 .home-indicator {
@@ -91,7 +98,6 @@ body {
 #page-homescreen .wallpaper {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    /* NOVO: Carregando seu wallpaper local */
     background-image: url('449380-1280.jpg');
     background-size: cover;
     background-position: center;
@@ -116,16 +122,13 @@ body {
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     cursor: pointer;
 }
-/* NOVO: Estilo para ícones Phosphor na Home */
-.app-icon i {
-    font-size: 32px;
+/* Ícones <img> da Homescreen */
+.app-icon img, .app-icon .app-icon-img {
     width: 60px;
     height: 60px;
     border-radius: 12px;
+    object-fit: cover;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 .app-icon span { text-align: center; }
 
@@ -160,21 +163,28 @@ body {
     flex-direction: column;
     background: #f0f2f5;
     transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    z-index: 1;
+    opacity: 0; /* Começa invisível */
 }
-.page.fade-transition {
+.page.active {
+    transform: translateX(0);
+    z-index: 10;
+    opacity: 1;
+}
+.page.inactive-right {
+    transform: translateX(100%);
+    opacity: 1; /* Precisa de opacidade para a animação de saída */
+}
+.page.inactive-left {
+    transform: translateX(-30%);
+    opacity: 0.7;
+}
+/* Transição de Aba (Fade) */
+.page.tab-transition {
     transition: opacity 0.2s ease-in-out, transform 0s;
 }
 
-.page.active { transform: translateX(0); z-index: 10; opacity: 1; }
-.page.inactive-right { transform: translateX(100%); z-index: 5; opacity: 1; }
-.page.inactive-left { transform: translateX(-30%); z-index: 5; opacity: 0.7; }
-/* Usado para troca de abas */
-.page:not(.active) {
-    opacity: 0;
-    z-index: 1;
-}
 #page-homescreen.active { z-index: 2; }
-
 
 /* --- Componentes --- */
 .header-main {
@@ -231,11 +241,7 @@ body {
     justify-content: center;
 }
 #page-login.page { background: white; }
-.logo-icon {
-    font-size: 100px;
-    color: #00A8E8;
-    margin-bottom: 20px;
-}
+.logo-img { width: 120px; height: 120px; margin-bottom: 20px; }
 .gov-logo { height: 24px; margin-right: 10px; }
 .small-text { font-size: 0.8rem; color: #777; margin-top: 15px; }
 
@@ -272,6 +278,12 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.04);
 }
 .card-icon { font-size: 36px; color: #00A8E8; }
+.card-icon-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
 .card-info { display: flex; flex-direction: column; gap: 2px; flex-grow: 1; }
 .card-info strong { font-size: 1.1rem; }
 .card-info span { font-size: 0.9rem; color: #555; }
@@ -319,12 +331,61 @@ body {
 .card-ubs strong { font-size: 1.1rem; }
 .card-ubs span { display: block; font-size: 0.9rem; color: #555; margin: 5px 0; }
 
-/* Tela de Incentivos e Gamificação */
-.incentive-card { border-radius: 12px; padding: 25px; text-align: center; background: #fff; }
-.incentive-card.locked { color: #888; }
-.incentive-card.unlocked { background: #e6ffed; border: 1px solid #5cb85c; color: #2e7d32; display: none; }
-.incentive-card i { font-size: 40px; margin-bottom: 10px; }
-.benefit { background: white; padding: 15px; border-radius: 8px; margin-top: 15px; color: #333; font-weight: 600; }
+/* NOVO: Tela de Incentivos (Gamificação V10) */
+.points-card {
+    background: linear-gradient(135deg, #007EA7, #00506a);
+    color: white;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+}
+.points-card i {
+    font-size: 48px;
+    color: #FFD166;
+}
+.points-info span {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+.points-info strong {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+.reward-card {
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+.reward-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #e5e5ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.reward-icon i {
+    font-size: 24px;
+    color: #007EA7;
+}
+.reward-info {
+    flex-grow: 1;
+}
+.reward-info strong { font-size: 1rem; }
+.reward-info span { font-size: 0.85rem; color: #555; }
+.btn-redeem {
+    width: auto;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    margin-top: 0;
+}
+.btn-redeem:not(:disabled) {
+    background-color: #007EA7;
+    color: white;
+}
 
 .achievements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
 .badge {
@@ -348,14 +409,12 @@ body {
     opacity: 0.7;
 }
 .badge.locked i { color: #ccc; }
-/* Estilo para quando a medalha é desbloqueada */
 .badge:not(.locked) {
     background: #e6ffed;
     color: #2e7d32;
+    transform: scale(1.05); /* Efeito de "pop" */
 }
-.badge:not(.locked) i {
-    color: #5cb85c;
-}
+.badge:not(.locked) i { color: #5cb85c; }
 
 /* Navegação Inferior (Lógica de Show/Hide) */
 .bottom-nav {
@@ -390,9 +449,11 @@ body {
     font-size: 0.7rem;
     color: #8e8e93;
 }
-.nav-item i { font-size: 24px; margin-bottom: 2px; }
-.nav-item.active { color: #007EA7; }
-/* Ícones da Tab Bar Ativos (Preenchidos) */
-.nav-item.active i {
-    font-weight: 700; /* 'ph-fill' ou 'ph-bold' podem ser usados, mas peso da fonte é mais fácil */
+.nav-item img {
+    width: 26px;
+    height: 26px;
+    margin-bottom: 2px;
 }
+.nav-item.active { color: #007EA7; }
+/* Esconde o local de dados dos ícones */
+#nav-icon-data { display: none; }
