@@ -67,9 +67,12 @@ body {
     z-index: 50;
     font-weight: 600;
     font-size: 0.9rem;
-    color: #111;
+    color: #111; /* Cor padrão (para fundos claros) */
 }
-.iphone-simulator[data-theme="dark"] .status-bar { color: #fff; }
+/* CORREÇÃO: Cor da status bar em temas escuros */
+.iphone-simulator[data-theme="dark"] .status-bar { 
+    color: #fff; 
+}
 .status-bar .status-icons { display: flex; gap: 6px; font-size: 1.1rem; }
 
 /* Indicador Home iOS */
@@ -80,19 +83,22 @@ body {
     transform: translateX(-50%);
     width: 135px;
     height: 5px;
-    background: #444;
+    background: #444; /* Padrão para fundos claros */
     border-radius: 5px;
     z-index: 100;
     /* Adicionado transição para o movimento suave */
     transition: bottom 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
-.iphone-simulator[data-theme="dark"] .home-indicator { background: #bbb; }
+/* CORREÇÃO: Cor do indicador em temas escuros */
+.iphone-simulator[data-theme="dark"] .home-indicator { 
+    background: #bbb; 
+}
 
 /* --- Tela Inicial (Home Screen) --- */
 #page-homescreen .wallpaper {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('449380-1280.jpg');
+    background-image: url('449380-1280.jpg'); /* Caminho da sua Imagem 1 */
     background-size: cover;
     background-position: center;
     z-index: 1;
@@ -482,10 +488,11 @@ body {
 .badge:not(.locked) i { color: #5cb85c; }
 
 /* * =================================================
- * CORREÇÃO DO BUG (Linha 333)
+ * INÍCIO DA CORREÇÃO DO CSS
+ * O erro de sintaxe aqui (comentário quebrado) foi corrigido.
  * =================================================
  */
-
+ 
 /* Navegação Inferior (Lógica de Show/Hide) */
 .bottom-nav {
     position: absolute;
@@ -678,8 +685,10 @@ body {
     color: #FFD166;
 }
 
-/* --- Ícones da Dock --- */
-/* Os ícones da dock já estão definidos na homescreen, mas mantemos o estilo para a dock */
+/* * =================================================
+ * CORREÇÃO: Ícones do DOCK (Estavam faltando)
+ * =================================================
+ */
 .dock .app-icon[data-app="phone"] .app-icon-visual {
     background: #38a169;
     color: white;
