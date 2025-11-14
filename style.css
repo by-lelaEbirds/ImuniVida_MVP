@@ -1,13 +1,15 @@
 /* Reset Básico e Fontes iOS */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background-color: #f0f2f5;
+    /* NOVO: Fundo da página e perspectiva 3D */
+    background-image: radial-gradient(circle, #f0f2f5, #d9dce1);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     color: #1c1c1e;
-    padding: 20px;
+    padding: 40px 20px;
+    perspective: 1500px; /* Prepara o "palco" 3D */
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,10 +20,18 @@ body {
     background: #111;
     border: 10px solid #111;
     border-radius: 40px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     position: relative;
     overflow: hidden;
+    /* NOVO: Efeito 3D e sombra premium */
+    transform: rotateX(3deg) rotateY(-4deg);
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.1), 
+                -20px 20px 50px rgba(0,0,0,0.2);
+    transition: transform 0.5s ease;
 }
+.iphone-simulator:hover {
+    transform: rotateX(0deg) rotateY(0deg); /* Opcional: retifica ao passar o mouse */
+}
+
 .screen {
     width: 100%;
     height: 100%;
@@ -61,7 +71,7 @@ body {
     color: #111;
 }
 .iphone-simulator[data-theme="dark"] .status-bar { color: #fff; }
-.status-bar .status-icons { display: flex; gap: 4px; font-size: 1rem; }
+.status-bar .status-icons { display: flex; gap: 6px; font-size: 1.1rem; }
 
 /* Indicador Home iOS */
 .home-indicator {
@@ -81,7 +91,8 @@ body {
 #page-homescreen .wallpaper {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('https://i.imgur.com/0v2Rkyp.jpg');
+    /* NOVO: Carregando seu wallpaper local */
+    background-image: url('449380-1280.jpg');
     background-size: cover;
     background-position: center;
     z-index: 1;
@@ -105,12 +116,16 @@ body {
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     cursor: pointer;
 }
-.app-icon img, .app-icon .app-icon-img {
+/* NOVO: Estilo para ícones Phosphor na Home */
+.app-icon i {
+    font-size: 32px;
     width: 60px;
     height: 60px;
     border-radius: 12px;
-    object-fit: cover;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .app-icon span { text-align: center; }
 
@@ -144,18 +159,22 @@ body {
     display: flex;
     flex-direction: column;
     background: #f0f2f5;
-    /* Animação de SLIDE (padrão) */
     transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
-/* Animação de FADE (para troca de abas) */
 .page.fade-transition {
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out, transform 0s;
 }
 
 .page.active { transform: translateX(0); z-index: 10; opacity: 1; }
 .page.inactive-right { transform: translateX(100%); z-index: 5; opacity: 1; }
 .page.inactive-left { transform: translateX(-30%); z-index: 5; opacity: 0.7; }
+/* Usado para troca de abas */
+.page:not(.active) {
+    opacity: 0;
+    z-index: 1;
+}
 #page-homescreen.active { z-index: 2; }
+
 
 /* --- Componentes --- */
 .header-main {
@@ -186,7 +205,7 @@ body {
     display: flex;
     align-items: center;
 }
-.header-back ion-icon { font-size: 1.5rem; margin-right: -2px; }
+.header-back i { font-size: 1.5rem; margin-right: 2px; }
 
 .content {
     flex-grow: 1;
@@ -212,7 +231,11 @@ body {
     justify-content: center;
 }
 #page-login.page { background: white; }
-.logo { width: 120px; height: 120px; margin-bottom: 20px; border-radius: 25%; }
+.logo-icon {
+    font-size: 100px;
+    color: #00A8E8;
+    margin-bottom: 20px;
+}
 .gov-logo { height: 24px; margin-right: 10px; }
 .small-text { font-size: 0.8rem; color: #777; margin-top: 15px; }
 
@@ -231,7 +254,7 @@ body {
     margin-top: 20px;
     gap: 8px;
 }
-.btn ion-icon { font-size: 1.2rem; }
+.btn i { font-size: 1.2rem; }
 .btn-primary { background-color: #007EA7; color: white; }
 .btn-primary.btn-alert { background-color: #d9534f; }
 .btn-secondary { background-color: #e5e5ea; color: #007EA7; font-weight: 500;}
@@ -254,7 +277,6 @@ body {
 .card-info span { font-size: 0.9rem; color: #555; }
 .card-arrow { font-size: 1.2rem; color: #c7c7cc; }
 
-/* NOVO: Card de Status Rápido */
 .status-card {
     background: linear-gradient(135deg, #00A8E8, #007EA7);
     color: white;
@@ -263,25 +285,10 @@ body {
     padding: 20px;
     cursor: default;
 }
-.status-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 4px;
-}
-.status-item span {
-    font-size: 0.8rem;
-    font-weight: 500;
-    opacity: 0.9;
-}
-.status-item strong {
-    font-size: 1.1rem;
-    font-weight: 700;
-}
-.status-item.overdue strong {
-    color: #FFD166; /* Amarelo alerta */
-}
+.status-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+.status-item span { font-size: 0.8rem; font-weight: 500; opacity: 0.9; }
+.status-item strong { font-size: 1.1rem; font-weight: 700; }
+.status-item.overdue strong { color: #FFD166; }
 
 /* Formulário */
 .form-group-inset { background: #fff; border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
@@ -300,7 +307,7 @@ body {
 .vaccine-list.inset { list-style: none; width: 100%; background: #fff; border-radius: 12px; overflow: hidden; }
 .vaccine-list li { display: flex; align-items: center; padding: 12px 15px; border-bottom: 1px solid #f0f0f0; gap: 15px; }
 .vaccine-list li:last-child { border-bottom: none; }
-.vaccine-list li ion-icon { font-size: 1.8rem; }
+.vaccine-list li i { font-size: 1.8rem; }
 .list-item-info { display: flex; flex-direction: column; }
 .list-item-info strong { font-size: 1rem; font-weight: 500; }
 .list-item-info span { font-size: 0.85rem; color: #777; }
@@ -316,7 +323,7 @@ body {
 .incentive-card { border-radius: 12px; padding: 25px; text-align: center; background: #fff; }
 .incentive-card.locked { color: #888; }
 .incentive-card.unlocked { background: #e6ffed; border: 1px solid #5cb85c; color: #2e7d32; display: none; }
-.incentive-card ion-icon { font-size: 40px; margin-bottom: 10px; }
+.incentive-card i { font-size: 40px; margin-bottom: 10px; }
 .benefit { background: white; padding: 15px; border-radius: 8px; margin-top: 15px; color: #333; font-weight: 600; }
 
 .achievements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
@@ -332,17 +339,23 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
 }
-.badge ion-icon { font-size: 36px; color: #00A8E8; }
+.badge i { font-size: 36px; color: #00A8E8; }
 .badge span { font-size: 0.8rem; font-weight: 500; text-align: center; }
-/* Estilo de Emblema Bloqueado (V8) */
 .badge.locked {
     background: #f0f0f0;
     color: #aaa;
     filter: grayscale(100%);
     opacity: 0.7;
 }
-.badge.locked ion-icon { color: #ccc; }
-
+.badge.locked i { color: #ccc; }
+/* Estilo para quando a medalha é desbloqueada */
+.badge:not(.locked) {
+    background: #e6ffed;
+    color: #2e7d32;
+}
+.badge:not(.locked) i {
+    color: #5cb85c;
+}
 
 /* Navegação Inferior (Lógica de Show/Hide) */
 .bottom-nav {
@@ -377,5 +390,9 @@ body {
     font-size: 0.7rem;
     color: #8e8e93;
 }
-.nav-item ion-icon { font-size: 24px; margin-bottom: 2px; }
+.nav-item i { font-size: 24px; margin-bottom: 2px; }
 .nav-item.active { color: #007EA7; }
+/* Ícones da Tab Bar Ativos (Preenchidos) */
+.nav-item.active i {
+    font-weight: 700; /* 'ph-fill' ou 'ph-bold' podem ser usados, mas peso da fonte é mais fácil */
+}
