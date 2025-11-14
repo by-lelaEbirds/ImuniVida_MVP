@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - Protótipo V5 (Estável)</title>
+    <title>ImuniVida - Protótipo V6 (Estável)</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="iphone-simulator" data-theme="light" data-current-page="page-homescreen">
+    <div class="iphone-simulator" data-theme="dark" data-current-page="page-homescreen">
         <div class="dynamic-island"></div>
         <div class="status-bar">
             <span class="time">9:41</span>
@@ -22,7 +22,8 @@
         <div class="screen">
             
             <div id="page-homescreen" class="page active">
-                <div class="wallpaper"></div> <main class="icon-grid">
+                <div class="wallpaper"></div> 
+                <main class="icon-grid">
                     <div class="app-icon"><ion-icon name="calendar-outline" style="color: red;"></ion-icon><span>Calendário</span></div>
                     <div class="app-icon"><ion-icon name="camera-outline" style="color: #888;"></ion-icon><span>Câmera</span></div>
                     <div class="app-icon"><ion-icon name="images-outline" style="color: #00A8E8;"></ion-icon><span>Fotos</span></div>
@@ -59,7 +60,6 @@
                 </header>
                 <main class="content">
                     <p class="content-description">Selecione um dependente para ver o calendário.</p>
-                    
                     <div id="dependent-list-container">
                         <div class="card" data-page="page-calendar-ana">
                             <ion-icon name="person-circle-outline" class="card-icon"></ion-icon>
@@ -79,8 +79,7 @@
                             </div>
                             <ion-icon name="chevron-forward-outline" class="card-arrow"></ion-icon>
                         </div>
-                        </div>
-
+                    </div>
                      <div class="card" data-page="page-add-dependent">
                         <ion-icon name="add-circle-outline" class="card-icon" style="color: #007EA7;"></ion-icon>
                         <div class="card-info">
@@ -118,7 +117,6 @@
                     </form>
                 </main>
             </div>
-
 
             <div id="page-calendar-ana" class="page inactive-right">
                 <header class="header-page">
@@ -191,7 +189,6 @@
                 </main>
             </div>
 
-
             <div id="page-schedule" class="page inactive-right">
                 <header class="header-page">
                      <button class="header-back" id="schedule-back-button" data-direction="back">
@@ -203,7 +200,7 @@
                 <main class="content">
                     <p class="content-description">Usando sua localização para encontrar a UBS mais próxima...</p>
                     <figure class="map-placeholder">
-                        <img src="https://picsum.photos/seed/map/400/200" alt="Simulação de mapa da cidade">
+                        <img src="https://i.imgur.com/k2H4gPz.png" alt="Simulação de mapa da cidade">
                     </figure>
                      <div class="ubs-list">
                         <strong>Postos de Saúde Próximos:</strong>
