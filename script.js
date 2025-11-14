@@ -159,8 +159,24 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(STORAGE_KEY_DEPENDENTS, JSON.stringify(dependents));
     }
 
+    /**
+     * =================================================
+     * BUG CORRIGIDO: Cálculo de Idade
+     * =================================================
+     */
     function renderDependentCard(dependent) {
-        const age = new Date().getFullYear() - new Date(dependent.dob).getFullYear();
+        // --- INÍCIO DA CORREÇÃO ---
+        // Cálculo de idade correto
+        const today = new Date();
+        const birthDate = new Date(dependent.dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        // --- FIM DA CORREÇÃO ---
+        
         const ageText = age > 0 ? `${age} anos` : 'menos de 1 ano';
         
         const cardHTML = `
@@ -171,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span>Calendário pendente</span>
                     <span class="status-pendente">Simulado</span>
                 </div>
-                <i class="card-arrow" style="font-family: sans-serif;">❯</i>
+                <i class="card-arrow sf-font">❯</i>
             </div>
         `;
         if (dependentListContainer) {
@@ -199,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rotateY = x * maxRotate;
 
         simulator.style.transition = 'none';
-        simulator.style.transform = \`rotateX(\${rotateX}deg) rotateY(\${rotateY}deg)\`;
+        simulator.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
 
     document.body.addEventListener('mouseleave', () => {
@@ -230,11 +246,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.stopPropagation();
                 
                 loginTrigger.disabled = true;
-                loginTrigger.innerHTML = '<i class="ph-spin" style="font-family: sans-serif; display: inline-block; animation: ph-spin 1s linear infinite;">🔄</i> Autenticando...';
+                
+                // --- CORREÇÃO: Usa classes CSS em vez de innerHTML ---
+                loginTrigger.classList.add('is-loading'); 
+                loginTrigger.innerHTML = '<i class="ph-spin">🔄</i> Autenticando...';
 
                 setTimeout(() => {
                     showPage('page-dashboard', 'forward');
                     loginTrigger.disabled = false;
+                     // --- CORREÇÃO: Remove a classe e restaura o HTML ---
+                    loginTrigger.classList.remove('is-loading');
                     loginTrigger.innerHTML = btnLoginGovOriginalHTML;
                 }, 2000);
             }
@@ -250,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (targetPage === 'page-calendar-generic') {
                     const dependentName = navTrigger.dataset.name || 'Dependente';
                     const titleEl = document.getElementById('generic-calendar-title');
-                    if(titleEl) titleEl.innerText = \`Calendário (\${dependentName})\`;
+                    if(titleEl) titleEl.innerText = `Calendário (${dependentName})`;
                 }
                 showPage(targetPage, direction, originPage);
             
@@ -283,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     gameData.points -= cost;
                     saveGameData(gameData);
                     updateIncentivesPage();
-                    alert(\`Recompensa resgatada! Você gastou \${cost} pontos.\`);
+                    alert(`Recompensa resgatada! Você gastou ${cost} pontos.`);
                 } else {
                     alert('Pontos insuficientes para resgatar esta recompensa.');
                 }
