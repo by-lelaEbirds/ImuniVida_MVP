@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. Limpa classes de animação de todas as páginas
         allPages.forEach(page => {
             page.classList.remove('inactive-left', 'inactive-right', 'tab-transition');
+            // Esconde todas as páginas que não são a atual
             if (page.id !== currentPage.id) {
                 page.style.opacity = 0;
                 page.style.zIndex = 1;
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. Lógica de Animação
         if (isTabSwitch) {
             // Troca de aba (Início <-> Incentivos) - INSTANTÂNEA
-            currentPage.classList.add('tab-transition'); // Adiciona classe para transição de opacidade
+            currentPage.classList.add('tab-transition');
             nextPage.classList.add('tab-transition');
             
             currentPage.classList.remove('active');
@@ -158,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const header = document.querySelector('#page-dashboard .header-main');
         if (!header) return;
         
-        // Procura por qualquer card de dependente com status 'atrasada'
         const hasOverdue = document.querySelector('#dependent-list-container .status-atrasada');
         
         if (hasOverdue) {
@@ -183,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const age = new Date().getFullYear() - new Date(dependent.dob).getFullYear();
         const ageText = age > 0 ? `${age} anos` : 'menos de 1 ano';
         
-        // Simula se o novo dependente tem vacina atrasada
         const isOverdue = Math.random() < 0.3; // 30% de chance de estar atrasado
         const statusClass = isOverdue ? 'status-atrasada' : 'status-pendente';
         const statusText = isOverdue ? 'Vacina atrasada!' : 'Calendário pendente';
@@ -257,7 +256,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Inicialização ---
     loadDependents(); 
     updateIncentivesPage();
-    checkDashboardStatus(); // Verifica o status do header ao carregar
+    checkDashboardStatus(); 
     simulator.classList.remove('nav-is-visible');
     simulator.dataset.theme = 'dark';
 });
+
+// ** CORREÇÃO: Removida a palavra 'Example' que estava causando o SyntaxError **
