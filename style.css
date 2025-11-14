@@ -6,15 +6,10 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: #1c1c1e; /* Cor de texto padrão do iOS */
+    color: #1c1c1e;
     padding: 20px;
 }
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 /* Simulador do Dispositivo (iPhone) */
 .iphone-simulator {
@@ -27,25 +22,25 @@ body {
     position: relative;
     overflow: hidden;
 }
-
 .screen {
     width: 100%;
     height: 100%;
-    background: #f9f9f9; /* Fundo iOS 'grouped' */
+    background: #f9f9f9;
     border-radius: 30px;
     position: relative;
     overflow: hidden; 
 }
 
-.notch {
+/* Ilha Dinâmica (Pílula) */
+.dynamic-island {
     position: absolute;
-    top: 10px;
+    top: 18px; /* Ajustado para pílula */
     left: 50%;
     transform: translateX(-50%);
-    width: 180px;
-    height: 25px;
+    width: 120px; /* Tamanho da pílula */
+    height: 30px; /* Tamanho da pílula */
     background: #111;
-    border-radius: 0 0 15px 15px;
+    border-radius: 20px; /* Totalmente arredondado */
     z-index: 100;
 }
 
@@ -55,30 +50,20 @@ body {
     top: 18px;
     left: 20px;
     right: 20px;
-    height: 20px;
+    height: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 15px;
     z-index: 50;
-    color: white;
     font-weight: 600;
     font-size: 0.9rem;
+    color: #111; /* Padrão para tema 'light' (home screen) */
 }
-.status-bar .time {
-    margin-left: -5px;
+.iphone-simulator[data-theme="dark"] .status-bar {
+    color: #fff; /* Tema 'dark' (cabeçalho do app) */
 }
-.status-bar .status-icons {
-    display: flex;
-    gap: 4px;
-    font-size: 1rem;
-}
-.status-bar ion-icon {
-    font-weight: 700;
-}
-.iphone-simulator[data-theme="light"] .status-bar {
-    color: #111;
-}
+.status-bar .status-icons { display: flex; gap: 4px; font-size: 1rem; }
 
 /* Indicador Home iOS */
 .home-indicator {
@@ -88,14 +73,84 @@ body {
     transform: translateX(-50%);
     width: 135px;
     height: 5px;
-    background: #bbb;
+    background: #444;
     border-radius: 5px;
     z-index: 100;
 }
-.iphone-simulator[data-theme="light"] .home-indicator {
-     background: #444;
-}
+.iphone-simulator[data-theme="dark"] .home-indicator { background: #bbb; }
 
+/* --- Tela Inicial (Home Screen) --- */
+#page-homescreen .wallpaper {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://i.imgur.com/8rTUjG8.jpg') no-repeat center center;
+    background-size: cover;
+    z-index: 1;
+}
+.icon-grid {
+    position: relative;
+    z-index: 2;
+    padding: 60px 20px 20px 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.app-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+.app-icon ion-icon {
+    font-size: 48px;
+    background: #f0f0f0;
+    border-radius: 12px;
+    padding: 5px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.app-icon .app-icon-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+}
+.app-icon span {
+    text-align: center;
+}
+.dock {
+    position: absolute;
+    bottom: 30px; /* Acima do home indicator */
+    left: 10px;
+    right: 10px;
+    height: 90px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 25px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+}
+.dock .app-icon {
+    font-size: 0.7rem; /* Labels no dock são opcionais, vamos removê-los */
+}
+.dock .app-icon span {
+    display: none; /* Sem labels no dock, exceto o nosso */
+}
+.dock #app-icon-imunivida span {
+    display: block; /* Mostra o label do nosso app */
+}
 
 /* --- Estrutura e Animação das Páginas --- */
 .page {
@@ -106,52 +161,33 @@ body {
     left: 0;
     display: flex;
     flex-direction: column;
-    background: #f0f2f5; /* Fundo padrão */
-    /* Animação de transição */
+    background: #f0f2f5;
     transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
-.page.active {
-    transform: translateX(0);
-    z-index: 10;
-}
-.page.inactive-right {
-    transform: translateX(100%);
-    z-index: 5;
-}
-.page.inactive-left {
-    transform: translateX(-30%); /* Efeito de 'parallax' do iOS ao sair */
-    z-index: 5;
-    opacity: 0.7;
-}
+.page.active { transform: translateX(0); z-index: 10; }
+.page.inactive-right { transform: translateX(100%); z-index: 5; }
+.page.inactive-left { transform: translateX(-30%); z-index: 5; opacity: 0.7; }
+#page-homescreen.active { z-index: 2; } /* Home screen fica atrás do app */
 
 /* --- Componentes --- */
 
 /* Cabeçalhos */
 .header-main {
-    padding: 55px 20px 15px 20px; /* Mais espaço para status bar */
+    padding: 55px 20px 15px 20px;
     background: linear-gradient(135deg, #00A8E8, #007EA7);
     color: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-.header-main h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-
+.header-main h1 { font-size: 1.8rem; font-weight: 700; }
 .header-page {
     padding: 55px 15px 15px 15px;
     display: flex;
     align-items: center;
-    justify-content: center; /* Centraliza título no iOS */
+    justify-content: center;
     background-color: #f9f9f9;
     border-bottom: 1px solid #ddd;
-    position: relative; /* Para o botão voltar */
+    position: relative;
 }
-.header-page h1 {
-    font-size: 1.1rem; /* Títulos de subpágina são menores */
-    font-weight: 600;
-    color: #111;
-}
+.header-page h1 { font-size: 1.1rem; font-weight: 600; color: #111; }
 .header-back {
     position: absolute;
     left: 10px;
@@ -164,11 +200,7 @@ body {
     display: flex;
     align-items: center;
 }
-.header-back ion-icon {
-    font-size: 1.5rem;
-    margin-right: -2px;
-}
-
+.header-back ion-icon { font-size: 1.5rem; margin-right: -2px; }
 
 /* Conteúdo Principal */
 .content {
@@ -177,11 +209,7 @@ body {
     overflow-y: auto;
     padding-bottom: 80px; 
 }
-.content-description {
-    font-size: 0.95rem;
-    color: #666;
-    margin-bottom: 15px;
-}
+.content-description { font-size: 0.95rem; color: #666; margin-bottom: 15px; }
 
 /* Tela de Login */
 #page-login .content {
@@ -206,7 +234,7 @@ body {
     font-size: 1.05rem;
     font-weight: 600;
     border: none;
-    border-radius: 12px; /* Mais arredondado */
+    border-radius: 12px;
     cursor: pointer;
     margin-top: 20px;
     gap: 8px;
@@ -214,7 +242,6 @@ body {
 .btn ion-icon { font-size: 1.2rem; }
 .btn-primary { background-color: #007EA7; color: white; }
 .btn-primary.btn-alert { background-color: #d9534f; }
-.btn-primary:hover { background-color: #005f7a; }
 .btn-secondary { background-color: #e5e5ea; color: #007EA7; font-weight: 500;}
 
 /* Cards (Estilo iOS) */
@@ -229,17 +256,39 @@ body {
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0,0,0,0.04);
 }
-.card:hover { background-color: #f6f6f6; }
 .card-icon { font-size: 36px; color: #00A8E8; }
-.card-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    flex-grow: 1; /* Faz a info ocupar o espaço */
-}
+.card-info { display: flex; flex-direction: column; gap: 2px; flex-grow: 1; }
 .card-info strong { font-size: 1.1rem; }
 .card-info span { font-size: 0.9rem; color: #555; }
 .card-arrow { font-size: 1.2rem; color: #c7c7cc; }
+
+/* Formulário (Estilo iOS) */
+.form-group-inset {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.form-group {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.form-group:last-child { border-bottom: none; }
+.form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #007EA7;
+    margin-bottom: 5px;
+}
+.form-input {
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    padding: 5px 0;
+    outline: none;
+}
+.form-input[type="date"] { color: #555; }
 
 
 /* Status das Doses */
@@ -264,48 +313,18 @@ body {
 }
 .vaccine-list li:last-child { border-bottom: none; }
 .vaccine-list li ion-icon { font-size: 1.8rem; }
-.list-item-info {
-    display: flex;
-    flex-direction: column;
-}
+.list-item-info { display: flex; flex-direction: column; }
 .list-item-info strong { font-size: 1rem; font-weight: 500; }
 .list-item-info span { font-size: 0.85rem; color: #777; }
 
-
 /* Tela de Agendamento */
-.map-placeholder {
-    width: 100%;
-    height: 180px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin: 20px 0;
-}
+.map-placeholder { width: 100%; height: 180px; border-radius: 12px; overflow: hidden; margin: 20px 0; }
 .map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
-.card-ubs {
-    background: #fff;
-    border-radius: 12px;
-    padding: 15px;
-    margin-top: 10px;
-}
+.card-ubs { background: #fff; border-radius: 12px; padding: 15px; margin-top: 10px; }
 .card-ubs strong { font-size: 1.1rem; }
 .card-ubs span { display: block; font-size: 0.9rem; color: #555; margin: 5px 0; }
 
 /* Tela de Incentivos */
-#page-incentives .content { background: #f0f2f5; }
-.incentive-status { text-align: center; margin-bottom: 25px; }
-.progress-bar {
-    width: 100%;
-    height: 10px; /* Mais fino */
-    background: #e0e0e0;
-    border-radius: 10px;
-    margin-top: 10px;
-    overflow: hidden;
-}
-.progress {
-    height: 100%;
-    background: #5cb85c;
-    border-radius: 10px;
-}
 .incentive-card {
     border-radius: 12px;
     padding: 25px;
@@ -313,26 +332,9 @@ body {
     background: #fff;
 }
 .incentive-card.locked { color: #888; }
-.incentive-card.unlocked {
-    background: #e6ffed;
-    border: 1px solid #5cb85c;
-    color: #2e7d32;
-    display: none; /* JS vai mostrar isso */
-}
-.incentive-card ion-icon {
-    font-size: 40px;
-    margin-bottom: 10px;
-}
-.benefit {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-    color: #333;
-    font-weight: 600;
-    border: 1px solid #ddd;
-}
-
+.incentive-card.unlocked { background: #e6ffed; border: 1px solid #5cb85c; color: #2e7d32; display: none; }
+.incentive-card ion-icon { font-size: 40px; margin-bottom: 10px; }
+.benefit { background: white; padding: 15px; border-radius: 8px; margin-top: 15px; color: #333; font-weight: 600; }
 
 /* Navegação Inferior (Estilo iOS Tab Bar) */
 .bottom-nav {
@@ -340,8 +342,8 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 83px; /* Altura padrão da Tab Bar com home indicator */
-    background: rgba(249, 249, 249, 0.95); /* Efeito de vidro fosco */
+    height: 83px;
+    background: rgba(249, 249, 249, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid #ddd;
@@ -349,7 +351,7 @@ body {
     justify-content: space-around;
     align-items: flex-start;
     padding-top: 8px;
-    padding-bottom: 30px; /* Espaço para o home indicator */
+    padding-bottom: 30px;
     z-index: 20;
 }
 .nav-item {
@@ -359,13 +361,8 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 0.7rem; /* Menor no iOS */
-    color: #8e8e93; /* Cor inativa iOS */
+    font-size: 0.7rem;
+    color: #8e8e93;
 }
-.nav-item ion-icon {
-    font-size: 24px;
-    margin-bottom: 2px;
-}
-.nav-item.active {
-    color: #007EA7; /* Cor primária */
-}
+.nav-item ion-icon { font-size: 24px; margin-bottom: 2px; }
+.nav-item.active { color: #007EA7; }
