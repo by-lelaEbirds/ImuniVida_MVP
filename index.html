@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - Protótipo V3</title>
+    <title>ImuniVida - Protótipo V5 (Estável)</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="iphone-simulator" data-theme="light">
+    <div class="iphone-simulator" data-theme="light" data-current-page="page-homescreen">
         <div class="dynamic-island"></div>
-        
         <div class="status-bar">
             <span class="time">9:41</span>
             <div class="status-icons">
@@ -23,20 +22,17 @@
         <div class="screen">
             
             <div id="page-homescreen" class="page active">
-                <div class="wallpaper"></div>
-                <main class="icon-grid">
+                <div class="wallpaper"></div> <main class="icon-grid">
                     <div class="app-icon"><ion-icon name="calendar-outline" style="color: red;"></ion-icon><span>Calendário</span></div>
                     <div class="app-icon"><ion-icon name="camera-outline" style="color: #888;"></ion-icon><span>Câmera</span></div>
                     <div class="app-icon"><ion-icon name="images-outline" style="color: #00A8E8;"></ion-icon><span>Fotos</span></div>
                     <div class="app-icon"><ion-icon name="map-outline" style="color: #5cb85c;"></ion-icon><span>Mapas</span></div>
-                    <div class="app-icon"><ion-icon name="settings-outline" style="color: #555;"></ion-icon><span>Ajustes</span></div>
-                    <div class="app-icon"><ion-icon name="mail-outline" style="color: #007EA7;"></ion-icon><span>Mail</span></div>
                 </main>
                 <footer class="dock">
                     <div class="app-icon"><ion-icon name="call-outline" style="color: #5cb85c;"></ion-icon></div>
                     <div class="app-icon"><ion-icon name="logo-apple" style="color: white;"></ion-icon></div>
-                    <div class="app-icon" id="app-icon-imunivida" data-page="page-login">
-                        <img src="https://i.imgur.com/g0j2g1C.png" class="app-icon-img">
+                    <div class="app-icon" data-page="page-login">
+                        <img src="https://picsum.photos/seed/imunivida/120/120" class="app-icon-img">
                         <span>ImuniVida</span>
                     </div>
                 </footer>
@@ -47,17 +43,17 @@
                     <h1>ImuniVida</h1>
                 </header>
                 <main class="content">
-                    <img src="https://i.imgur.com/g0j2g1C.png" alt="Logo ImuniVida" class="logo">
+                    <img src="https://picsum.photos/seed/imunivida/120/120" alt="Logo ImuniVida" class="logo">
                     <p>Seu assistente de imunização infantil.</p>
-                    <button id="btn-login-gov" class="btn btn-primary" data-page="page-dashboard">
-                        <img src="https://i.imgur.com/kS9Ym0m.png" alt="Gov.br" class="gov-logo">
+                    <button class="btn btn-primary" data-page="page-dashboard">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Gov.br_logo.svg" alt="Gov.br" class="gov-logo">
                         Entrar com Gov.br
                     </button>
                     <p class="small-text">Autenticação segura via sistema de identificação nacional.</p>
                 </main>
             </div>
 
-            <div id="page-dashboard" class="page inactive-right">
+            <div id="page-dashboard" class="page inactive-right page-with-nav">
                 <header class="header-main">
                     <h1>Dependentes</h1>
                 </header>
@@ -160,7 +156,7 @@
                 </header>
                 <main class="content">
                     <ul class="vaccine-list inset">
-                        <li>
+                         <li>
                             <ion-icon name="warning" class="status-atrasada"></ion-icon>
                              <div class="list-item-info"><strong>Tríplice Viral</strong> (Reforço)<span>Atrasada desde 01/10/2025</span></div>
                         </li>
@@ -205,9 +201,10 @@
                     <h1>Agendar Vacina</h1>
                 </header>
                 <main class="content">
-                    <div class="map-placeholder">
-                        <img src="https://i.imgur.com/jA4jO7s.png" alt="Simulação de Mapa"/>
-                    </div>
+                    <p class="content-description">Usando sua localização para encontrar a UBS mais próxima...</p>
+                    <figure class="map-placeholder">
+                        <img src="https://picsum.photos/seed/map/400/200" alt="Simulação de mapa da cidade">
+                    </figure>
                      <div class="ubs-list">
                         <strong>Postos de Saúde Próximos:</strong>
                         <div class="card-ubs">
@@ -219,7 +216,7 @@
                 </main>
             </div>
             
-            <div id="page-incentives" class="page inactive-right">
+            <div id="page-incentives" class="page inactive-right page-with-nav">
                 <header class="header-main">
                     <h1>Incentivos</h1>
                 </header>
@@ -237,8 +234,9 @@
             </div>
 
             <nav class="bottom-nav">
-                <button data-page="page-dashboard" class="nav-item active">
-                    <ion-icon name="home"></ion-icon> Início
+                <button data-page="page-dashboard" class="nav-item">
+                    <ion-icon name="home-outline"></ion-icon>
+                    Início
                 </button>
                 <button data-page="page-incentives" class="nav-item">
                     <ion-icon name="star-outline"></ion-icon>
