@@ -101,23 +101,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Atualiza os ícones da barra de navegação (V11 - Phosphor)
-     * CORRIGIDO para o bug do ícone invisível
+     * =================================================
+     * CORREÇÃO DE BUG (Ícone Transparente)
+     * Função reescrita para ser explícita e
+     * definir o estado de AMBOS os ícones.
+     * =================================================
      */
     function updateBottomNav(pageId) {
         const navButtons = document.querySelectorAll('.nav-item');
         navButtons.forEach(button => button.classList.remove('active'));
 
-        // Reseta todos os ícones para "regular" (vazado)
-        navIcons.home.className = 'ph-regular ph-house';
-        navIcons.incentives.className = 'ph-regular ph-star';
-
+        // Lógica explícita para evitar o bug de "ícone transparente"
         if (pageId === 'page-dashboard') {
+            // Ativa o 'Início'
             navButtons[0].classList.add('active');
-            navIcons.home.className = 'ph-fill ph-house'; // Preenchido
+            navIcons.home.className = 'ph-fill ph-house';
+            navIcons.incentives.className = 'ph-regular ph-star'; // Garante que o outro esteja regular
+
         } else if (pageId === 'page-incentives') {
+            // Ativa o 'Incentivos'
             navButtons[1].classList.add('active');
-            navIcons.incentives.className = 'ph-fill ph-star'; // Preenchido
+            navIcons.home.className = 'ph-regular ph-house'; // Garante que o outro esteja regular
+            navIcons.incentives.className = 'ph-fill ph-star';
+
+        } else {
+            // Nenhuma aba ativa (ex: tela de login)
+            // Reseta ambos para regular (embora a barra esteja oculta)
+            navIcons.home.className = 'ph-regular ph-house';
+            navIcons.incentives.className = 'ph-regular ph-star';
         }
     }
 
