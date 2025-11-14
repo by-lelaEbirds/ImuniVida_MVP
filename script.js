@@ -85,9 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 5. Controla visibilidade da Tab Bar
         // Adiciona uma pequena pausa para a transição de página ser mais suave
-        setTimeout(() => {
-            simulator.classList.toggle('nav-is-visible', rootPages.includes(pageId));
-        }, 100);
+        // Atraso removido para garantir que a classe seja aplicada antes da transição de página
+        simulator.classList.toggle('nav-is-visible', rootPages.includes(pageId));
 
         // 6. Atualiza o ícone ativo da Tab Bar
         updateBottomNav(pageId);
