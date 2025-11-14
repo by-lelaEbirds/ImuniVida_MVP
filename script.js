@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const rootPages = ['page-dashboard', 'page-incentives']; 
     const lightThemePages = ['page-login', 'page-add-dependent', 'page-schedule', 'page-calendar-ana', 'page-calendar-joao', 'page-calendar-generic'];
 
+    // --- Variáveis de Refinamento (Login Simulado) ---
+    const btnLoginGov = document.getElementById('btn-login-gov');
+    const btnLoginGovOriginalHTML = btnLoginGov.innerHTML; // Salva o estado original do botão
+
     // --- Funções Principais ---
 
     /**
@@ -179,15 +183,74 @@ document.addEventListener('DOMContentLoaded', () => {
         dependentListContainer.insertAdjacentHTML('beforeend', cardHTML);
     }
     
+    /*
+    =================================================
+    BLOCO: EFEITO 3D MOUSE-MOVE (Adicionado anteriormente)
+    =================================================
+    */
+    
+    const originalTransform = 'rotateX(3deg) rotateY(-4deg)';
+    
+    document.body.addEventListener('mousemove', (e) => {
+        if (!simulator) return;
+
+        const { clientX, clientY } = e;
+        const { offsetWidth, offsetHeight } = document.body;
+        const x = (clientX / offsetWidth) - 0.5;
+        const y = (clientY / offsetHeight) - 0.5;
+        const maxRotate = 8; 
+        const rotateX = -1 * y * maxRotate;
+        const rotateY = x * maxRotate;
+
+        simulator.style.transition = 'none';
+        simulator.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    document.body.addEventListener('mouseleave', () => {
+        if (!simulator) return;
+        simulator.style.transition = 'transform 0.3s ease-out';
+        simulator.style.transform = originalTransform;
+    });
+
+    /*
+    =================================================
+    FIM DO BLOCO 3D
+    =================================================
+    */
+
     // --- Event Listeners ---
 
     simulator.addEventListener('click', (e) => {
+        
+        // --- REFINAMENTO: Lógica de Simulação de Login ---
+        // Variáveis de gatilho
+        const loginTrigger = e.target.closest('#btn-login-gov');
         const navTrigger = e.target.closest('[data-page]');
         const actionTrigger = e.target.closest('#btn-confirm-vaccine');
         const redeemTrigger = e.target.closest('.btn-redeem');
 
-        // Caso 1: Clique de Navegação
-        if (navTrigger && !actionTrigger && !redeemTrigger) {
+        // Caso 0: Clique de Login Simulado (DEVE VIR PRIMEIRO)
+        if (loginTrigger && !loginTrigger.disabled) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Desabilita e mostra o loading
+            loginTrigger.disabled = true;
+            loginTrigger.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Autenticando...';
+
+            // Simula a autenticação (2 segundos)
+            setTimeout(() => {
+                showPage('page-dashboard', 'forward');
+                
+                // Reseta o botão para o estado original
+                loginTrigger.disabled = false;
+                loginTrigger.innerHTML = btnLoginGovOriginalHTML;
+            }, 2000);
+        }
+
+        // Caso 1: Clique de Navegação (Padrão)
+        // (Garante que os outros gatilhos não sejam de navegação)
+        else if (navTrigger && !actionTrigger && !redeemTrigger && !loginTrigger) {
             e.preventDefault(); e.stopPropagation();
             const targetPage = navTrigger.dataset.page;
             const direction = navTrigger.dataset.direction || 'forward';
