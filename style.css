@@ -151,7 +151,6 @@ body {
     padding: 0 15px;
 }
 .dock .app-icon { gap: 0; }
-.dock .app-icon span { display: none; }
 .dock .app-icon[data-page="page-login"] span { display: block; }
 
 /* --- Estrutura e Animação das Páginas --- */
