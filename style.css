@@ -681,26 +681,22 @@ body {
 }
 
 /* * =================================================
- * ATUALIZAÇÃO: Ícones do DOCK (Fictícios)
+ * ATUALIZAÇÃO: Ícones do DOCK (Apps Reais)
  * =================================================
  */
-.dock .app-icon[data-app="imunivida"] .app-icon-visual {
+.dock .app-icon[data-app="safari"] .app-icon-visual {
+    background: #007EA7;
+    color: white;
+}
+.dock .app-icon[data-app="photos"] .app-icon-visual {
     background: white;
-    color: #00A8E8;
 }
-.dock .app-icon[data-app="govbr"] .app-icon-visual {
-    background: #005a37; /* Cor do gov.br */
+.dock .app-icon[data-app="maps"] .app-icon-visual {
+    background: white;
+}
+.dock .app-icon[data-app="whatsapp"] .app-icon-visual {
+    background: #25D366; /* Cor do WhatsApp */
     color: white;
-    font-size: 40px; /* Emoji de bandeira fica melhor maior */
-    line-height: 1;
-}
-.dock .app-icon[data-app="chatsus"] .app-icon-visual {
-    background: #38a169; /* Verde (Saúde) */
-    color: white;
-}
-.dock .app-icon[data-app="pontosimuni"] .app-icon-visual {
-    background: #007EA7; /* Azul do app */
-    color: #FFD166; /* Cor dos pontos */
 }
 
 
