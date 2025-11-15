@@ -681,21 +681,23 @@ body {
 }
 
 /* * =================================================
- * ATUALIZAÇÃO: Ícones do DOCK (Apps Reais)
+ * CORREÇÃO: Ícones do DOCK (Estilos que faltavam)
  * =================================================
  */
+.dock .app-icon[data-app="phone"] .app-icon-visual {
+    background: #38a169;
+    color: white;
+}
 .dock .app-icon[data-app="safari"] .app-icon-visual {
     background: #007EA7;
     color: white;
 }
-.dock .app-icon[data-app="photos"] .app-icon-visual {
-    background: white;
+.dock .app-icon[data-app="messages"] .app-icon-visual {
+    background: #38a169;
+    color: white;
 }
-.dock .app-icon[data-app="maps"] .app-icon-visual {
-    background: white;
-}
-.dock .app-icon[data-app="whatsapp"] .app-icon-visual {
-    background: #25D366; /* Cor do WhatsApp */
+.dock .app-icon[data-app="music"] .app-icon-visual {
+    background: #fa2a40;
     color: white;
 }
 
