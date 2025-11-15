@@ -64,17 +64,17 @@
                     </main>
                     
                     <footer class="dock">
+                        <div class="app-icon" data-app="phone">
+                            <span class="app-icon-visual">📞</span>
+                        </div>
                         <div class="app-icon" data-app="safari">
                             <span class="app-icon-visual">🧭</span>
                         </div>
-                        <div class="app-icon" data-app="photos">
-                            <span class="app-icon-visual">🖼️</span>
-                        </div>
-                        <div class="app-icon" data-app="maps">
-                            <span class="app-icon-visual">🗺️</span>
-                        </div>
-                        <div class="app-icon" data-app="whatsapp">
+                        <div class="app-icon" data-app="messages">
                             <span class="app-icon-visual">💬</span>
+                        </div>
+                        <div class="app-icon" data-app="music">
+                            <span class="app-icon-visual">🎵</span>
                         </div>
                     </footer>
                 </div>
@@ -245,8 +245,8 @@
                         <span>Início</span>
                     </button>
                     <button data-page="page-incentives" class="nav-item">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzhlOGU5MyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMzkuNjEsMTM3Ljg1YTE2LDE2LDAsMCwwLTIwLjMxLTEuMTZMMjA4LDE0Mi4xVjEyMGE4LDgsMCwwLDAtOC04aC0zMmE4LDgsMCwwLDAtOCw4djIyLjFsLTEyLjY5LTUuNDRhMTYsMTYsMCwwLDAtMTQuNjIsMEwxMjAsMTQyLjFWMTA0YTgsOCwwLDAsMC04LThINzJhOCw4LDAsMCwwLTgsOHY0NS4ybC04LjA5LDguMzlhMTYsMTYsMCwwLDAtNC42NywyMS43N2wzMiw5NmE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVpNMTcyLDEyOEgzMnYxNloiLz48L3N2Zz4=" class="nav-icon icon-regular" alt="Incentivos">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwN0VBNyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMzkuNjEsMTM3Ljg1YTE2LDE2LDAsMCwwLTIwLjMxLTEuMTZMMjA4LDE0Mi4xVjEyMGE4LDgsMCwwLDAtOC04aC0zMmE4LDgsMCwwLDAtOCw4djIyLjFsLTEyLjY5LTUuNDRhMTYsMTYsMCwwLDAtMTQuNjIsMEwxMjAsMTQyLjFWMTA0YTgsOCwwLDAsMC04LThINzJhOCw4LDAsMCwwLTgsOHY0NS4ybC04LjA5LDguMzlhMTYsMTYsMCwwLDAtNC42NywyMS43N2wzMiw5NmE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVoiLz48L3N2Zz4=" class="nav-icon icon-active" alt="Incentivos Ativo">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzhlOGU5MyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMzkuNjEsMTM3Ljg1YTE2LDE2LDAsMCwwLTIwLjMxLTEuMTZMMjA4LDE0Mi4xVjEyMGE4LDgsMCwwLDAtOC04aC0zMmE4LDgsMCwwLDAtOCw4djIyLjFsLTEyLjY5LTUuNDRhMTYsMTYsMCwwLDAtMTQuNjIsMEwxMjAsMTQyLjFWMTA0YTgsOCwwLDAs0wLTgsOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi5wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVpNMTcyLDEyOEgzMnYxNloiLz48L3N2Zz4=" class="nav-icon icon-regular" alt="Incentivos">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwN0VBNyIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0yMzkuNjEsMTM3Ljg1YTE2LDE2LDAsMCwwLTIwLjMxLTEuMTZMMjA4LDE0Mi4xVjEyMGE4LDgsMCwwLDAtOC04aC0zMmE4LDgsMCwwLDAtOCw4djIyLjFsLTEyLjY5LTUuNDRhMTYsMTYsMCwwLDAtMTQuNjIsMEwxMjAsMTQyLjFWMTA0YTgsOCwwLDAs0wLTgsOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi4wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAs0wLTgsOEI1NmE4LDgsMCwwLDAsMTUsLTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVoiLz48L3N2Zz4=" class="nav-icon icon-active" alt="Incentivos Ativo">
                         <span>Incentivos</span>
                     </button>
                 </nav>
