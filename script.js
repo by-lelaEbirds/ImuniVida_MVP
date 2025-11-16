@@ -10,11 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const STORAGE_KEY_GAME = 'imuniVidaGame';
     
     // Ícones da Barra de Navegação
-    // MODIFICADO: Agora seleciona os BOTÕES (nav-item)
     const navItems = {
         home: document.querySelector('.nav-item[data-page="page-dashboard"]'),
         incentives: document.querySelector('.nav-item[data-page="page-incentives"]')
     };
+
+    // --- NOVO (Item 2): Variáveis do Toast ---
+    const toastElement = document.getElementById('toast-notification');
+    const toastMessage = document.getElementById('toast-message');
+    let toastTimeout; // Variável para controlar o timer do toast
     
     const rootPages = ['page-dashboard', 'page-incentives']; 
     const lightThemePages = ['page-login', 'page-add-dependent', 'page-schedule', 'page-calendar-ana', 'page-calendar-joao', 'page-calendar-generic'];
@@ -24,6 +28,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnLoginGovOriginalHTML = btnLoginGov.innerHTML; // Salva o estado original do botão
 
     // --- Funções Principais ---
+
+    /**
+     * =================================================
+     * NOVA FUNÇÃO: showToast (Item 2)
+     * Substitui todos os 'alert()'.
+     * =================================================
+     */
+    function showToast(message) {
+        if (!toastElement || !toastMessage) return;
+
+        // Limpa qualquer toast anterior
+        if (toastTimeout) {
+            clearTimeout(toastTimeout);
+        }
+
+        toastMessage.innerText = message;
+        toastElement.classList.add('show');
+
+        // Esconde o toast depois de 2.5 segundos
+        toastTimeout = setTimeout(() => {
+            toastElement.classList.remove('show');
+        }, 2500);
+    }
+
 
     /**
      * Função de navegação principal
@@ -84,8 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // 5. Controla visibilidade da Tab Bar
-        // Adiciona uma pequena pausa para a transição de página ser mais suave
-        // Atraso removido para garantir que a classe seja aplicada antes da transição de página
+        // * =================================================
+        // * CORREÇÃO: Comentário morto removido (Item 3.3)
+        // * =================================================
         simulator.classList.toggle('nav-is-visible', rootPages.includes(pageId));
 
         // 6. Atualiza o ícone ativo da Tab Bar
@@ -101,10 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * =================================================
-     * REFINAMENTO: Lógica dos Ícones de Navegação
-     * Agora controla a classe 'active' nos botões.
-     * =================================================
+     * Lógica dos Ícones de Navegação
      */
     function updateBottomNav(pageId) {
         // Reseta ambos
@@ -162,13 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * =================================================
-     * BUG CORRIGIDO: Cálculo de Idade
-     * =================================================
+     * Cálculo de Idade (Sem alteração)
      */
     function renderDependentCard(dependent) {
-        // --- INÍCIO DA CORREÇÃO ---
-        // Cálculo de idade correto
         const today = new Date();
         const birthDate = new Date(dependent.dob);
         let age = today.getFullYear() - birthDate.getFullYear();
@@ -177,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
-        // --- FIM DA CORREÇÃO ---
         
         let ageText;
         if (age > 0) {
@@ -268,14 +289,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 loginTrigger.disabled = true;
                 
-                // --- CORREÇÃO: Usa classes CSS em vez de innerHTML ---
                 loginTrigger.classList.add('is-loading'); 
                 loginTrigger.innerHTML = '<i class="ph-spin">🔄</i> Autenticando...';
 
                 setTimeout(() => {
                     showPage('page-dashboard', 'forward');
                     loginTrigger.disabled = false;
-                     // --- CORREÇÃO: Remove a classe e restaura o HTML ---
                     loginTrigger.classList.remove('is-loading');
                     loginTrigger.innerHTML = btnLoginGovOriginalHTML;
                 }, 2000);
@@ -303,11 +322,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 let gameData = getGameData();
                 gameData.points += 100;
-                alert("Agendamento Confirmado! 🏆 +100 Pontos Imuni!");
+                
+                // * =================================================
+                // * ATUALIZAÇÃO: alert() trocado por showToast() (Item 2)
+                // * =================================================
+                showToast("Agendamento Confirmado! 🏆 +100 Pontos Imuni!");
 
                 if (!gameData.badges.includes('first-dose')) {
                     gameData.badges.push('first-dose');
-                    alert("Medalha Desbloqueada: Primeira Dose!");
+                    // Atraso pequeno para o segundo toast não sobrepor o primeiro
+                    setTimeout(() => {
+                        showToast("Medalha Desbloqueada: Primeira Dose!");
+                    }, 1000);
                 }
                 
                 saveGameData(gameData);
@@ -325,9 +351,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     gameData.points -= cost;
                     saveGameData(gameData);
                     updateIncentivesPage();
-                    alert(`Recompensa resgatada! Você gastou ${cost} pontos.`);
+                    // * =================================================
+                    // * ATUALIZAÇÃO: alert() trocado por showToast() (Item 2)
+                    // * =================================================
+                    showToast(`Recompensa resgatada! Você gastou ${cost} pontos.`);
                 } else {
-                    alert('Pontos insuficientes para resgatar esta recompensa.');
+                    // * =================================================
+                    // * ATUALIZAÇÃO: alert() trocado por showToast() (Item 2)
+                    // * =================================================
+                    showToast('Pontos insuficientes para resgatar esta recompensa.');
                 }
             }
         });
@@ -384,7 +416,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeScrollMagic();
     
     // Inicia na tela de homescreen (simulação de boot)
-    // showPage('page-homescreen'); // Não é necessário se 'active' já está no HTML
     updateBottomNav('page-homescreen'); // Garante que nenhum ícone esteja ativo
     if(simulator) {
         simulator.classList.remove('nav-is-visible');
