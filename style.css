@@ -1,8 +1,32 @@
-/* Reset Básico e Fontes iOS */
+/* =================================================
+ * RESET BÁSICO E FONTES
+ * =================================================
+ */
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+
+:root {
+    /* Novas cores baseadas no Stitch */
+    --color-primary: #0d7ff2;
+    --color-primary-dark: #4A90E2; /* Cor alternativa do Dashboard */
+    --color-alert: #F5A623;
+    --color-error: #D0021B;
+    --color-success: #22c55e; /* Verde do iOS */
+    
+    --color-bg-light: #f5f7f8;
+    --color-bg-dark: #101922;
+    
+    --color-text-primary: #111418;
+    --color-text-secondary: #60758a;
+    --color-text-disabled: #9B9B9B;
+    
+    --color-border-light: #dbe0e6;
+    --color-card-light: #ffffff;
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-image: radial-gradient(circle at 50% 50%, #4a5568, #2d3748, #1a202c);
-    background-size: 100% 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,12 +34,16 @@ body {
     color: #fff; 
     padding: 40px 20px;
     perspective: 1500px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Simulador do Dispositivo (iPhone) */
+/* =================================================
+ * SIMULADOR DE IPHONE (Estrutura)
+ * =================================================
+ */
 .iphone-simulator {
-    /* Adicionado para controlar a visibilidade da barra de navegação inferior */
-    --nav-height: 70px; /* Altura da barra de navegação */
+    --nav-height: 70px;
     width: 375px;
     height: 812px; 
     background: #111;
@@ -27,26 +55,20 @@ body {
     box-shadow: -10px 10px 30px rgba(0,0,0,0.1), -20px 20px 50px rgba(0,0,0,0.2);
     transition: transform 0.3s ease-out;
     will-change: transform; 
-    /* Adicionado padding-bottom para garantir que o home indicator não seja cortado */
     padding-bottom: 10px;
 }
 
 .screen {
     width: 100%;
     height: 100%;
-    background: #f9f9f9;
+    background: var(--color-bg-light); /* Fundo padrão das telas */
     border-radius: 50px;
     position: relative;
     overflow: hidden; 
-    /* =================================================
-     * CORREÇÃO 2 (Cantos): Adicionado 'isolation'
-     * Isso força o backdrop-filter a respeitar o overflow
-     * =================================================
-     */
-    isolation: isolate;
+    isolation: isolate; /* Corrige bug de border-radius com backdrop-filter */
 }
 
-/* Ilha Dinâmica (Pílula) */
+/* Hardware Falso */
 .dynamic-island {
     position: absolute;
     top: 18px;
@@ -58,8 +80,6 @@ body {
     border-radius: 20px;
     z-index: 100;
 }
-
-/* Barra de Status iOS */
 .status-bar {
     position: absolute;
     top: 18px;
@@ -73,51 +93,71 @@ body {
     z-index: 50;
     font-weight: 600;
     font-size: 0.9rem;
-    color: #111; /* Cor padrão (para fundos claros) */
+    color: var(--color-text-primary);
 }
 .iphone-simulator[data-theme="dark"] .status-bar { 
     color: #fff; 
 }
-.status-bar .status-icons { display: flex; gap: 6px; font-size: 1.1rem; }
+.status-bar .status-icons { display: flex; gap: 4px; font-size: 1.1rem; }
+.status-bar .material-symbols-outlined { font-size: 1rem; font-variation-settings: 'FILL' 1; }
 
-/* Indicador Home iOS */
 .home-indicator {
     position: absolute;
-    /* =================================================
-     * CORREÇÃO 3 (Barra de Gestos): Posição base
-     * Aumentado de 10px para 15px
-     * =================================================
-     */
     bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     width: 135px;
     height: 5px;
-    background: #444; /* Padrão para fundos claros */
+    background: #aaa;
     border-radius: 5px;
     z-index: 100;
-    /* Adicionado transição para o movimento suave */
     transition: bottom 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
 .iphone-simulator[data-theme="dark"] .home-indicator { 
-    background: #bbb; 
+    background: #555; 
+}
+.iphone-simulator.nav-is-visible .home-indicator {
+    bottom: 85px; /* Sobe a barra de gestos */
 }
 
 /* =================================================
- * CORREÇÃO 3 (Barra de Gestos): Posição com Nav
- * Nova regra para subir a barra de gestos
+ * ESTRUTURA DE PÁGINA E NAVEGAÇÃO
  * =================================================
  */
-.iphone-simulator.nav-is-visible .home-indicator {
-    bottom: 85px; /* 70px (nav) + 15px (padding) */
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-light);
+    color: var(--color-text-primary);
+    transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    z-index: 1;
+    opacity: 0;
 }
+.page.page-light {
+    background: var(--color-card-light); /* Telas brancas como Login */
+}
+.page.active {
+    transform: translateX(0);
+    z-index: 10;
+    opacity: 1;
+}
+.page.inactive-right { transform: translateX(100%); opacity: 0; }
+.page.inactive-left { transform: translateX(-30%); opacity: 0.7; }
+#page-homescreen.active { z-index: 2; }
 
-
-/* --- Tela Inicial (Home Screen) --- */
+/* =================================================
+ * TELA 1: HOMESCREEN (Estilos dos Ícones)
+ * =================================================
+ */
 #page-homescreen .wallpaper {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('449380-1280.jpg'); /* Caminho da sua Imagem 1 */
+    background-image: url('449380-1280.jpg');
     background-size: cover;
     background-position: center;
     z-index: 1;
@@ -128,386 +168,572 @@ body {
     padding: 80px 25px 20px 25px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px; 
+    gap: 24px 16px; /* row-gap, column-gap */
 }
 .app-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     color: white;
-    font-size: 0.7rem;
+    font-size: 0.75rem; /* 12px */
     font-weight: 500;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
-.app-icon i {
-    font-size: 32px;
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 .app-icon span { text-align: center; }
+.app-icon .app-icon-visual {
+    width: 64px; /* 16 */
+    height: 64px; /* 16 */
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    color: white;
+}
+.app-icon .app-icon-visual .material-symbols-outlined {
+    font-size: 48px;
+    font-variation-settings: 'FILL' 1;
+}
+.squircle {
+    border-radius: 22.5%; /* Simula o ícone do iOS */
+}
+.calendar-day { font-size: 0.75rem; font-weight: 700; color: #ef4444; }
+.calendar-date { font-size: 2.25rem; font-weight: 300; margin-top: -4px; }
 
 .dock {
     position: absolute;
     bottom: 30px;
     left: 10px;
     right: 10px;
-    height: 90px;
+    height: 84px; /* Mais fino que o grid */
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-radius: 25px;
+    border-radius: 28px;
     z-index: 2;
     display: grid; 
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
-    padding: 0 15px;
+    padding: 0 10px;
 }
 .dock .app-icon { gap: 0; }
+.dock .app-icon span { display: none; }
+.dock .app-icon .app-icon-visual {
+    width: 60px;
+    height: 60px;
+}
+.dock .app-icon .app-icon-visual .material-symbols-outlined {
+    font-size: 36px;
+}
 
-/* --- Estrutura e Animação das Páginas --- */
-.page {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+/* =================================================
+ * COMPONENTES DE UI (Baseados no Stitch)
+ * =================================================
+ */
+
+/* --- Cabeçalhos --- */
+.page-header {
     display: flex;
-    flex-direction: column;
-    background: #f0f2f5;
-    transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
-    z-index: 1;
-    opacity: 0;
-    color: #1c1c1e; /* CORREÇÃO GLOBAL DE CONTRASTE */
-}
-.page.tab-transition {
-    transition: opacity 0.2s ease-in-out;
-}
-.page.active {
-    transform: translateX(0);
-    z-index: 10;
-    opacity: 1;
-}
-.page.inactive-right {
-    transform: translateX(100%);
-    opacity: 0;
-}
-.page.inactive-left {
-    transform: translateX(-30%);
-    opacity: 0.7;
-}
-
-#page-homescreen.active { z-index: 2; }
-
-/* --- Componentes --- */
-
-/* Header "Large Title" */
-.header-main {
-    padding: 55px 20px 15px 20px;
-    background: #f0f2f5; 
-    color: #1c1c1e;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    transition: opacity 0.3s ease;
+    justify-content: space-between;
+    padding: 12px 16px;
+    width: 100%;
 }
-.header-main h1 {
-    font-size: 2.1rem; 
+.page-header.large-title {
+    padding-top: 55px;
+    padding-bottom: 12px;
+}
+.page-header.large-title h1 {
+    font-size: 2.1rem; /* 34px */
     font-weight: 700;
+    letter-spacing: -0.015em;
 }
+.page-header.simple {
+    padding-top: 55px;
+    border-bottom: 1px solid var(--color-border-light);
+    justify-content: center;
+    position: relative;
+}
+.page-header.simple h1 {
+    font-size: 1.05rem; /* 17px */
+    font-weight: 600;
+}
+.header-back {
+    position: absolute;
+    left: 8px;
+    top: 50px;
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+.header-back .material-symbols-outlined { font-size: 28px; }
 
-/* Avatar do Usuário */
 .header-profile-pic {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    border: 2px solid #ddd;
+    border-radius: 9999px;
     object-fit: cover;
 }
-
-/* Header "Glassmorphism" (Fixo) */
 .header-sticky {
+    /* (Estilos de scroll - sem alteração) */
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 15;
+    top: 0; left: 0; right: 0; z-index: 15;
     padding: 55px 20px 15px 20px;
     background: rgba(249, 249, 249, 0.85); 
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid #e5e5ea;
-    
     opacity: 0;
     transform: translateY(-20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.header-sticky h1 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #111;
-    text-align: center;
-}
-
-/* Estado "Scrolled" */
-.page.scrolled .header-sticky {
-    opacity: 1;
-    transform: translateY(0);
-}
-.page.scrolled .header-main {
-    opacity: 0;
-    pointer-events: none;
-}
+.header-sticky h1 { font-size: 1.1rem; font-weight: 600; color: #111; text-align: center; }
+.page.scrolled .header-sticky { opacity: 1; transform: translateY(0); }
+.page.scrolled .page-header.large-title { opacity: 0; pointer-events: none; }
 
 
-/* Header de Páginas Internas (Voltar) */
-.header-page {
-    padding: 55px 15px 15px 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e5ea;
-    position: relative;
-}
-.header-page h1 { font-size: 1.1rem; font-weight: 600; color: #111; }
-.header-back {
-    position: absolute;
-    left: 10px;
-    top: 50px;
-    background: none;
-    border: none;
-    color: #007EA7;
-    cursor: pointer;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-}
-.header-back i { font-size: 1.5rem; margin-right: 2px; }
-
-/* Conteúdo Principal */
+/* --- Conteúdo da Página --- */
 .content {
     flex-grow: 1;
-    padding: 0 20px 20px 20px; 
+    padding: 16px; 
     overflow-y: auto;
-    /* Oculta a barra de rolagem para simular a experiência de app */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
-/* Oculta a barra de rolagem para navegadores baseados em WebKit (Chrome, Safari) */
-.content::-webkit-scrollbar {
-    display: none;
-}
+.content::-webkit-scrollbar { display: none; }
 .page-with-nav .content { 
-    padding-bottom: calc(var(--nav-height) + 30px); /* Ajuste para a altura da nav bar + padding */
+    padding-bottom: calc(var(--nav-height) + 30px);
 }
-#page-login .content {
-    padding: 20px;
-    justify-content: center;
-}
-
-.content-subtitle {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #333;
-    margin-top: 25px;
-    margin-bottom: 10px;
-}
-
-/* Tela de Login */
-#page-login .content {
+.page-center {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: 16px;
 }
-#page-login.page { background: white; }
-.logo-icon {
-    font-size: 100px;
-    color: #00A8E8;
-    margin-bottom: 20px;
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    padding-top: 16px;
+    padding-bottom: 8px;
 }
-.gov-logo { height: 24px; margin-right: 10px; }
-.small-text { font-size: 0.8rem; color: #777; margin-top: 15px; }
+.page-description {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    padding-bottom: 12px;
+}
+.content-subtitle {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    padding-top: 16px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+}
+.small-text {
+    font-size: 0.875rem; /* 14px */
+    color: var(--color-text-secondary);
+    text-align: center;
+    padding: 8px 16px;
+}
 
-/* Botões */
+/* --- Botões --- */
+.button-container {
+    width: 100%;
+    max-width: 480px; /* Limite do login */
+    padding: 24px 8px 8px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
 .btn {
     display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    padding: 14px 20px;
-    font-size: 1.05rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 12px;
+    min-width: 84px;
     cursor: pointer;
-    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0.75rem; /* 12px */
+    height: 52px; /* 14 */
+    padding: 0 20px;
     gap: 8px;
-    transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease-out;
+    font-size: 1rem; /* 16px */
+    font-weight: 700;
+    transition: all 0.2s ease;
 }
-.btn:disabled {
-    opacity: 0.7;
+.btn:hover { transform: scale(1.02); }
+.btn:active { transform: scale(0.98); }
+.btn .material-symbols-outlined { font-size: 20px; }
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+.btn-primary:hover { background-color: #0b72d1; } /* Darken */
+
+.btn-secondary {
+    background-color: #e5e7eb; /* gray-200 */
+    color: #374151; /* gray-700 */
+}
+.btn-secondary:hover { background-color: #d1d5db; } /* gray-300 */
+
+.btn-error {
+    background-color: var(--color-error);
+    color: white;
+}
+.btn-error:hover { background-color: #b00215; } /* Darken */
+
+.btn-redeem {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    height: auto;
+    width: auto;
+    flex-shrink: 0;
+    border-radius: 0.5rem;
+    background-color: #e5e7eb;
+    color: #374151;
+}
+.btn-redeem:not(:disabled) {
+    background-color: var(--color-primary);
+    color: white;
+}
+.btn-redeem:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary.is-loading {
     cursor: wait;
 }
-.btn:hover {
-    transform: scale(1.02);
+.btn-primary.is-loading .material-symbols-outlined {
+    animation: ph-spin 1s linear infinite;
 }
-.btn:active {
-    transform: scale(0.98);
-    opacity: 0.9;
-}
-.btn i { font-size: 1.2rem; }
-.btn-primary { background-color: #007EA7; color: white; }
-.btn-primary.btn-alert { background-color: #d9534f; }
-.btn-secondary { 
-    background-color: #f0f2f5; 
-    color: #007EA7; 
-    font-weight: 600;
+@keyframes ph-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-/* Cards */
-.card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 15px;
+
+/* --- Formulários --- */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.form-group label {
+    font-size: 1rem;
+    font-weight: 500;
+}
+.form-input {
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+    border-radius: 0.5rem; /* 8px */
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-light);
+    background-color: var(--color-card-light);
+    height: 52px;
+    padding: 0 16px;
+    font-size: 1rem;
+}
+.form-input::placeholder {
+    color: var(--color-text-secondary);
+}
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(13, 127, 242, 0.5);
+}
+.form-input-with-icon {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.form-input-with-icon .form-input {
+    padding-right: 48px; /* Espaço para o ícone */
+}
+.form-input-with-icon .material-symbols-outlined {
+    position: absolute;
+    right: 16px;
+    pointer-events: none;
+    color: var(--color-text-secondary);
+}
+
+/* --- Cards e Listas --- */
+.list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.list-container.card-style {
+    background-color: var(--color-card-light);
+    border-radius: 0.75rem; /* 12px */
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.card-list-item {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 16px;
+    padding: 12px;
+    min-height: 72px;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
-.card-icon { font-size: 36px; color: #00A8E8; }
-.card-icon-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+.list-container.card-style .card-list-item {
+    border-bottom: 1px solid var(--color-border-light);
+}
+.list-container.card-style .card-list-item:last-child {
+    border-bottom: none;
+}
+.list-container:not(.card-style) .card-list-item {
+    background-color: var(--color-card-light);
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border-light);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.card-list-item:hover {
+    background-color: #f9fafb; /* gray-50 */
+}
+
+.card-list-avatar {
+    width: 56px; /* 14 */
+    height: 56px;
+    border-radius: 9999px;
     object-fit: cover;
+    flex-shrink: 0;
 }
-.card-info { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 4px;
-    flex-grow: 1; 
-}
-.card-info strong { font-size: 1.1rem; }
-.card-info span { font-size: 0.9rem; color: #555; }
-.card-arrow { font-size: 1.2rem; color: #c7c7cc; }
-
-.status-card {
-    background: linear-gradient(135deg, #00A8E8, #007EA7);
-    color: white;
+.card-list-icon-bg {
+    width: 48px; /* 12 */
+    height: 48px;
+    border-radius: 9999px;
     display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    cursor: default;
-    margin-top: 0; 
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
-.status-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
-.status-item span { font-size: 0.8rem; font-weight: 500; opacity: 0.9; }
-.status-item strong { font-size: 1.1rem; font-weight: 700; }
-.status-item.overdue strong { color: #FFD166; }
+.card-list-icon-bg .material-symbols-outlined { font-size: 24px; font-variation-settings: 'FILL' 1; }
 
-/* Formulário */
-.form-group-inset { background: #fff; border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
-.form-group { padding: 12px 15px; border-bottom: 1px solid #f0f0f0; }
-.form-group:last-child { border-bottom: none; }
-.form-group label { display: block; font-size: 0.8rem; font-weight: 500; color: #007EA7; margin-bottom: 5px; }
-.form-input { width: 100%; border: none; font-size: 1rem; padding: 5px 0; outline: none; background: none; }
-.form-input[type="date"] { color: #555; }
+.card-list-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 2px;
+    overflow: hidden; /* Para o line-clamp */
+}
+.card-list-info strong {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-list-info span {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-list-arrow {
+    color: var(--color-text-disabled);
+    font-size: 28px;
+    flex-shrink: 0;
+}
+.card-list-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.status-badge {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
 
-/* Status das Doses */
-.status-pendente { color: #f0ad4e; font-weight: 600; }
-.status-atrasada { color: #d9534f; font-weight: 600; }
-.status-completa { color: #5cb85c; }
+/* --- Modificadores de Status (Cores) --- */
+.text-error { color: var(--color-error); }
+.text-alert { color: var(--color-alert); }
+.text-success { color: var(--color-success); }
+.text-secondary { color: var(--color-text-secondary); }
 
-/* Lista de Vacinas */
-.vaccine-list.inset { list-style: none; width: 100%; background: #fff; border-radius: 12px; overflow: hidden; }
-.vaccine-list li { display: flex; align-items: center; padding: 12px 15px; border-bottom: 1px solid #f0f0f0; gap: 15px; }
-.vaccine-list li:last-child { border-bottom: none; }
-.vaccine-list li i { font-size: 1.8rem; }
-.list-item-info { display: flex; flex-direction: column; }
-.list-item-info strong { font-size: 1rem; font-weight: 500; }
-.list-item-info span { font-size: 0.85rem; color: #777; }
+.status-badge.status-error { color: var(--color-error); }
+.status-badge.status-alert { color: var(--color-alert); }
 
-/* Tela de Agendamento */
+.card-list-icon-bg.status-error { background-color: #fee2e2; color: #dc2626; }
+.card-list-icon-bg.status-alert { background-color: #fef3c7; color: #d97706; }
+.card-list-icon-bg.status-success { background-color: #dcfce7; color: #16a34a; }
+.card-list-icon-bg.status-primary { background-color: #dbeafe; color: #2563eb; }
+
+/* --- Componentes Específicos das Telas --- */
+
+/* (Dashboard) Card de Status */
+.card-status {
+    background-color: var(--color-primary-dark);
+    color: white;
+    border-radius: 0.75rem;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.status-item { display: flex; flex-direction: column; }
+.status-item span { font-size: 0.875rem; color: rgba(255,255,255,0.8); }
+.status-item strong { font-size: 1.125rem; font-weight: 700; }
+.divider { width: 100%; height: 1px; background-color: rgba(255,255,255,0.2); border: 0; }
+
+/* (Dashboard) Card de Ação */
+.card-action-dashed {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border-radius: 0.75rem;
+    border: 2px dashed var(--color-border-light);
+    padding: 16px;
+    margin-top: 4px;
+    color: var(--color-text-secondary);
+    transition: all 0.2s ease;
+}
+.card-action-dashed:hover {
+    background-color: #f9fafb; /* gray-50 */
+    border-color: #cdd3da;
+}
+.card-action-dashed span { font-size: 1rem; font-weight: 500; }
+
+/* (Agendamento) Mapa e UBS */
 .map-placeholder { 
-    width: 100%; 
+    width: calc(100% - 32px); /* 100% - padding */
+    margin: 12px 16px;
     height: 180px; 
-    border-radius: 12px; 
+    border-radius: 0.75rem; 
     overflow: hidden; 
-    margin: 20px 0; 
     background-color: #e0e0e0; 
 }
-.map-placeholder img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; /* Garante que a imagem do mapa cubra a área */
+.map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+
+.card-ubs {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 16px;
+    border-radius: 0.75rem;
+    background-color: var(--color-card-light);
+    padding: 16px;
+    margin: 0 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
 }
-.card-ubs { background: #fff; border-radius: 12px; padding: 15px; margin-top: 10px; }
-.card-ubs strong { font-size: 1.1rem; }
-.card-ubs span { display: block; font-size: 0.9rem; color: #555; margin: 5px 0; }
-#page-schedule .content-description {
-    color: #555;
+.card-ubs:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+.card-ubs-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 2;
+}
+.card-ubs-info strong { font-size: 1rem; font-weight: 700; }
+.card-ubs-distance {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-primary);
+}
+.card-ubs-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    flex: 1;
+    max-width: 80px;
 }
 
-/* Tela de Incentivos (Gamificação V10) */
-.points-card {
-    background: linear-gradient(135deg, #007EA7, #00506a);
+/* (Incentivos) Card de Pontos */
+.card-points {
+    background: linear-gradient(135deg, var(--color-primary-dark), #3a7ac8);
     color: white;
-    flex-direction: row;
+    border-radius: 0.75rem;
+    padding: 24px;
+    display: flex;
     align-items: center;
     gap: 20px;
-    padding: 25px;
 }
-.points-card i { font-size: 48px; color: #FFD166; }
-.points-info span { font-size: 1rem; opacity: 0.9; }
-.points-info strong { font-size: 2.8rem; font-weight: 700; line-height: 1; }
+.card-points .material-symbols-outlined {
+    font-size: 48px;
+    color: #facc15; /* yellow-400 */
+    font-variation-settings: 'FILL' 1;
+}
+.card-points-info { display: flex; flex-direction: column; }
+.card-points-info span { font-size: 1rem; opacity: 0.9; }
+.card-points-info strong { font-size: 2.5rem; font-weight: 700; line-height: 1; }
 
-.reward-card { 
+/* (Incentivos) Medalhas */
+.achievements-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 16px; 
+}
+.badge { 
+    background: var(--color-card-light); 
+    border-radius: 0.75rem; 
+    padding: 16px; 
+    display: flex; 
+    flex-direction: column; 
     align-items: center; 
-    gap: 15px; 
-    padding: 10px 15px;
+    justify-content: center; 
+    gap: 8px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease; 
 }
-.reward-icon { width: 45px; height: 45px; border-radius: 50%; background: #e5e5ea; display: flex; align-items: center; justify-content: center; }
-.reward-icon i { font-size: 24px; color: #007EA7; }
-.reward-info { flex-grow: 1; }
-.reward-info strong { font-size: 1rem; }
-.reward-info span { font-size: 0.85rem; color: #555; }
-.btn-redeem { 
-    width: auto; 
-    padding: 6px 12px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-top: 0; 
-}
-.btn-redeem:not(:disabled) { background-color: #007EA7; color: white; }
-
-.achievements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-.badge { background: #fff; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease; }
-.badge i { font-size: 36px; color: #00A8E8; }
+.badge .material-symbols-outlined { font-size: 36px; }
 .badge span { font-size: 0.8rem; font-weight: 500; text-align: center; }
-.badge.locked { background: #f0f0f0; color: #aaa; filter: grayscale(100%); opacity: 0.7; }
-.badge.locked i { color: #ccc; }
-.badge:not(.locked) { background: #e6ffed; color: #2e7d32; transform: scale(1.05); }
-.badge:not(.locked) i { color: #5cb85c; }
 
- 
-/* Navegação Inferior (Lógica de Show/Hide) */
+.badge.locked { 
+    background: #f9fafb; /* gray-50 */
+    color: #9ca3af; /* gray-400 */
+    filter: grayscale(80%);
+    opacity: 0.7; 
+}
+.badge:not(.locked) { 
+    background: #f0fdf4; /* green-50 */
+    color: #15803d; /* green-700 */
+    transform: scale(1.05); 
+}
+.badge:not(.locked) .material-symbols-outlined { color: var(--color-success); }
+
+
+/* =================================================
+ * NAVEGAÇÃO INFERIOR E TOAST
+ * =================================================
+ */
+
+/* --- Barra de Navegação --- */
 .bottom-nav {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: var(--nav-height); /* Usa a variável */
-    background: rgba(249, 249, 249, 0.85);
+    height: var(--nav-height);
+    background: rgba(249, 249, 249, 0.85); 
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-top: 1px solid #e5e5ea;
@@ -516,25 +742,14 @@ body {
     justify-content: space-around;
     align-items: flex-start;
     padding-top: 10px;
-    
-    /* =================================================
-     * CORREÇÃO 2 (Cantos): Adicionado 'border-radius'
-     * Faz os cantos da nav-bar baterem com os cantos da tela
-     * =================================================
-     */
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
-
-    /* Animação de entrada */
     transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
-
-/* Nova classe para mostrar a barra de navegação */
 .iphone-simulator.nav-is-visible .bottom-nav {
     transform: translateY(0);
 }
-
 .nav-item {
     display: flex;
     flex-direction: column;
@@ -543,16 +758,10 @@ body {
     border: none;
     cursor: pointer;
     font-size: 0.7rem;
-    color: #8e8e93;
-    /* Adicionado para os novos ícones de imagem */
+    color: var(--color-text-secondary);
     position: relative; 
     width: 60px;
 }
-
-/* * =================================================
- * ATUALIZAÇÃO: Ícones de Navegação com CSS (Item 3.1)
- * =================================================
- */
 .nav-icon-wrapper {
     position: relative;
     width: 28px;
@@ -573,36 +782,27 @@ body {
 }
 .nav-icon.icon-regular {
     opacity: 1;
-    background-color: #8e8e93; /* Cor inativa */
+    background-color: var(--color-text-secondary); /* Cor inativa */
 }
 .nav-icon.icon-active {
     opacity: 0;
-    background-color: #007EA7; /* Cor ativa */
+    background-color: var(--color-primary); /* Cor ativa */
 }
-/* Quando o .nav-item está ativo... */
 .nav-item.active { 
-    color: #007EA7; /* Cor do texto ativo */
+    color: var(--color-primary); /* Cor do texto ativo */
 }
-.nav-item.active .icon-regular {
-    opacity: 0; /* Esconde o ícone regular */
-}
-.nav-item.active .icon-active {
-    opacity: 1; /* Mostra o ícone ativo */
-}
+.nav-item.active .icon-regular { opacity: 0; }
+.nav-item.active .icon-active { opacity: 1; }
 
-/* =================================================
- * CORREÇÃO 1 (Ícones): SVGs da Home corrigidos
- * =================================================
- */
-#nav-home .nav-icon.icon-regular {
+/* Ícones da Navegação (SVGs como Máscara) */
+#nav-home .nav-icon {
     -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTI0MS45MiwxMTIuODNMMTQ0LjgsMzEuMkE3OS4xMiw3OS4xMiwwLDAsMCwxMjgsMTEuNSw3OS4xMiw3OS4xMiwwLDAsMCwxMS4xMSwxMTMuMzlhMTYuMSwxNi4xLDAsMCwwLDEuMjksMjIuNzlhMTYuMjQsMTYuMjQsMCwwLDAsMjIuNSwxLjM0TDEyOCw1OC4yM2wxMDMuMSw3OS43YTgsOCwwLDAsMC01LjQ3LDE0LjIyYTguNzksOC43OSwwLDAsMC0zLjQ1LS43NkwxMiwxMzguNDRWjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy40OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWk0xMjgsMjhhNjMsNjMsMCwwLDEsNTEuNDUsMjkuMzZMMTI4LDEwNC43N2E4LDgsMCwwLDEtMTIuMTItMS4yOFpNMjQsMjA5VjEzMS41Nmw0MCwyNC40NVYyMDlaTTI4LDEyMS44NiwxMjgsNTMuNzhsMTA0LDEwNEgyNFpNMTc2LDIwOUgxNDRWMTE0LjEzTDE3Niw5My43NVpNMjMyLDIwOVMyMDAsMjA5LDIwMCwyMDlWMTEwLjY5bDMwLjUxLTE4LjY0YTEuNjIsMS42MiwwLDAsMSwxLjQ5LDBSaDBaIi8+PC9zdmc+');
     mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTI0MS45MiwxMTIuODNMMTQ0LjgsMzEuMkE3OS4xMiw3OS4xMiwwLDAsMCwxMjgsMTEuNSw3OS4xMiw3OS4xMiwwLDAsMCwxMS4xMSwxMTMuMzlhMTYuMSwxNi4xLDAsMCwwLDEuMjksMjIuNzlhMTYuMjQsMTYuMjQsMCwwLDAsMjIuNSwxLjM0TDEyOCw1OC4yM2wxMDMuMSw3OS43YTgsOCwwLDAsMC01LjQ3LDE0LjIyYTguNzksOC43OSwwLDAsMC0zLjQ1LS43NkwxMiwxMzguNDRWjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy40OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWk0xMjgsMjhhNjMsNjMsMCwwLDEsNTEuNDUsMjkuMzZMMTI4LDEwNC43N2E4LDgsMCwwLDEtMTIuMTItMS4yOFpNMjQsMjA5VjEzMS41Nmw0MCwyNC40NVYyMDlaTTI4LDEyMS44NiwxMjgsNTMuNzhsMTA0LDEwNEgyNFpNMTc2LDIwOUgxNDRWMTE0LjEzTDE3Niw5My43NVpNMjMyLDIwOVMyMDAsMjA5LDIwMCwyMDlWMTEwLjY5bDMwLjUxLTE4LjY0YTEuNjIsMS42MiwwLDAsMSwxLjQ5LDBSaDBaIi8+PC9zdmc+');
 }
-#nav-home .nav-icon.icon-active {
-    -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTI0MS45MiwxMTIuODNMMTQ0LjgsMzEuMkE3OS4xMiw3OS4xMiwwLDAsMCwxMjgsMTEuNSw3OS4xMiw3OS4xMiwwLDAsMCwxMS4xMSwxMTMuMzlhMTYuMSwxNi4xLDAsMCwwLDEuMjksMjIuNzlhMTYuMjQsMTYuMjQsMCwwLDAsMjIuNSwxLjM0TDEyOCw1OC4yM2wxMDMuMSw3OS43YTgsOCwwLDAsMC01LjQ3LDE0LjIyYTguNzksOC43OSwwLDAsMC0zLjQ1LS43NkwxMiwxMzguNDRWjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy40OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWiIvPjwvc3ZnPg==');
-    mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTI0MS45MiwxMTIuODNMMTQ0LjgsMzEuMkE3OS4xMiw3OS4xMiwwLDAsMCwxMjgsMTEuNSw3OS4xMiw3OS4xMiwwLDAsMCwxMS4xMSwxMTMuMzlhMTYuMSwxNi4xLDAsMCwwLDEuMjksMjIuNzlhMTYuMjQsMTYuMjQsMCwwLDAsMjIuNSwxLjM0TDEyOCw1BC4yM2wxMDMuMSw3OS43YTgsOCwwLDAsMC01LjQ3LDE0LjIyYTguNzksOC43OSwwLDAsMC0zLjQ1LS43NkwxMiwxMzguNDRWjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy40OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWiIvPjwvc3ZnPg==');
+#nav-home .nav-icon.icon-regular {
+    -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIyNCwyMTZIMTgzLjA5YTEuMSwxLjEsMCwwLDEtLjQ0LS4wNiwxLDMsMywwLDAsMS0uMzktMS4xVjE1NWE4LDgsMCwwLDAtOC04SDg0YTgsOCwwLDAsMC04LDh2NjBhMSwxLDAsMCwxLTEuNTQuODNIMzJhOCw4LDAsMCwxLDAtMTZsOTIuMjItODUuMTRhOCw4LDAsMCwxLDEwLjE5LDBMMjI0LDIwMGE4LDgsMCwwLDEsMCwxNlptMTYuNzQtMTAwLjdMMTQxLjYxLDMxLjRhMTYsMTYsMCwwLDAtMjMuMjIsMEwyNCwyMTYuNzlhOCw4LDAsMCwwLTUuNjYsOS42NUE4LDgsMCwwLDAsMjQsMjMySDY4VjE1NGExNiwxNiwwLDAsMSwxNi0xNkgxNzJhMTYsMTYsMCwwLDEsMTYsMTZ2NzZoNDRhOCw4LDAsMCwwLDgtOGE4LDgsMCwwLDAtMi4yNi01LjY2WiIvPjwvc3ZnPg==');
+    mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIyNCwyMTZIMTgzLjA5YTEuMSwxLjEsMCwwLDEtLjQ0LS4wNiwxLDMsMywwLDAsMS0uMzktMS4xVjE1NWE4LDgsMCwwLDAtOC04SDg0YTgsOCwwLDAsMC04LDh2NjBhMSwxLDAsMCwxLTEuNTQuODNIMzJhOCw4LDAsMCwxLDAtMTZsOTIuMjItODUuMTRhOCw4LDAsMCwxLDEwLjE5LDBMMjI0LDIwMGE4LDgsMCwwLDEsMCwxNlptMTYuNzQtMTAwLjdMMTQxLjYxLDMxLjRhMTYsMTYsMCwwLDAtMjMuMjIsMEwyNCwyMTYuNzlhOCw4LDAsMCwwLTUuNjYsOS42NUE4LDgsMCwwLDAsMjQsMjMySDY4VjE1NGExNiwxNiwwLDAsMSwxNi0xNkgxNzJhMTYsMTYsMCwwLDEsMTYsMTZ2NzZoNDRhOCw4LDAsMCwwLDgtOGE4LDgsMCwwLDAtMi4yNi01LjY2WiIvPjwvc3ZnPg==');
 }
-
 #nav-incentives .nav-icon.icon-regular {
     -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzOS42MSwxMzcuODVhMTYsMTYsMCwwLDAtMjAuMzEtMS4xNkwyMDgsMTQyLjFWMTIwYTgsOCwwLDAsMC04LThoLTMyYTgsOCwwLDAsMC04LDh2MjIuMWwtMTIuNjktNS40NGExNiwxNiwwLDAsMC0xNC42MiwwTDEyMCwxNDIuMVYxMDRhOCw4LDAsMCwwLTgtOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi5wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVpNMTcyLDEyOEgzMnYxNloiLz48L3N2Zz4=');
     mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzOS42MSwxMzcuODVhMTYsMTYsMCwwLDAtMjAuMzEtMS4xNkwyMDgsMTQyLjFWMTIwYTgsOCwwLDAsMC04LThoLTMyYTgsOCwwLDAsMC04LDh2MjIuMWwtMTIuNjktNS40NGExNiwxNiwwLDAsMC0xNC42MiwwTDEyMCwxNDIuMVYxMDRhOCw4LDAsMCwwLTgtOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi5wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVpNMTcyLDEyOEgzMnYxNloiLz48L3N2Zz4=');
@@ -612,85 +812,7 @@ body {
     mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzOS42MSwxMzcuODVhMTYsMTYsMCwwLDAtMjAuMzEtMS4xNkwyMDgsMTQyLjFWMTIwYTgsOCwwLDAsMC04LThoLTMyYTgsOCwwLDAsMC04LDh2MjIuMWwtMTIuNjktNS40NGExNiwxNiwwLDAsMC0xNC42MiwwTDEyMCwxNDIuMVYxMDRhOCw4LDAsMCwwLTgtOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi4wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVoiLz48L3N2Zz4=');
 }
 
-
-/* Spinner de Login */
-.ph-spin {
-    animation: ph-spin 1s linear infinite;
-}
-@keyframes ph-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* * =================================================
- * ATUALIZAÇÃO: Layout das Anotações (Item 3.2)
- * =================================================
- */
-.main-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 20px; /* Espaço entre anotações e simulador */
-}
-
-.annotations-wrapper-left, .annotations-wrapper-right {
-    display: flex;
-    flex-direction: column;
-    gap: 40px; /* Espaçamento automático entre os textos! */
-    height: 100%;
-    justify-content: center; /* Alinha verticalmente */
-    flex-basis: 250px; /* Largura fixa */
-    flex-shrink: 0;
-}
-.annotations-wrapper-left {
-    align-items: flex-end;
-}
-.annotations-wrapper-right {
-    align-items: flex-start;
-}
-
-/* Anotações do Esqueleto */
-.project-annotation {
-    position: relative; /* Mudado de absolute para relative */
-    color: #a0aec0;
-    max-width: 250px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: -1;
-}
-.project-annotation.anno-left {
-    text-align: right;
-}
-.project-annotation.anno-right {
-    text-align: left;
-}
-.annotation-line {
-    height: 1px;
-    background: #4a5568;
-    flex-shrink: 0;
-}
-.project-annotation.anno-left .annotation-line { order: 2; }
-.project-annotation.anno-left .annotation-text { order: 1; }
-.annotation-text h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #e2e8f0;
-    margin: 0 0 5px 0;
-}
-.annotation-text p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin: 0;
-    color: #a0aec0;
-}
-
-/* * =================================================
- * NOVO COMPONENTE: Toast Notification (Item 2)
- * =================================================
- */
+/* --- Toast --- */
 .toast {
     position: absolute;
     bottom: 100px; /* Acima da barra de navegação */
@@ -714,148 +836,60 @@ body {
     transform: translateX(-50%) scale(1);
 }
 
-
 /* =================================================
- * INÍCIO: BLOCO DE CSS ADICIONADO (CORREÇÕES)
+ * ANOTAÇÕES EXTERNAS
  * =================================================
  */
-
-/* * Classe de ajuda para fontes especiais (ícones de status, setas).
- * 'sans-serif' força o navegador a usar um glifo padrão.
- */
-.sf-font {
-    font-family: sans-serif;
+.main-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 20px; /* Espaço entre anotações e simulador */
 }
 
-/* * Corrige a semântica de <i> para <span> nos ícones de app.
- * Também reseta o 'font-style' caso <i> seja usado.
- */
-.app-icon-visual {
-    font-size: 32px;
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.annotations-wrapper-left, .annotations-wrapper-right {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* Espaçamento automático entre os textos! */
+    height: 100%;
+    justify-content: center; /* Alinha verticalmente */
+    flex-basis: 250px; /* Largura fixa */
+    flex-shrink: 0;
+}
+.annotations-wrapper-left { align-items: flex-end; }
+.annotations-wrapper-right { align-items: flex-start; }
+
+.project-annotation {
+    position: relative; /* Mudado de absolute para relative */
+    color: #a0aec0;
+    max-width: 250px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-style: normal; /* Remove itálico se usar <i> */
+    gap: 15px;
+    z-index: -1;
 }
+.project-annotation.anno-left { text-align: right; }
+.project-annotation.anno-right { text-align: left; }
 
-/* --- Ícones da Homescreen --- */
-.app-icon[data-app="imunivida"] .app-icon-visual {
-    background: white;
-    color: #00A8E8;
+.annotation-line {
+    height: 1px;
+    background: #4a5568;
+    flex-shrink: 0;
 }
-.app-icon[data-app="calendar"] .app-icon-visual {
-    background: white;
-}
-.app-icon[data-app="camera"] .app-icon-visual {
-    background: #ddd;
-}
-.app-icon[data-app="photos"] .app-icon-visual {
-    background: white;
-}
-.app-icon[data-app="maps"] .app-icon-visual {
-    background: white;
-}
-.app-icon[data-app="messages"] .app-icon-visual {
-    background: #38a169;
-    color: white;
-}
-.app-icon[data-app="safari"] .app-icon-visual {
-    background: #007EA7;
-    color: white;
-}
-.app-icon[data-app="settings"] .app-icon-visual {
-    background: #8e8e93;
-    color: white;
-}
-.app-icon[data-app="weather"] .app-icon-visual {
-    background: #007EA7;
-    color: #FFD166;
-}
+.project-annotation.anno-left .annotation-line { order: 2; }
+.project-annotation.anno-left .annotation-text { order: 1; }
 
-/* * =================================================
- * CORREÇÃO: Ícones do DOCK (Estilos que faltavam)
- * =================================================
- */
-.dock .app-icon[data-app="phone"] .app-icon-visual {
-    background: #38a169;
-    color: white;
+.annotation-text h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin: 0 0 5px 0;
 }
-.dock .app-icon[data-app="safari"] .app-icon-visual {
-    background: #007EA7;
-    color: white;
-}
-.dock .app-icon[data-app="messages"] .app-icon-visual {
-    background: #38a169;
-    color: white;
-}
-.dock .app-icon[data-app="music"] .app-icon-visual {
-    background: #fa2a40;
-    color: white;
-}
-
-
-/* --- Ícones de Botões e Listas --- */
-#page-login .logo-icon {
-    font-style: normal;
-}
-
-#card-add-dependent .card-icon-add {
-    font-size: 36px;
-    color: #007EA7;
-    font-style: normal;
-}
-
-.card-arrow {
-    font-family: sans-serif;
-}
-
-.header-back i.sf-font {
-    font-size: 1.5rem;
-    margin-right: 2px;
-    font-style: normal;
-}
-
-.vaccine-list-icon {
-    font-size: 1.8rem;
-    font-style: normal;
-}
-
-.btn i {
-    font-size: 1.2rem;
-    font-style: normal;
-}
-
-.points-card .points-icon {
-    font-size: 48px;
-    color: #FFD166;
-    font-style: normal;
-}
-
-.reward-icon i {
-    font-size: 24px;
-    color: #007EA7;
-    font-style: normal;
-}
-
-.badge i {
-    font-size: 36px;
-    color: #00A8E8;
-    font-style: normal;
-}
-.badge.locked i {
-    color: #ccc;
-}
-.badge:not(.locked) i {
-    color: #5cb85c;
-}
-
-/* * Corrige o ícone de 'spin' do login (ligado ao JS)
- */
-.btn-primary.is-loading i {
-    display: inline-block;
-    animation: ph-spin 1s linear infinite;
+.annotation-text p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+    color: #a0aec0;
 }
