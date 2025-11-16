@@ -15,38 +15,43 @@ document.addEventListener('DOMContentLoaded', () => {
         incentives: document.querySelector('.nav-item[data-page="page-incentives"]')
     };
 
-    // --- NOVO (Item 2): Variáveis do Toast ---
+    // --- Variáveis do Toast ---
     const toastElement = document.getElementById('toast-notification');
     const toastMessage = document.getElementById('toast-message');
     let toastTimeout; // Variável para controlar o timer do toast
     
     const rootPages = ['page-dashboard', 'page-incentives']; 
-    const lightThemePages = ['page-login', 'page-add-dependent', 'page-schedule', 'page-calendar-ana', 'page-calendar-joao', 'page-calendar-generic'];
+    // Atualizado: 'page-dashboard' e 'page-incentives' agora são claros
+    const lightThemePages = ['page-login', 'page-dashboard', 'page-incentives', 'page-add-dependent', 'page-schedule', 'page-calendar-ana', 'page-calendar-joao', 'page-calendar-generic'];
 
     // --- Variáveis de Refinamento (Login Simulado) ---
     const btnLoginGov = document.getElementById('btn-login-gov');
-    const btnLoginGovOriginalHTML = btnLoginGov.innerHTML; // Salva o estado original do botão
+    // ATUALIZADO: O botão de login agora não tem HTML interno, só texto
+    const btnLoginGovOriginalText = btnLoginGov.innerText; 
 
     // --- Funções Principais ---
 
     /**
-     * =================================================
-     * NOVA FUNÇÃO: showToast (Item 2)
-     * Substitui todos os 'alert()'.
-     * =================================================
+     * Função de Notificação "Toast"
      */
     function showToast(message) {
         if (!toastElement || !toastMessage) return;
 
-        // Limpa qualquer toast anterior
         if (toastTimeout) {
             clearTimeout(toastTimeout);
         }
+        
+        // ATUALIZADO: Adiciona ícone ao toast
+        if (message.includes("Medalha")) {
+            toastMessage.innerHTML = `<span class="material-symbols-outlined">military_tech</span> ${message}`;
+        } else if (message.includes("Confirmado")) {
+            toastMessage.innerHTML = `<span class="material-symbols-outlined">check_circle</span> ${message}`;
+        } else {
+            toastMessage.innerText = message;
+        }
 
-        toastMessage.innerText = message;
         toastElement.classList.add('show');
 
-        // Esconde o toast depois de 2.5 segundos
         toastTimeout = setTimeout(() => {
             toastElement.classList.remove('show');
         }, 2500);
@@ -64,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isTabSwitch = rootPages.includes(currentPage?.id) && rootPages.includes(pageId);
 
-        // 1. Limpa classes de animação de todas as páginas
+        // 1. Limpa classes de animação
         allPages.forEach(page => {
             page.classList.remove('inactive-left', 'inactive-right', 'tab-transition');
             if (page.id !== currentPage?.id) {
@@ -130,11 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
      * Lógica dos Ícones de Navegação
      */
     function updateBottomNav(pageId) {
-        // Reseta ambos
         if (navItems.home) navItems.home.classList.remove('active');
         if (navItems.incentives) navItems.incentives.classList.remove('active');
 
-        // Ativa o correto
         if (pageId === 'page-dashboard') {
             if (navItems.home) navItems.home.classList.add('active');
         } else if (pageId === 'page-incentives') {
@@ -185,7 +188,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Cálculo de Idade (Sem alteração)
+     * =================================================
+     * ATUALIZADO: renderDependentCard
+     * Agora cria o HTML no novo formato do Stitch
+     * =================================================
      */
     function renderDependentCard(dependent) {
         const today = new Date();
@@ -201,32 +207,27 @@ document.addEventListener('DOMContentLoaded', () => {
         if (age > 0) {
             ageText = `${age} ano${age > 1 ? 's' : ''}`;
         } else {
-            // Calcula a idade em meses se for menor que 1 ano
             let months = (today.getFullYear() - birthDate.getFullYear()) * 12;
             months -= birthDate.getMonth();
             months += today.getMonth();
-            
-            // Ajuste para o dia do mês
             if (today.getDate() < birthDate.getDate()) {
                 months--;
             }
-            
-            if (months > 0) {
-                ageText = `${months} me${months > 1 ? 'ses' : 's'}`;
-            } else {
-                ageText = 'Recém-nascido';
-            }
+            ageText = (months > 0) ? `${months} me${months > 1 ? 'ses' : 's'}` : 'Recém-nascido';
         }
         
+        // Novo HTML do card, baseado em code3.html
         const cardHTML = `
-            <div class="card" data-page="page-calendar-generic" data-name="${dependent.name}" data-direction="forward">
-                <img class="card-icon-img" src="https://picsum.photos/seed/${dependent.id}/80/80" alt="${dependent.name}">
-                <div class="card-info">
+            <div class="card-list-item" data-page="page-calendar-generic" data-name="${dependent.name}" data-direction="forward">
+                <img class="card-list-avatar" src="https://picsum.photos/seed/${dependent.id}/80/80" alt="${dependent.name}">
+                <div class="card-list-info">
                     <strong>${dependent.name} (${ageText})</strong>
                     <span>Calendário pendente</span>
-                    <span class="status-pendente">Simulado</span>
                 </div>
-                <i class="card-arrow sf-font">❯</i>
+                <div class="card-list-status">
+                    <span class="status-badge status-alert">Pendente</span>
+                </div>
+                <span class="material-symbols-outlined card-list-arrow">chevron_right</span>
             </div>
         `;
         if (dependentListContainer) {
@@ -236,11 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     /*
     =================================================
-    BLOCO: EFEITO 3D MOUSE-MOVE (CORRIGIDO)
+    BLOCO: EFEITO 3D MOUSE-MOVE (Corrigido)
     =================================================
     */
     
-    // Rotação base (a inclinação padrão do celular)
     const baseRotateX = 3;
     const baseRotateY = -4;
     const originalTransform = `rotateX(${baseRotateX}deg) rotateY(${baseRotateY}deg)`;
@@ -253,23 +253,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const x = (clientX / offsetWidth) - 0.5;
         const y = (clientY / offsetHeight) - 0.5;
         
-        // --- INÍCIO DA CORREÇÃO ---
         const maxRotate = 8; 
         const mouseRotateX = -1 * y * maxRotate;
         const mouseRotateY = x * maxRotate;
         
-        // Soma a rotação base com a rotação do mouse
         const finalRotateX = baseRotateX + mouseRotateX;
         const finalRotateY = baseRotateY + mouseRotateY;
         
-        simulator.style.transition = 'none'; // Remove a transição para o movimento ser instantâneo
+        simulator.style.transition = 'none';
         simulator.style.transform = `rotateX(${finalRotateX}deg) rotateY(${finalRotateY}deg)`;
-        // --- FIM DA CORREÇÃO ---
     });
 
     document.body.addEventListener('mouseleave', () => {
         if (!simulator) return;
-        // Volta à inclinação original suavemente
         simulator.style.transition = 'transform 0.3s ease-out';
         simulator.style.transform = originalTransform;
     });
@@ -297,14 +293,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 loginTrigger.disabled = true;
                 
+                // ATUALIZADO: Spinner do botão
                 loginTrigger.classList.add('is-loading'); 
-                loginTrigger.innerHTML = '<i class="ph-spin">🔄</i> Autenticando...';
+                loginTrigger.innerHTML = `<span class="material-symbols-outlined">sync</span> Autenticando...`;
 
                 setTimeout(() => {
                     showPage('page-dashboard', 'forward');
                     loginTrigger.disabled = false;
                     loginTrigger.classList.remove('is-loading');
-                    loginTrigger.innerHTML = btnLoginGovOriginalHTML;
+                    // Restaura o HTML original (com o SVG)
+                    loginTrigger.innerHTML = `<svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12.193 13.729L15.343 15.49L12.193 17.25V13.729Z" fill="white"></path><path d="M11.808 10.21V13.73L8.658 15.49L11.808 10.21Z" fill="white"></path><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM15.99 15.99L12.23 18.17C12.08 18.25 11.92 18.25 11.77 18.17L8.01 15.99C7.86 15.9 7.75 15.76 7.75 15.6V12.4L11.77 10.22C11.91 10.14 12.08 10.14 12.22 10.22L16.25 12.4V15.6C16.25 15.76 16.14 15.9 15.99 15.99Z" fill="white"></path></svg> <span>${btnLoginGovOriginalText}</span>`;
                 }, 2000);
             }
 
@@ -331,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let gameData = getGameData();
                 gameData.points += 100;
                 
-                showToast("Agendamento Confirmado! 🏆 +100 Pontos Imuni!");
+                showToast("Agendamento Confirmado!");
 
                 if (!gameData.badges.includes('first-dose')) {
                     gameData.badges.push('first-dose');
@@ -347,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (redeemTrigger && !redeemTrigger.disabled) {
                 e.preventDefault();
                 e.stopPropagation();
-                const rewardCard = redeemTrigger.closest('.reward-card');
+                const rewardCard = redeemTrigger.closest('.card-list-item'); // Atualizado
                 const cost = rewardCard.id === 'reward-farmacia' ? 1000 : 5000;
                 let gameData = getGameData();
 
@@ -355,9 +353,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     gameData.points -= cost;
                     saveGameData(gameData);
                     updateIncentivesPage();
-                    showToast(`Recompensa resgatada! Você gastou ${cost} pontos.`);
+                    showToast(`Recompensa resgatada!`);
                 } else {
-                    showToast('Pontos insuficientes para resgatar esta recompensa.');
+                    showToast('Pontos insuficientes.');
                 }
             }
         });
@@ -413,10 +411,10 @@ document.addEventListener('DOMContentLoaded', () => {
     updateIncentivesPage();
     initializeScrollMagic();
     
-    // Inicia na tela de homescreen (simulação de boot)
-    updateBottomNav('page-homescreen'); // Garante que nenhum ícone esteja ativo
+    // Inicia na tela de homescreen
+    updateBottomNav('page-homescreen');
     if(simulator) {
         simulator.classList.remove('nav-is-visible');
-        simulator.dataset.theme = 'dark';
+        simulator.dataset.theme = 'dark'; // Tema da homescreen
     }
 });
