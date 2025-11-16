@@ -236,11 +236,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     /*
     =================================================
-    BLOCO: EFEITO 3D MOUSE-MOVE
+    BLOCO: EFEITO 3D MOUSE-MOVE (CORRIGIDO)
     =================================================
     */
     
-    const originalTransform = 'rotateX(3deg) rotateY(-4deg)';
+    // Rotação base (a inclinação padrão do celular)
+    const baseRotateX = 3;
+    const baseRotateY = -4;
+    const originalTransform = `rotateX(${baseRotateX}deg) rotateY(${baseRotateY}deg)`;
     
     document.body.addEventListener('mousemove', (e) => {
         if (!simulator) return;
@@ -255,17 +258,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const mouseRotateX = -1 * y * maxRotate;
         const mouseRotateY = x * maxRotate;
         
-        // Soma a rotação base (do CSS) com a rotação do mouse
-        const finalRotateX = 3 + mouseRotateX;
-        const finalRotateY = -4 + mouseRotateY;
+        // Soma a rotação base com a rotação do mouse
+        const finalRotateX = baseRotateX + mouseRotateX;
+        const finalRotateY = baseRotateY + mouseRotateY;
         
-        simulator.style.transition = 'none';
+        simulator.style.transition = 'none'; // Remove a transição para o movimento ser instantâneo
         simulator.style.transform = `rotateX(${finalRotateX}deg) rotateY(${finalRotateY}deg)`;
         // --- FIM DA CORREÇÃO ---
     });
 
     document.body.addEventListener('mouseleave', () => {
         if (!simulator) return;
+        // Volta à inclinação original suavemente
         simulator.style.transition = 'transform 0.3s ease-out';
         simulator.style.transform = originalTransform;
     });
