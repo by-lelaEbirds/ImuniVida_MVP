@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Variáveis de Refinamento (Login Simulado) ---
     const btnLoginGov = document.getElementById('btn-login-gov');
     // ATUALIZADO: O botão de login agora não tem HTML interno, só texto
-    const btnLoginGovOriginalText = btnLoginGov.innerText; 
+    const btnLoginGovOriginalText = "Entrar com Gov.br";
 
     // --- Funções Principais ---
 
@@ -188,10 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * =================================================
      * ATUALIZADO: renderDependentCard
-     * Agora cria o HTML no novo formato do Stitch
-     * =================================================
      */
     function renderDependentCard(dependent) {
         const today = new Date();
@@ -216,7 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ageText = (months > 0) ? `${months} me${months > 1 ? 'ses' : 's'}` : 'Recém-nascido';
         }
         
-        // Novo HTML do card, baseado em code3.html
         const cardHTML = `
             <div class="card-list-item" data-page="page-calendar-generic" data-name="${dependent.name}" data-direction="forward">
                 <img class="card-list-avatar" src="https://picsum.photos/seed/${dependent.id}/80/80" alt="${dependent.name}">
@@ -237,10 +233,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     /*
     =================================================
-    BLOCO: EFEITO 3D MOUSE-MOVE (Corrigido)
+    BLOCO: EFEITO 3D MOUSE-MOVE (CORRIGIDO)
     =================================================
     */
     
+    // Rotação base (a inclinação padrão do celular)
     const baseRotateX = 3;
     const baseRotateY = -4;
     const originalTransform = `rotateX(${baseRotateX}deg) rotateY(${baseRotateY}deg)`;
@@ -253,19 +250,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const x = (clientX / offsetWidth) - 0.5;
         const y = (clientY / offsetHeight) - 0.5;
         
+        // --- INÍCIO DA CORREÇÃO ---
         const maxRotate = 8; 
         const mouseRotateX = -1 * y * maxRotate;
         const mouseRotateY = x * maxRotate;
         
+        // Soma a rotação base com a rotação do mouse
         const finalRotateX = baseRotateX + mouseRotateX;
         const finalRotateY = baseRotateY + mouseRotateY;
         
-        simulator.style.transition = 'none';
+        simulator.style.transition = 'none'; // Remove a transição para o movimento ser instantâneo
         simulator.style.transform = `rotateX(${finalRotateX}deg) rotateY(${finalRotateY}deg)`;
+        // --- FIM DA CORREÇÃO ---
     });
 
     document.body.addEventListener('mouseleave', () => {
         if (!simulator) return;
+        // Volta à inclinação original suavemente
         simulator.style.transition = 'transform 0.3s ease-out';
         simulator.style.transform = originalTransform;
     });
