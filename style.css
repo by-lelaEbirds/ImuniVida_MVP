@@ -38,6 +38,12 @@ body {
     border-radius: 50px;
     position: relative;
     overflow: hidden; 
+    /* =================================================
+     * CORREÇÃO 2 (Cantos): Adicionado 'isolation'
+     * Isso força o backdrop-filter a respeitar o overflow
+     * =================================================
+     */
+    isolation: isolate;
 }
 
 /* Ilha Dinâmica (Pílula) */
@@ -69,7 +75,6 @@ body {
     font-size: 0.9rem;
     color: #111; /* Cor padrão (para fundos claros) */
 }
-/* CORREÇÃO: Cor da status bar em temas escuros */
 .iphone-simulator[data-theme="dark"] .status-bar { 
     color: #fff; 
 }
@@ -78,7 +83,12 @@ body {
 /* Indicador Home iOS */
 .home-indicator {
     position: absolute;
-    bottom: 10px;
+    /* =================================================
+     * CORREÇÃO 3 (Barra de Gestos): Posição base
+     * Aumentado de 10px para 15px
+     * =================================================
+     */
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     width: 135px;
@@ -89,10 +99,19 @@ body {
     /* Adicionado transição para o movimento suave */
     transition: bottom 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
-/* CORREÇÃO: Cor do indicador em temas escuros */
 .iphone-simulator[data-theme="dark"] .home-indicator { 
     background: #bbb; 
 }
+
+/* =================================================
+ * CORREÇÃO 3 (Barra de Gestos): Posição com Nav
+ * Nova regra para subir a barra de gestos
+ * =================================================
+ */
+.iphone-simulator.nav-is-visible .home-indicator {
+    bottom: 85px; /* 70px (nav) + 15px (padding) */
+}
+
 
 /* --- Tela Inicial (Home Screen) --- */
 #page-homescreen .wallpaper {
@@ -151,7 +170,6 @@ body {
     padding: 0 15px;
 }
 .dock .app-icon { gap: 0; }
-.dock .app-icon[data-page="page-login"] span { display: block; }
 
 /* --- Estrutura e Animação das Páginas --- */
 .page {
@@ -499,6 +517,14 @@ body {
     align-items: flex-start;
     padding-top: 10px;
     
+    /* =================================================
+     * CORREÇÃO 2 (Cantos): Adicionado 'border-radius'
+     * Faz os cantos da nav-bar baterem com os cantos da tela
+     * =================================================
+     */
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+
     /* Animação de entrada */
     transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
@@ -564,11 +590,19 @@ body {
     opacity: 1; /* Mostra o ícone ativo */
 }
 
-/* Aplicar as máscaras (SVGs) */
-#nav-home .nav-icon {
+/* =================================================
+ * CORREÇÃO 1 (Ícones): SVGs da Home corrigidos
+ * =================================================
+ */
+#nav-home .nav-icon.icon-regular {
     -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTI0MS45MiwxMTIuODNMMTQ0LjgsMzEuMkE3OS4xMiw3OS4xMiwwLDAsMCwxMjgsMTEuNSw3OS4xMiw3OS4xMiwwLDAsMCwxMS4xMSwxMTMuMzlhMTYuMSwxNi4xLDAsMCwwLDEuMjksMjIuNzlhMTYuMjQsMTYuMjQsMCwwLDAsMjIuNSwxLjM0TDEyOCw1OC4yM2wxMDMuMSw3OS43YTgsOCwwLDAsMC01LjQ3LDE0LjIyYTguNzksOC43OSwwLDAsMC0zLjQ1LS43NkwxMiwxMzguNDRWjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy40OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWk0xMjgsMjhhNjMsNjMsMCwwLDEsNTEuNDUsMjkuMzZMMTI4LDEwNC43N2E4LDgsMCwwLDEtMTIuMTItMS4yOFpNMjQsMjA5VjEzMS41Nmw0MCwyNC40NVYyMDlaTTI4LDEyMS44NiwxMjgsNTMuNzhsMTA0LDEwNEgyNFpNMTc2LDIwOUgxNDRWMTE0LjEzTDE3Niw5My43NVpNMjMyLDIwOVMyMDAsMjA5LDIwMCwyMDlWMTEwLjY5bDMwLjUxLTE4LjY0YTEuNjIsMS42MiwwLDAsMSwxLjQ5LDBSaDBaIi8+PC9zdmc+');
     mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTI0MS45MiwxMTIuODNMMTQ0LjgsMzEuMkE3OS4xMiw3OS4xMiwwLDAsMCwxMjgsMTEuNSw3OS4xMiw3OS4xMiwwLDAsMCwxMS4xMSwxMTMuMzlhMTYuMSwxNi4xLDAsMCwwLDEuMjksMjIuNzlhMTYuMjQsMTYuMjQsMCwwLDAsMjIuNSwxLjM0TDEyOCw1OC4yM2wxMDMuMSw3OS43YTgsOCwwLDAsMC01LjQ3LDE0LjIyYTguNzksOC43OSwwLDAsMC0zLjQ1LS43NkwxMiwxMzguNDRWjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy40OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWk0xMjgsMjhhNjMsNjMsMCwwLDEsNTEuNDUsMjkuMzZMMTI4LDEwNC43N2E4LDgsMCwwLDEtMTIuMTItMS4yOFpNMjQsMjA5VjEzMS41Nmw0MCwyNC40NVYyMDlaTTI4LDEyMS44NiwxMjgsNTMuNzhsMTA0LDEwNEgyNFpNMTc2LDIwOUgxNDRWMTE0LjEzTDE3Niw5My43NVpNMjMyLDIwOVMyMDAsMjA5LDIwMCwyMDlWMTEwLjY5bDMwLjUxLTE4LjY0YTEuNjIsMS42MiwwLDAsMSwxLjQ5LDBSaDBaIi8+PC9zdmc+');
 }
+#nav-home .nav-icon.icon-active {
+    -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTI0MS45MiwxMTIuODNMMTQ0LjgsMzEuMkE3OS4xMiw3OS4xMiwwLDAsMCwxMjgsMTEuNSw3OS4xMiw3OS4xMiwwLDAsMCwxMS4xMSwxMTMuMzlhMTYuMSwxNi4xLDAsMCwwLDEuMjksMjIuNzlhMTYuMjQsMTYuMjQsMCwwLDAsMjIuNSwxLjM0TDEyOCw1OC4yM2wxMDMuMSw3OS43YTgsOCwwLDAsMC01LjQ3LDE0LjIyYTguNzksOC43OSwwLDAsMC0zLjQ1LS43NkwxMiwxMzguNDRWjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy40OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWiIvPjwvc3ZnPg==');
+    mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTI0MS45MiwxMTIuODNMMTQ0LjgsMzEuMkE3OS4xMiw3OS4xMiwwLDAsMCwxMjgsMTEuNSw3OS4xMiw3OS4xMiwwLDAsMCwxMS4xMSwxMTMuMzlhMTYuMSwxNi4xLDAsMCwwLDEuMjksMjIuNzlhMTYuMjQsMTYuMjQsMCwwLDAsMjIuNSwxLjM0TDEyOCw1BC4yM2wxMDMuMSw3OS43YTgsOCwwLDAsMC01LjQ3LDE0LjIyYTguNzksOC43OSwwLDAsMC0zLjQ1LS43NkwxMiwxMzguNDRWjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy40OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWiIvPjwvc3ZnPg==');
+}
+
 #nav-incentives .nav-icon.icon-regular {
     -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzOS42MSwxMzcuODVhMTYsMTYsMCwwLDAtMjAuMzEtMS4xNkwyMDgsMTQyLjFWMTIwYTgsOCwwLDAsMC04LThoLTMyYTgsOCwwLDAsMC04LDh2MjIuMWwtMTIuNjktNS40NGExNiwxNiwwLDAsMC0xNC42MiwwTDEyMCwxNDIuMVYxMDRhOCw4LDAsMCwwLTgtOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi5wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVpNMTcyLDEyOEgzMnYxNloiLz48L3N2Zz4=');
     mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzOS42MSwxMzcuODVhMTYsMTYsMCwwLDAtMjAuMzEtMS4xNkwyMDgsMTQyLjFWMTIwYTgsOCwwLDAsMC04LThoLTMyYTgsOCwwLDAsMC04LDh2MjIuMWwtMTIuNjktNS40NGExNiwxNiwwLDAsMC0xNC42MiwwTDEyMCwxNDIuMVYxMDRhOCw4LDAsMCwwLTgtOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi5wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVpNMTcyLDEyOEgzMnYxNloiLz48L3N2Zz4=');
