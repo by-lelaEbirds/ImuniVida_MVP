@@ -112,9 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // 5. Controla visibilidade da Tab Bar
-        // * =================================================
-        // * CORREÇÃO: Comentário morto removido (Item 3.3)
-        // * =================================================
         simulator.classList.toggle('nav-is-visible', rootPages.includes(pageId));
 
         // 6. Atualiza o ícone ativo da Tab Bar
@@ -252,12 +249,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const { offsetWidth, offsetHeight } = document.body;
         const x = (clientX / offsetWidth) - 0.5;
         const y = (clientY / offsetHeight) - 0.5;
+        
+        // --- INÍCIO DA CORREÇÃO ---
         const maxRotate = 8; 
-        const rotateX = -1 * y * maxRotate;
-        const rotateY = x * maxRotate;
-
+        const mouseRotateX = -1 * y * maxRotate;
+        const mouseRotateY = x * maxRotate;
+        
+        // Soma a rotação base (do CSS) com a rotação do mouse
+        const finalRotateX = 3 + mouseRotateX;
+        const finalRotateY = -4 + mouseRotateY;
+        
         simulator.style.transition = 'none';
-        simulator.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        simulator.style.transform = `rotateX(${finalRotateX}deg) rotateY(${finalRotateY}deg)`;
+        // --- FIM DA CORREÇÃO ---
     });
 
     document.body.addEventListener('mouseleave', () => {
@@ -323,14 +327,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 let gameData = getGameData();
                 gameData.points += 100;
                 
-                // * =================================================
-                // * ATUALIZAÇÃO: alert() trocado por showToast() (Item 2)
-                // * =================================================
                 showToast("Agendamento Confirmado! 🏆 +100 Pontos Imuni!");
 
                 if (!gameData.badges.includes('first-dose')) {
                     gameData.badges.push('first-dose');
-                    // Atraso pequeno para o segundo toast não sobrepor o primeiro
                     setTimeout(() => {
                         showToast("Medalha Desbloqueada: Primeira Dose!");
                     }, 1000);
@@ -351,14 +351,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     gameData.points -= cost;
                     saveGameData(gameData);
                     updateIncentivesPage();
-                    // * =================================================
-                    // * ATUALIZAÇÃO: alert() trocado por showToast() (Item 2)
-                    // * =================================================
                     showToast(`Recompensa resgatada! Você gastou ${cost} pontos.`);
                 } else {
-                    // * =================================================
-                    // * ATUALIZAÇÃO: alert() trocado por showToast() (Item 2)
-                    // * =================================================
                     showToast('Pontos insuficientes para resgatar esta recompensa.');
                 }
             }
