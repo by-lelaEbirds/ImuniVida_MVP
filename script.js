@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Variáveis de Refinamento (Login Simulado) ---
     const btnLoginGov = document.getElementById('btn-login-gov');
-    // ATUALIZADO: O botão de login agora não tem HTML interno, só texto
     const btnLoginGovOriginalText = "Entrar com Gov.br";
 
     // --- Funções Principais ---
@@ -41,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(toastTimeout);
         }
         
-        // ATUALIZADO: Adiciona ícone ao toast
         if (message.includes("Medalha")) {
             toastMessage.innerHTML = `<span class="material-symbols-outlined">military_tech</span> ${message}`;
         } else if (message.includes("Confirmado")) {
@@ -213,9 +211,10 @@ document.addEventListener('DOMContentLoaded', () => {
             ageText = (months > 0) ? `${months} me${months > 1 ? 'ses' : 's'}` : 'Recém-nascido';
         }
         
+        // ATUALIZAÇÃO: URL da imagem trocada para 'assets/boyperfil.png'
         const cardHTML = `
             <div class="card-list-item" data-page="page-calendar-generic" data-name="${dependent.name}" data-direction="forward">
-                <img class="card-list-avatar" src="https://picsum.photos/seed/${dependent.id}/80/80" alt="${dependent.name}">
+                <img class="card-list-avatar" src="assets/boyperfil.png" alt="${dependent.name}">
                 <div class="card-list-info">
                     <strong>${dependent.name} (${ageText})</strong>
                     <span>Calendário pendente</span>
