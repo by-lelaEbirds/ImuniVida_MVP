@@ -1,19 +1,22 @@
 /**
- * ImuniVida MVP v2.8 - Business Edition
- * Features: Unified Grandizoli Family, Simplified Tech Terms, Global Context
+ * ImuniVida MVP v2.9 - Final Logic
+ * Features: Cultural Context (BR/IT), Correct Rewards
  */
 
 const translations = {
     it: {
+        // --- APRESENTAÇÃO ---
         pitch_desc: "Soluzione digitale per i Governi che aumenta le vaccinazioni e riduce i costi ospedalieri.<br><br>Semplice per il cittadino, potente per la sanità pubblica.",
-        tech_title: "Punti di Forza Tecnici (Passa il mouse)",
+        tech_title: "Punti di Forza Tecnici",
         tech_1: "Sistema Flessibile",
         tech_2: "Basso Costo",
         tech_3: "Sicurezza Totale",
         tech_4: "Connessione Ufficiale",
         status_title: "Stato del Progetto",
-        metric_1: "Esperienza Visiva (Design)",
+        metric_1: "Esperienza Visiva (UI)",
         metric_2: "Funzionalità Mappe",
+        
+        // --- APP GERAL ---
         widget_now: "ADESSO",
         widget_title: "Campagna Antinfluenzale",
         widget_desc: "Richiamo disponibile per Giovanni.",
@@ -29,6 +32,8 @@ const translations = {
         dash_dependents: "I Miei Familiari",
         btn_add: "Aggiungi",
         btn_back: "Indietro",
+        
+        // --- MAPAS ---
         sched_title: "Prenotazione",
         map_tag: "Sei qui (Milano Centro)",
         sched_date: "Scegli la Data",
@@ -37,10 +42,17 @@ const translations = {
         ubs_2_name: "Centro Vaccinale Duomo",
         ubs_open: "Aperto ora",
         btn_confirm: "Conferma Prenotazione",
+        
+        // --- INCENTIVOS (ITÁLIA) ---
         rewards_title: "Incentivi",
         points_label: "Punti Imuni",
         rewards_sub: "Riscatta Premi",
-        reward_tax: "Tasse Universitarie",
+        reward_pharma_name: "Farmacia Comunale",
+        reward_pharma_desc: "15% di Sconto",
+        reward_tax_name: "Detrazione Fiscale",
+        reward_tax_desc: "Modello 730/2025",
+        
+        // --- OUTROS ---
         nav_home: "Home",
         nav_rewards: "Premi",
         reg_title: "Registrazione",
@@ -52,18 +64,21 @@ const translations = {
         btn_save: "Salva"
     },
     pt: {
+        // --- APRESENTAÇÃO ---
         pitch_desc: "Solução digital para Governos que aumenta a vacinação e reduz custos hospitalares.<br><br>Simples para o cidadão, poderoso para a gestão pública.",
-        tech_title: "Diferenciais Técnicos (Passe o mouse)",
+        tech_title: "Diferenciais Técnicos",
         tech_1: "Sistema Flexível",
         tech_2: "Baixo Custo",
         tech_3: "Segurança Total",
         tech_4: "Conexão Oficial",
         status_title: "Status do Projeto",
-        metric_1: "Experiência Visual (Design)",
+        metric_1: "Experiência Visual (UI)",
         metric_2: "Funcionalidade de Mapas",
+        
+        // --- APP GERAL ---
         widget_now: "AGORA",
         widget_title: "Campanha de Gripe",
-        widget_desc: "Reforço disponível para Giovanni.",
+        widget_desc: "Reforço disponível para João.",
         app_calendar: "Agenda",
         app_settings: "Ajustes",
         app_maps: "Mapas",
@@ -72,10 +87,12 @@ const translations = {
         login_secure: "Dados Protegidos (LGPD)",
         dash_welcome: "Bem-vindo,",
         alert_title: "Atenção",
-        alert_desc: "Giovanni tem 1 vacina atrasada.",
+        alert_desc: "João tem 1 vacina atrasada.",
         dash_dependents: "Meus Dependentes",
         btn_add: "Adicionar",
         btn_back: "Voltar",
+        
+        // --- MAPAS ---
         sched_title: "Agendamento",
         map_tag: "Você está aqui (Av. Paulista)",
         sched_date: "Escolha a Data",
@@ -84,10 +101,17 @@ const translations = {
         ubs_2_name: "UBS Paulista",
         ubs_open: "Aberto agora",
         btn_confirm: "Confirmar Agendamento",
+        
+        // --- INCENTIVOS (BRASIL) ---
         rewards_title: "Incentivos",
         points_label: "Pontos Imuni",
         rewards_sub: "Resgatar Prêmios",
-        reward_tax: "Taxas Universitárias",
+        reward_pharma_name: "Farmácia Popular",
+        reward_pharma_desc: "15% de Desconto",
+        reward_tax_name: "Imposto de Renda",
+        reward_tax_desc: "Abatimento 2025",
+        
+        // --- OUTROS ---
         nav_home: "Início",
         nav_rewards: "Prêmios",
         reg_title: "Cadastro",
@@ -102,7 +126,7 @@ const translations = {
 
 class App {
     constructor() {
-        this.currentLang = 'it'; // Default
+        this.currentLang = 'it'; 
         this.pages = document.querySelectorAll('.page');
         this.nav = document.getElementById('main-nav');
         this.toast = document.getElementById('toast-notification');
@@ -110,7 +134,6 @@ class App {
         this.state = {
             points: 350,
             dependents: [
-                // NOMES UNIFICADOS
                 { id: 1, name: 'Giovanni Grandizoli', dob: '2020-05-10', status: 'late', avatar: 'assets/boyperfil.png' },
                 { id: 2, name: 'Sofia Grandizoli', dob: '2022-08-15', status: 'ok', avatar: 'assets/girlperfil.png' }
             ],
@@ -126,7 +149,6 @@ class App {
         this.renderPoints();
         const dateInput = document.getElementById('schedule-date');
         if(dateInput) dateInput.valueAsDate = new Date();
-        
         this.applyLanguage(this.currentLang);
     }
 
@@ -151,7 +173,14 @@ class App {
             }
         }
         
-        // Nomes não mudam mais, são fixos (Giovanni/Sofia), mas re-renderizamos para atualizar status em texto
+        // Nomes adaptados
+        if (lang === 'pt') {
+            this.state.dependents[0].name = "João Grandizoli";
+            this.state.dependents[1].name = "Ana Clara Grandizoli";
+        } else {
+            this.state.dependents[0].name = "Giovanni Grandizoli";
+            this.state.dependents[1].name = "Sofia Grandizoli";
+        }
         this.renderDependents();
     }
 
