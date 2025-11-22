@@ -1,6 +1,6 @@
 /**
- * ImuniVida MVP v2.3 - Enterprise Logic
- * Features: Local Assets, Schedule Action, Tech Stack Showcase
+ * ImuniVida MVP v2.4 - Showcase Final
+ * Features: Schedule Flow, Interactive Map, Status Updates
  */
 
 class App {
@@ -9,15 +9,15 @@ class App {
         this.nav = document.getElementById('main-nav');
         this.toast = document.getElementById('toast-notification');
         
-        // DATA: Usando assets locais (requer que os arquivos existam na pasta assets/)
+        // Estado Inicial
         this.state = {
-            points: 0,
+            points: 350,
             dependents: [
                 { 
                     id: 1, 
                     name: 'João Silva', 
                     dob: '2020-05-10', 
-                    status: 'late', 
+                    status: 'late',  // Inicialmente atrasado
                     avatar: 'assets/boyperfil.png' 
                 },
                 { 
@@ -27,7 +27,8 @@ class App {
                     status: 'ok',
                     avatar: 'assets/girlperfil.png'
                 }
-            ]
+            ],
+            selectedDependentId: null // Para saber quem está sendo agendado
         };
 
         this.init();
@@ -37,6 +38,10 @@ class App {
         this.attachEvents();
         this.renderDependents();
         this.renderPoints();
+        
+        // Preencher data de hoje no input
+        const dateInput = document.getElementById('schedule-date');
+        if(dateInput) dateInput.valueAsDate = new Date();
     }
 
     goTo(targetId) {
@@ -64,22 +69,29 @@ class App {
 
     attachEvents() {
         document.body.addEventListener('click', (e) => {
-            // Navegação
             const navTarget = e.target.closest('[data-target]');
             if(navTarget) this.goTo(navTarget.dataset.target);
 
-            // Ações Globais
             if(e.target.closest('.action-back')) this.goTo('page-dashboard');
             if(e.target.closest('.action-login')) this.handleLogin(e.target.closest('.action-login'));
             if(e.target.closest('.action-redeem')) this.handleRedeem(e.target.closest('.action-redeem'));
             
-            // Agendar Vacina
+            // --- LOGICA DE AGENDAMENTO ---
+            // 1. Clicou em Agendar no Dashboard
             if(e.target.closest('.btn-schedule')) {
-                e.stopPropagation(); // Evita bugs de clique
-                this.handleSchedule(e.target.closest('.btn-schedule'));
+                e.stopPropagation();
+                const btn = e.target.closest('.btn-schedule');
+                const depId = btn.dataset.id;
+                this.startScheduleFlow(depId);
+            }
+
+            // 2. Confirmou o Agendamento na tela nova
+            if(e.target.id === 'btn-confirm-schedule') {
+                this.confirmSchedule();
             }
         });
-
+        
+        // Formulário Cadastro
         const form = document.getElementById('form-dependent');
         if(form) {
             form.addEventListener('submit', (e) => {
@@ -89,13 +101,62 @@ class App {
         }
     }
 
+    // --- SELEÇÃO DE UBS ---
+    // (Função global para funcionar no onclick do HTML)
+    selectUBS(element) {
+        document.querySelectorAll('.ubs-item').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+    }
+
+    startScheduleFlow(dependentId) {
+        this.state.selectedDependentId = parseInt(dependentId);
+        this.goTo('page-schedule');
+    }
+
+    confirmSchedule() {
+        // Achar o dependente
+        const depIndex = this.state.dependents.findIndex(d => d.id === this.state.selectedDependentId);
+        
+        if(depIndex > -1) {
+            // Simula carregamento
+            const btn = document.getElementById('btn-confirm-schedule');
+            btn.innerHTML = 'Confirmando...';
+            
+            setTimeout(() => {
+                // Atualiza estado
+                this.state.dependents[depIndex].status = 'scheduled'; // Novo status temporário
+                
+                this.renderDependents();
+                this.showToast('Agendamento Confirmado!', 'success');
+                this.goTo('page-dashboard');
+                
+                btn.innerHTML = 'Confirmar Agendamento';
+                
+                // Simula atualização do card de alerta
+                const alertCard = document.getElementById('alert-card');
+                if(alertCard) {
+                    alertCard.innerHTML = `
+                        <div class="card-flex">
+                            <span class="material-symbols-rounded" style="color:#34C759; font-size:32px;">check_circle</span>
+                            <div>
+                                <h3>Tudo certo!</h3>
+                                <p>Vacina do João agendada.</p>
+                            </div>
+                        </div>
+                    `;
+                    alertCard.style.borderLeft = '5px solid #34C759';
+                }
+
+            }, 1000);
+        }
+    }
+
     handleLogin(btn) {
         const originalHTML = btn.innerHTML;
         btn.innerHTML = `<span class="material-symbols-rounded" style="animation: spin 1s linear infinite">sync</span> Acessando...`;
         btn.style.opacity = 0.8;
-
         setTimeout(() => {
-            this.showToast('Acesso Gov.br validado.');
+            this.showToast('Autenticado Gov.br');
             this.goTo('page-dashboard');
             btn.innerHTML = originalHTML;
             btn.style.opacity = 1;
@@ -105,26 +166,16 @@ class App {
     handleRedeem(btn) {
         const item = btn.closest('.reward-item');
         const cost = parseInt(item.dataset.cost);
-
         if(this.state.points >= cost) {
             this.state.points -= cost;
             this.renderPoints();
-            this.showToast(`Cupom gerado com sucesso!`);
+            this.showToast(`Cupom resgatado!`);
             btn.disabled = true;
             btn.textContent = 'Resgatado';
             btn.style.background = '#ccc';
-            btn.style.color = '#666';
         } else {
             this.showToast('Pontos insuficientes.', 'error');
         }
-    }
-
-    handleSchedule(btn) {
-        // Feedback visual de agendamento
-        btn.innerHTML = '<span class="material-symbols-rounded" style="font-size:14px;">event_available</span> Agendado';
-        btn.style.background = '#34C759';
-        btn.style.pointerEvents = 'none';
-        this.showToast('Agendamento confirmado na UBS!');
     }
 
     addDependent() {
@@ -133,9 +184,7 @@ class App {
         const genderInput = document.getElementById('dep-gender');
 
         if(nameInput.value && dobInput.value) {
-            // Lógica de avatar local
             const avatarUrl = genderInput.value === 'girl' ? 'assets/girlperfil.png' : 'assets/boyperfil.png';
-
             this.state.dependents.push({
                 id: Date.now(),
                 name: nameInput.value,
@@ -143,16 +192,12 @@ class App {
                 status: 'ok',
                 avatar: avatarUrl
             });
-            
             this.renderDependents();
             this.state.points += 50;
             this.renderPoints();
-            
             this.showToast('Dependente adicionado!');
             this.goTo('page-dashboard');
-            
-            nameInput.value = '';
-            dobInput.value = '';
+            nameInput.value = ''; dobInput.value = '';
         }
     }
 
@@ -161,12 +206,19 @@ class App {
         list.innerHTML = '';
 
         this.state.dependents.forEach(dep => {
-            const isLate = dep.status === 'late';
-            
-            // Botão dinâmico: Agendar (se atrasado) vs Carteira (se em dia)
-            const actionBtn = isLate 
-                ? `<button class="btn-schedule">Agendar</button>` 
-                : `<button class="btn-details">Carteira</button>`;
+            let statusHtml = '';
+            let actionBtn = '';
+
+            if (dep.status === 'late') {
+                statusHtml = '<span style="color:#FF3B30; font-weight:600;">• Pendente</span>';
+                actionBtn = `<button class="btn-schedule" data-id="${dep.id}">Agendar</button>`;
+            } else if (dep.status === 'scheduled') {
+                statusHtml = '<span style="color:#FF9500; font-weight:600;">• Agendado</span>';
+                actionBtn = `<button class="btn-details" style="color:#FF9500;">Ver Guia</button>`;
+            } else {
+                statusHtml = '<span style="color:#34C759; font-weight:600;">• Em dia</span>';
+                actionBtn = `<button class="btn-details">Carteira</button>`;
+            }
 
             const html = `
                 <div class="list-item">
@@ -176,7 +228,7 @@ class App {
                             <div>
                                 <strong style="font-size:15px; display:block; color:#1C1C1E;">${dep.name}</strong>
                                 <div style="font-size:13px; color:#8E8E93; display:flex; align-items:center; gap:4px;">
-                                    ${isLate ? '<span style="color:#FF3B30; font-weight:600;">• Pendente</span>' : '<span style="color:#34C759; font-weight:600;">• Em dia</span>'}
+                                    ${statusHtml}
                                 </div>
                             </div>
                         </div>
@@ -200,15 +252,17 @@ class App {
         const icon = this.toast.querySelector('.icon');
         icon.textContent = type === 'error' ? 'error' : 'check_circle';
         icon.style.color = type === 'error' ? '#ff4d4d' : '#4cd964';
-        
         this.toast.classList.add('show');
-        setTimeout(() => {
-            this.toast.classList.remove('show');
-        }, 3000);
+        setTimeout(() => { this.toast.classList.remove('show'); }, 3000);
     }
 }
 
-// Styles auxiliares para animação
+// Expose global function for HTML onClick
+window.selectUBS = (el) => {
+    document.querySelectorAll('.ubs-item').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+};
+
 const style = document.createElement('style');
 style.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
 document.head.appendChild(style);
