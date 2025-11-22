@@ -1,1037 +1,263 @@
-/* =================================================
- * RESET BÁSICO E FONTES
- * =================================================
- */
-@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
-
+/* =========================================
+   1. CONFIGURAÇÃO & RESET (Enterprise)
+   ========================================= */
 :root {
-    /* Cores baseadas no Stitch */
-    --color-primary: #0d7ff2;
-    --color-primary-dark: #4A90E2; 
-    --color-alert: #F5A623;
-    --color-error: #D0021B;
-    --color-success: #22c55e;
+    /* Paleta de Cores - Health Tech */
+    --primary: #0066FF;
+    --primary-dark: #004ECC;
+    --secondary: #34C759;
+    --alert: #FF9500;
+    --error: #FF3B30;
+    --bg-app: #F2F2F7;
+    --card-bg: #FFFFFF;
+    --text-main: #1C1C1E;
+    --text-sub: #8E8E93;
     
-    --color-bg-light: #f5f7f8;
-    --color-bg-dark: #101922;
+    /* Efeitos */
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+    --radius-lg: 16px;
+    --radius-xl: 24px;
     
-    --color-text-primary: #111418;
-    --color-text-secondary: #60758a;
-    --color-text-disabled: #9B9B9B;
-    
-    --color-border-light: #dbe0e6;
-    --color-card-light: #ffffff;
-
-    /* NOVAS CORES (do code.html) */
-    --color-health-green: #86EFAC;
-    --color-calming-green-light: #A7F3D0;
-    --color-calming-blue-dark: #1E40AF;
-    --color-widget-bg-green: #D1FAE5;
-    --color-widget-text-dark: #065F46;
+    /* iPhone Dimensions */
+    --phone-w: 390px; /* iPhone 14 Pro size */
+    --phone-h: 844px;
 }
 
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
 body {
-    font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-image: radial-gradient(circle at 50% 50%, #4a5568, #2d3748, #1a202c);
+    font-family: 'Inter', sans-serif;
+    background-color: #1a1a1a;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: #fff; 
-    padding: 40px 20px;
-    perspective: 1500px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden; /* Evita scroll na página desktop */
 }
 
-/* =================================================
- * SIMULADOR DE IPHONE (Estrutura)
- * =================================================
- */
-.iphone-simulator {
-    --nav-height: 70px;
-    width: 375px;
-    height: 812px; 
-    background: #111;
-    border: 10px solid #111;
-    border-radius: 60px;
+/* =========================================
+   2. CHASSIS DO IPHONE (Hardware)
+   ========================================= */
+.presentation-wrapper {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+    perspective: 2000px; /* 3D Depth */
+}
+
+.iphone-chassis {
+    width: var(--phone-w);
+    height: var(--phone-h);
+    background: #000;
+    border-radius: 55px;
+    box-shadow: 
+        0 0 0 12px #3a3a3a,
+        0 0 0 13px #1a1a1a,
+        20px 20px 60px rgba(0,0,0,0.4);
     position: relative;
     overflow: hidden;
-    transform: rotateX(3deg) rotateY(-4deg);
-    box-shadow: -10px 10px 30px rgba(0,0,0,0.1), -20px 20px 50px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease-out;
-    will-change: transform; 
-    padding-bottom: 10px;
+    transition: transform 0.1s ease-out; /* Smooth 3D */
 }
 
-.screen {
+.screen-content {
     width: 100%;
     height: 100%;
-    background: var(--color-bg-light); /* Fundo padrão das telas */
-    border-radius: 50px;
+    background: var(--bg-app);
+    border-radius: 44px;
+    overflow: hidden;
     position: relative;
-    overflow: hidden; 
-    isolation: isolate; /* Corrige bug de border-radius com backdrop-filter */
 }
 
-/* Hardware Falso */
-.dynamic-island {
-    position: absolute;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 30px;
-    background: #111;
-    border-radius: 20px;
-    z-index: 100;
-}
+/* Botões Físicos */
+.physical-buttons { position: absolute; background: #2a2a2a; left: -14px; width: 4px; border-radius: 4px 0 0 4px; }
+.volume-up { top: 120px; height: 50px; }
+.volume-down { top: 185px; height: 50px; }
+.power { right: -14px; left: auto; top: 130px; height: 80px; border-radius: 0 4px 4px 0; }
+
+/* =========================================
+   3. INTERFACE DO SISTEMA (Status bar)
+   ========================================= */
 .status-bar {
-    position: absolute;
-    top: 18px;
-    left: 20px;
-    right: 20px;
-    height: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 15px;
-    z-index: 50;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--color-text-primary);
+    position: absolute; top: 0; left: 0; width: 100%; height: 54px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 24px; z-index: 100; font-weight: 600; font-size: 15px;
+    color: var(--text-main);
+    transition: color 0.3s;
 }
-.iphone-simulator[data-theme="dark"] .status-bar { 
-    color: #fff; 
+/* Inversão de cor para dark mode */
+[data-theme="dark"] .status-bar { color: #fff; }
+
+.dynamic-island {
+    width: 120px; height: 36px; background: #000;
+    border-radius: 20px; position: absolute; left: 50%; top: 11px;
+    transform: translateX(-50%); z-index: 101;
+    display: flex; justify-content: flex-end; align-items: center; padding-right: 12px;
 }
-.status-bar .status-icons { display: flex; gap: 4px; font-size: 1.1rem; }
-.status-bar .material-symbols-outlined { font-size: 1rem; font-variation-settings: 'FILL' 1; }
+.camera-dot { width: 12px; height: 12px; background: #1a1a2e; border-radius: 50%; box-shadow: inset 0 0 4px rgba(255,255,255,0.1); }
+
+.status-icons { display: flex; gap: 6px; }
+.status-icons span { font-size: 16px; }
 
 .home-indicator {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 135px;
-    height: 5px;
-    background: #aaa;
-    border-radius: 5px;
-    z-index: 100;
-    transition: bottom 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    width: 140px; height: 5px; background: rgba(0,0,0,0.2); border-radius: 10px; z-index: 100;
 }
-.iphone-simulator[data-theme="dark"] .home-indicator { 
-    background: #555; 
-}
-.iphone-simulator.nav-is-visible .home-indicator {
-    bottom: 85px; /* Sobe a barra de gestos */
-}
+[data-theme="dark"] .home-indicator { background: rgba(255,255,255,0.3); }
 
-/* =================================================
- * ESTRUTURA DE PÁGINA E NAVEGAÇÃO
- * =================================================
- */
+/* =========================================
+   4. SISTEMA DE PÁGINAS (View Layer)
+   ========================================= */
+#app-viewport { width: 100%; height: 100%; position: relative; }
+
 .page {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    background: var(--color-bg-light);
-    color: var(--color-text-primary);
-    transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
-    z-index: 1;
-    opacity: 0;
-}
-.page.page-light {
-    background: var(--color-card-light); /* Telas brancas como Login */
-}
-.page.active {
-    transform: translateX(0);
-    z-index: 10;
-    opacity: 1;
-}
-.page.inactive-right { transform: translateX(100%); opacity: 0; }
-.page.inactive-left { transform: translateX(-30%); opacity: 0.7; }
-#page-homescreen.active { z-index: 2; }
-
-/* =================================================
- * TELA 1: HOMESCREEN (ATUALIZADA com Widget)
- * =================================================
- */
-#page-homescreen .wallpaper {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    /* Novo wallpaper (gradiente) */
-    background-image: linear-gradient(to bottom right, var(--color-calming-green-light), var(--color-health-green), var(--color-calming-blue-dark));
-    z-index: 1;
-}
-.icon-grid {
-    position: relative;
-    z-index: 2;
-    padding: 80px 25px 20px 25px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px 16px; /* row-gap, column-gap */
-}
-.app-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    color: white;
-    font-size: 0.75rem; /* 12px */
-    font-weight: 500;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-}
-/* CORREÇÃO: Alinhamento do texto do ícone */
-.app-icon > span { 
-    text-align: center;
-    width: 100%; /* Garante que o text-align funcione */
-}
-.app-icon .app-icon-visual {
-    width: 64px; 
-    height: 64px;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-    color: white;
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    /* Efeito de ícone dessaturado do novo design */
-    filter: saturate(0.6) brightness(1.1);
-}
-.app-icon .app-icon-visual .material-symbols-outlined {
-    font-size: 48px;
-    font-variation-settings: 'FILL' 1;
-}
-.squircle {
-    border-radius: 22.5%; /* Simula o ícone do iOS */
-}
-.calendar-day { font-size: 0.75rem; font-weight: 700; color: #ef4444; }
-.calendar-date { font-size: 2.25rem; font-weight: 300; margin-top: -4px; }
-
-/* Novo Widget */
-.app-widget {
-    grid-column: span 2;
-    grid-row: span 2;
-    background-color: rgba(209, 250, 229, 0.9); /* widget-bg-green/90 */
-    border-radius: 1rem; /* 16px */
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-    color: var(--color-widget-text-dark);
-    cursor: pointer;
-}
-.widget-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.widget-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 22.5%;
-    background-color: #2563eb; /* blue-600 */
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    filter: saturate(0.6) brightness(1.1);
-}
-.widget-icon .material-symbols-outlined {
-    font-size: 32px;
-    font-variation-settings: 'FILL' 1;
-}
-.widget-header h3 {
-    font-size: 1.125rem; /* 18px */
-    font-weight: 700;
-}
-.widget-body {
-    margin-top: 12px;
-}
-.widget-label { font-size: 0.875rem; font-weight: 500; }
-.widget-date { font-size: 1.25rem; font-weight: 700; margin-top: 4px; }
-.widget-detail { font-size: 0.75rem; margin-top: 8px; }
-.widget-detail.small { font-size: 0.7rem; }
-.widget-bg-icon {
-    position: absolute;
-    font-size: 6rem;
-    color: rgba(6, 95, 70, 0.1); /* widget-text-dark/20 */
-    bottom: -20px;
-    right: -20px;
-    transform: rotate(-20deg);
-    pointer-events: none;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    background: var(--bg-app);
+    opacity: 0; pointer-events: none; transform: scale(0.95);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* iOS Spring */
 }
 
+.page.active { opacity: 1; pointer-events: all; transform: scale(1); z-index: 10; }
+.page-scroll { overflow-y: auto; padding-bottom: 90px; } /* Espaço para tabbar */
 
-/* Dock (Novo/Corrigido) */
-.dock {
-    position: absolute;
-    bottom: 30px;
-    left: 10px;
-    right: 10px;
-    height: 84px;
-    /* Novo estilo de blur */
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 28px;
-    z-index: 2;
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-    padding: 0 10px;
+/* --- PÁGINA HOMESCREEN --- */
+#page-homescreen { color: white; }
+.wallpaper-gradient {
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(135deg, #2E3192 0%, #1BFFFF 100%);
 }
-.dock .app-icon { gap: 0; }
-.dock .app-icon .app-icon-visual {
-    width: 60px;
-    height: 60px;
+.app-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px 10px;
+    padding: 70px 20px 0;
 }
-.dock .app-icon .app-icon-visual .material-symbols-outlined {
-    font-size: 36px;
+.widget-large {
+    grid-column: span 4; background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(20px); border-radius: 22px; padding: 16px;
+    display: flex; flex-direction: column; gap: 12px; margin-bottom: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer;
 }
+.widget-header { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; opacity: 0.9; }
+.app-icon-small { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.app-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.app-icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.app-name { font-size: 11px; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
 
-/* =================================================
- * COMPONENTES DE UI (Restante do App)
- * =================================================
- */
+/* Cores de Ícones */
+.bg-blue { background: #007AFF; }
+.bg-green { background: #34C759; }
+.bg-gray { background: #8E8E93; }
+.bg-white { background: #FFF; color: #000; }
+.date-day { font-size: 10px; color: #FF3B30; font-weight: 700; position: absolute; top: 12px; }
+.date-num { font-size: 28px; font-weight: 300; margin-top: 10px; }
 
-/* --- Cabeçalhos --- */
-.page-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    width: 100%;
-}
-.page-header.large-title {
-    padding-top: 55px;
-    padding-bottom: 12px;
-}
-.page-header.large-title h1 {
-    font-size: 2.1rem; /* 34px */
-    font-weight: 700;
-    letter-spacing: -0.015em;
-}
-.page-header.simple {
-    padding-top: 55px;
-    border-bottom: 1px solid var(--color-border-light);
-    justify-content: center;
-    position: relative;
-}
-.page-header.simple h1 {
-    font-size: 1.05rem; /* 17px */
-    font-weight: 600;
-}
-.header-back {
-    position: absolute;
-    left: 8px;
-    top: 50px;
-    background: none;
-    border: none;
-    color: var(--color-primary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 8px;
-}
-.header-back .material-symbols-outlined { font-size: 28px; }
-
-.header-profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 9999px;
-    object-fit: cover;
-}
-.header-sticky {
-    position: absolute;
-    top: 0; left: 0; right: 0; z-index: 15;
-    padding: 55px 20px 15px 20px;
-    background: rgba(249, 249, 249, 0.85); 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid #e5e5ea;
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.header-sticky h1 { font-size: 1.1rem; font-weight: 600; color: #111; text-align: center; }
-.page.scrolled .header-sticky { opacity: 1; transform: translateY(0); }
-.page.scrolled .page-header.large-title { opacity: 0; pointer-events: none; }
-
-
-/* --- Conteúdo da Página --- */
-.content {
-    flex-grow: 1;
-    padding: 16px; 
-    overflow-y: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-.content::-webkit-scrollbar { display: none; }
-.page-with-nav .content { 
-    padding-bottom: calc(var(--nav-height) + 30px);
-}
-.page-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 16px;
-}
-.page-title {
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    padding-top: 16px;
-    padding-bottom: 8px;
-}
-.page-description {
-    font-size: 1rem;
-    color: var(--color-text-secondary);
-    padding-bottom: 12px;
-}
-.content-subtitle {
-    font-size: 1.25rem; /* 20px */
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    padding-top: 16px;
-    padding-bottom: 8px;
-    padding-left: 8px;
-}
-.small-text {
-    font-size: 0.875rem; /* 14px */
-    color: var(--color-text-secondary);
-    text-align: center;
-    padding: 8px 16px;
+.dock-container {
+    position: absolute; bottom: 20px; left: 12px; right: 12px;
+    height: 90px; border-radius: 32px;
+    background: rgba(255,255,255,0.25); backdrop-filter: blur(20px);
+    display: flex; align-items: center; justify-content: space-evenly;
 }
 
-/* --- Botões --- */
-.button-container {
-    width: 100%;
-    max-width: 480px; /* Limite do login */
-    padding: 24px 8px 8px 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+/* --- PÁGINA LOGIN --- */
+.content-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
+.logo-anim {
+    width: 100px; height: 100px; background: var(--primary);
+    border-radius: 28px; display: flex; align-items: center; justify-content: center;
+    color: white; margin-bottom: 24px; box-shadow: var(--shadow-md);
 }
+.icon-logo { font-size: 50px; }
+h2 { font-size: 28px; color: var(--text-main); margin-bottom: 8px; }
+.subtext { color: var(--text-sub); line-height: 1.5; }
+.spacer { flex: 1; }
 .btn {
-    display: flex;
-    width: 100%;
-    min-width: 84px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 0.75rem; /* 12px */
-    height: 52px; /* 14 */
-    padding: 0 20px;
-    gap: 8px;
-    font-size: 1rem; /* 16px */
-    font-weight: 700;
-    transition: all 0.2s ease;
+    width: 100%; border: none; padding: 16px; border-radius: 14px;
+    font-size: 16px; font-weight: 600; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; gap: 10px;
+    transition: transform 0.1s;
 }
-.btn:hover { transform: scale(1.02); }
-.btn:active { transform: scale(0.98); }
-.btn .material-symbols-outlined { font-size: 20px; }
+.btn:active { transform: scale(0.97); }
+.btn-gov { background: #1351B4; color: white; margin-bottom: 16px; }
+.secure-text { font-size: 12px; color: #34C759; display: flex; align-items: center; gap: 4px; }
 
-.btn-primary {
-    background-color: var(--color-primary);
-    color: white;
-}
-.btn-primary:hover { background-color: #0b72d1; } /* Darken */
+/* --- DASHBOARD & LISTAS --- */
+.header-large { padding: 60px 24px 16px; background: var(--bg-app); }
+.header-top { display: flex; justify-content: space-between; align-items: flex-end; }
+.avatar-profile { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: var(--shadow-sm); }
+.greeting { font-size: 14px; color: var(--text-sub); font-weight: 500; }
 
-.btn-secondary {
-    background-color: #e5e7eb; /* gray-200 */
-    color: #374151; /* gray-700 */
-}
-.btn-secondary:hover { background-color: #d1d5db; } /* gray-300 */
+.content-body { padding: 0 20px; }
+.card { background: white; border-radius: var(--radius-lg); padding: 16px; box-shadow: var(--shadow-sm); margin-bottom: 20px; }
+.card-highlight { border-left: 4px solid var(--error); }
+.card-row { display: flex; align-items: center; gap: 16px; }
+.icon-warn { color: var(--error); font-size: 28px; }
+.list-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
 
-.btn-error {
-    background-color: var(--color-error);
-    color: white;
+.list-item {
+    background: white; padding: 16px; border-radius: var(--radius-lg);
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: var(--shadow-sm); cursor: pointer;
 }
-.btn-error:hover { background-color: #b00215; } /* Darken */
+.user-info { display: flex; align-items: center; gap: 12px; }
+.badge-status { font-size: 11px; padding: 4px 8px; border-radius: 100px; font-weight: 600; }
+.status-late { background: #FFE5E5; color: var(--error); }
+.status-ok { background: #E5F9E8; color: var(--secondary); }
 
-.btn-redeem {
-    padding: 6px 12px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    height: auto;
-    width: auto;
-    flex-shrink: 0;
-    border-radius: 0.5rem;
-    background-color: #e5e7eb;
-    color: #374151;
+/* --- COMPONENTES GERAIS --- */
+.header-sticky {
+    padding: 50px 20px 10px; background: rgba(242,242,247,0.9);
+    backdrop-filter: blur(10px); display: flex; justify-content: space-between;
+    align-items: center; position: sticky; top: 0; z-index: 50;
+    font-weight: 600; font-size: 17px; border-bottom: 1px solid rgba(0,0,0,0.05);
 }
-.btn-redeem:not(:disabled) {
-    background-color: var(--color-primary);
-    color: white;
-}
-.btn-redeem:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+.btn-icon { background: none; border: none; color: var(--primary); cursor: pointer; font-weight: 600; }
 
-.btn-primary.is-loading {
-    cursor: wait;
+.tab-bar {
+    position: absolute; bottom: 0; width: 100%; height: 80px;
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(0,0,0,0.1); display: flex;
+    justify-content: space-around; padding-top: 10px; z-index: 90;
+    transition: transform 0.3s ease;
 }
-.btn-primary.is-loading .material-symbols-outlined {
-    animation: ph-spin 1s linear infinite;
-}
-@keyframes ph-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-
-/* --- Formulários --- */
-.form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.form-group label {
-    font-size: 1rem;
-    font-weight: 500;
-}
-.form-input {
-    width: 100%;
-    min-width: 0;
-    flex: 1;
-    border-radius: 0.5rem; /* 8px */
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border-light);
-    background-color: var(--color-card-light);
-    height: 52px;
-    padding: 0 16px;
-    font-size: 1rem;
-}
-.form-input::placeholder {
-    color: var(--color-text-secondary);
-}
-.form-input:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(13, 127, 242, 0.5);
-}
-.form-input-with-icon {
-    position: relative;
-    display: flex;
-    width: 100%;
-    align-items: center;
-}
-.form-input-with-icon .form-input {
-    padding-right: 48px; /* Espaço para o ícone */
-}
-.form-input-with-icon .material-symbols-outlined {
-    position: absolute;
-    right: 16px;
-    pointer-events: none;
-    color: var(--color-text-secondary);
-}
-
-/* --- Cards e Listas --- */
-.list-container {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-.list-container.card-style {
-    background-color: var(--color-card-light);
-    border-radius: 0.75rem; /* 12px */
-    padding: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.card-list-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 12px;
-    min-height: 72px;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s ease;
+.tab-bar.hidden { transform: translateY(100%); }
+.tab-item {
+    background: none; border: none; display: flex; flex-direction: column;
+    align-items: center; gap: 4px; color: var(--text-sub); font-size: 10px;
     cursor: pointer;
 }
-.list-container.card-style .card-list-item {
-    border-bottom: 1px solid var(--color-border-light);
-}
-.list-container.card-style .card-list-item:last-child {
-    border-bottom: none;
-}
-.list-container:not(.card-style) .card-list-item {
-    background-color: var(--color-card-light);
-    border-radius: 0.75rem;
-    border: 1px solid var(--color-border-light);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-}
+.tab-item.active { color: var(--primary); }
+.tab-item span.material-symbols-rounded { font-size: 24px; }
 
-.card-list-item:hover {
-    background-color: #f9fafb; /* gray-50 */
-}
-
-.card-list-avatar {
-    width: 56px; /* 14 */
-    height: 56px;
-    border-radius: 9999px;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-.card-list-icon-bg {
-    width: 48px; /* 12 */
-    height: 48px;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-.card-list-icon-bg .material-symbols-outlined { font-size: 24px; font-variation-settings: 'FILL' 1; }
-
-.card-list-info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 2px;
-    overflow: hidden; /* Para o line-clamp */
-}
-.card-list-info strong {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--color-text-primary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.card-list-info span {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.card-list-arrow {
-    color: var(--color-text-disabled);
-    font-size: 28px;
-    flex-shrink: 0;
-}
-.card-list-status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-}
-.status-badge {
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-/* --- Modificadores de Status (Cores) --- */
-.text-error { color: var(--color-error); }
-.text-alert { color: var(--color-alert); }
-.text-success { color: var(--color-success); }
-.text-secondary { color: var(--color-text-secondary); }
-
-.status-badge.status-error { color: var(--color-error); }
-.status-badge.status-alert { color: var(--color-alert); }
-
-.card-list-icon-bg.status-error { background-color: #fee2e2; color: #dc2626; }
-.card-list-icon-bg.status-alert { background-color: #fef3c7; color: #d97706; }
-.card-list-icon-bg.status-success { background-color: #dcfce7; color: #16a34a; }
-.card-list-icon-bg.status-primary { background-color: #dbeafe; color: #2563eb; }
-
-/* --- Componentes Específicos das Telas --- */
-
-/* (Dashboard) Card de Status */
-.card-status {
-    background-color: var(--color-primary-dark);
-    color: white;
-    border-radius: 0.75rem;
-    padding: 16px;
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.status-item { display: flex; flex-direction: column; }
-.status-item span { font-size: 0.875rem; color: rgba(255,255,255,0.8); }
-.status-item strong { font-size: 1.125rem; font-weight: 700; }
-.divider { width: 100%; height: 1px; background-color: rgba(255,255,255,0.2); border: 0; }
-
-/* (Dashboard) Card de Ação */
-.card-action-dashed {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    border-radius: 0.75rem;
-    border: 2px dashed var(--color-border-light);
-    padding: 16px;
-    margin-top: 4px;
-    color: var(--color-text-secondary);
-    transition: all 0.2s ease;
-}
-.card-action-dashed:hover {
-    background-color: #f9fafb; /* gray-50 */
-    border-color: #cdd3da;
-}
-.card-action-dashed span { font-size: 1rem; font-weight: 500; }
-
-/* (Agendamento) Mapa e UBS */
-.map-placeholder { 
-    width: calc(100% - 32px); /* 100% - padding */
-    margin: 12px 16px;
-    height: 180px; 
-    border-radius: 0.75rem; 
-    overflow: hidden; 
-    background-color: #e0e0e0; 
-}
-.map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
-
-.card-ubs {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: 16px;
-    border-radius: 0.75rem;
-    background-color: var(--color-card-light);
-    padding: 16px;
-    margin: 0 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transition: all 0.2s ease;
-}
-.card-ubs:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-.card-ubs-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    flex: 2;
-}
-.card-ubs-info strong { font-size: 1rem; font-weight: 700; }
-.card-ubs-distance {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-primary);
-}
-.card-ubs-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 0.5rem;
-    object-fit: cover;
-    flex: 1;
-    max-width: 80px;
-}
-
-/* (Incentivos) Card de Pontos */
-.card-points {
-    background: linear-gradient(135deg, var(--color-primary-dark), #3a7ac8);
-    color: white;
-    border-radius: 0.75rem;
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-.card-points .material-symbols-outlined {
-    font-size: 48px;
-    color: #facc15; /* yellow-400 */
-    font-variation-settings: 'FILL' 1;
-}
-.card-points-info { display: flex; flex-direction: column; }
-.card-points-info span { font-size: 1rem; opacity: 0.9; }
-.card-points-info strong { font-size: 2.5rem; font-weight: 700; line-height: 1; }
-
-/* (Incentivos) Medalhas */
-.achievements-grid { 
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 16px; 
-}
-.badge { 
-    background: var(--color-card-light); 
-    border-radius: 0.75rem; 
-    padding: 16px; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 8px; 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    transition: all 0.3s ease; 
-}
-.badge .material-symbols-outlined { font-size: 36px; }
-.badge span { font-size: 0.8rem; font-weight: 500; text-align: center; }
-
-.badge.locked { 
-    background: #f9fafb; /* gray-50 */
-    color: #9ca3af; /* gray-400 */
-    filter: grayscale(80%);
-    opacity: 0.7; 
-}
-.badge:not(.locked) { 
-    background: #f0fdf4; /* green-50 */
-    color: #15803d; /* green-700 */
-    transform: scale(1.05); 
-}
-.badge:not(.locked) .material-symbols-outlined { color: var(--color-success); }
-
-
-/* =================================================
- * NAVEGAÇÃO INFERIOR E TOAST
- * =================================================
- */
-
-/* --- Barra de Navegação --- */
-.bottom-nav {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: var(--nav-height);
-    background: rgba(249, 249, 249, 0.85); 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-top: 1px solid #e5e5ea;
-    z-index: 20;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    padding-top: 10px;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-    transform: translateY(100%);
-    transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
-}
-.iphone-simulator.nav-is-visible .bottom-nav {
-    transform: translateY(0);
-}
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.7rem;
-    color: var(--color-text-secondary);
-    position: relative; 
-    width: 60px;
-}
-.nav-icon-wrapper {
-    position: relative;
-    width: 28px;
-    height: 28px;
-    margin-bottom: 2px;
-}
-.nav-icon {
-    width: 100%;
-    height: 100%;
-    transition: opacity 0.2s ease-in-out;
-    position: absolute;
-    mask-size: 100%;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-size: 100%;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-}
-.nav-icon.icon-regular {
-    opacity: 1;
-    background-color: var(--color-text-secondary); /* Cor inativa */
-}
-.nav-icon.icon-active {
-    opacity: 0;
-    background-color: var(--color-primary); /* Cor ativa */
-}
-.nav-item.active { 
-    color: var(--color-primary); /* Cor do texto ativo */
-}
-.nav-item.active .icon-regular { opacity: 0; }
-.nav-item.active .icon-active { opacity: 1; }
-
-/* Ícones da Navegação (SVGs como Máscara) */
-#nav-home .nav-icon {
-    -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIyNCwyMTZIMTgzLjA5YTEuMSwxLjEsMCwwLDEtLjQ0LS4wNiwxLDMsMywwLDAsMS0uMzktMS4xVjE1NWE4LDgsMCwwLDAtOC04SDg0YTgsOCwwLDAsMC04LDh2NjBhMSwxLDAsMCwxLTEuNTQuODNIMzJhOCw4LDAsMCwxLDAtMTZsOTIuMjItODUuMTRhOCw4LDAsMCwxLDEwLjE5LDBMMjI0LDIwMGE4LDgsMCwwLDEsMCwxNlptMTYuNzQtMTAwLjdMMTQxLjYxLDMxLjRhMTYsMTYsMCwwLDAtMjMuMjIsMEwyNCwyMTYuNzlhOCw4LDAsMCwwLTUuNjYsOS42NUE4LDgsMCwwLDAsMjQsMjMySDY4VjE1NGExNiwxNiwwLDAsMSwxNi0xNkgxNzJhMTYsMTYsMCwwLDEsMTYsMTZ2NzZoNDRhOCw4LDAsMCwwLDgtOGE4LDgsMCwwLDAtMi4yNi01LjY2WiIvPjwvc3ZnPg==');
-    mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIyNCwyMTZIMTgzLjA5YTEuMSwxLjEsMCwwLDEtLjQ0LS4wNiwxLDMsMywwLDAsMS0uMzktMS4xVjE1NWE4LDgsMCwwLDAtOC04SDg0YTgsOCwwLDAsMC04LDh2NjBhMSwxLDAsMCwxLTEuNTQuODNIMzJhOCw4LDAsMCwxLDAtMTZsOTIuMjItODUuMTRhOCw4LDAsMCwxLDEwLjE5LDBMMjI0LDIwMGE4LDgsMCwwLDEsMCwxNlptMTYuNzQtMTAwLjdMMTQxLjYxLDMxLjRhMTYsMTYsMCwwLDAtMjMuMjIsMEwyNCwyMTYuNzlhOCw4LDAsMCwwLTUuNjYsOS42NUE4LDgsMCwwLDAsMjQsMjMySDY4VjE1NGExNiwxNiwwLDAsMSwxNi0xNkgxNzJhMTYsMTYsMCwwLDEsMTYsMTZ2NzZoNDRhOCw4LDAsMCwwLDgtOGE4LDgsMCwwLDAtMi4yNi01LjY2WiIvPjwvc3ZnPg==');
-}
-#nav-home .nav-icon.icon-active {
-    -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTI0MS45MiwxMTIuODNMMTQ0LjgsMzEuMkE3OS4xMiw3OS4xMiwwLDAsMCwxMjgsMTEuNSw3OS4xMiw3OS4xMiwwLDAsMCwxMS4xMSwxMTMuMzlhMTYuMSwxNi4xLDAsMCwwLDEuMjksMjIuNzlhMTYuMjQsMTYuMjQsMCwwLDAsMjIuNSwxLjM0TDEyOCw1OC4yM2wxMDMuMSw3OS43YTgsOCwwLDAsMC01LjQ3LDE0LjIyYTguNzksOC43OSwwLDAsMC0zLjQ1LS43NkwxMiwxMzguNDRWjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy40OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWiIvPjwvc3ZnPg==');
-    mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTI0MS45MiwxMTIuODNMMTQ0LjgsMzEuMkE3OS4xMiw3OS4xMiwwLDAsMCwxMjgsMTEuNSw3OS4xMiw3OS4xMiwwLDAsMCwxMS4xMSwxMTMuMzlhMTYuMSwxNi4xLDAsMCwwLDEuMjksMjIuNzlhMTYuMjQsMTYuMjQsMCwwLDAsMjIuNSwxLjM0TDEyOCw1BC4yM2wxMDMuMSw3OS43YTgsOCwwLDAsMC01LjQ3LDE0LjIyYTguNzksOC43OSwwLDAsMC0zLjQ1LS43NkwxMiwxMzguNDRWjIxN2E4LDgsMCwwLDAsOCw4SDE4NGE4LDgsMCwwLDAsOC04VjEzOC40NGwtNDYuMSwyOC4xNmE4LDgsMCwxLDAtOC4xOS0xMy40OEwxMjgsMTI4LjYxLDgwLjYzLDE1My4xNWE4LDgsMCwwLDAsOC4xOSwxMy44OGExNC4wOCwxNC4wOCwwLDAsMCw0LjE1LTIuMDVsNDYuMS0yOC4xNkExNi4yMSwxNi4yMSwwLDAsMCwxMjgsMTM2YTE2LjMyLDE2LjMyLDAsMCwwLDkuMTYtMi44MUwyMjcuNzksNzQuMTFhMTYuMjUsMTYuMjUsMCwwLDAsMjIuNS0xLjM0QTE2LjEsMTYuMSwwLDAsMCwyNDEuOTIsMTEyLjgzWiIvPjwvc3ZnPg==');
-}
-#nav-incentives .nav-icon.icon-regular {
-    -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzOS42MSwxMzcuODVhMTYsMTYsMCwwLDAtMjAuMzEtMS4xNkwyMDgsMTQyLjFWMTIwYTgsOCwwLDAsMC04LThoLTMyYTgsOCwwLDAsMC04LDh2MjIuMWwtMTIuNjktNS40NGExNiwxNiwwLDAsMC0xNC42MiwwTDEyMCwxNDIuMVYxMDRhOCw4LDAsMCwwLTgtOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi5wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVpNMTcyLDEyOEgzMnYxNloiLz48L3N2Zz4=');
-    mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzOS42MSwxMzcuODVhMTYsMTYsMCwwLDAtMjAuMzEtMS4xNkwyMDgsMTQyLjFWMTIwYTgsOCwwLDAsMC04LThoLTMyYTgsOCwwLDAsMC04LDh2MjIuMWwtMTIuNjktNS40NGExNiwxNiwwLDAsMC0xNC42MiwwTDEyMCwxNDIuMVYxMDRhOCw4LDAsMCwwLTgtOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi5wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVpNMTcyLDEyOEgzMnYxNloiLz48L3N2Zz4=');
-}
-#nav-incentives .nav-icon.icon-active {
-    -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzOS42MSwxMzcuODVhMTYsMTYsMCwwLDAtMjAuMzEtMS4xNkwyMDgsMTQyLjFWMTIwYTgsOCwwLDAsMC04LThoLTMyYTgsOCwwLDAsMC04LDh2MjIuMWwtMTIuNjktNS40NGExNiwxNiwwLDAsMC0xNC42MiwwTDEyMCwxNDIuMVYxMDRhOCw4LDAsMCwwLTgtOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi4wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVoiLz48L3N2Zz4=');
-    mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iY3VycmVudENvbG9yIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZD0iTTIzOS42MSwxMzcuODVhMTYsMTYsMCwwLDAtMjAuMzEtMS4xNkwyMDgsMTQyLjFWMTIwYTgsOCwwLDAsMC04LThoLTMyYTgsOCwwLDAsMC04LDh2MjIuMWwtMTIuNjktNS40NGExNiwxNiwwLDAsMC0xNC42MiwwTDEyMCwxNDIuMVYxMDRhOCw4LDAsMCwwLTgtOEI3MmE4LDgsMCwwLDAtOCw4djQ1LjJsLTguMDksOC4zOWExNiwxNiwwLDAsMC00LjY3LDIxLjc3bDMydi4wOWE4LDgsMCwwLDAsMTUsLTVWMTg0YTgsOCwwLDAsMC04LThINzguNzRsLTIwLTYwLjE4TDE2MCwxNzZIMTMyYTgsOCwwLDAsMC04LDh2NTZhOCw4LDAsMCwwLDE1LTVsMzItOTZBMTYsMTYsMCwwLDAsMjM5LjYxLDEzNy44NVoiLz48L3N2Zz4=');
-}
-
-/* --- Toast --- */
-.toast {
-    position: absolute;
-    bottom: 100px; /* Acima da barra de navegação */
-    left: 50%;
-    transform: translateX(-50%) scale(0.9);
-    padding: 12px 20px;
-    background: rgba(40, 40, 40, 0.9);
+/* --- TOAST --- */
+.toast-hidden {
+    position: absolute; top: 60px; left: 50%; transform: translateX(-50%) translateY(-20px);
+    background: rgba(0,0,0,0.8); color: white; padding: 12px 20px;
+    border-radius: 30px; display: flex; align-items: center; gap: 10px;
+    opacity: 0; pointer-events: none; transition: all 0.3s; font-size: 14px; z-index: 200;
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 500;
-    border-radius: 25px;
-    z-index: 200;
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
-    pointer-events: none; /* Não bloquear cliques */
-    
-    /* Adicionado para ícone no toast */
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
-.toast.show {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-}
-.toast .material-symbols-outlined {
-    font-size: 1.1rem;
-    font-variation-settings: 'FILL' 1;
-}
+.toast-visible { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-/* =================================================
- * CORREÇÃO: ANOTAÇÕES EXTERNAS (Bug da Foto de Perfil)
- * =Causado por 'display:flex' no .main-container
- * =================================================
- */
-.main-container {
-    position: relative;
-    /* display: flex; <--- REMOVIDO */
-    /* justify-content: center; <--- REMOVIDO */
-    /* align-items: center; <--- REMOVIDO */
-    /* width: 100%; <--- REMOVIDO */
-    /* gap: 20px; <--- REMOVIDO */
+/* --- GAMIFICATION --- */
+.points-banner {
+    background: linear-gradient(135deg, #FFD700, #FFAA00);
+    color: white; border-radius: 20px; padding: 24px; text-align: center;
+    margin-bottom: 24px; box-shadow: 0 8px 16px rgba(255, 170, 0, 0.2);
 }
+.points-val { font-size: 48px; font-weight: 800; display: block; }
+.rewards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.reward-card { background: white; padding: 16px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; border: 1px solid rgba(0,0,0,0.05); }
+.reward-card.disabled { opacity: 0.5; filter: grayscale(1); }
+.icon-box { width: 40px; height: 40px; background: #EEF4FF; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.btn-sm { font-size: 12px; padding: 6px 12px; width: auto; }
 
-.annotations-wrapper-left, .annotations-wrapper-right {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    position: absolute; /* REVERTIDO PARA ABSOLUTE */
-    z-index: -1;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #a0aec0;
-}
-.annotations-wrapper-left {
-    right: 100%;
-    margin-right: 40px; /* Espaço */
-    align-items: flex-end;
-    flex-basis: 250px;
-}
-.annotations-wrapper-right {
-    left: 100%;
-    margin-left: 40px; /* Espaço */
-    align-items: flex-start;
-    flex-basis: 250px;
-}
+/* Desktop Presentation */
+.info-side { color: white; max-width: 300px; }
+.info-side h1 { font-size: 2.5rem; margin-bottom: 10px; }
+.tag { font-size: 0.8rem; background: var(--primary); padding: 4px 8px; border-radius: 6px; vertical-align: middle; }
+.feature-list { list-style: none; margin-top: 20px; }
+.feature-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; opacity: 0.8; }
 
-.project-annotation {
-    position: relative;
-    max-width: 250px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.project-annotation.anno-left { text-align: right; }
-.project-annotation.anno-right { text-align: left; }
-
-.annotation-line {
-    height: 1px;
-    background: #4a5568;
-    flex-shrink: 0;
-}
-.project-annotation.anno-left .annotation-line { order: 2; }
-.project-annotation.anno-left .annotation-text { order: 1; }
-
-.annotation-text h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #e2e8f0;
-    margin: 0 0 5px 0;
-}
-.annotation-text p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin: 0;
-    color: #a0aec0;
-}
-
-/* =================================================
- * ÍCONES DO DOCK E APP (Cores)
- * =================================================
- */
-
-/* (Homescreen) Ícones do Grid */
-/* (Estes não precisam de cor de fundo, já está no HTML) */
-
-/* =================================================
- * CORREÇÃO: Ícones do DOCK (Estilos que faltavam)
- * Adicionado background-color E color para os ícones
- * =================================================
- */
-.dock .app-icon[data-app="phone"] .app-icon-visual {
-    background-color: #22c55e;
-    color: white;
-}
-.dock .app-icon[data-app="safari"] .app-icon-visual {
-    background-color: white;
-    color: #0d7ff2;
-}
-.dock .app-icon[data-app="messages"] .app-icon-visual {
-    background-color: #22c55e;
-    color: white;
-}
-.dock .app-icon[data-app="music"] .app-icon-visual {
-    background-color: #ec4899;
-    color: white;
-}
-
-
-/* --- Ícones de Botões e Listas (Internos) --- */
-
-.card-arrow {
-    font-family: sans-serif;
-}
-.header-back i.sf-font {
-    font-size: 1.5rem;
-    margin-right: 2px;
-    font-style: normal;
-}
-.vaccine-list-icon {
-    font-size: 1.8rem;
-    font-style: normal;
-}
-.btn i {
-    font-size: 1.2rem;
-    font-style: normal;
-}
+/* Inputs */
+.input-group { margin-bottom: 16px; }
+.input-group label { display: block; font-size: 13px; color: var(--text-sub); margin-bottom: 6px; }
+.input-group input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e0e0e0; background: white; font-size: 16px; }
