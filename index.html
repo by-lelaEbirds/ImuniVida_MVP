@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - MVP v2.6 (Global)</title>
+    <title>ImuniVida - MVP v2.7 (SP/Milano)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
@@ -13,20 +13,19 @@
     <div class="main-wrapper">
         <div class="info-panel">
             <div class="lang-toggle">
-                <button class="lang-btn active" id="btn-it" onclick="setLanguage('it')">🇮🇹 IT</button>
-                <button class="lang-btn" id="btn-pt" onclick="setLanguage('pt')">🇧🇷 BR</button>
+                <button class="lang-btn active" id="btn-it" onclick="setLanguage('it')">🇮🇹 IT (Milano)</button>
+                <button class="lang-btn" id="btn-pt" onclick="setLanguage('pt')">🇧🇷 BR (São Paulo)</button>
             </div>
 
             <div class="project-header">
                 <div class="badge-row">
-                    <span class="badge-beta">MVP v2.6</span>
-                    <span class="badge-live">GLOBAL PILOT</span>
+                    <span class="badge-beta">MVP v2.7</span>
+                    <span class="badge-live">MULTI-REGION</span>
                 </div>
                 <h1>ImuniVida</h1>
                 <p class="high-impact-desc" data-key="pitch_desc">
-                    Plataforma de Saúde Pública Digital focada na <strong>Região da Lombardia (Milão)</strong>.
-                    <br><br>
-                    Integramos dados do <em>Fascicolo Sanitario Elettronico</em> para automatizar o calendário vacinal via Nudges.
+                    Plataforma de Saúde Pública Digital focada na <strong>Região da Lombardia (Milano)</strong>.<br><br>
+                    Integração total com sistemas locais para gestão vacinal inteligente.
                 </p>
             </div>
 
@@ -63,7 +62,7 @@
                 </div>
                 <div class="progress-container">
                     <div class="progress-label">
-                        <span data-key="metric_geo">Geolocalização (Milão)</span>
+                        <span data-key="metric_geo">Geolocalização (Contextual)</span>
                         <span class="txt-green">100%</span>
                     </div>
                     <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
@@ -179,27 +178,30 @@
                             <span data-key="sched_title">Prenotazione</span>
                         </div>
                         <div class="content-padding" style="padding-top: 0;">
-                            <div class="map-container">
+                            
+                            <div class="map-container" id="dynamic-map">
                                 <div class="map-pin pin-1"><span class="material-symbols-rounded">medical_services</span></div>
                                 <div class="map-pin pin-2"><span class="material-symbols-rounded">local_hospital</span></div>
                                 <div class="map-tag" data-key="map_tag">Sei qui</div>
                             </div>
+
                             <h3 class="section-label" data-key="sched_date">Scegli la Data</h3>
                             <div class="date-picker-container">
                                 <input type="date" id="schedule-date" class="native-date-input">
                             </div>
                             <h3 class="section-label" data-key="sched_place">Ospedale / ASL Vicina</h3>
+                            
                             <div class="ubs-list">
                                 <div class="ubs-item selected" onclick="selectUBS(this)">
                                     <div class="ubs-info">
-                                        <strong>Ospedale Niguarda</strong>
+                                        <strong data-key="ubs_1_name">Ospedale Niguarda</strong>
                                         <span>1.2 km • <span data-key="ubs_open">Aperto ora</span></span>
                                     </div>
                                     <span class="material-symbols-rounded check-icon">check_circle</span>
                                 </div>
                                 <div class="ubs-item" onclick="selectUBS(this)">
                                     <div class="ubs-info">
-                                        <strong>Centro Vaccinale Duomo</strong>
+                                        <strong data-key="ubs_2_name">Centro Vaccinale Duomo</strong>
                                         <span>3.5 km • 18:00</span>
                                     </div>
                                     <span class="material-symbols-rounded check-icon">check_circle</span>
