@@ -3,528 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - Protótipo V13 (Stitch UI)</title>
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <title>ImuniVida - MVP v2.0 (Enterprise Edition)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+    
     <link rel="stylesheet" href="style.css">
-    </head>
+</head>
 <body>
 
-    <div class="main-container">
-
-        <div class="annotations-wrapper-left">
-            <div class="project-annotation anno-left">
-                <div class="annotation-text">
-                    <h3>Problema Central</h3>
-                    <p>Queda na cobertura vacinal por desinformação e barreiras logísticas.</p>
-                </div>
-                <div class="annotation-line" style="width: 100px;"></div>
-            </div>
-            <div class="project-annotation anno-left">
-                <div class="annotation-text">
-                    <h3>Público-Alvo</h3>
-                    <p>Pais e responsáveis (sobrecarregados) por crianças de 0 a 10 anos.</p>
-                </div>
-                <div class="annotation-line" style="width: 80px;"></div>
-            </div>
-             <div class="project-annotation anno-left">
-                <div class="annotation-text">
-                    <h3>Stack Tecnológico</h3>
-                    <p>Híbrido (React Native) com Back-end em Nuvem (AWS/Azure).</p>
-                </div>
-                <div class="annotation-line" style="width: 100px;"></div>
-            </div>
+    <div class="presentation-wrapper">
+        <div class="info-side left">
+            <h1>ImuniVida <span class="tag">BETA</span></h1>
+            <p>Plataforma de gestão imunológica gamificada.</p>
+            <ul class="feature-list">
+                <li><span class="material-symbols-rounded">check</span> Login Gov.br (Simulado)</li>
+                <li><span class="material-symbols-rounded">check</span> Gestão de Dependentes</li>
+                <li><span class="material-symbols-rounded">check</span> Gamificação & Recompensas</li>
+            </ul>
         </div>
 
-        <div class="iphone-simulator" data-theme="dark" data-current-page="page-homescreen">
-            
-            <div class="dynamic-island"></div>
-            <div class="status-bar">
-                <span class="time">9:41</span>
-                <div class="status-icons sf-font">
-                    <span class="material-symbols-outlined">signal_cellular_4_bar</span>
-                    <span class="material-symbols-outlined">wifi</span>
-                    <span class="material-symbols-outlined">battery_full</span>
-                </div>
-            </div>
+        <div class="iphone-chassis">
+            <div class="physical-buttons volume-up"></div>
+            <div class="physical-buttons volume-down"></div>
+            <div class="physical-buttons power"></div>
 
-            <div class="screen">
-                
-                <div id="page-homescreen" class="page active">
-                    <div class="wallpaper"></div>
-                    <main class="icon-grid">
-                        
-                        <div class="app-widget" data-page="page-login" data-direction="forward">
-                            <div class="widget-header">
-                                <div class="widget-icon">
-                                    <span class="material-symbols-outlined">health_and_safety</span>
+            <div class="screen-content">
+                <div class="status-bar">
+                    <span class="time" id="status-time">9:41</span>
+                    <div class="dynamic-island">
+                        <div class="camera-dot"></div>
+                    </div>
+                    <div class="status-icons">
+                        <span class="material-symbols-rounded">signal_cellular_alt</span>
+                        <span class="material-symbols-rounded">wifi</span>
+                        <span class="material-symbols-rounded">battery_full</span>
+                    </div>
+                </div>
+
+                <div id="app-viewport">
+                    <div class="page active" id="page-homescreen" data-theme="dark">
+                        <div class="wallpaper-gradient"></div>
+                        <div class="app-grid">
+                            <div class="widget-large action-navigate" data-target="page-login">
+                                <div class="widget-header">
+                                    <div class="app-icon-small bg-blue">
+                                        <span class="material-symbols-rounded">vaccines</span>
+                                    </div>
+                                    <span class="widget-title">ImuniVida</span>
+                                    <span class="widget-time">AGORA</span>
                                 </div>
-                                <h3>ImuniVida</h3>
+                                <div class="widget-body">
+                                    <h3>Campanha Dengue</h3>
+                                    <p>Reforço disponível para João.</p>
+                                </div>
                             </div>
-                            <div class="widget-body">
-                                <p class="widget-label">Próxima Vacina:</p>
-                                <p class="widget-date">29 AGO</p>
-                                <p class="widget-detail">Dengue - Dose 2</p>
-                                <p class="widget-detail small">Dr. Carlos, Clínica Saúde Total</p>
-                            </div>
-                            <span class="material-symbols-outlined widget-bg-icon">vaccines</span>
-                        </div>
-                        
-                        <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: white; color: #111;">
-                                <span class="calendar-day">SEG</span>
-                                <span class="calendar-date">24</span>
-                            </div>
-                            <span>Calendário</span>
-                        </div>
-                        <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: #e5e7eb; color: #374151;">
-                                <span class="material-symbols-outlined">photo_camera</span>
-                            </div>
-                            <span>Câmera</span>
-                        </div>
-                        <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: white; color: #3b82f6;">
-                                <span class="material-symbols-outlined">local_florist</span>
-                            </div>
-                            <span>Fotos</span>
-                        </div>
-                        <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: #f5f7f8; color: #374151; background-image: url('image_b3de88.png'); background-size: 300%; background-position: center 30%;">
-                            </div>
-                            <span>Mapas</span>
-                        </div>
-                        <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: #22c55e;">
-                                <span class="material-symbols-outlined">chat</span>
-                            </div>
-                            <span>Mensagens</span>
-                        </div>
-                        <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: white; color: #0d7ff2;">
-                                <span class="material-symbols-outlined">explore</span>
-                            </div>
-                            <span>Safari</span>
-                        </div>
-                        <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: #d1d5db; color: #1f2937;">
-                                <span class="material-symbols-outlined">settings</span>
-                            </div>
-                            <span>Ajustes</span>
-                        </div>
-                         <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: #38bdf8; color: #facc15;">
-                                <span class="material-symbols-outlined">sunny</span>
-                            </div>
-                            <span>Tempo</span>
-                        </div>
-                         <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: white; color: #111;">
-                                <span class="material-symbols-outlined">schedule</span>
-                            </div>
-                            <span>Relógio</span>
-                        </div>
-                        <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: #0d7ff2; color: white;">
-                                <span class="material-symbols-outlined">mail</span>
-                            </div>
-                            <span>Mail</span>
-                        </div>
-                         <div class="app-icon">
-                            <div class="app-icon-visual squircle" style="background-color: #fef3c7; color: #ca8a04;">
-                                <span class="material-symbols-outlined">description</span>
-                            </div>
-                            <span>Notas</span>
-                        </div>
-                    </main>
-                    
-                    <footer class="dock">
-                        <div class="app-icon" data-app="phone">
-                            <div class="app-icon-visual squircle">
-                                <span class="material-symbols-outlined">call</span>
-                            </div>
-                        </div>
-                        <div class="app-icon" data-app="safari">
-                            <div class="app-icon-visual squircle">
-                                <span class="material-symbols-outlined">explore</span>
-                            </div>
-                        </div>
-                        <div class="app-icon" data-app="messages">
-                            <div class="app-icon-visual squircle">
-                                <span class="material-symbols-outlined">chat</span>
-                            </div>
-                        </div>
-                        <div class="app-icon" data-app="music">
-                            <div class="app-icon-visual squircle">
-                                <span class="material-symbols-outlined">music_note</span>
-                            </div>
-                        </div>
-                    </footer>
-                </div>
 
-                <div id="page-login" class="page inactive-right page-light">
-                    <main class="content page-center">
-                        <span class="material-symbols-outlined text-primary" style="font-size: 80px;">health_and_safety</span>
-                        <h1 class="page-title">ImuniVida</h1>
-                        <p class="page-description">Seu assistente de imunização infantil.</p>
-                        
-                        <div class="button-container">
-                            <button class="btn btn-primary" id="btn-login-gov" data-page="page-dashboard" data-direction="forward">
-                                <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12.193 13.729L15.343 15.49L12.193 17.25V13.729Z" fill="white"></path><path d="M11.808 10.21V13.73L8.658 15.49L11.808 10.21Z" fill="white"></path><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM15.99 15.99L12.23 18.17C12.08 18.25 11.92 18.25 11.77 18.17L8.01 15.99C7.86 15.9 7.75 15.76 7.75 15.6V12.4L11.77 10.22C11.91 10.14 12.08 10.14 12.22 10.22L16.25 12.4V15.6C16.25 15.76 16.14 15.9 15.99 15.99Z" fill="white"></path></svg>
-                                <span>Entrar com Gov.br</span>
-                            </button>
-                            <p class="small-text">Autenticação segura via sistema de identificação nacional.</p>
-                        </div>
-                    </main>
-                </div>
-
-                <div id="page-dashboard" class="page inactive-right page-with-nav page-light">
-                    <header class="page-header large-title">
-                        <h1>Início</h1>
-                        <img class="header-profile-pic" src="assets/boyperfil.png" alt="Avatar">
-                    </header>
-                    <header class="header-sticky">
-                        <h1>Início</h1>
-                    </header>
-                    
-                    <main class="content">
-                        <div class="card-status">
-                            <div class="status-item">
-                                <span>Próxima Dose</span>
-                                <strong>Febre Amarela - Ana</strong>
+                            <div class="app-item">
+                                <div class="app-icon bg-white"><span class="date-day">SEG</span><span class="date-num">24</span></div>
+                                <span class="app-name">Agenda</span>
                             </div>
-                            <hr class="divider"/>
-                            <div class="status-item">
-                                <span>Atrasadas</span>
-                                <strong class="text-error">1 Dose - João</strong>
+                            <div class="app-item">
+                                <div class="app-icon bg-gray"><span class="material-symbols-rounded">settings</span></div>
+                                <span class="app-name">Ajustes</span>
+                            </div>
+                            <div class="app-item">
+                                <div class="app-icon bg-green"><span class="material-symbols-rounded">chat_bubble</span></div>
+                                <span class="app-name">Zap</span>
                             </div>
                         </div>
 
-                        <h2 class="content-subtitle">Meus Dependentes</h2>
-                        
-                        <div id="dependent-list-container" class="list-container">
+                        <div class="dock-container">
+                            <div class="dock-blur"></div>
+                            <div class="dock-icons">
+                                <div class="app-icon bg-green"><span class="material-symbols-rounded">call</span></div>
+                                <div class="app-icon bg-blue"><span class="material-symbols-rounded">public</span></div>
+                                <div class="app-icon bg-gray-dark"><span class="material-symbols-rounded">mail</span></div>
+                                <div class="app-icon bg-pink"><span class="material-symbols-rounded">music_note</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page" id="page-login" data-theme="light">
+                        <div class="content-center">
+                            <div class="logo-anim">
+                                <span class="material-symbols-rounded icon-logo">health_and_safety</span>
+                            </div>
+                            <h2>Bem-vindo ao ImuniVida</h2>
+                            <p class="subtext">Seu passaporte digital de saúde e imunização.</p>
                             
-                            <div class="card-list-item" data-page="page-calendar-ana" data-direction="forward">
-                                <img class="card-list-avatar" src="assets/girlperfil.png" alt="Ana">
-                                <div class="card-list-info">
-                                    <strong>Ana Silva (3 anos)</strong>
-                                    <span>Próxima dose: Febre Amarela</span>
-                                </div>
-                                <div class="card-list-status">
-                                    <span class="status-badge status-alert">Pendente</span>
-                                </div>
-                                <span class="material-symbols-outlined card-list-arrow">chevron_right</span>
-                            </div>
+                            <div class="spacer"></div>
 
-                            <div class="card-list-item" data-page="page-calendar-joao" data-direction="forward">
-                                <img class="card-list-avatar" src="assets/boyperfil.png" alt="João">
-                                <div class="card-list-info">
-                                    <strong>João Souza (5 anos)</strong>
-                                    <span>Próxima dose: Tríplice Viral</span>
+                            <button class="btn btn-gov action-login">
+                                <span class="material-symbols-rounded">account_balance</span>
+                                Entrar com Gov.br
+                            </button>
+                            <p class="secure-text"><span class="material-symbols-rounded">lock</span> Ambiente Seguro</p>
+                        </div>
+                    </div>
+
+                    <div class="page page-scroll" id="page-dashboard" data-theme="light">
+                        <div class="header-large">
+                            <div class="header-top">
+                                <div>
+                                    <p class="greeting">Olá, Responsável</p>
+                                    <h1>Painel Geral</h1>
                                 </div>
-                                <div class="card-list-status">
-                                    <span class="status-badge status-error">Atrasada!</span>
-                                </div>
-                                <span class="material-symbols-outlined card-list-arrow">chevron_right</span>
+                                <img src="assets/boyperfil.png" class="avatar-profile" alt="Perfil">
                             </div>
                         </div>
 
-                        <div class="card-action-dashed" data-page="page-add-dependent" data-direction="forward">
-                            <span class="material-symbols-outlined">add_circle</span>
-                            <span>Adicionar Dependente</span>
-                        </div>
-                    </main>
-                </div>
+                        <div class="content-body">
+                            <div class="card card-highlight">
+                                <div class="card-row">
+                                    <span class="material-symbols-rounded icon-warn">warning</span>
+                                    <div>
+                                        <h3>Atenção Necessária</h3>
+                                        <p>1 Vacina em atraso (João)</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div id="page-add-dependent" class="page inactive-right page-light">
-                    <header class="page-header simple">
-                        <button class="header-back" data-page="page-dashboard" data-direction="back">
-                            <span class="material-symbols-outlined">arrow_back</span>
-                        </button>
-                        <h1>Novo Dependente</h1>
-                    </header>
-                    <main class="content">
-                        <form id="form-add-dependent" class="form-container">
-                            <div class="form-group">
-                                <label for="input-name">Nome Completo</label>
-                                <input id="input-name" class="form-input" type="text" placeholder="Ex: Maria Clara" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="input-dob">Data de Nascimento</label>
-                                <div class="form-input-with-icon">
-                                    <input id="input-dob" class="form-input" type="date" placeholder="DD/MM/AAAA" required>
-                                    <span class="material-symbols-outlined">calendar_today</span>
+                            <h3>Meus Dependentes</h3>
+                            <div id="dependents-list" class="list-group">
                                 </div>
-                            </div>
-                            
-                            <div class="button-container">
-                                <button type="submit" class="btn btn-primary">
-                                    <span class="material-symbols-outlined">save</span>
-                                    <span>Salvar Dependente</span>
-                                </button>
-                            </div>
-                        </form>
-                    </main>
-                </div>
 
-                <div id="page-calendar-ana" class="page inactive-right page-light">
-                    <header class="page-header simple">
-                        <button class="header-back" data-page="page-dashboard" data-direction="back">
-                            <span class="material-symbols-outlined">arrow_back</span>
-                        </button>
-                        <h1>Calendário (Ana)</h1>
-                    </header>
-                    <main class="content">
-                        <div class="list-container card-style">
-                            <div class="card-list-item">
-                                <div class="card-list-icon-bg status-alert">
-                                    <span class="material-symbols-outlined">warning</span>
-                                </div>
-                                <div class="card-list-info">
-                                    <strong>Febre Amarela</strong>
-                                    <span class="text-alert">Pendente - Agendar</span>
-                                </div>
-                                <span class="material-symbols-outlined card-list-arrow">chevron_right</span>
-                            </div>
-                            <div class="card-list-item">
-                                <div class="card-list-icon-bg status-success">
-                                    <span class="material-symbols-outlined">check_circle</span>
-                                </div>
-                                <div class="card-list-info">
-                                    <strong>Penta (Dose 1)</strong>
-                                    <span class="text-secondary">Aplicada em 15/03/2022</span>
-                                </div>
-                                <span class="material-symbols-outlined card-list-arrow">chevron_right</span>
-                            </div>
-                            <div class="card-list-item">
-                                <div class="card-list-icon-bg status-success">
-                                    <span class="material-symbols-outlined">check_circle</span>
-                                </div>
-                                <div class="card-list-info">
-                                    <strong>Rotavírus (Dose 1)</strong>
-                                    <span class="text-secondary">Aplicada em 15/03/2022</span>
-                                </div>
-                                <span class="material-symbols-outlined card-list-arrow">chevron_right</span>
-                            </div>
-                        </div>
-                        <div class="button-container">
-                            <button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-ana" data-direction="forward">
-                                <span>Agendar Dose Pendente</span>
+                            <button class="btn btn-outline action-navigate" data-target="page-add-dependent">
+                                <span class="material-symbols-rounded">add</span>
+                                Novo Dependente
                             </button>
                         </div>
-                    </main>
-                </div>
+                    </div>
 
-                <div id="page-calendar-joao" class="page inactive-right page-light">
-                    <header class="page-header simple">
-                        <button class="header-back" data-page="page-dashboard" data-direction="back">
-                            <span class="material-symbols-outlined">arrow_back</span>
-                        </button>
-                        <h1>Calendário (João)</h1>
-                    </header>
-                    <main class="content">
-                        <div class="list-container card-style">
-                            <div class="card-list-item">
-                                <div class="card-list-icon-bg status-error">
-                                    <span class="material-symbols-outlined">priority_high</span>
-                                </div>
-                                <div class="card-list-info">
-                                    <strong>Tríplice Viral</strong>
-                                    <span class="text-error">Atrasada desde 01/10/2025</span>
-                                </div>
-                                <span class="material-symbols-outlined card-list-arrow">chevron_right</span>
-                            </div>
-                             <div class="card-list-item">
-                                <div class="card-list-icon-bg status-success">
-                                    <span class="material-symbols-outlined">check_circle</span>
-                                </div>
-                                <div class="card-list-info">
-                                    <strong>Poliomielite (Reforço 1)</strong>
-                                    <span class="text-secondary">Concluído</span>
-                                </div>
-                                <span class="material-symbols-outlined card-list-arrow">chevron_right</span>
-                            </div>
+                    <div class="page page-scroll" id="page-calendar-detail" data-theme="light">
+                        <div class="header-sticky">
+                            <button class="btn-icon action-back"><span class="material-symbols-rounded">arrow_back_ios</span></button>
+                            <span id="calendar-title">Calendário</span>
+                            <div style="width: 40px;"></div>
                         </div>
-                        <div class="button-container">
-                            <button class="btn btn-error" data-page="page-schedule" data-origin="page-calendar-joao" data-direction="forward">
-                                <span>Agendar Dose Atrasada</span>
-                            </button>
-                        </div>
-                    </main>
-                </div>
+                        <div class="content-body pt-header">
+                            <div class="progress-card">
+                                <div class="progress-info">
+                                    <span>Proteção Atual</span>
+                                    <strong>75%</strong>
+                                </div>
+                                <div class="progress-bar"><div class="fill" style="width: 75%"></div></div>
+                            </div>
 
-                <div id="page-calendar-generic" class="page inactive-right page-light">
-                    <header class="page-header simple">
-                        <button class="header-back" data-page="page-dashboard" data-direction="back">
-                            <span class="material-symbols-outlined">arrow_back</span>
-                        </button>
-                        <h1 id="generic-calendar-title">Calendário</h1>
-                    </header>
-                    <main class="content">
-                        <div class="list-container card-style">
-                            <div class="card-list-item">
-                                <div class="card-list-icon-bg status-alert">
-                                    <span class="material-symbols-outlined">warning</span>
+                            <div class="timeline" id="calendar-timeline">
                                 </div>
-                                <div class="card-list-info">
-                                    <strong>Hepatite B (Dose 1)</strong>
-                                    <span class="text-alert">Pendente - Agendar</span>
+                        </div>
+                    </div>
+
+                    <div class="page page-scroll" id="page-incentives" data-theme="light">
+                         <div class="header-large">
+                             <h1>Incentivos</h1>
+                         </div>
+                         <div class="content-body">
+                             <div class="points-banner">
+                                 <span class="points-val" id="user-points">0</span>
+                                 <span class="points-label">Pontos Imuni</span>
+                             </div>
+
+                             <h3>Resgate Disponível</h3>
+                             <div class="rewards-grid">
+                                 <div class="reward-card" data-cost="1000">
+                                     <div class="icon-box"><span class="material-symbols-rounded">medication</span></div>
+                                     <strong>Farmácia Popular</strong>
+                                     <p>15% OFF</p>
+                                     <button class="btn btn-sm btn-primary action-redeem">1000 pts</button>
+                                 </div>
+                                 <div class="reward-card" data-cost="5000">
+                                     <div class="icon-box"><span class="material-symbols-rounded">receipt_long</span></div>
+                                     <strong>IR 2025</strong>
+                                     <p>Abatimento</p>
+                                     <button class="btn btn-sm btn-primary action-redeem">5000 pts</button>
+                                 </div>
+                             </div>
+
+                             <h3>Conquistas</h3>
+                             <div class="badges-scroll" id="badges-container">
+                                 </div>
+                         </div>
+                    </div>
+                    
+                    <div class="page" id="page-add-dependent" data-theme="light">
+                        <div class="header-sticky">
+                            <button class="btn-icon action-back"><span class="material-symbols-rounded">arrow_back_ios</span></button>
+                            <span>Novo Cadastro</span>
+                             <div style="width: 40px;"></div>
+                        </div>
+                        <div class="content-body pt-header">
+                            <form id="form-dependent">
+                                <div class="input-group">
+                                    <label>Nome da Criança</label>
+                                    <input type="text" id="dep-name" placeholder="Ex: Maria Alice" required>
                                 </div>
-                                <span class="material-symbols-outlined card-list-arrow">chevron_right</span>
-                            </div>
-                        </div>
-                        <div class="button-container">
-                            <button class="btn btn-primary" data-page="page-schedule" data-origin="page-calendar-generic" data-direction="forward">
-                                <span>Agendar Dose</span>
-                            </button>
-                        </div>
-                    </main>
-                </div>
-
-                <div id="page-schedule" class="page inactive-right page-light">
-                    <header class="page-header simple">
-                        <button class="header-back" id="schedule-back-button" data-direction="back">
-                            <span class="material-symbols-outlined">arrow_back</span>
-                        </button>
-                        <h1>Agendar Vacina</h1>
-                    </header>
-                    <main class="content">
-                        <p class="page-description" style="text-align: center;">Usando sua localização para encontrar a UBS mais próxima...</p>
-                        
-                        <figure class="map-placeholder">
-                            <img src="image_b3de88.png" alt="Simulação de mapa de Curitiba com UBS">
-                        </figure>
-                        
-                        <h3 class="content-subtitle" style="margin-top: 0; padding-left: 0;">Postos de Saúde Próximos:</h3>
-                        <div class="card-ubs">
-                            <div class="card-ubs-info">
-                                <span class="card-ubs-distance">(1.2km)</span>
-                                <strong>UBS Vila Saúde</strong>
-                                <span class="text-secondary">Rua das Flores, 123</span>
-                            </div>
-                            <img class="card-ubs-image" src="https://picsum.photos/seed/ubs/100/100" alt="UBS">
-                        </div>
-
-                        <div class="button-container" style="margin-top: auto; padding-bottom: 0;">
-                            <button class="btn btn-secondary" id="btn-confirm-vaccine">
-                                <span>Confirmar Agendamento</span>
-                            </button>
-                        </div>
-                    </main>
-                </div>
-                
-                <div id="page-incentives" class="page inactive-right page-with-nav page-light">
-                    <header class="page-header large-title">
-                        <h1>Incentivos</h1>
-                    </header>
-                    <header class="header-sticky">
-                        <h1>Incentivos</h1>
-                    </header>
-
-                    <main class="content">
-                        <div class="card-points">
-                            <span class="material-symbols-outlined">star</span>
-                            <div class="card-points-info">
-                                <span>Seus Pontos Imuni</span>
-                                <strong id="user-points-display">0</strong>
-                            </div>
-                        </div>
-
-                        <h3 class="content-subtitle">Recompensas para Resgatar</h3>
-                        <div class="list-container">
-                            <div class="card-list-item" id="reward-farmacia">
-                                <div class="card-list-icon-bg status-primary">
-                                    <span class="material-symbols-outlined">pill</span>
+                                <div class="input-group">
+                                    <label>Data de Nascimento</label>
+                                    <input type="date" id="dep-dob" required>
                                 </div>
-                                <div class="card-list-info">
-                                    <strong>15% Desconto Farmácia</strong>
-                                    <span class="text-secondary">Custo: 1000 Pontos</span>
-                                </div>
-                                <button class="btn btn-redeem" disabled>Resgatar</button>
-                            </div>
-                            <div class="card-list-item" id="reward-ir">
-                                <div class="card-list-icon-bg status-primary">
-                                    <span class="material-symbols-outlined">receipt_long</span>
-                                </div>
-                                <div class="card-list-info">
-                                    <strong>Abatimento no IR</strong>
-                                    <span class="text-secondary">Custo: 5000 Pontos</span>
-                                </div>
-                                <button class="btn btn-redeem" disabled>Resgatar</button>
-                            </div>
+                                <button type="submit" class="btn btn-primary mt-4">Salvar Dados</button>
+                            </form>
                         </div>
+                    </div>
 
-                        <h3 class="content-subtitle">Minhas Conquistas</h3>
-                        <div class="achievements-grid">
-                            <div class="badge locked" data-badge-id="first-dose">
-                                <span class="material-symbols-outlined">military_tech</span>
-                                <span>Primeira Dose</span>
-                            </div>
-                            <div class="badge locked" data-badge-id="full-calendar">
-                                <span class="material-symbols-outlined">shield_person</span>
-                                <span>Super Protegido</span>
-                            </div>
-                            <div class="badge locked" data-badge-id="champion">
-                                <span class="material-symbols-outlined">emoji_events</span>
-                                <span>Campeão</span>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-
-                <nav class="bottom-nav">
-                    <button data-page="page-dashboard" class="nav-item" id="nav-home">
-                        <div class="nav-icon-wrapper">
-                            <span class="nav-icon icon-regular"></span>
-                            <span class="nav-icon icon-active"></span>
-                        </div>
+                </div> <nav class="tab-bar" id="main-tab-bar">
+                    <button class="tab-item active" data-target="page-dashboard">
+                        <span class="material-symbols-rounded">home</span>
                         <span>Início</span>
                     </button>
-                    <button data-page="page-incentives" class="nav-item" id="nav-incentives">
-                        <div class="nav-icon-wrapper">
-                            <span class="nav-icon icon-regular"></span>
-                            <span class="nav-icon icon-active"></span>
-                        </div>
+                    <button class="tab-item" data-target="page-incentives">
+                        <span class="material-symbols-rounded">military_tech</span>
                         <span>Incentivos</span>
                     </button>
                 </nav>
 
-                <div id="toast-notification" class="toast">
-                    <span id="toast-message"></span>
+                <div id="toast" class="toast-hidden">
+                    <span id="toast-icon" class="material-symbols-rounded">check_circle</span>
+                    <span id="toast-msg">Mensagem</span>
                 </div>
 
+                <div class="home-indicator"></div>
             </div>
-            
-            <div class="home-indicator"></div>
         </div>
+    </div>
 
-        <div class="annotations-wrapper-right">
-            <div class="project-annotation anno-right">
-                <div class="annotation-line" style="width: 120px;"></div>
-                <div class="annotation-text">
-                    <h3>Solução: Gamificação</h3>
-                    <p>Incentivos econômicos (desconto / IR) para engajar responsáveis.</p>
-                </div>
-            </div>
-            <div class="project-annotation anno-right">
-                <div class="annotation-line" style="width: 80px;"></div>
-                <div class="annotation-text">
-                    <h3>Tecnologia (MVP)</h3>
-                    <p>Protótipo JS/CSS/HTML com login Gov.br simulado e navegação.</p>
-                </div>
-            </div>
-            <div class="project-annotation anno-right">
-                <div class="annotation-line" style="width: 100px;"></div>
-                <div class="annotation-text">
-                    <h3>Modelo de Negócio</h3>
-                    <p>SaaS B2B (Software as a Service) focado em governos e parcerias.</p>
-                </div>
-            </div>
-        </div>
-    
-    </div> 
     <script src="script.js"></script>
 </body>
 </html>
