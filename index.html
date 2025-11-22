@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - MVP v2.0 (Enterprise Edition)</title>
+    <title>ImuniVida - MVP v2.1 (Fixed)</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="presentation-wrapper">
-        <div class="info-side left">
-            <h1>ImuniVida <span class="tag">BETA</span></h1>
+    <div class="main-wrapper">
+        <div class="info-panel">
+            <h1>ImuniVida <span class="badge-beta">BETA</span></h1>
             <p>Plataforma de gestão imunológica gamificada.</p>
-            <ul class="feature-list">
-                <li><span class="material-symbols-rounded">check</span> Login Gov.br (Simulado)</li>
-                <li><span class="material-symbols-rounded">check</span> Gestão de Dependentes</li>
-                <li><span class="material-symbols-rounded">check</span> Gamificação & Recompensas</li>
-            </ul>
+            <div class="tech-specs">
+                <p><span class="material-symbols-rounded">check_circle</span> Login Gov.br Simulado</p>
+                <p><span class="material-symbols-rounded">check_circle</span> Gestão de Dependentes</p>
+                <p><span class="material-symbols-rounded">check_circle</span> Sistema de Recompensas</p>
+            </div>
         </div>
 
         <div class="iphone-chassis">
-            <div class="physical-buttons volume-up"></div>
-            <div class="physical-buttons volume-down"></div>
-            <div class="physical-buttons power"></div>
+            <div class="notch-island">
+                <div class="camera"></div>
+            </div>
+            <div class="side-button volume-up"></div>
+            <div class="side-button volume-down"></div>
+            <div class="side-button power"></div>
 
-            <div class="screen-content">
+            <div class="screen-display">
+                
                 <div class="status-bar">
-                    <span class="time" id="status-time">9:41</span>
-                    <div class="dynamic-island">
-                        <div class="camera-dot"></div>
-                    </div>
+                    <span class="time">9:41</span>
                     <div class="status-icons">
                         <span class="material-symbols-rounded">signal_cellular_alt</span>
                         <span class="material-symbols-rounded">wifi</span>
@@ -44,189 +43,182 @@
                 </div>
 
                 <div id="app-viewport">
+                    
                     <div class="page active" id="page-homescreen" data-theme="dark">
-                        <div class="wallpaper-gradient"></div>
-                        <div class="app-grid">
-                            <div class="widget-large action-navigate" data-target="page-login">
-                                <div class="widget-header">
-                                    <div class="app-icon-small bg-blue">
+                        <div class="wallpaper"></div>
+                        
+                        <div class="ios-grid">
+                            <div class="widget-box action-navigate" data-target="page-login">
+                                <div class="widget-top">
+                                    <div class="widget-icon-small bg-blue">
                                         <span class="material-symbols-rounded">vaccines</span>
                                     </div>
-                                    <span class="widget-title">ImuniVida</span>
-                                    <span class="widget-time">AGORA</span>
+                                    <span class="widget-app-name">ImuniVida</span>
+                                    <span class="widget-meta">AGORA</span>
                                 </div>
-                                <div class="widget-body">
+                                <div class="widget-content">
                                     <h3>Campanha Dengue</h3>
                                     <p>Reforço disponível para João.</p>
                                 </div>
                             </div>
 
-                            <div class="app-item">
-                                <div class="app-icon bg-white"><span class="date-day">SEG</span><span class="date-num">24</span></div>
-                                <span class="app-name">Agenda</span>
+                            <div class="app-icon-wrapper">
+                                <div class="app-icon bg-white cal-icon">
+                                    <span class="cal-day">SEG</span>
+                                    <span class="cal-num">24</span>
+                                </div>
+                                <span class="app-label">Agenda</span>
                             </div>
-                            <div class="app-item">
-                                <div class="app-icon bg-gray"><span class="material-symbols-rounded">settings</span></div>
-                                <span class="app-name">Ajustes</span>
+                            
+                            <div class="app-icon-wrapper">
+                                <div class="app-icon bg-gray">
+                                    <span class="material-symbols-rounded">settings</span>
+                                </div>
+                                <span class="app-label">Ajustes</span>
                             </div>
-                            <div class="app-item">
-                                <div class="app-icon bg-green"><span class="material-symbols-rounded">chat_bubble</span></div>
-                                <span class="app-name">Zap</span>
+
+                            <div class="app-icon-wrapper">
+                                <div class="app-icon bg-green">
+                                    <span class="material-symbols-rounded">chat</span>
+                                </div>
+                                <span class="app-label">Zap</span>
+                            </div>
+                            
+                             <div class="app-icon-wrapper">
+                                <div class="app-icon bg-blue">
+                                    <span class="material-symbols-rounded">explore</span>
+                                </div>
+                                <span class="app-label">Mapas</span>
                             </div>
                         </div>
 
-                        <div class="dock-container">
-                            <div class="dock-blur"></div>
-                            <div class="dock-icons">
+                        <div class="dock-bar">
+                            <div class="dock-bg"></div>
+                            <div class="dock-apps">
                                 <div class="app-icon bg-green"><span class="material-symbols-rounded">call</span></div>
                                 <div class="app-icon bg-blue"><span class="material-symbols-rounded">public</span></div>
-                                <div class="app-icon bg-gray-dark"><span class="material-symbols-rounded">mail</span></div>
+                                <div class="app-icon bg-dark"><span class="material-symbols-rounded">mail</span></div>
                                 <div class="app-icon bg-pink"><span class="material-symbols-rounded">music_note</span></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="page" id="page-login" data-theme="light">
-                        <div class="content-center">
-                            <div class="logo-anim">
-                                <span class="material-symbols-rounded icon-logo">health_and_safety</span>
+                        <div class="login-container">
+                            <div class="logo-box">
+                                <span class="material-symbols-rounded logo-icon">health_and_safety</span>
                             </div>
-                            <h2>Bem-vindo ao ImuniVida</h2>
-                            <p class="subtext">Seu passaporte digital de saúde e imunização.</p>
+                            <h2>ImuniVida</h2>
+                            <p>Passaporte digital de vacinação.</p>
                             
                             <div class="spacer"></div>
 
-                            <button class="btn btn-gov action-login">
+                            <button class="btn-gov action-login">
                                 <span class="material-symbols-rounded">account_balance</span>
                                 Entrar com Gov.br
                             </button>
-                            <p class="secure-text"><span class="material-symbols-rounded">lock</span> Ambiente Seguro</p>
+                            <p class="security-badge"><span class="material-symbols-rounded">lock</span> Ambiente Seguro</p>
                         </div>
                     </div>
 
-                    <div class="page page-scroll" id="page-dashboard" data-theme="light">
+                    <div class="page page-scrollable" id="page-dashboard" data-theme="light">
                         <div class="header-large">
-                            <div class="header-top">
+                            <div class="header-row">
                                 <div>
-                                    <p class="greeting">Olá, Responsável</p>
-                                    <h1>Painel Geral</h1>
+                                    <span class="greeting">Bem-vindo,</span>
+                                    <h1>Painel</h1>
                                 </div>
-                                <img src="assets/boyperfil.png" class="avatar-profile" alt="Perfil">
+                                <img src="assets/boyperfil.png" class="avatar-large" onerror="this.style.display='none'">
                             </div>
                         </div>
 
-                        <div class="content-body">
-                            <div class="card card-highlight">
-                                <div class="card-row">
-                                    <span class="material-symbols-rounded icon-warn">warning</span>
+                        <div class="content-padding">
+                            <div class="card card-alert">
+                                <div class="card-flex">
+                                    <span class="material-symbols-rounded icon-alert">warning</span>
                                     <div>
-                                        <h3>Atenção Necessária</h3>
-                                        <p>1 Vacina em atraso (João)</p>
+                                        <h3>Atenção</h3>
+                                        <p>João tem 1 vacina atrasada.</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <h3>Meus Dependentes</h3>
-                            <div id="dependents-list" class="list-group">
-                                </div>
-
-                            <button class="btn btn-outline action-navigate" data-target="page-add-dependent">
-                                <span class="material-symbols-rounded">add</span>
-                                Novo Dependente
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="page page-scroll" id="page-calendar-detail" data-theme="light">
-                        <div class="header-sticky">
-                            <button class="btn-icon action-back"><span class="material-symbols-rounded">arrow_back_ios</span></button>
-                            <span id="calendar-title">Calendário</span>
-                            <div style="width: 40px;"></div>
-                        </div>
-                        <div class="content-body pt-header">
-                            <div class="progress-card">
-                                <div class="progress-info">
-                                    <span>Proteção Atual</span>
-                                    <strong>75%</strong>
-                                </div>
-                                <div class="progress-bar"><div class="fill" style="width: 75%"></div></div>
+                            <div class="section-title">
+                                <h3>Meus Dependentes</h3>
+                                <button class="btn-text action-navigate" data-target="page-add-dependent">Adicionar</button>
                             </div>
 
-                            <div class="timeline" id="calendar-timeline">
+                            <div id="dependents-list" class="list-stack">
                                 </div>
                         </div>
                     </div>
 
-                    <div class="page page-scroll" id="page-incentives" data-theme="light">
-                         <div class="header-large">
-                             <h1>Incentivos</h1>
-                         </div>
-                         <div class="content-body">
-                             <div class="points-banner">
-                                 <span class="points-val" id="user-points">0</span>
-                                 <span class="points-label">Pontos Imuni</span>
-                             </div>
+                    <div class="page page-scrollable" id="page-incentives" data-theme="light">
+                        <div class="header-large">
+                            <h1>Incentivos</h1>
+                        </div>
+                        <div class="content-padding">
+                            <div class="points-card">
+                                <span class="points-number" id="user-points">0</span>
+                                <span class="points-label">Pontos Imuni</span>
+                            </div>
 
-                             <h3>Resgate Disponível</h3>
-                             <div class="rewards-grid">
-                                 <div class="reward-card" data-cost="1000">
-                                     <div class="icon-box"><span class="material-symbols-rounded">medication</span></div>
-                                     <strong>Farmácia Popular</strong>
-                                     <p>15% OFF</p>
-                                     <button class="btn btn-sm btn-primary action-redeem">1000 pts</button>
-                                 </div>
-                                 <div class="reward-card" data-cost="5000">
-                                     <div class="icon-box"><span class="material-symbols-rounded">receipt_long</span></div>
-                                     <strong>IR 2025</strong>
-                                     <p>Abatimento</p>
-                                     <button class="btn btn-sm btn-primary action-redeem">5000 pts</button>
-                                 </div>
-                             </div>
-
-                             <h3>Conquistas</h3>
-                             <div class="badges-scroll" id="badges-container">
-                                 </div>
-                         </div>
+                            <h3>Resgate</h3>
+                            <div class="grid-rewards">
+                                <div class="reward-item" data-cost="1000">
+                                    <div class="reward-icon"><span class="material-symbols-rounded">medication</span></div>
+                                    <strong>Farmácia</strong>
+                                    <small>15% OFF</small>
+                                    <button class="btn-small action-redeem">1000 pts</button>
+                                </div>
+                                <div class="reward-item" data-cost="5000">
+                                    <div class="reward-icon"><span class="material-symbols-rounded">receipt_long</span></div>
+                                    <strong>IR 2025</strong>
+                                    <small>Desconto</small>
+                                    <button class="btn-small action-redeem">5000 pts</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
+
                     <div class="page" id="page-add-dependent" data-theme="light">
-                        <div class="header-sticky">
-                            <button class="btn-icon action-back"><span class="material-symbols-rounded">arrow_back_ios</span></button>
-                            <span>Novo Cadastro</span>
-                             <div style="width: 40px;"></div>
+                        <div class="nav-header">
+                            <button class="btn-back action-back"><span class="material-symbols-rounded">arrow_back_ios</span> Voltar</button>
+                            <span>Cadastro</span>
                         </div>
-                        <div class="content-body pt-header">
-                            <form id="form-dependent">
-                                <div class="input-group">
-                                    <label>Nome da Criança</label>
-                                    <input type="text" id="dep-name" placeholder="Ex: Maria Alice" required>
+                        <div class="content-padding">
+                            <form id="form-dependent" class="form-box">
+                                <div class="input-block">
+                                    <label>Nome</label>
+                                    <input type="text" id="dep-name" placeholder="Nome da criança" required>
                                 </div>
-                                <div class="input-group">
-                                    <label>Data de Nascimento</label>
+                                <div class="input-block">
+                                    <label>Data Nascimento</label>
                                     <input type="date" id="dep-dob" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-4">Salvar Dados</button>
+                                <button type="submit" class="btn-primary">Salvar</button>
                             </form>
                         </div>
                     </div>
 
-                </div> <nav class="tab-bar" id="main-tab-bar">
-                    <button class="tab-item active" data-target="page-dashboard">
+                </div> <nav class="bottom-nav hidden" id="main-nav">
+                    <button class="nav-btn active" data-target="page-dashboard">
                         <span class="material-symbols-rounded">home</span>
                         <span>Início</span>
                     </button>
-                    <button class="tab-item" data-target="page-incentives">
+                    <button class="nav-btn" data-target="page-incentives">
                         <span class="material-symbols-rounded">military_tech</span>
                         <span>Incentivos</span>
                     </button>
                 </nav>
 
-                <div id="toast" class="toast-hidden">
-                    <span id="toast-icon" class="material-symbols-rounded">check_circle</span>
-                    <span id="toast-msg">Mensagem</span>
+                <div id="toast-notification" class="toast">
+                    <span class="material-symbols-rounded icon">check_circle</span>
+                    <span class="text">Mensagem aqui</span>
                 </div>
 
                 <div class="home-indicator"></div>
+
             </div>
         </div>
     </div>
