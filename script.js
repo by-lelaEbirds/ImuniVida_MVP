@@ -1,9 +1,8 @@
 /**
- * ImuniVida MVP v2.6 - Global Logic
- * Features: Language Switcher (i18n), Form Validation
+ * ImuniVida MVP v2.7 - Global Logic
+ * Features: Dynamic Maps (SP/Milano), Grandizoli Family, Localization
  */
 
-// DICIONÁRIO DE TRADUÇÃO
 const translations = {
     it: {
         pitch_desc: "Piattaforma di Sanità Pubblica Digitale focalizzata sulla <strong>Regione Lombardia (Milano)</strong>.<br><br>Integriamo i dati del <em>Fascicolo Sanitario Elettronico</em> per automatizzare il calendario vaccinale tramite Nudges.",
@@ -27,9 +26,11 @@ const translations = {
         btn_add: "Aggiungi",
         btn_back: "Indietro",
         sched_title: "Prenotazione",
-        map_tag: "Sei qui",
+        map_tag: "Sei qui (Milano Centro)",
         sched_date: "Scegli la Data",
         sched_place: "Ospedale / ASL Vicina",
+        ubs_1_name: "Ospedale Niguarda",
+        ubs_2_name: "Centro Vaccinale Duomo",
         ubs_open: "Aperto ora",
         btn_confirm: "Conferma Prenotazione",
         rewards_title: "Incentivi",
@@ -47,14 +48,14 @@ const translations = {
         btn_save: "Salva"
     },
     pt: {
-        pitch_desc: "Plataforma de Saúde Pública focada na <strong>Região da Lombardia (Milano)</strong>.<br><br>Integramos dados do <em>Fascicolo Sanitario Elettronico</em> para automatizar o calendário vacinal via Nudges.",
+        pitch_desc: "Plataforma de Saúde Pública focada no <strong>Município de São Paulo</strong>.<br><br>Integramos dados do <em>ConecteSUS</em> para automatizar o calendário vacinal via Nudges e reduzir o absenteísmo.",
         tech_title: "Tech Stack (Passe o mouse)",
         status_title: "Métricas de Desenvolvimento",
         metric_frontend: "Frontend Mobile (UI Final)",
-        metric_geo: "Geolocalização (Milano)",
+        metric_geo: "Geolocalização (São Paulo)",
         widget_now: "AGORA",
         widget_title: "Campanha de Gripe",
-        widget_desc: "Reforço disponível para Giovanni.",
+        widget_desc: "Reforço disponível para João.",
         app_calendar: "Agenda",
         app_settings: "Ajustes",
         app_maps: "Mapas",
@@ -63,14 +64,16 @@ const translations = {
         login_secure: "Dados Protegidos (LGPD)",
         dash_welcome: "Bem-vindo,",
         alert_title: "Atenção",
-        alert_desc: "Giovanni tem 1 vacina atrasada.",
+        alert_desc: "João tem 1 vacina atrasada.",
         dash_dependents: "Meus Dependentes",
         btn_add: "Adicionar",
         btn_back: "Voltar",
         sched_title: "Agendamento",
-        map_tag: "Você está aqui",
+        map_tag: "Você está aqui (Av. Paulista)",
         sched_date: "Escolha a Data",
         sched_place: "Unidade de Saúde Próxima",
+        ubs_1_name: "Hospital das Clínicas",
+        ubs_2_name: "UBS Paulista",
         ubs_open: "Aberto agora",
         btn_confirm: "Confirmar Agendamento",
         rewards_title: "Incentivos",
@@ -91,7 +94,7 @@ const translations = {
 
 class App {
     constructor() {
-        this.currentLang = 'it'; // Padrão
+        this.currentLang = 'it'; // Default Language
         this.pages = document.querySelectorAll('.page');
         this.nav = document.getElementById('main-nav');
         this.toast = document.getElementById('toast-notification');
@@ -99,8 +102,9 @@ class App {
         this.state = {
             points: 350,
             dependents: [
-                { id: 1, name: 'Giovanni Rossi', dob: '2020-05-10', status: 'late', avatar: 'assets/boyperfil.png' },
-                { id: 2, name: 'Sofia Rossi', dob: '2022-08-15', status: 'ok', avatar: 'assets/girlperfil.png' }
+                // Initial state placeholder - will be updated by language
+                { id: 1, name: 'Giovanni Grandizoli', dob: '2020-05-10', status: 'late', avatar: 'assets/boyperfil.png' },
+                { id: 2, name: 'Sofia Grandizoli', dob: '2022-08-15', status: 'ok', avatar: 'assets/girlperfil.png' }
             ],
             selectedDependentId: null
         };
@@ -115,27 +119,44 @@ class App {
         const dateInput = document.getElementById('schedule-date');
         if(dateInput) dateInput.valueAsDate = new Date();
         
-        // Aplica idioma inicial
         this.applyLanguage(this.currentLang);
     }
 
-    // LÓGICA DE TRADUÇÃO
     applyLanguage(lang) {
         this.currentLang = lang;
         const texts = translations[lang];
         
-        // Atualiza Botões do Toggle
+        // 1. Toggle Buttons
         document.getElementById('btn-it').classList.toggle('active', lang === 'it');
         document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
 
-        // Itera sobre elementos com data-key
+        // 2. Update Text Content
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
             if(texts[key]) el.innerHTML = texts[key];
         });
+
+        // 3. MAP IMAGE SWITCH (Milano vs Sao Paulo)
+        const mapContainer = document.getElementById('dynamic-map');
+        if(mapContainer) {
+            if (lang === 'it') {
+                mapContainer.style.backgroundImage = "url('milano.png')";
+            } else {
+                mapContainer.style.backgroundImage = "url('saopaolo.png')";
+            }
+        }
+
+        // 4. DEPENDENT NAMES (Grandizoli Family)
+        if (lang === 'it') {
+            this.state.dependents[0].name = "Giovanni Grandizoli";
+            this.state.dependents[1].name = "Sofia Grandizoli";
+        } else {
+            this.state.dependents[0].name = "João Grandizoli";
+            this.state.dependents[1].name = "Ana Clara Grandizoli";
+        }
+        this.renderDependents();
     }
 
-    // ... [MANTENHA OS MÉTODOS goTo, updateNavHighlight, attachEvents IGUAIS] ...
     goTo(targetId) {
         this.pages.forEach(p => p.classList.remove('active'));
         const target = document.getElementById(targetId);
@@ -185,8 +206,6 @@ class App {
         }
     }
 
-    // ... [MÉTODOS DE AÇÃO IGUAIS, MAS COM TEXTO DINÂMICO SIMPLES] ...
-    
     selectUBS(element) {
         document.querySelectorAll('.ubs-item').forEach(el => el.classList.remove('selected'));
         element.classList.add('selected');
@@ -213,7 +232,7 @@ class App {
                 this.showToast(msg, 'success');
                 this.goTo('page-dashboard');
                 
-                // Restaura texto
+                // Reset Text via Re-applying lang
                 this.applyLanguage(this.currentLang);
             }, 1000);
         }
@@ -280,16 +299,21 @@ class App {
             let statusHtml = '';
             let actionBtn = '';
 
-            // Textos fixos baseados em status (simplificado para demo)
             if (dep.status === 'late') {
-                statusHtml = '<span style="color:#FF3B30; font-weight:600;">• Pendente</span>';
-                actionBtn = `<button class="btn-schedule" data-id="${dep.id}">Prenota</button>`;
+                const statusText = this.currentLang === 'it' ? '• In Ritardo' : '• Pendente';
+                const btnText = this.currentLang === 'it' ? 'Prenota' : 'Agendar';
+                statusHtml = `<span style="color:#FF3B30; font-weight:600;">${statusText}</span>`;
+                actionBtn = `<button class="btn-schedule" data-id="${dep.id}">${btnText}</button>`;
             } else if (dep.status === 'scheduled') {
-                statusHtml = '<span style="color:#FF9500; font-weight:600;">• Programmato</span>';
-                actionBtn = `<button class="btn-details" style="color:#FF9500;">Vedi Guida</button>`;
+                const statusText = this.currentLang === 'it' ? '• Programmato' : '• Agendado';
+                const btnText = this.currentLang === 'it' ? 'Vedi Guida' : 'Ver Guia';
+                statusHtml = `<span style="color:#FF9500; font-weight:600;">${statusText}</span>`;
+                actionBtn = `<button class="btn-details" style="color:#FF9500;">${btnText}</button>`;
             } else {
-                statusHtml = '<span style="color:#34C759; font-weight:600;">• Regolare</span>';
-                actionBtn = `<button class="btn-details">Certificato</button>`;
+                const statusText = this.currentLang === 'it' ? '• Regolare' : '• Em dia';
+                const btnText = this.currentLang === 'it' ? 'Certificato' : 'Carteira';
+                statusHtml = `<span style="color:#34C759; font-weight:600;">${statusText}</span>`;
+                actionBtn = `<button class="btn-details">${btnText}</button>`;
             }
 
             const html = `
@@ -327,7 +351,6 @@ class App {
     }
 }
 
-// Função Global para os botões de idioma
 window.setLanguage = (lang) => {
     if(window.appInstance) window.appInstance.applyLanguage(lang);
 };
