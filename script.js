@@ -1,15 +1,19 @@
 /**
- * ImuniVida MVP v2.7 - Global Logic
- * Features: Dynamic Maps (SP/Milano), Grandizoli Family, Localization
+ * ImuniVida MVP v2.8 - Business Edition
+ * Features: Unified Grandizoli Family, Simplified Tech Terms, Global Context
  */
 
 const translations = {
     it: {
-        pitch_desc: "Piattaforma di Sanità Pubblica Digitale focalizzata sulla <strong>Regione Lombardia (Milano)</strong>.<br><br>Integriamo i dati del <em>Fascicolo Sanitario Elettronico</em> per automatizzare il calendario vaccinale tramite Nudges.",
-        tech_title: "Tech Stack (Passa il mouse)",
-        status_title: "Metriche di Sviluppo",
-        metric_frontend: "Frontend Mobile (UI Finale)",
-        metric_geo: "Geolocalizzazione (Milano)",
+        pitch_desc: "Soluzione digitale per i Governi che aumenta le vaccinazioni e riduce i costi ospedalieri.<br><br>Semplice per il cittadino, potente per la sanità pubblica.",
+        tech_title: "Punti di Forza Tecnici (Passa il mouse)",
+        tech_1: "Sistema Flessibile",
+        tech_2: "Basso Costo",
+        tech_3: "Sicurezza Totale",
+        tech_4: "Connessione Ufficiale",
+        status_title: "Stato del Progetto",
+        metric_1: "Esperienza Visiva (Design)",
+        metric_2: "Funzionalità Mappe",
         widget_now: "ADESSO",
         widget_title: "Campagna Antinfluenzale",
         widget_desc: "Richiamo disponibile per Giovanni.",
@@ -48,14 +52,18 @@ const translations = {
         btn_save: "Salva"
     },
     pt: {
-        pitch_desc: "Plataforma de Saúde Pública focada no <strong>Município de São Paulo</strong>.<br><br>Integramos dados do <em>ConecteSUS</em> para automatizar o calendário vacinal via Nudges e reduzir o absenteísmo.",
-        tech_title: "Tech Stack (Passe o mouse)",
-        status_title: "Métricas de Desenvolvimento",
-        metric_frontend: "Frontend Mobile (UI Final)",
-        metric_geo: "Geolocalização (São Paulo)",
+        pitch_desc: "Solução digital para Governos que aumenta a vacinação e reduz custos hospitalares.<br><br>Simples para o cidadão, poderoso para a gestão pública.",
+        tech_title: "Diferenciais Técnicos (Passe o mouse)",
+        tech_1: "Sistema Flexível",
+        tech_2: "Baixo Custo",
+        tech_3: "Segurança Total",
+        tech_4: "Conexão Oficial",
+        status_title: "Status do Projeto",
+        metric_1: "Experiência Visual (Design)",
+        metric_2: "Funcionalidade de Mapas",
         widget_now: "AGORA",
         widget_title: "Campanha de Gripe",
-        widget_desc: "Reforço disponível para João.",
+        widget_desc: "Reforço disponível para Giovanni.",
         app_calendar: "Agenda",
         app_settings: "Ajustes",
         app_maps: "Mapas",
@@ -64,7 +72,7 @@ const translations = {
         login_secure: "Dados Protegidos (LGPD)",
         dash_welcome: "Bem-vindo,",
         alert_title: "Atenção",
-        alert_desc: "João tem 1 vacina atrasada.",
+        alert_desc: "Giovanni tem 1 vacina atrasada.",
         dash_dependents: "Meus Dependentes",
         btn_add: "Adicionar",
         btn_back: "Voltar",
@@ -94,7 +102,7 @@ const translations = {
 
 class App {
     constructor() {
-        this.currentLang = 'it'; // Default Language
+        this.currentLang = 'it'; // Default
         this.pages = document.querySelectorAll('.page');
         this.nav = document.getElementById('main-nav');
         this.toast = document.getElementById('toast-notification');
@@ -102,7 +110,7 @@ class App {
         this.state = {
             points: 350,
             dependents: [
-                // Initial state placeholder - will be updated by language
+                // NOMES UNIFICADOS
                 { id: 1, name: 'Giovanni Grandizoli', dob: '2020-05-10', status: 'late', avatar: 'assets/boyperfil.png' },
                 { id: 2, name: 'Sofia Grandizoli', dob: '2022-08-15', status: 'ok', avatar: 'assets/girlperfil.png' }
             ],
@@ -126,17 +134,14 @@ class App {
         this.currentLang = lang;
         const texts = translations[lang];
         
-        // 1. Toggle Buttons
         document.getElementById('btn-it').classList.toggle('active', lang === 'it');
         document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
 
-        // 2. Update Text Content
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
             if(texts[key]) el.innerHTML = texts[key];
         });
 
-        // 3. MAP IMAGE SWITCH (Milano vs Sao Paulo)
         const mapContainer = document.getElementById('dynamic-map');
         if(mapContainer) {
             if (lang === 'it') {
@@ -145,15 +150,8 @@ class App {
                 mapContainer.style.backgroundImage = "url('saopaolo.png')";
             }
         }
-
-        // 4. DEPENDENT NAMES (Grandizoli Family)
-        if (lang === 'it') {
-            this.state.dependents[0].name = "Giovanni Grandizoli";
-            this.state.dependents[1].name = "Sofia Grandizoli";
-        } else {
-            this.state.dependents[0].name = "João Grandizoli";
-            this.state.dependents[1].name = "Ana Clara Grandizoli";
-        }
+        
+        // Nomes não mudam mais, são fixos (Giovanni/Sofia), mas re-renderizamos para atualizar status em texto
         this.renderDependents();
     }
 
@@ -232,7 +230,6 @@ class App {
                 this.showToast(msg, 'success');
                 this.goTo('page-dashboard');
                 
-                // Reset Text via Re-applying lang
                 this.applyLanguage(this.currentLang);
             }, 1000);
         }
