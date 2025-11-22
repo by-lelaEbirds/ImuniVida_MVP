@@ -1,5 +1,5 @@
 /* =========================================
-   RESET & CONFIG
+   RESET & CONFIGURAÇÕES GERAIS
    ========================================= */
 :root {
     --primary-blue: #007AFF;
@@ -34,7 +34,7 @@ body {
 }
 
 /* =========================================
-   PAINEL DE APRESENTAÇÃO (PITCH DECK)
+   LADO ESQUERDO: PITCH DECK (APRESENTAÇÃO)
    ========================================= */
 .info-panel {
     color: white; max-width: 360px; font-family: 'Inter', sans-serif;
@@ -51,7 +51,7 @@ body {
 .high-impact-desc strong { color: white; font-weight: 600; }
 .high-impact-desc em { color: #FF9500; font-style: normal; }
 
-/* Tech Grid */
+/* Tech Grid & Progress */
 .tech-section h3, .status-section h3 { font-size: 0.8rem; text-transform: uppercase; color: #666; margin-bottom: 15px; font-weight: 700; letter-spacing: 1px; }
 .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
 .tech-item {
@@ -62,7 +62,6 @@ body {
 .tech-item div { font-size: 13px; line-height: 1.2; }
 .tech-item small { opacity: 0.5; font-size: 11px; display: block; }
 
-/* Progress */
 .progress-container { margin-bottom: 16px; }
 .progress-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
 .progress-bar { width: 100%; height: 6px; background: #333; border-radius: 3px; overflow: hidden; }
@@ -96,7 +95,7 @@ body {
 .camera { width: 12px; height: 12px; background: #111; border-radius: 50%; box-shadow: inset 0 0 4px rgba(255,255,255,0.1); }
 
 /* =========================================
-   TELA & LAYOUT
+   TELA & LAYOUT BASE
    ========================================= */
 .screen-display { width: 100%; height: 100%; background: #fff; border-radius: 40px; position: relative; overflow: hidden; }
 
@@ -115,7 +114,7 @@ body {
 [data-theme="dark"] .home-indicator { background: #fff; }
 
 /* =========================================
-   PÁGINAS
+   PÁGINAS (VIEWPORT)
    ========================================= */
 #app-viewport { width: 100%; height: 100%; position: relative; }
 
@@ -128,7 +127,7 @@ body {
 .page.active { opacity: 1; pointer-events: all; transform: scale(1); z-index: 10; }
 .page-scrollable { padding-top: 60px; padding-bottom: 90px; overflow-y: auto; }
 
-/* --- HOMESCREEN --- */
+/* --- 1. HOMESCREEN --- */
 #page-homescreen { background: #000; color: white; }
 .wallpaper { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #021B79 0%, #0575E6 100%); }
 .ios-grid { padding: 60px 22px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 18px; }
@@ -149,7 +148,7 @@ body {
 .dock-apps { width: 100%; height: 100%; display: flex; align-items: center; justify-content: space-evenly; }
 .bg-blue { background: var(--primary-blue); } .bg-green { background: var(--success-green); } .bg-gray { background: #8E8E93; } .bg-dark { background: #2C2C2E; } .bg-pink { background: #FF2D55; } .bg-white { background: #fff; color: #000; }
 
-/* --- LOGIN --- */
+/* --- 2. LOGIN --- */
 .login-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; background: #fff; text-align: center; }
 .logo-box-shadow { width: 90px; height: 90px; background: var(--primary-blue); border-radius: 22px; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 24px; box-shadow: 0 8px 20px rgba(0,122,255,0.3); }
 .logo-icon-large { font-size: 48px; }
@@ -162,7 +161,7 @@ body {
 .security-badge { color: var(--success-green); font-size: 13px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
 .spacer { flex: 1; }
 
-/* --- DASHBOARD --- */
+/* --- 3. DASHBOARD --- */
 .header-large { padding: 20px 24px; background: #fff; border-bottom: 1px solid rgba(0,0,0,0.05); }
 .header-row { display: flex; justify-content: space-between; align-items: center; }
 .avatar-large { width: 52px; height: 52px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
@@ -185,7 +184,7 @@ body {
 }
 .btn-details { background: #F2F2F7; color: #8E8E93; border: none; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; }
 
-/* --- AGENDAMENTO (NOVA TELA) --- */
+/* --- 4. TELA DE AGENDAMENTO (MAPA) --- */
 .nav-header {
     padding: 55px 20px 15px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
     border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 50;
@@ -195,9 +194,9 @@ body {
 
 .map-container {
     width: 100%; height: 200px; background: #e5e5e5; border-radius: 16px; margin: 20px 0;
-    position: relative; overflow: hidden; background-image: url('https://assets.website-files.com/5e832e12eb7ca02ee9064d42/5f7905256d163971c6112404_map-placeholder.jpg'); /* Placeholder sutil */
-    background-size: cover; background-position: center;
-    border: 1px solid #ddd;
+    position: relative; overflow: hidden; 
+    background-image: url('https://assets.website-files.com/5e832e12eb7ca02ee9064d42/5f7905256d163971c6112404_map-placeholder.jpg'); 
+    background-size: cover; background-position: center; border: 1px solid #ddd;
 }
 .map-pin { width: 32px; height: 32px; background: var(--danger-red); border-radius: 50% 50% 0 50%; transform: rotate(45deg); position: absolute; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 .map-pin span { transform: rotate(-45deg); color: white; font-size: 18px; }
@@ -205,7 +204,7 @@ body {
 .pin-2 { top: 60%; left: 70%; background: var(--primary-blue); }
 .map-tag { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: white; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
 
-.section-label { font-size: 14px; color: var(--text-gray); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.section-label { font-size: 14px; color: var(--text-gray); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
 .date-picker-container input { width: 100%; padding: 14px; background: #F2F2F7; border: none; border-radius: 12px; font-size: 16px; font-family: 'Inter'; margin-bottom: 24px; color: var(--primary-blue); font-weight: 600; }
 
 .ubs-list { display: flex; flex-direction: column; gap: 10px; }
@@ -220,6 +219,48 @@ body {
 .ubs-item.selected .check-icon { opacity: 1; transform: scale(1); }
 .ubs-info strong { display: block; font-size: 14px; margin-bottom: 2px; }
 .ubs-info span { font-size: 12px; color: #888; }
+
+/* =========================================
+   5. INCENTIVOS (CORRIGIDO & REFORÇADO)
+   ========================================= */
+.points-card {
+    background: linear-gradient(135deg, #FF9500, #FFCC00);
+    color: white; padding: 30px; border-radius: 22px; text-align: center;
+    margin-bottom: 30px; box-shadow: 0 10px 25px rgba(255, 149, 0, 0.3);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.points-number { font-size: 56px; font-weight: 800; display: block; letter-spacing: -1px; line-height: 1; }
+.points-label { font-size: 14px; font-weight: 500; opacity: 0.9; margin-top: 5px; }
+
+.grid-rewards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    width: 100%;
+}
+
+.reward-item {
+    background: #fff; padding: 16px; border-radius: 16px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    gap: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.02);
+}
+.reward-icon {
+    color: var(--primary-blue); background: #EEF4FF; padding: 12px;
+    border-radius: 50%; margin-bottom: 6px;
+    display: flex; align-items: center; justify-content: center;
+}
+.reward-item strong { font-size: 14px; color: var(--text-dark); }
+.reward-item small { font-size: 11px; color: var(--text-gray); }
+
+.btn-small {
+    background: #F2F2F7; color: var(--primary-blue); border: none;
+    padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+    margin-top: 8px; cursor: pointer; transition: background 0.2s;
+    width: 100%;
+}
+.btn-small:hover { background: #e5e5ea; }
+.btn-small:disabled { background: #ccc; color: #666; cursor: not-allowed; }
 
 /* --- GERAL --- */
 .form-box { margin-top: 20px; }
