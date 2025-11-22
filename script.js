@@ -1,21 +1,32 @@
 /**
- * ImuniVida MVP v2.1 - Fixed Logic
- * Clean Architecture + Robust DOM Handling
+ * ImuniVida MVP v2.2 - Stable Logic
+ * Features: Online Avatars, Gov.br Auth Flow
  */
 
 class App {
     constructor() {
-        // Elementos Principais
         this.pages = document.querySelectorAll('.page');
         this.nav = document.getElementById('main-nav');
         this.toast = document.getElementById('toast-notification');
         
-        // Estado Simulado (Mock Database)
+        // DATA: Usando imagens ONLINE para não quebrar se não tiver arquivo local
         this.state = {
             points: 0,
             dependents: [
-                { id: 1, name: 'João Silva', dob: '2020-05-10', status: 'late' },
-                { id: 2, name: 'Ana Clara', dob: '2022-08-15', status: 'ok' }
+                { 
+                    id: 1, 
+                    name: 'João Silva', 
+                    dob: '2020-05-10', 
+                    status: 'late', 
+                    avatar: 'https://cdn-icons-png.flaticon.com/512/2922/2922510.png' // Menino
+                },
+                { 
+                    id: 2, 
+                    name: 'Ana Clara', 
+                    dob: '2022-08-15', 
+                    status: 'ok',
+                    avatar: 'https://cdn-icons-png.flaticon.com/512/2922/2922561.png' // Menina
+                }
             ]
         };
 
@@ -28,22 +39,15 @@ class App {
         this.renderPoints();
     }
 
-    // --- NAVEGAÇÃO ---
     goTo(targetId) {
-        // Esconde todas as páginas
         this.pages.forEach(p => p.classList.remove('active'));
-        
-        // Mostra a alvo
         const target = document.getElementById(targetId);
         if(target) {
             target.classList.add('active');
-            
-            // Ajusta tema da Status Bar
             const theme = target.dataset.theme;
             document.querySelector('.iphone-chassis').setAttribute('data-screen-theme', theme);
         }
 
-        // Controla a barra de navegação (Bottom Nav)
         if(targetId === 'page-dashboard' || targetId === 'page-incentives') {
             this.nav.classList.remove('hidden');
             this.updateNavHighlight(targetId);
@@ -58,33 +62,18 @@ class App {
         });
     }
 
-    // --- EVENTOS ---
     attachEvents() {
-        // Clique Global (Delegation)
         document.body.addEventListener('click', (e) => {
-            // Navegação
             const navTarget = e.target.closest('[data-target]');
-            if(navTarget) {
-                this.goTo(navTarget.dataset.target);
-            }
+            if(navTarget) this.goTo(navTarget.dataset.target);
 
-            // Voltar
-            if(e.target.closest('.action-back')) {
-                this.goTo('page-dashboard');
-            }
+            if(e.target.closest('.action-back')) this.goTo('page-dashboard');
 
-            // Login
-            if(e.target.closest('.action-login')) {
-                this.handleLogin(e.target.closest('.action-login'));
-            }
+            if(e.target.closest('.action-login')) this.handleLogin(e.target.closest('.action-login'));
 
-            // Resgatar Recompensa
-            if(e.target.closest('.action-redeem')) {
-                this.handleRedeem(e.target.closest('.action-redeem'));
-            }
+            if(e.target.closest('.action-redeem')) this.handleRedeem(e.target.closest('.action-redeem'));
         });
 
-        // Formulário
         const form = document.getElementById('form-dependent');
         if(form) {
             form.addEventListener('submit', (e) => {
@@ -94,18 +83,17 @@ class App {
         }
     }
 
-    // --- AÇÕES ---
     handleLogin(btn) {
-        const originalText = btn.innerHTML;
-        btn.innerHTML = `<span class="material-symbols-rounded">sync</span> Entrando...`;
-        btn.style.opacity = 0.7;
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = `<span class="material-symbols-rounded" style="animation: spin 1s linear infinite">sync</span> Acessando...`;
+        btn.style.opacity = 0.8;
 
         setTimeout(() => {
-            this.showToast('Login realizado!');
+            this.showToast('Autenticado com Sucesso!');
             this.goTo('page-dashboard');
-            btn.innerHTML = originalText;
+            btn.innerHTML = originalHTML;
             btn.style.opacity = 1;
-        }, 1500);
+        }, 2000);
     }
 
     handleRedeem(btn) {
@@ -115,9 +103,11 @@ class App {
         if(this.state.points >= cost) {
             this.state.points -= cost;
             this.renderPoints();
-            this.showToast(`Resgate de ${cost} pts realizado!`);
+            this.showToast(`Resgatado! Código enviado.`);
             btn.disabled = true;
             btn.textContent = 'Resgatado';
+            btn.style.background = '#ccc';
+            btn.style.color = '#666';
         } else {
             this.showToast('Pontos insuficientes!', 'error');
         }
@@ -126,20 +116,27 @@ class App {
     addDependent() {
         const nameInput = document.getElementById('dep-name');
         const dobInput = document.getElementById('dep-dob');
+        const genderInput = document.getElementById('dep-gender');
 
         if(nameInput.value && dobInput.value) {
+            // Escolhe avatar online baseado na seleção
+            const avatarUrl = genderInput.value === 'girl' 
+                ? 'https://cdn-icons-png.flaticon.com/512/2922/2922561.png' 
+                : 'https://cdn-icons-png.flaticon.com/512/2922/2922510.png';
+
             this.state.dependents.push({
                 id: Date.now(),
                 name: nameInput.value,
                 dob: dobInput.value,
-                status: 'ok' // Padrão
+                status: 'ok',
+                avatar: avatarUrl
             });
             
             this.renderDependents();
-            this.state.points += 50; // Gamification
+            this.state.points += 50;
             this.renderPoints();
             
-            this.showToast('Dependente adicionado! (+50 pts)');
+            this.showToast(`${nameInput.value} adicionado(a)! (+50 pts)`);
             this.goTo('page-dashboard');
             
             nameInput.value = '';
@@ -147,7 +144,6 @@ class App {
         }
     }
 
-    // --- RENDERIZAÇÃO ---
     renderDependents() {
         const list = document.getElementById('dependents-list');
         list.innerHTML = '';
@@ -156,13 +152,11 @@ class App {
             const isLate = dep.status === 'late';
             const html = `
                 <div class="list-item">
-                    <div style="display:flex; align-items:center; gap:10px;">
-                        <div style="width:40px; height:40px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#666;">
-                            ${dep.name.charAt(0)}
-                        </div>
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        <img src="${dep.avatar}" class="avatar-child">
                         <div>
-                            <strong>${dep.name}</strong>
-                            <div style="font-size:12px; color:#999;">Vacinas: ${isLate ? 'Pendente' : 'Em dia'}</div>
+                            <strong style="font-size:15px; display:block; color:#1C1C1E;">${dep.name}</strong>
+                            <div style="font-size:13px; color:#8E8E93;">Vacinas: ${isLate ? 'Pendente' : 'Em dia'}</div>
                         </div>
                     </div>
                     <span class="badge ${isLate ? 'badge-late' : 'badge-ok'}">
@@ -192,5 +186,9 @@ class App {
     }
 }
 
-// Inicia App
+// Styles para animação de carregamento simples
+const style = document.createElement('style');
+style.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
+document.head.appendChild(style);
+
 window.onload = () => new App();
