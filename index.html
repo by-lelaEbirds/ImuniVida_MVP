@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - MVP v2.4 (Investor Ready)</title>
+    <title>ImuniVida - MVP v2.5 (Milano)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
@@ -14,51 +14,52 @@
         <div class="info-panel">
             <div class="project-header">
                 <div class="badge-row">
-                    <span class="badge-beta">MVP v2.4</span>
-                    <span class="badge-live">ENTERPRISE</span>
+                    <span class="badge-beta">MVP v2.5</span>
+                    <span class="badge-live">ITALY PILOT</span>
                 </div>
                 <h1>ImuniVida</h1>
                 <p class="high-impact-desc">
-                    Plataforma de Inteligência em Saúde Pública (GovTech).<br><br>
-                    Utilizamos <strong>Nudges Comportamentais</strong> e Gamificação para combater a hesitação vacinal e reduzir o <em>no-show</em> (absenteísmo) nas UBSs em até 40%.
+                    Plataforma de Saúde Pública Digital focada na <strong>Região da Lombardia (Milão)</strong>.
+                    <br><br>
+                    Integramos dados do <em>Fascicolo Sanitario Elettronico</em> para automatizar o calendário vacinal via Nudges.
                 </p>
             </div>
 
             <div class="tech-section">
-                <h3>Arquitetura Scalable & Secure</h3>
+                <h3>Tech Stack (Passe o mouse)</h3>
                 <div class="tech-grid">
-                    <div class="tech-item">
+                    <div class="tech-item" data-tooltip="Código modular desacoplado para fácil manutenção e testes.">
                         <span class="material-symbols-rounded">layers</span>
-                        <div><strong>Clean Arch</strong><br><small>Modular</small></div>
+                        <div><strong>Clean Arch</strong><br><small>Estrutura</small></div>
                     </div>
-                    <div class="tech-item">
+                    <div class="tech-item" data-tooltip="Arquitetura sem servidor que escala automaticamente com a demanda.">
                         <span class="material-symbols-rounded">cloud_queue</span>
                         <div><strong>Serverless</strong><br><small>AWS Lambda</small></div>
                     </div>
-                    <div class="tech-item">
+                    <div class="tech-item" data-tooltip="Dados criptografados de ponta a ponta. Compliance com GDPR (Europa).">
                         <span class="material-symbols-rounded">lock</span>
-                        <div><strong>E2E Encrypt</strong><br><small>LGPD/HIPAA</small></div>
+                        <div><strong>E2E Encrypt</strong><br><small>GDPR/Privacy</small></div>
                     </div>
-                    <div class="tech-item">
+                    <div class="tech-item" data-tooltip="Integração direta com API do governo italiano/brasileiro.">
                         <span class="material-symbols-rounded">api</span>
-                        <div><strong>RNDS API</strong><br><small>ConecteSUS</small></div>
+                        <div><strong>Gov API</strong><br><small>Interoperabilidade</small></div>
                     </div>
                 </div>
             </div>
 
             <div class="status-section">
-                <h3>Métricas de Desenvolvimento</h3>
+                <h3>Prontidão do Projeto (Go-to-Market)</h3>
                 <div class="progress-container">
                     <div class="progress-label">
-                        <span>Frontend (React Native UI)</span>
-                        <span class="txt-green">98%</span>
+                        <span>Frontend Mobile (UI Final)</span>
+                        <span class="txt-green">Pronto (98%)</span>
                     </div>
                     <div class="progress-bar"><div class="fill" style="width: 98%"></div></div>
                 </div>
                 <div class="progress-container">
                     <div class="progress-label">
-                        <span>Módulo de Agendamento (Geolocation)</span>
-                        <span class="txt-green">100%</span>
+                        <span>Módulo de Geolocalização (Milão)</span>
+                        <span class="txt-green">Ativo (100%)</span>
                     </div>
                     <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
                 </div>
@@ -73,7 +74,7 @@
 
             <div class="screen-display">
                 <div class="status-bar">
-                    <span class="time">9:41</span>
+                    <span class="time">14:30</span>
                     <div class="status-icons">
                         <span class="material-symbols-rounded">signal_cellular_alt</span>
                         <span class="material-symbols-rounded">wifi</span>
@@ -84,34 +85,33 @@
                 <div id="app-viewport">
                     
                     <div class="page active" id="page-homescreen" data-theme="dark">
-                        <div class="wallpaper"></div>
-                        <div class="ios-grid">
+                        <div class="wallpaper"></div> <div class="ios-grid">
                             <div class="widget-box action-navigate" data-target="page-login">
                                 <div class="widget-top">
                                     <div class="widget-icon-small bg-blue"><span class="material-symbols-rounded">vaccines</span></div>
                                     <span class="widget-app-name">ImuniVida</span>
-                                    <span class="widget-meta">AGORA</span>
+                                    <span class="widget-meta">ADESSO</span>
                                 </div>
                                 <div class="widget-content">
-                                    <h3>Campanha Dengue</h3>
-                                    <p>Reforço disponível para João.</p>
+                                    <h3>Campagna Antinfluenzale</h3>
+                                    <p>Richiamo disponibile per Giovanni.</p>
                                 </div>
                             </div>
                             <div class="app-icon-wrapper">
-                                <div class="app-icon bg-white cal-icon"><span class="cal-day">SEG</span><span class="cal-num">24</span></div>
-                                <span class="app-label">Agenda</span>
+                                <div class="app-icon bg-white cal-icon"><span class="cal-day">LUN</span><span class="cal-num">24</span></div>
+                                <span class="app-label">Calendario</span>
                             </div>
                             <div class="app-icon-wrapper">
                                 <div class="app-icon bg-gray"><span class="material-symbols-rounded">settings</span></div>
-                                <span class="app-label">Ajustes</span>
+                                <span class="app-label">Impostazioni</span>
                             </div>
                             <div class="app-icon-wrapper">
                                 <div class="app-icon bg-green"><span class="material-symbols-rounded">chat</span></div>
-                                <span class="app-label">Zap</span>
+                                <span class="app-label">WhatsApp</span>
                             </div>
                              <div class="app-icon-wrapper">
-                                <div class="app-icon bg-blue"><span class="material-symbols-rounded">explore</span></div>
-                                <span class="app-label">Mapas</span>
+                                <div class="app-icon bg-blue"><span class="material-symbols-rounded">map</span></div>
+                                <span class="app-label">Mappe</span>
                             </div>
                         </div>
                         <div class="dock-bar">
@@ -129,13 +129,13 @@
                         <div class="login-container">
                             <div class="logo-box-shadow"><span class="material-symbols-rounded logo-icon-large">health_and_safety</span></div>
                             <h2>ImuniVida</h2>
-                            <p>Passaporte digital de vacinação.</p>
+                            <p>Passaporto sanitario digitale.</p>
                             <div class="spacer"></div>
                             <button class="btn-gov action-login">
                                 <div class="gov-icon-box"><span class="material-symbols-rounded">account_balance</span></div>
-                                <span>Entrar com <strong>Gov.br</strong></span>
+                                <span>Entrar com <strong>Gov.br / SPID</strong></span>
                             </button>
-                            <p class="security-badge"><span class="material-symbols-rounded">lock</span> Dados Criptografados (E2EE)</p>
+                            <p class="security-badge"><span class="material-symbols-rounded">lock</span> Protezione Dati (GDPR)</p>
                         </div>
                     </div>
 
@@ -143,10 +143,10 @@
                         <div class="header-large">
                             <div class="header-row">
                                 <div>
-                                    <span class="greeting">Bem-vindo,</span>
-                                    <h1>Painel</h1>
+                                    <span class="greeting">Benvenuto,</span>
+                                    <h1 style="font-size: 24px;">Matheus Grandizoli</h1>
                                 </div>
-                                <img src="https://ui-avatars.com/api/?name=Resp+Legal&background=0D8ABC&color=fff" class="avatar-large">
+                                <img src="https://ui-avatars.com/api/?name=Matheus+Grandizoli&background=007AFF&color=fff" class="avatar-large">
                             </div>
                         </div>
                         <div class="content-padding">
@@ -154,14 +154,14 @@
                                 <div class="card-flex">
                                     <span class="material-symbols-rounded icon-alert">warning</span>
                                     <div>
-                                        <h3>Atenção</h3>
-                                        <p>João tem 1 vacina atrasada.</p>
+                                        <h3>Attenzione</h3>
+                                        <p>Giovanni ha 1 vaccino in ritardo.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="section-title">
-                                <h3>Meus Dependentes</h3>
-                                <button class="btn-text action-navigate" data-target="page-add-dependent">Adicionar</button>
+                                <h3>Meus Dependentes (Famiglia)</h3>
+                                <button class="btn-text action-navigate" data-target="page-add-dependent">Aggiungi</button>
                             </div>
                             <div id="dependents-list" class="list-stack"></div>
                         </div>
@@ -169,61 +169,61 @@
 
                     <div class="page" id="page-schedule" data-theme="light">
                         <div class="nav-header">
-                            <button class="btn-back action-back"><span class="material-symbols-rounded">arrow_back_ios</span> Cancelar</button>
-                            <span>Agendar Vacina</span>
+                            <button class="btn-back action-back"><span class="material-symbols-rounded">arrow_back_ios</span> Indietro</button>
+                            <span>Prenotazione Vaccino</span>
                         </div>
                         <div class="content-padding" style="padding-top: 0;">
                             <div class="map-container">
                                 <div class="map-pin pin-1"><span class="material-symbols-rounded">medical_services</span></div>
                                 <div class="map-pin pin-2"><span class="material-symbols-rounded">local_hospital</span></div>
-                                <div class="map-tag">Você está aqui</div>
+                                <div class="map-tag">Sei qui (Milano Centro)</div>
                             </div>
 
-                            <h3 class="section-label">Escolha a Data</h3>
+                            <h3 class="section-label">Scegli la Data</h3>
                             <div class="date-picker-container">
                                 <input type="date" id="schedule-date" class="native-date-input">
                             </div>
 
-                            <h3 class="section-label">Unidade Próxima (GPS)</h3>
+                            <h3 class="section-label">Ospedale / ASL Vicina</h3>
                             <div class="ubs-list">
                                 <div class="ubs-item selected" onclick="selectUBS(this)">
                                     <div class="ubs-info">
-                                        <strong>UBS Vila Pinhais</strong>
-                                        <span>1.2 km • Aberto agora</span>
+                                        <strong>Ospedale Niguarda</strong>
+                                        <span>1.2 km • Aperto ora</span>
                                     </div>
                                     <span class="material-symbols-rounded check-icon">check_circle</span>
                                 </div>
                                 <div class="ubs-item" onclick="selectUBS(this)">
                                     <div class="ubs-info">
-                                        <strong>Hospital Nossa Sra. da Luz</strong>
-                                        <span>3.5 km • Fecha às 18h</span>
+                                        <strong>Centro Vaccinale Duomo</strong>
+                                        <span>3.5 km • Chiude alle 18:00</span>
                                     </div>
                                     <span class="material-symbols-rounded check-icon">check_circle</span>
                                 </div>
                             </div>
 
                             <div class="spacer"></div>
-                            <button class="btn-primary" id="btn-confirm-schedule">Confirmar Agendamento</button>
+                            <button class="btn-primary" id="btn-confirm-schedule">Conferma Prenotazione</button>
                         </div>
                     </div>
 
                     <div class="page page-scrollable" id="page-incentives" data-theme="light">
-                        <div class="header-large"><h1>Incentivos</h1></div>
+                        <div class="header-large"><h1>Incentivi</h1></div>
                         <div class="content-padding">
                             <div class="points-card">
                                 <span class="points-number" id="user-points">0</span>
-                                <span class="points-label">Pontos Imuni</span>
+                                <span class="points-label">Punti Imuni</span>
                             </div>
-                            <h3>Resgate</h3>
+                            <h3>Riscatta Premi</h3>
                             <div class="grid-rewards">
                                 <div class="reward-item" data-cost="1000">
                                     <div class="reward-icon"><span class="material-symbols-rounded">medication</span></div>
-                                    <strong>Farmácia</strong><small>15% OFF</small>
+                                    <strong>Farmacia Boots</strong><small>15% Sconto</small>
                                     <button class="btn-small action-redeem">1000 pts</button>
                                 </div>
                                 <div class="reward-item" data-cost="5000">
                                     <div class="reward-icon"><span class="material-symbols-rounded">receipt_long</span></div>
-                                    <strong>IR 2025</strong><small>Desconto</small>
+                                    <strong>Tasse Universitarie</strong><small>Detrazione</small>
                                     <button class="btn-small action-redeem">5000 pts</button>
                                 </div>
                             </div>
@@ -232,39 +232,39 @@
 
                     <div class="page" id="page-add-dependent" data-theme="light">
                         <div class="nav-header">
-                            <button class="btn-back action-back"><span class="material-symbols-rounded">arrow_back_ios</span> Voltar</button>
-                            <span>Cadastro</span>
+                            <button class="btn-back action-back"><span class="material-symbols-rounded">arrow_back_ios</span> Indietro</button>
+                            <span>Registrazione</span>
                         </div>
                         <div class="content-padding">
                             <form id="form-dependent" class="form-box">
                                 <div class="input-block">
                                     <label>Nome</label>
-                                    <input type="text" id="dep-name" placeholder="Ex: Maria" required>
+                                    <input type="text" id="dep-name" placeholder="Es: Giuseppe" required>
                                 </div>
                                 <div class="input-block">
-                                    <label>Gênero</label>
+                                    <label>Genere</label>
                                     <select id="dep-gender">
-                                        <option value="boy">Menino</option>
-                                        <option value="girl">Menina</option>
+                                        <option value="boy">Maschio</option>
+                                        <option value="girl">Femmina</option>
                                     </select>
                                 </div>
                                 <div class="input-block">
-                                    <label>Data Nascimento</label>
+                                    <label>Data di Nascita</label>
                                     <input type="date" id="dep-dob" required>
                                 </div>
-                                <button type="submit" class="btn-primary">Salvar</button>
+                                <button type="submit" class="btn-primary">Salva</button>
                             </form>
                         </div>
                     </div>
                 </div>
 
                 <nav class="bottom-nav hidden" id="main-nav">
-                    <button class="nav-btn active" data-target="page-dashboard"><span class="material-symbols-rounded">home</span><span>Início</span></button>
-                    <button class="nav-btn" data-target="page-incentives"><span class="material-symbols-rounded">military_tech</span><span>Incentivos</span></button>
+                    <button class="nav-btn active" data-target="page-dashboard"><span class="material-symbols-rounded">home</span><span>Home</span></button>
+                    <button class="nav-btn" data-target="page-incentives"><span class="material-symbols-rounded">military_tech</span><span>Premi</span></button>
                 </nav>
 
                 <div id="toast-notification" class="toast">
-                    <span class="material-symbols-rounded icon">check_circle</span><span class="text">Mensagem</span>
+                    <span class="material-symbols-rounded icon">check_circle</span><span class="text">Messaggio</span>
                 </div>
                 <div class="home-indicator"></div>
             </div>
