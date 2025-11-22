@@ -1,32 +1,106 @@
 /**
- * ImuniVida MVP v2.5 - Milano Edition
- * Features: Gamification Points, Italian Context, Enhanced UX
+ * ImuniVida MVP v2.6 - Global Logic
+ * Features: Language Switcher (i18n), Form Validation
  */
+
+// DICIONÁRIO DE TRADUÇÃO
+const translations = {
+    it: {
+        pitch_desc: "Piattaforma di Sanità Pubblica Digitale focalizzata sulla <strong>Regione Lombardia (Milano)</strong>.<br><br>Integriamo i dati del <em>Fascicolo Sanitario Elettronico</em> per automatizzare il calendario vaccinale tramite Nudges.",
+        tech_title: "Tech Stack (Passa il mouse)",
+        status_title: "Metriche di Sviluppo",
+        metric_frontend: "Frontend Mobile (UI Finale)",
+        metric_geo: "Geolocalizzazione (Milano)",
+        widget_now: "ADESSO",
+        widget_title: "Campagna Antinfluenzale",
+        widget_desc: "Richiamo disponibile per Giovanni.",
+        app_calendar: "Calendario",
+        app_settings: "Impostazioni",
+        app_maps: "Mappe",
+        login_subtitle: "Passaporto sanitario digitale.",
+        login_btn: "Accedi con <strong>SPID / CIE</strong>",
+        login_secure: "Protezione Dati (GDPR)",
+        dash_welcome: "Benvenuto,",
+        alert_title: "Attenzione",
+        alert_desc: "Giovanni ha 1 vaccino in ritardo.",
+        dash_dependents: "I Miei Familiari",
+        btn_add: "Aggiungi",
+        btn_back: "Indietro",
+        sched_title: "Prenotazione",
+        map_tag: "Sei qui",
+        sched_date: "Scegli la Data",
+        sched_place: "Ospedale / ASL Vicina",
+        ubs_open: "Aperto ora",
+        btn_confirm: "Conferma Prenotazione",
+        rewards_title: "Incentivi",
+        points_label: "Punti Imuni",
+        rewards_sub: "Riscatta Premi",
+        reward_tax: "Tasse Universitarie",
+        nav_home: "Home",
+        nav_rewards: "Premi",
+        reg_title: "Registrazione",
+        reg_name: "Nome",
+        reg_gender: "Genere",
+        gender_m: "Maschio",
+        gender_f: "Femmina",
+        reg_dob: "Data di Nascita",
+        btn_save: "Salva"
+    },
+    pt: {
+        pitch_desc: "Plataforma de Saúde Pública focada na <strong>Região da Lombardia (Milano)</strong>.<br><br>Integramos dados do <em>Fascicolo Sanitario Elettronico</em> para automatizar o calendário vacinal via Nudges.",
+        tech_title: "Tech Stack (Passe o mouse)",
+        status_title: "Métricas de Desenvolvimento",
+        metric_frontend: "Frontend Mobile (UI Final)",
+        metric_geo: "Geolocalização (Milano)",
+        widget_now: "AGORA",
+        widget_title: "Campanha de Gripe",
+        widget_desc: "Reforço disponível para Giovanni.",
+        app_calendar: "Agenda",
+        app_settings: "Ajustes",
+        app_maps: "Mapas",
+        login_subtitle: "Passaporte digital de vacinação.",
+        login_btn: "Entrar com <strong>Gov.br</strong>",
+        login_secure: "Dados Protegidos (LGPD)",
+        dash_welcome: "Bem-vindo,",
+        alert_title: "Atenção",
+        alert_desc: "Giovanni tem 1 vacina atrasada.",
+        dash_dependents: "Meus Dependentes",
+        btn_add: "Adicionar",
+        btn_back: "Voltar",
+        sched_title: "Agendamento",
+        map_tag: "Você está aqui",
+        sched_date: "Escolha a Data",
+        sched_place: "Unidade de Saúde Próxima",
+        ubs_open: "Aberto agora",
+        btn_confirm: "Confirmar Agendamento",
+        rewards_title: "Incentivos",
+        points_label: "Pontos Imuni",
+        rewards_sub: "Resgatar Prêmios",
+        reward_tax: "Taxas Universitárias",
+        nav_home: "Início",
+        nav_rewards: "Prêmios",
+        reg_title: "Cadastro",
+        reg_name: "Nome",
+        reg_gender: "Gênero",
+        gender_m: "Menino",
+        gender_f: "Menina",
+        reg_dob: "Data de Nascimento",
+        btn_save: "Salvar"
+    }
+};
 
 class App {
     constructor() {
+        this.currentLang = 'it'; // Padrão
         this.pages = document.querySelectorAll('.page');
         this.nav = document.getElementById('main-nav');
         this.toast = document.getElementById('toast-notification');
         
-        // DADOS ITALIANOS
         this.state = {
             points: 350,
             dependents: [
-                { 
-                    id: 1, 
-                    name: 'Giovanni Rossi', 
-                    dob: '2020-05-10', 
-                    status: 'late', 
-                    avatar: 'assets/boyperfil.png' 
-                },
-                { 
-                    id: 2, 
-                    name: 'Sofia Rossi', 
-                    dob: '2022-08-15', 
-                    status: 'ok',
-                    avatar: 'assets/girlperfil.png'
-                }
+                { id: 1, name: 'Giovanni Rossi', dob: '2020-05-10', status: 'late', avatar: 'assets/boyperfil.png' },
+                { id: 2, name: 'Sofia Rossi', dob: '2022-08-15', status: 'ok', avatar: 'assets/girlperfil.png' }
             ],
             selectedDependentId: null
         };
@@ -40,8 +114,28 @@ class App {
         this.renderPoints();
         const dateInput = document.getElementById('schedule-date');
         if(dateInput) dateInput.valueAsDate = new Date();
+        
+        // Aplica idioma inicial
+        this.applyLanguage(this.currentLang);
     }
 
+    // LÓGICA DE TRADUÇÃO
+    applyLanguage(lang) {
+        this.currentLang = lang;
+        const texts = translations[lang];
+        
+        // Atualiza Botões do Toggle
+        document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+        document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+
+        // Itera sobre elementos com data-key
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if(texts[key]) el.innerHTML = texts[key];
+        });
+    }
+
+    // ... [MANTENHA OS MÉTODOS goTo, updateNavHighlight, attachEvents IGUAIS] ...
     goTo(targetId) {
         this.pages.forEach(p => p.classList.remove('active'));
         const target = document.getElementById(targetId);
@@ -50,7 +144,6 @@ class App {
             const theme = target.dataset.theme;
             document.querySelector('.iphone-chassis').setAttribute('data-screen-theme', theme);
         }
-
         if(targetId === 'page-dashboard' || targetId === 'page-incentives') {
             this.nav.classList.remove('hidden');
             this.updateNavHighlight(targetId);
@@ -74,20 +167,26 @@ class App {
             if(e.target.closest('.action-login')) this.handleLogin(e.target.closest('.action-login'));
             if(e.target.closest('.action-redeem')) this.handleRedeem(e.target.closest('.action-redeem'));
             
-            // AGENDAR
             if(e.target.closest('.btn-schedule')) {
                 e.stopPropagation();
                 const btn = e.target.closest('.btn-schedule');
                 this.startScheduleFlow(btn.dataset.id);
             }
 
-            // CONFIRMAR AGENDAMENTO
-            if(e.target.id === 'btn-confirm-schedule') {
-                this.confirmSchedule();
-            }
+            if(e.target.id === 'btn-confirm-schedule') this.confirmSchedule();
         });
+
+        const form = document.getElementById('form-dependent');
+        if(form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.addDependent();
+            });
+        }
     }
 
+    // ... [MÉTODOS DE AÇÃO IGUAIS, MAS COM TEXTO DINÂMICO SIMPLES] ...
+    
     selectUBS(element) {
         document.querySelectorAll('.ubs-item').forEach(el => el.classList.remove('selected'));
         element.classList.add('selected');
@@ -102,43 +201,30 @@ class App {
         const depIndex = this.state.dependents.findIndex(d => d.id === this.state.selectedDependentId);
         if(depIndex > -1) {
             const btn = document.getElementById('btn-confirm-schedule');
-            btn.innerHTML = 'Conferma...';
+            btn.innerHTML = '...';
             
             setTimeout(() => {
-                // 1. Atualiza Status
                 this.state.dependents[depIndex].status = 'scheduled';
-                
-                // 2. GAMIFICAÇÃO (PONTOS)
                 this.state.points += 200; 
                 this.renderPoints();
-
                 this.renderDependents();
-                // 3. Toast com Pontos
-                this.showToast('Prenotato! +200 Punti', 'success');
+                
+                const msg = this.currentLang === 'it' ? 'Prenotato! +200 Punti' : 'Agendado! +200 Pontos';
+                this.showToast(msg, 'success');
                 this.goTo('page-dashboard');
                 
-                btn.innerHTML = 'Conferma Prenotazione';
-                
-                const alertCard = document.getElementById('alert-card');
-                if(alertCard) {
-                    alertCard.innerHTML = `
-                        <div class="card-flex">
-                            <span class="material-symbols-rounded" style="color:#34C759; font-size:32px;">check_circle</span>
-                            <div><h3>Perfetto!</h3><p>Vaccino prenotato.</p></div>
-                        </div>
-                    `;
-                    alertCard.style.borderLeft = '5px solid #34C759';
-                }
+                // Restaura texto
+                this.applyLanguage(this.currentLang);
             }, 1000);
         }
     }
 
     handleLogin(btn) {
         const originalHTML = btn.innerHTML;
-        btn.innerHTML = `<span class="material-symbols-rounded" style="animation: spin 1s linear infinite">sync</span> Accesso...`;
         btn.style.opacity = 0.8;
         setTimeout(() => {
-            this.showToast('Accesso Riuscito');
+            const msg = this.currentLang === 'it' ? 'Accesso Riuscito' : 'Login com Sucesso';
+            this.showToast(msg);
             this.goTo('page-dashboard');
             btn.innerHTML = originalHTML;
             btn.style.opacity = 1;
@@ -151,12 +237,38 @@ class App {
         if(this.state.points >= cost) {
             this.state.points -= cost;
             this.renderPoints();
-            this.showToast(`Codice generato!`);
+            const msg = this.currentLang === 'it' ? 'Codice generato!' : 'Código gerado!';
+            this.showToast(msg);
             btn.disabled = true;
-            btn.textContent = 'Riscatto';
-            btn.style.background = '#ccc';
         } else {
-            this.showToast('Punti insufficienti.', 'error');
+            const msg = this.currentLang === 'it' ? 'Punti insufficienti.' : 'Pontos insuficientes.';
+            this.showToast(msg, 'error');
+        }
+    }
+
+    addDependent() {
+        const nameInput = document.getElementById('dep-name');
+        const dobInput = document.getElementById('dep-dob');
+        const genderInput = document.getElementById('dep-gender');
+
+        if(nameInput.value && dobInput.value) {
+            const avatarUrl = genderInput.value === 'girl' ? 'assets/girlperfil.png' : 'assets/boyperfil.png';
+            this.state.dependents.push({
+                id: Date.now(),
+                name: nameInput.value,
+                dob: dobInput.value,
+                status: 'ok',
+                avatar: avatarUrl
+            });
+            this.renderDependents();
+            this.state.points += 50;
+            this.renderPoints();
+            
+            const msg = this.currentLang === 'it' ? 'Salvato!' : 'Salvo!';
+            this.showToast(msg);
+            this.goTo('page-dashboard');
+            
+            nameInput.value = ''; dobInput.value = '';
         }
     }
 
@@ -168,16 +280,15 @@ class App {
             let statusHtml = '';
             let actionBtn = '';
 
+            // Textos fixos baseados em status (simplificado para demo)
             if (dep.status === 'late') {
-                statusHtml = '<span style="color:#FF3B30; font-weight:600;">• In Ritardo</span>';
+                statusHtml = '<span style="color:#FF3B30; font-weight:600;">• Pendente</span>';
                 actionBtn = `<button class="btn-schedule" data-id="${dep.id}">Prenota</button>`;
             } else if (dep.status === 'scheduled') {
                 statusHtml = '<span style="color:#FF9500; font-weight:600;">• Programmato</span>';
-                // Melhoria UX: Ver Guia
                 actionBtn = `<button class="btn-details" style="color:#FF9500;">Vedi Guida</button>`;
             } else {
                 statusHtml = '<span style="color:#34C759; font-weight:600;">• Regolare</span>';
-                // Melhoria UX: Certificado em vez de Carteira
                 actionBtn = `<button class="btn-details">Certificato</button>`;
             }
 
@@ -210,11 +321,16 @@ class App {
         this.toast.querySelector('.text').textContent = msg;
         const icon = this.toast.querySelector('.icon');
         icon.textContent = type === 'error' ? 'error' : 'check_circle';
-        icon.style.color = type === 'error' ? '#ff4d4d' : '#FFCC00'; // Dourado para pontos
+        icon.style.color = type === 'error' ? '#ff4d4d' : '#FFCC00';
         this.toast.classList.add('show');
         setTimeout(() => { this.toast.classList.remove('show'); }, 3000);
     }
 }
+
+// Função Global para os botões de idioma
+window.setLanguage = (lang) => {
+    if(window.appInstance) window.appInstance.applyLanguage(lang);
+};
 
 window.selectUBS = (el) => {
     document.querySelectorAll('.ubs-item').forEach(e => e.classList.remove('selected'));
@@ -225,4 +341,6 @@ const style = document.createElement('style');
 style.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
 document.head.appendChild(style);
 
-window.onload = () => new App();
+window.onload = () => {
+    window.appInstance = new App();
+};
