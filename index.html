@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - MVP v2.1 (Fixed)</title>
+    <title>ImuniVida - MVP v2.2 (Showcase)</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
     
     <link rel="stylesheet" href="style.css">
@@ -14,12 +14,43 @@
 
     <div class="main-wrapper">
         <div class="info-panel">
-            <h1>ImuniVida <span class="badge-beta">BETA</span></h1>
-            <p>Plataforma de gestão imunológica gamificada.</p>
+            <div class="project-header">
+                <span class="badge-beta">MVP v2.2</span>
+                <h1>ImuniVida</h1>
+                <p>Solução SaaS para gestão de saúde pública focada em engajamento via gamificação.</p>
+            </div>
+
+            <div class="tech-section">
+                <h3>Tech Stack (Arquitetura)</h3>
+                <div class="tech-chips">
+                    <span class="chip"><span class="material-symbols-rounded">code</span> React Native</span>
+                    <span class="chip"><span class="material-symbols-rounded">cloud</span> AWS Lambda</span>
+                    <span class="chip"><span class="material-symbols-rounded">database</span> PostgreSQL</span>
+                    <span class="chip"><span class="material-symbols-rounded">security</span> LGPD Compliant</span>
+                </div>
+            </div>
+
+            <div class="status-section">
+                <h3>Status do Desenvolvimento</h3>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Frontend (UX/UI)</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="progress-bar"><div class="fill" style="width: 95%"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Integração RNDS (Gov)</span>
+                        <span>40%</span>
+                    </div>
+                    <div class="progress-bar"><div class="fill pending" style="width: 40%"></div></div>
+                </div>
+            </div>
+
             <div class="tech-specs">
-                <p><span class="material-symbols-rounded">check_circle</span> Login Gov.br Simulado</p>
-                <p><span class="material-symbols-rounded">check_circle</span> Gestão de Dependentes</p>
-                <p><span class="material-symbols-rounded">check_circle</span> Sistema de Recompensas</p>
+                <p><span class="material-symbols-rounded icon-check">check_circle</span> Identidade Visual iOS 17</p>
+                <p><span class="material-symbols-rounded icon-check">check_circle</span> Sistema de Rotas SPA</p>
             </div>
         </div>
 
@@ -105,8 +136,8 @@
 
                     <div class="page" id="page-login" data-theme="light">
                         <div class="login-container">
-                            <div class="logo-box">
-                                <span class="material-symbols-rounded logo-icon">health_and_safety</span>
+                            <div class="logo-box-shadow">
+                                <span class="material-symbols-rounded logo-icon-large">health_and_safety</span>
                             </div>
                             <h2>ImuniVida</h2>
                             <p>Passaporte digital de vacinação.</p>
@@ -114,8 +145,10 @@
                             <div class="spacer"></div>
 
                             <button class="btn-gov action-login">
-                                <span class="material-symbols-rounded">account_balance</span>
-                                Entrar com Gov.br
+                                <div class="gov-icon-box">
+                                    <span class="material-symbols-rounded">account_balance</span>
+                                </div>
+                                <span>Entrar com <strong>Gov.br</strong></span>
                             </button>
                             <p class="security-badge"><span class="material-symbols-rounded">lock</span> Ambiente Seguro</p>
                         </div>
@@ -128,7 +161,7 @@
                                     <span class="greeting">Bem-vindo,</span>
                                     <h1>Painel</h1>
                                 </div>
-                                <img src="assets/boyperfil.png" class="avatar-large" onerror="this.style.display='none'">
+                                <img src="https://cdn-icons-png.flaticon.com/512/607/607414.png" class="avatar-large">
                             </div>
                         </div>
 
@@ -190,7 +223,14 @@
                             <form id="form-dependent" class="form-box">
                                 <div class="input-block">
                                     <label>Nome</label>
-                                    <input type="text" id="dep-name" placeholder="Nome da criança" required>
+                                    <input type="text" id="dep-name" placeholder="Ex: Maria" required>
+                                </div>
+                                <div class="input-block">
+                                    <label>Gênero (para avatar)</label>
+                                    <select id="dep-gender">
+                                        <option value="boy">Menino</option>
+                                        <option value="girl">Menina</option>
+                                    </select>
                                 </div>
                                 <div class="input-block">
                                     <label>Data Nascimento</label>
@@ -214,7 +254,7 @@
 
                 <div id="toast-notification" class="toast">
                     <span class="material-symbols-rounded icon">check_circle</span>
-                    <span class="text">Mensagem aqui</span>
+                    <span class="text">Mensagem</span>
                 </div>
 
                 <div class="home-indicator"></div>
