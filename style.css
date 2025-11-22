@@ -1,34 +1,61 @@
-/* ... (MANTENHA O CSS ANTERIOR ATÉ A PARTE DO "INFO PANEL") ... */
+/* =========================================
+   RESET & CONFIG
+   ========================================= */
+:root {
+    --primary-blue: #007AFF;
+    --gov-blue: #1351B4;
+    --success-green: #34C759;
+    --danger-red: #FF3B30;
+    --bg-gray: #F2F2F7;
+    --text-dark: #1C1C1E;
+    --text-gray: #8E8E93;
+    
+    --device-width: 375px;
+    --device-height: 812px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+body {
+    background-color: #0D0D0D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.main-wrapper {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+    padding: 20px;
+}
 
 /* =========================================
-   INFO PANEL (PITCH DECK STYLE)
+   PAINEL DE APRESENTAÇÃO (LADO ESQUERDO)
    ========================================= */
 .info-panel {
     color: white;
     max-width: 350px;
+    animation: fadeIn 1s ease;
     font-family: 'Inter', sans-serif;
 }
 
 .badge-row { display: flex; gap: 8px; margin-bottom: 12px; }
 .badge-beta {
     background: linear-gradient(90deg, #007AFF, #5AC8FA);
-    font-size: 10px; padding: 4px 8px; border-radius: 4px; font-weight: 800; letter-spacing: 1px;
-}
-.badge-live {
-    background: rgba(52, 199, 89, 0.2); color: #34C759; border: 1px solid #34C759;
-    font-size: 10px; padding: 4px 8px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; display: flex; align-items: center;
-}
-.badge-live::before {
-    content: ''; width: 6px; height: 6px; background: #34C759; border-radius: 50%; margin-right: 6px;
-    animation: pulse 1.5s infinite;
+    font-size: 11px; padding: 4px 8px; border-radius: 4px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
 }
 
+.project-header h1 { font-size: 3rem; margin: 10px 0; letter-spacing: -1px; }
 .high-impact-desc { font-size: 1rem; line-height: 1.6; opacity: 0.9; color: #e0e0e0; margin-bottom: 30px; font-weight: 300; }
-.high-impact-desc strong { color: white; font-weight: 600; }
-.high-impact-desc em { color: #FF9500; font-style: normal; font-weight: 500; }
 
-/* Tech Grid Renovado */
-.tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+/* Tech Stack Grid */
+.tech-section { margin-bottom: 30px; }
+.tech-section h3, .status-section h3 { font-size: 0.8rem; text-transform: uppercase; color: #888; margin-bottom: 15px; letter-spacing: 1px; font-weight: 600; }
+
+.tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .tech-item {
     background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px;
     display: flex; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.1);
@@ -36,21 +63,204 @@
 }
 .tech-item:hover { transform: translateY(-2px); background: rgba(255,255,255,0.08); }
 .tech-item .material-symbols-rounded { font-size: 20px; color: #007AFF; }
-.tech-item div { font-size: 13px; line-height: 1.2; }
-.tech-item small { opacity: 0.5; font-size: 11px; }
+.tech-item div { font-size: 13px; }
 
-/* Cores de Progresso */
+/* Status & Progress */
+.status-section { margin-bottom: 30px; }
+.progress-container { margin-bottom: 16px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; opacity: 0.9; }
+.progress-bar { width: 100%; height: 6px; background: #333; border-radius: 3px; overflow: hidden; }
+.fill { height: 100%; background: var(--success-green); border-radius: 3px; }
+.fill.pending { background: #FF9500; }
+
 .txt-green { color: #34C759; font-weight: 700; }
 .txt-orange { color: #FF9500; font-weight: 700; }
 
-@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+.tech-specs p { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; opacity: 0.6; }
+.icon-check { color: var(--primary-blue); font-size: 16px; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
 
 /* =========================================
-   BOTÕES NOVO (LISTA DE DEPENDENTES)
+   HARDWARE IPHONE
    ========================================= */
-.list-item-row {
-    display: flex; justify-content: space-between; align-items: center; width: 100%;
+.iphone-chassis {
+    width: var(--device-width);
+    height: var(--device-height);
+    background: #000;
+    border-radius: 50px;
+    box-shadow: 0 0 0 12px #2a2a2a, 0 30px 80px rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden; 
+    transition: transform 0.3s ease;
 }
+.iphone-chassis::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 50px; pointer-events: none; z-index: 200;
+    box-shadow: inset 0 0 20px rgba(255,255,255,0.1);
+}
+
+.side-button { position: absolute; background: #333; left: -15px; width: 3px; border-radius: 2px 0 0 2px; }
+.volume-up { top: 100px; height: 40px; }
+.volume-down { top: 150px; height: 40px; }
+.power { right: -15px; left: auto; top: 120px; height: 60px; border-radius: 0 2px 2px 0; }
+
+.notch-island {
+    width: 126px; height: 37px; background: #000;
+    border-radius: 20px; position: absolute; top: 11px; left: 50%; transform: translateX(-50%);
+    z-index: 100; display: flex; justify-content: flex-end; align-items: center; padding-right: 12px;
+}
+.camera { width: 12px; height: 12px; background: #111; border-radius: 50%; box-shadow: inset 0 0 4px rgba(255,255,255,0.1); }
+
+/* =========================================
+   TELA & LAYOUT
+   ========================================= */
+.screen-display {
+    width: 100%; height: 100%; background: #fff; border-radius: 40px; position: relative; overflow: hidden;
+}
+
+.status-bar {
+    position: absolute; top: 14px; left: 0; right: 0; padding: 0 28px; height: 32px;
+    display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 15px; z-index: 90; color: #000;
+}
+[data-theme="dark"] .status-bar { color: #fff; }
+.status-icons { display: flex; gap: 6px; }
+.status-icons span { font-size: 17px; }
+
+.home-indicator {
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    width: 135px; height: 5px; background: #000; border-radius: 10px; z-index: 99; opacity: 0.3;
+}
+[data-theme="dark"] .home-indicator { background: #fff; }
+
+/* =========================================
+   PÁGINAS
+   ========================================= */
+#app-viewport { width: 100%; height: 100%; position: relative; }
+
+.page {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; background: var(--bg-gray);
+    opacity: 0; pointer-events: none; transform: scale(0.96);
+    transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.page.active { opacity: 1; pointer-events: all; transform: scale(1); z-index: 10; }
+.page-scrollable { padding-top: 60px; padding-bottom: 90px; overflow-y: auto; }
+
+/* --- 1. HOMESCREEN --- */
+#page-homescreen { background: #000; color: white; }
+.wallpaper {
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, #021B79 0%, #0575E6 100%);
+}
+
+.ios-grid {
+    padding: 60px 22px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 18px;
+}
+
+.widget-box {
+    grid-column: span 4;
+    background: rgba(255,255,255,0.2); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    border-radius: 22px; padding: 18px; margin-bottom: 10px; cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1);
+}
+.widget-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+.widget-icon-small { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.widget-icon-small span { font-size: 16px; }
+.widget-app-name { flex: 1; }
+.widget-content h3 { font-size: 19px; margin-bottom: 5px; font-weight: 600; }
+.widget-content p { font-size: 14px; opacity: 0.9; }
+
+.app-icon-wrapper { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.app-icon {
+    width: 64px; height: 64px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center; font-size: 32px;
+    position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.25); color: white;
+}
+.app-label { font-size: 12px; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+
+.cal-day { font-size: 10px; font-weight: 700; color: var(--danger-red); position: absolute; top: 9px; }
+.cal-num { font-size: 28px; font-weight: 300; margin-top: 10px; color: #000; }
+.cal-icon { color: #000; }
+
+.bg-blue { background: var(--primary-blue); }
+.bg-green { background: var(--success-green); }
+.bg-gray { background: #8E8E93; }
+.bg-dark { background: #2C2C2E; }
+.bg-pink { background: #FF2D55; }
+.bg-white { background: #fff; }
+
+.dock-bar {
+    position: absolute; bottom: 22px; left: 12px; right: 12px; height: 90px; z-index: 20;
+}
+.dock-bg {
+    position: absolute; inset: 0; background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border-radius: 38px; z-index: -1;
+}
+.dock-apps { width: 100%; height: 100%; display: flex; align-items: center; justify-content: space-evenly; }
+
+/* --- 2. LOGIN --- */
+.login-container {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 40px; background: #fff; text-align: center;
+}
+.logo-box-shadow {
+    width: 90px; height: 90px; background: var(--primary-blue);
+    border-radius: 22px; display: flex; align-items: center; justify-content: center;
+    color: white; margin-bottom: 24px; box-shadow: 0 8px 20px rgba(0,122,255,0.3);
+}
+.logo-icon-large { font-size: 48px; }
+.login-container h2 { font-size: 28px; margin-bottom: 8px; color: var(--text-dark); }
+.login-container p { color: var(--text-gray); font-size: 16px; }
+.spacer { flex: 1; }
+
+/* Botão Gov.br */
+.btn-gov {
+    width: 100%; padding: 12px 16px; background: var(--gov-blue); color: white;
+    border: none; border-radius: 50px; font-size: 16px; font-weight: 600;
+    display: flex; align-items: center; gap: 12px; cursor: pointer;
+    margin-bottom: 20px; transition: transform 0.1s;
+    box-shadow: 0 4px 12px rgba(19, 81, 180, 0.3);
+}
+.btn-gov:active { transform: scale(0.98); }
+.gov-icon-box {
+    background: white; color: var(--gov-blue); width: 32px; height: 32px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.btn-gov span strong { font-weight: 800; }
+
+.security-badge { color: var(--success-green); font-size: 13px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+
+/* --- 3. DASHBOARD --- */
+.header-large { padding: 20px 24px; background: #fff; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.header-row { display: flex; justify-content: space-between; align-items: center; }
+.greeting { font-size: 14px; color: var(--text-gray); font-weight: 500; }
+.header-row h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+.avatar-large { width: 52px; height: 52px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); object-fit: cover; }
+
+.content-padding { padding: 24px; }
+.card { background: #fff; padding: 18px; border-radius: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); margin-bottom: 24px; }
+.card-alert { border-left: 5px solid var(--danger-red); }
+.card-flex { display: flex; align-items: center; gap: 16px; }
+.icon-alert { color: var(--danger-red); font-size: 32px; }
+.card-alert h3 { font-size: 17px; font-weight: 600; margin-bottom: 2px; }
+.card-alert p { color: var(--text-gray); font-size: 14px; }
+
+.section-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.section-title h3 { font-size: 20px; font-weight: 700; }
+.btn-text { background: none; border: none; color: var(--primary-blue); font-weight: 600; font-size: 15px; cursor: pointer; }
+
+/* Lista de Dependentes & Botões */
+.list-stack { display: flex; flex-direction: column; gap: 12px; }
+.list-item {
+    background: #fff; padding: 16px; border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: background 0.2s;
+}
+.list-item:active { background: #f9f9f9; }
+
+.list-item-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.avatar-child { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: #eee; }
+
 .list-actions { display: flex; gap: 8px; align-items: center; }
 .btn-schedule {
     background: #007AFF; color: white; border: none; padding: 6px 12px;
@@ -63,4 +273,45 @@
     border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer;
 }
 
-/* ... (MANTENHA O RESTO DO CSS, COMO IPHONE CHASSIS, ETC) ... */
+/* --- 4. FORMULÁRIO --- */
+.nav-header {
+    padding: 55px 20px 15px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+    border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 50;
+}
+.nav-header span { font-size: 17px; font-weight: 600; }
+.btn-back { position: absolute; left: 15px; background: none; border: none; color: var(--primary-blue); font-size: 16px; display: flex; align-items: center; cursor: pointer; }
+
+.form-box { margin-top: 20px; }
+.input-block { margin-bottom: 20px; }
+.input-block label { display: block; margin-bottom: 8px; color: var(--text-dark); font-size: 14px; font-weight: 500; }
+.input-block input, .input-block select {
+    width: 100%; padding: 14px; border: 1px solid #E5E5EA; border-radius: 12px; font-size: 16px; background: #fff; -webkit-appearance: none;
+}
+.btn-primary { width: 100%; padding: 16px; background: var(--primary-blue); color: white; border: none; border-radius: 14px; font-size: 17px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 10px rgba(0,122,255,0.2); }
+
+/* --- BOTTOM NAV & TOAST --- */
+.bottom-nav {
+    position: absolute; bottom: 0; width: 100%; height: 85px;
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(0,0,0,0.1); display: flex; justify-content: space-around;
+    padding-top: 12px; z-index: 80; transition: transform 0.3s;
+}
+.bottom-nav.hidden { transform: translateY(100%); }
+.nav-btn { background: none; border: none; color: #999; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10px; cursor: pointer; font-weight: 500; }
+.nav-btn.active { color: var(--primary-blue); }
+
+.toast {
+    position: absolute; top: 60px; left: 50%; transform: translateX(-50%) translateY(-20px);
+    background: rgba(0,0,0,0.8); color: white; padding: 12px 24px;
+    border-radius: 30px; display: flex; align-items: center; gap: 10px;
+    opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 200; font-weight: 500; backdrop-filter: blur(10px);
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* Incentivos */
+.points-card { background: linear-gradient(135deg, #FF9500, #FFCC00); color: white; padding: 30px; border-radius: 22px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 25px rgba(255, 149, 0, 0.3); }
+.points-number { font-size: 56px; font-weight: 800; display: block; letter-spacing: -1px; }
+.grid-rewards { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.reward-item { background: #fff; padding: 16px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+.reward-icon { color: var(--primary-blue); background: #EEF4FF; padding: 12px; border-radius: 50%; margin-bottom: 6px; }
+.btn-small { background: #F2F2F7; color: var(--primary-blue); border: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; margin-top: 6px; cursor: pointer; }
