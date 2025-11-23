@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - MVP v3.2 (Final Report)</title>
+    <title>ImuniVida - MVP v3.3 (Presentation)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap" rel="stylesheet"/>
@@ -21,6 +21,8 @@
                         "border-dark": "#2A2A2A",
                         "accent-green": "#10B981",
                         "accent-blue": "#3B82F6",
+                        "accent-yellow": "#F59E0B",
+                        "accent-red": "#EF4444",
                         "text-gray": "#9CA3AF"
                     },
                     fontFamily: { sans: ["Inter", "sans-serif"] }
@@ -42,8 +44,8 @@
 
             <div class="project-header">
                 <div class="badge-row">
-                    <span class="badge-beta">MVP v3.2</span>
-                    <span class="badge-live">VALIDATED</span>
+                    <span class="badge-beta">MVP v3.3</span>
+                    <span class="badge-live">PRESENTATION READY</span>
                 </div>
                 <h1>ImuniVida</h1>
                 <p class="high-impact-desc" data-key="pitch_desc">
@@ -54,11 +56,11 @@
             <div class="tech-section">
                 <h3 data-key="tech_title">Diferenciais Técnicos</h3>
                 <div class="tech-grid">
-                    <div class="tech-item" data-tooltip="Escalável e Modular">
+                    <div class="tech-item" data-tooltip="Arquitetura Modular">
                         <span class="material-symbols-rounded">layers</span>
                         <div><strong data-key="tech_1">Sistema Flexível</strong></div>
                     </div>
-                    <div class="tech-item" data-tooltip="AWS Lambda / Baixo Custo">
+                    <div class="tech-item" data-tooltip="Infraestrutura AWS Lambda">
                         <span class="material-symbols-rounded">savings</span>
                         <div><strong data-key="tech_2">Baixo Custo</strong></div>
                     </div>
@@ -66,7 +68,7 @@
                         <span class="material-symbols-rounded">lock</span>
                         <div><strong data-key="tech_3">Segurança Total</strong></div>
                     </div>
-                    <div class="tech-item" data-tooltip="API ConecteSUS / RNDS">
+                    <div class="tech-item" data-tooltip="Integração RNDS/SUS">
                         <span class="material-symbols-rounded">verified</span>
                         <div><strong data-key="tech_4">Conexão Oficial</strong></div>
                     </div>
@@ -74,18 +76,18 @@
             </div>
 
             <button class="btn-survey" onclick="toggleSurvey()">
-                <span class="material-symbols-rounded">bar_chart</span>
-                <span>Ver Relatório Completo (28 Usuários)</span>
+                <span class="material-symbols-rounded">folder_open</span>
+                <span>Abrir Dossiê do Projeto (Apresentação)</span>
             </button>
 
             <div class="status-section" style="margin-top: 20px;">
                 <h3 data-key="status_title">Status do Projeto</h3>
                 <div class="progress-container">
-                    <div class="progress-label"><span data-key="metric_1">Experiência Visual (Design)</span><span class="txt-green">98%</span></div>
+                    <div class="progress-label"><span data-key="metric_1">Frontend (React Native)</span><span class="txt-green">98%</span></div>
                     <div class="progress-bar"><div class="fill" style="width: 98%"></div></div>
                 </div>
                 <div class="progress-container">
-                    <div class="progress-label"><span data-key="metric_2">Funcionalidade de Mapas</span><span class="txt-green">100%</span></div>
+                    <div class="progress-label"><span data-key="metric_2">Módulo de Agendamento</span><span class="txt-green">100%</span></div>
                     <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
                 </div>
             </div>
@@ -271,169 +273,191 @@
     <div id="survey-modal" class="survey-modal hidden font-sans text-white">
         <div class="bg-bg-dark min-h-screen w-full overflow-y-auto">
             
-            <div class="sticky top-0 z-50 border-b border-border-dark bg-bg-dark/90 backdrop-blur-md px-6 py-4 flex items-center justify-between">
+            <div class="sticky top-0 z-50 border-b border-border-dark bg-bg-dark/95 backdrop-blur-md px-6 py-4 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <span class="material-symbols-rounded text-accent-green text-2xl">analytics</span>
-                    <h2 class="text-lg font-bold">ImuniVida <span class="text-text-gray font-normal">Survey Results</span></h2>
+                    <span class="material-symbols-rounded text-accent-blue text-2xl">folder_shared</span>
+                    <h2 class="text-lg font-bold">Dossiê do Projeto <span class="text-text-gray font-normal">ImuniVida</span></h2>
                 </div>
-                <div class="flex items-center gap-3">
-                    <button class="px-4 py-2 rounded-lg border border-border-dark text-sm font-medium hover:bg-white/5 transition" onclick="window.print()">Export PDF</button>
-                    <button class="w-8 h-8 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center hover:bg-red-500/40 transition" onclick="toggleSurvey()">
-                        <span class="material-symbols-rounded text-lg">close</span>
-                    </button>
-                </div>
+                <button class="w-8 h-8 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center hover:bg-red-500/40 transition" onclick="toggleSurvey()">
+                    <span class="material-symbols-rounded text-lg">close</span>
+                </button>
             </div>
 
-            <main class="max-w-6xl mx-auto px-6 py-12">
-                <div class="text-center mb-16">
-                    <p class="text-accent-blue font-semibold tracking-wider text-sm uppercase mb-2">SURVEY ANALYSIS</p>
-                    <h1 class="text-5xl font-bold text-white mb-4">User Satisfaction Survey Results</h1>
-                    <p class="text-xl text-text-gray max-w-2xl mx-auto">Análise detalhada das respostas coletadas via aplicativo ImuniVida (Brasil/Europa).</p>
-                </div>
+            <main class="max-w-6xl mx-auto px-6 py-12 space-y-16">
+                
+                <section>
+                    <p class="text-accent-blue font-bold text-sm tracking-widest uppercase mb-4">01. O Cenário</p>
+                    <h2 class="text-4xl font-bold text-white mb-6">Problematização</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-card-dark border border-border-dark p-8 rounded-3xl">
+                            <span class="material-symbols-rounded text-accent-red text-4xl mb-4">sentiment_dissatisfied</span>
+                            <h3 class="text-xl font-bold text-white mb-2">O Caos da Vacinação</h3>
+                            <p class="text-text-gray">Queda histórica na cobertura vacinal. Pais perdem carteirinhas de papel, esquecem datas de retorno e sobrecarregam o sistema com "no-shows" (faltas).</p>
+                        </div>
+                        <div class="bg-card-dark border border-border-dark p-8 rounded-3xl">
+                            <span class="material-symbols-rounded text-accent-yellow text-4xl mb-4">trending_down</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Custo Público</h3>
+                            <p class="text-text-gray">Vacinas vencem nas geladeiras das UBS por falta de demanda sincronizada. Governos perdem milhões em logística ineficiente.</p>
+                        </div>
+                    </div>
+                </section>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                    <div class="bg-card-dark border border-border-dark rounded-2xl p-8 flex flex-col items-center text-center hover:border-accent-blue transition-colors">
-                        <span class="material-symbols-rounded text-4xl text-text-gray mb-3">calendar_today</span>
-                        <p class="text-sm text-text-gray font-medium uppercase tracking-wide">Data de Fechamento</p>
-                        <p class="text-3xl font-bold text-white mt-2">23/11/2025</p>
-                    </div>
-                    <div class="bg-card-dark border border-border-dark rounded-2xl p-8 flex flex-col items-center text-center hover:border-accent-blue transition-colors">
-                        <span class="material-symbols-rounded text-4xl text-text-gray mb-3">groups</span>
-                        <p class="text-sm text-text-gray font-medium uppercase tracking-wide">Amostragem</p>
-                        <p class="text-3xl font-bold text-white mt-2">28 Usuários</p>
-                        <p class="text-xs text-text-gray mt-1">20 Brasil / 8 Europa</p>
-                    </div>
-                    <div class="bg-card-dark border border-border-dark rounded-2xl p-8 flex flex-col items-center text-center hover:border-accent-blue transition-colors">
-                        <span class="material-symbols-rounded text-4xl text-text-gray mb-3">fact_check</span>
-                        <p class="text-sm text-text-gray font-medium uppercase tracking-wide">Metodologia</p>
-                        <p class="text-3xl font-bold text-white mt-2">Questionário</p>
-                        <p class="text-xs text-text-gray mt-1">Fechado (Escolha Simples)</p>
-                    </div>
-                </div>
-
-                <div class="space-y-8">
-                    
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 bg-card-dark border border-border-dark rounded-3xl">
+                <section>
+                    <p class="text-accent-blue font-bold text-sm tracking-widest uppercase mb-4">02. Quem sofre?</p>
+                    <h2 class="text-4xl font-bold text-white mb-6">A Persona</h2>
+                    <div class="bg-gradient-to-r from-blue-900/20 to-bg-dark border border-border-dark p-8 rounded-3xl flex flex-col md:flex-row items-center gap-8">
+                        <div class="relative">
+                            <img src="https://ui-avatars.com/api/?name=Maria+Silva&background=0D8ABC&color=fff&size=128" class="rounded-full shadow-2xl">
+                            <div class="absolute -bottom-2 -right-2 bg-accent-blue text-white text-xs font-bold px-3 py-1 rounded-full">Mãe</div>
+                        </div>
                         <div>
-                            <h3 class="text-2xl font-bold text-white mb-4">Clareza da Proposta</h3>
-                            <p class="text-text-gray leading-relaxed mb-6">A vasta maioria dos usuários entendeu a proposta de valor do app imediatamente após a abertura.</p>
+                            <h3 class="text-2xl font-bold text-white">Maria (BR) & Giulia (IT)</h3>
+                            <p class="text-text-gray mt-2 mb-4">28-35 anos, trabalha fora, tem 2 filhos.</p>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li class="flex items-center gap-2"><span class="material-symbols-rounded text-red-500 text-sm">close</span> "Nunca sei onde enfiei a carteirinha."</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-rounded text-red-500 text-sm">close</span> "Não sei qual posto tem a vacina da gripe."</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-rounded text-green-500 text-sm">check</span> Objetivo: Proteger os filhos sem perder dia de trabalho.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <p class="text-accent-blue font-bold text-sm tracking-widest uppercase mb-4">03. A Solução</p>
+                    <h2 class="text-4xl font-bold text-white mb-6">Descobertas & Ideia</h2>
+                    <div class="bg-card-dark border border-border-dark p-8 rounded-3xl mb-8">
+                        <h3 class="text-xl font-bold text-white mb-4">O Insight de Ouro</h3>
+                        <p class="text-xl text-gray-300 italic border-l-4 border-accent-green pl-4">
+                            "Não é falta de vontade, é falta de organização e incentivo."
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="p-6 rounded-2xl bg-white/5"><h4 class="font-bold text-white">Nudges</h4><p class="text-xs text-gray-400">Lembretes automáticos</p></div>
+                        <div class="p-6 rounded-2xl bg-white/5"><h4 class="font-bold text-white">Geo-Agenda</h4><p class="text-xs text-gray-400">Agendamento por mapa</p></div>
+                        <div class="p-6 rounded-2xl bg-white/5"><h4 class="font-bold text-white">Gamificação</h4><p class="text-xs text-gray-400">Pontos viram Descontos</p></div>
+                    </div>
+                </section>
+
+                <section>
+                    <p class="text-accent-blue font-bold text-sm tracking-widest uppercase mb-4">04. A Prova Real</p>
+                    <h2 class="text-4xl font-bold text-white mb-2">Pesquisa de Validação</h2>
+                    <p class="text-text-gray mb-8">Dados de 28 usuários (23/11/2025) - Facetime/Entrevista.</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        
+                        <div class="bg-card-dark border border-border-dark p-6 rounded-3xl">
+                            <h4 class="font-bold text-lg text-white mb-2">1. Clareza da Proposta</h4>
+                            <p class="text-xs text-gray-500 mb-6 italic">"Ao abrir o app, a proposta ficou clara?"</p>
                             
-                            <div class="p-4 bg-white/5 rounded-xl border border-white/10">
-                                <div class="flex items-center gap-3 mb-2 text-accent-blue font-bold">
-                                    <span class="material-symbols-rounded">insights</span> Key Insight
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-white">Sim, muito clara</span><span>89%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-green w-[89%] rounded-full"></div></div>
                                 </div>
-                                <p class="text-sm text-gray-300">A interface inicial com widget "Próxima Vacina" comunica o propósito em 3 segundos.</p>
-                            </div>
-                        </div>
-                        <div class="space-y-6 pt-2">
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium">Sim, muito clara</span><span class="font-bold">89%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-accent-green w-[89%] rounded-full"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium">Sim, explorei um pouco</span><span class="font-bold">11%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-accent-blue w-[11%] rounded-full"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium text-gray-500">Não entendi</span><span class="font-bold text-gray-500">0%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-red-500 w-[0%] rounded-full"></div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 bg-card-dark border border-border-dark rounded-3xl">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white mb-4">Navegação e Fluidez</h3>
-                            <p class="text-text-gray leading-relaxed mb-6">A estrutura de abas (Tab Bar) foi elogiada pela familiaridade com padrões iOS/Android.</p>
-                            <div class="p-4 bg-white/5 rounded-xl border border-white/10">
-                                <div class="flex items-center gap-3 mb-2 text-accent-blue font-bold">
-                                    <span class="material-symbols-rounded">insights</span> Key Insight
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-white">Sim, explorei um pouco</span><span>11%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-blue w-[11%] rounded-full"></div></div>
                                 </div>
-                                <p class="text-sm text-gray-300">Fluidez excelente. Feedback pontual sobre animações de transição (v3.0).</p>
-                            </div>
-                        </div>
-                        <div class="space-y-6 pt-2">
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium">Extremamente Fácil</span><span class="font-bold">78%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-accent-green w-[78%] rounded-full"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium">Fácil</span><span class="font-bold">22%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-accent-blue w-[22%] rounded-full"></div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 bg-card-dark border border-border-dark rounded-3xl">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white mb-4">Facilidade de Uso</h3>
-                            <p class="text-text-gray leading-relaxed mb-6">O cadastro de dependentes foi considerado simples e sem atritos burocráticos.</p>
-                            <div class="p-4 bg-white/5 rounded-xl border border-white/10">
-                                <div class="flex items-center gap-3 mb-2 text-accent-blue font-bold">
-                                    <span class="material-symbols-rounded">insights</span> Key Insight
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">Não, demorei</span><span>0%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-red w-[0%] rounded-full"></div></div>
                                 </div>
-                                <p class="text-sm text-gray-300">A remoção de campos como CPF/Codice na entrada reduziu drasticamente a barreira.</p>
                             </div>
                         </div>
-                        <div class="space-y-6 pt-2">
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium">Muito Fácil / Fácil</span><span class="font-bold">93%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-accent-green w-[93%] rounded-full"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium">Neutro</span><span class="font-bold">7%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-yellow-500 w-[7%] rounded-full"></div></div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 bg-card-dark border border-border-dark rounded-3xl">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white mb-4">Valor do Agendamento</h3>
-                            <p class="text-text-gray leading-relaxed mb-6">A funcionalidade mais elogiada do MVP. A visualização geográfica resolve uma dor latente.</p>
-                            <div class="p-4 bg-white/5 rounded-xl border border-white/10">
-                                <div class="flex items-center gap-3 mb-2 text-accent-blue font-bold">
-                                    <span class="material-symbols-rounded">insights</span> Key Insight
+                        <div class="bg-card-dark border border-border-dark p-6 rounded-3xl">
+                            <h4 class="font-bold text-lg text-white mb-2">2. Navegação</h4>
+                            <p class="text-xs text-gray-500 mb-6 italic">"A navegação é fluida e intuitiva?"</p>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-white">Extremamente Fácil</span><span>78%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-green w-[78%] rounded-full"></div></div>
                                 </div>
-                                <p class="text-sm text-gray-300">96% consideram "Muito mais prático" que o método atual.</p>
-                            </div>
-                        </div>
-                        <div class="space-y-6 pt-2">
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium">Sim, muito prático</span><span class="font-bold">96%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-accent-green w-[96%] rounded-full"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium">Poderia ser mais detalhado</span><span class="font-bold">4%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-yellow-500 w-[4%] rounded-full"></div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 bg-card-dark border border-border-dark rounded-3xl">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white mb-4">Validação da Gamificação</h3>
-                            <p class="text-text-gray leading-relaxed mb-6">Recompensas financeiras (IR/Farmácia) transformam a obrigação em motivação.</p>
-                            <div class="p-4 bg-white/5 rounded-xl border border-white/10">
-                                <div class="flex items-center gap-3 mb-2 text-accent-blue font-bold">
-                                    <span class="material-symbols-rounded">insights</span> Key Insight
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-white">Fácil, mas pode melhorar</span><span>22%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-blue w-[22%] rounded-full"></div></div>
                                 </div>
-                                <p class="text-sm text-gray-300">Alta aceitação (84%) valida a hipótese central do modelo de negócio B2G.</p>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">Confusa</span><span>0%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-red w-[0%] rounded-full"></div></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="space-y-6 pt-2">
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium">Sim, grande incentivo</span><span class="font-bold">84%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-accent-green w-[84%] rounded-full"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2"><span class="font-medium">Bom extra</span><span class="font-bold">16%</span></div>
-                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-accent-blue w-[16%] rounded-full"></div></div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
+                        <div class="bg-card-dark border border-border-dark p-6 rounded-3xl">
+                            <h4 class="font-bold text-lg text-white mb-2">3. Facilidade de Uso</h4>
+                            <p class="text-xs text-gray-500 mb-6 italic">"Fácil adicionar dependente e ver vacinas?"</p>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-white">Muito Fácil / Fácil</span><span>93%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-green w-[93%] rounded-full"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-white">Neutro</span><span>7%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-yellow w-[7%] rounded-full"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">Difícil</span><span>0%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-red w-[0%] rounded-full"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-card-dark border border-border-dark p-6 rounded-3xl">
+                            <h4 class="font-bold text-lg text-white mb-2">4. Agendamento</h4>
+                            <p class="text-xs text-gray-500 mb-6 italic">"O fluxo economizaria seu tempo?"</p>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-white">Sim, muito prático</span><span>96%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-green w-[96%] rounded-full"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-white">Sim, mas detalhar mais</span><span>4%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-yellow w-[4%] rounded-full"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">Não</span><span>0%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-red w-[0%] rounded-full"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-card-dark border border-border-dark p-6 rounded-3xl col-span-1 lg:col-span-2">
+                            <h4 class="font-bold text-lg text-white mb-2">5. Gamificação</h4>
+                            <p class="text-xs text-gray-500 mb-6 italic">"Recompensas motivam a vacinação?"</p>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-white">Sim, grande incentivo</span><span>84%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-green w-[84%] rounded-full"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-white">É um bom extra</span><span>16%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-blue w-[16%] rounded-full"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">Não faz diferença</span><span>0%</span></div>
+                                    <div class="h-2 bg-gray-800 rounded-full"><div class="h-full bg-accent-red w-[0%] rounded-full"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section class="text-center pt-10 border-t border-border-dark">
+                    <p class="text-accent-green font-bold tracking-widest uppercase mb-2">Conclusão</p>
+                    <h2 class="text-3xl font-bold text-white mb-6">MVP Validado para Escala</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">
+                        O ImuniVida provou que remover barreiras técnicas e adicionar incentivos financeiros é a chave para o engajamento.
+                        <br><br>
+                        <strong class="text-white">Próximo Passo:</strong> Piloto com prefeitura local.
+                    </p>
+                </section>
+
             </main>
         </div>
     </div>
@@ -441,20 +465,14 @@
     <div id="voucher-modal" class="survey-modal hidden flex items-center justify-center font-sans">
         <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center relative overflow-hidden animation-pop z-50 shadow-2xl">
             <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-blue-500 to-green-400"></div>
-            <div class="mb-6 mt-2">
-                <span class="material-symbols-rounded text-6xl text-blue-600">verified_user</span>
-            </div>
+            <div class="mb-6 mt-2"><span class="material-symbols-rounded text-6xl text-blue-600">verified_user</span></div>
             <h2 class="text-2xl font-bold text-gray-900 mb-2">Voucher Emitido!</h2>
-            <p class="text-gray-500 mb-6 text-sm">Apresente este código na unidade parceira para validar seu desconto.</p>
-            
+            <p class="text-gray-500 mb-6 text-sm">Apresente na unidade parceira.</p>
             <div class="bg-gray-50 p-6 rounded-xl mb-6 border-2 border-dashed border-gray-200">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=IMUNI-2025-WINNER" class="mx-auto mix-blend-multiply opacity-90" alt="QR Code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=IMUNI-2025-WINNER" class="mx-auto mix-blend-multiply opacity-90">
                 <p class="font-mono font-bold text-xl mt-4 tracking-widest text-gray-800">IMUNI-2025</p>
             </div>
-
-            <button onclick="closeVoucher()" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/30">
-                Salvar na Carteira
-            </button>
+            <button onclick="closeVoucher()" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/30">Salvar</button>
         </div>
         <div id="confetti-wrapper" class="absolute inset-0 pointer-events-none overflow-hidden z-40"></div>
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm z-30" onclick="closeVoucher()"></div>
