@@ -3,9 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - MVP v2.9 (Context)</title>
+    <title>ImuniVida - MVP v3.0 (Hacker Edition)</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background-dark": "#0D0D0D",
+                        "content-dark": "#1C1C1E",
+                        "subtext-dark": "#8E8E93",
+                        "border-dark": "#2D2D2F",
+                    },
+                    fontFamily: { display: ["Inter", "Public Sans", "sans-serif"] }
+                }
+            }
+        };
+    </script>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,13 +36,13 @@
         <div class="info-panel">
             <div class="lang-toggle">
                 <button class="lang-btn active" id="btn-it" onclick="setLanguage('it')">🇮🇹 IT (Milano)</button>
-                <button class="lang-btn" id="btn-pt" onclick="setLanguage('pt')">🇧🇷 BR (São Paulo)</button>
+                <button class="lang-btn" id="btn-pt" onclick="setLanguage('pt')">🇧🇷 BR (SP)</button>
             </div>
 
             <div class="project-header">
                 <div class="badge-row">
-                    <span class="badge-beta">MVP v2.9</span>
-                    <span class="badge-live">BUSINESS READY</span>
+                    <span class="badge-beta">MVP v3.0</span>
+                    <span class="badge-live">HACKER MODE</span>
                 </div>
                 <h1>ImuniVida</h1>
                 <p class="high-impact-desc" data-key="pitch_desc">
@@ -50,20 +72,19 @@
                 </div>
             </div>
 
-            <div class="status-section">
+            <button class="btn-survey" onclick="toggleSurvey()">
+                <span class="material-symbols-rounded">analytics</span>
+                <span>Ver Relatório de Pesquisa</span>
+            </button>
+
+            <div class="status-section" style="margin-top: 20px;">
                 <h3 data-key="status_title">Status do Projeto</h3>
                 <div class="progress-container">
-                    <div class="progress-label">
-                        <span data-key="metric_1">Experiência Visual (Design)</span>
-                        <span class="txt-green">98%</span>
-                    </div>
+                    <div class="progress-label"><span data-key="metric_1">Experiência Visual (Design)</span><span class="txt-green">98%</span></div>
                     <div class="progress-bar"><div class="fill" style="width: 98%"></div></div>
                 </div>
                 <div class="progress-container">
-                    <div class="progress-label">
-                        <span data-key="metric_2">Funcionalidade de Mapas</span>
-                        <span class="txt-green">100%</span>
-                    </div>
+                    <div class="progress-label"><span data-key="metric_2">Funcionalidade de Mapas</span><span class="txt-green">100%</span></div>
                     <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
                 </div>
             </div>
@@ -101,22 +122,10 @@
                                     <p data-key="widget_desc">Richiamo disponibile per Giovanni.</p>
                                 </div>
                             </div>
-                            <div class="app-icon-wrapper">
-                                <div class="app-icon bg-white cal-icon"><span class="cal-day">LUN</span><span class="cal-num">24</span></div>
-                                <span class="app-label" data-key="app_calendar">Calendario</span>
-                            </div>
-                            <div class="app-icon-wrapper">
-                                <div class="app-icon bg-gray"><span class="material-symbols-rounded">settings</span></div>
-                                <span class="app-label" data-key="app_settings">Impostazioni</span>
-                            </div>
-                            <div class="app-icon-wrapper">
-                                <div class="app-icon bg-green"><span class="material-symbols-rounded">chat</span></div>
-                                <span class="app-label">WhatsApp</span>
-                            </div>
-                             <div class="app-icon-wrapper">
-                                <div class="app-icon bg-blue"><span class="material-symbols-rounded">map</span></div>
-                                <span class="app-label" data-key="app_maps">Mappe</span>
-                            </div>
+                            <div class="app-icon-wrapper"><div class="app-icon bg-white cal-icon"><span class="cal-day">LUN</span><span class="cal-num">24</span></div><span class="app-label" data-key="app_calendar">Calendario</span></div>
+                            <div class="app-icon-wrapper"><div class="app-icon bg-gray"><span class="material-symbols-rounded">settings</span></div><span class="app-label" data-key="app_settings">Impostazioni</span></div>
+                            <div class="app-icon-wrapper"><div class="app-icon bg-green"><span class="material-symbols-rounded">chat</span></div><span class="app-label">WhatsApp</span></div>
+                            <div class="app-icon-wrapper"><div class="app-icon bg-blue"><span class="material-symbols-rounded">map</span></div><span class="app-label" data-key="app_maps">Mappe</span></div>
                         </div>
                         <div class="dock-bar">
                             <div class="dock-bg"></div>
@@ -177,32 +186,21 @@
                             <span data-key="sched_title">Prenotazione</span>
                         </div>
                         <div class="content-padding" style="padding-top: 0;">
-                            
                             <div class="map-container" id="dynamic-map">
                                 <div class="map-pin pin-1"><span class="material-symbols-rounded">medical_services</span></div>
                                 <div class="map-pin pin-2"><span class="material-symbols-rounded">local_hospital</span></div>
                                 <div class="map-tag" data-key="map_tag">Sei qui</div>
                             </div>
-
                             <h3 class="section-label" data-key="sched_date">Scegli la Data</h3>
-                            <div class="date-picker-container">
-                                <input type="date" id="schedule-date" class="native-date-input">
-                            </div>
+                            <div class="date-picker-container"><input type="date" id="schedule-date" class="native-date-input"></div>
                             <h3 class="section-label" data-key="sched_place">Ospedale / ASL Vicina</h3>
-                            
                             <div class="ubs-list">
                                 <div class="ubs-item selected" onclick="selectUBS(this)">
-                                    <div class="ubs-info">
-                                        <strong data-key="ubs_1_name">Ospedale Niguarda</strong>
-                                        <span>1.2 km • <span data-key="ubs_open">Aperto ora</span></span>
-                                    </div>
+                                    <div class="ubs-info"><strong data-key="ubs_1_name">Ospedale Niguarda</strong><span>1.2 km • <span data-key="ubs_open">Aperto ora</span></span></div>
                                     <span class="material-symbols-rounded check-icon">check_circle</span>
                                 </div>
                                 <div class="ubs-item" onclick="selectUBS(this)">
-                                    <div class="ubs-info">
-                                        <strong data-key="ubs_2_name">Centro Vaccinale Duomo</strong>
-                                        <span>3.5 km • 18:00</span>
-                                    </div>
+                                    <div class="ubs-info"><strong data-key="ubs_2_name">Centro Vaccinale Duomo</strong><span>3.5 km • 18:00</span></div>
                                     <span class="material-symbols-rounded check-icon">check_circle</span>
                                 </div>
                             </div>
@@ -222,17 +220,30 @@
                             <div class="grid-rewards">
                                 <div class="reward-item" data-cost="1000">
                                     <div class="reward-icon"><span class="material-symbols-rounded">medication</span></div>
-                                    <strong data-key="reward_pharma_name">Farmacia Boots</strong>
-                                    <small data-key="reward_pharma_desc">15% Sconto</small>
+                                    <strong data-key="reward_pharma_name">Farmacia Boots</strong><small data-key="reward_pharma_desc">15% OFF</small>
                                     <button class="btn-small action-redeem">1000 pts</button>
                                 </div>
                                 <div class="reward-item" data-cost="5000">
                                     <div class="reward-icon"><span class="material-symbols-rounded">receipt_long</span></div>
-                                    <strong data-key="reward_tax_name">Tasse Universitarie</strong>
-                                    <small data-key="reward_tax_desc">Detrazione</small>
+                                    <strong data-key="reward_tax_name">Tasse Universitarie</strong><small data-key="reward_tax_desc">Detrazione</small>
                                     <button class="btn-small action-redeem">5000 pts</button>
                                 </div>
                             </div>
+
+                            <div class="hacker-terminal-wrapper">
+                                <div class="hacker-header">
+                                    <span class="material-symbols-rounded">terminal</span>
+                                    <span>Admin Console (Root)</span>
+                                </div>
+                                <div class="hacker-body">
+                                    <div id="hacker-output" class="hacker-output"></div>
+                                    <div class="hacker-input-line">
+                                        <span class="prompt">root@imuni:~#</span>
+                                        <input type="text" id="hacker-input" placeholder="Enter command...">
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -243,21 +254,9 @@
                         </div>
                         <div class="content-padding">
                             <form id="form-dependent" class="form-box-styled">
-                                <div class="input-block-styled">
-                                    <label data-key="reg_name">Nome</label>
-                                    <input type="text" id="dep-name" placeholder="Es: Giuseppe" required>
-                                </div>
-                                <div class="input-block-styled">
-                                    <label data-key="reg_gender">Genere</label>
-                                    <select id="dep-gender">
-                                        <option value="boy" data-key="gender_m">Maschio</option>
-                                        <option value="girl" data-key="gender_f">Femmina</option>
-                                    </select>
-                                </div>
-                                <div class="input-block-styled">
-                                    <label data-key="reg_dob">Data di Nascita</label>
-                                    <input type="date" id="dep-dob" required>
-                                </div>
+                                <div class="input-block-styled"><label data-key="reg_name">Nome</label><input type="text" id="dep-name" placeholder="Es: Giuseppe" required></div>
+                                <div class="input-block-styled"><label data-key="reg_gender">Genere</label><select id="dep-gender"><option value="boy" data-key="gender_m">Maschio</option><option value="girl" data-key="gender_f">Femmina</option></select></div>
+                                <div class="input-block-styled"><label data-key="reg_dob">Data di Nascita</label><input type="date" id="dep-dob" required></div>
                                 <button type="submit" class="btn-primary" data-key="btn_save">Salva</button>
                             </form>
                         </div>
@@ -276,6 +275,65 @@
             </div>
         </div>
     </div>
+
+    <div id="survey-modal" class="survey-modal hidden">
+        <div class="survey-content font-display bg-background-dark text-text-dark">
+            <button class="close-survey" onclick="toggleSurvey()">
+                <span class="material-symbols-rounded">close</span> Fechar
+            </button>
+            
+            <div class="p-8 max-w-5xl mx-auto">
+                <div class="text-center mb-12">
+                    <p class="text-sm font-medium text-blue-500">RELATÓRIO TÉCNICO</p>
+                    <h1 class="text-4xl font-bold text-white mt-2">Resultados da Pesquisa de Validação</h1>
+                    <p class="text-subtext-dark mt-4">Análise detalhada da aceitação do MVP ImuniVida (Brasil/Itália).</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    <div class="flex flex-col items-center p-6 rounded-2xl bg-content-dark border border-border-dark">
+                        <span class="material-symbols-rounded text-3xl text-subtext-dark">event</span>
+                        <p class="text-sm text-subtext-dark mt-2">Data Final</p>
+                        <p class="text-2xl font-bold text-white">23/11/2025</p>
+                    </div>
+                    <div class="flex flex-col items-center p-6 rounded-2xl bg-content-dark border border-border-dark">
+                        <span class="material-symbols-rounded text-3xl text-subtext-dark">groups</span>
+                        <p class="text-sm text-subtext-dark mt-2">Respondentes</p>
+                        <p class="text-2xl font-bold text-white">45 (25 BR / 20 IT)</p>
+                    </div>
+                    <div class="flex flex-col items-center p-6 rounded-2xl bg-content-dark border border-border-dark">
+                        <span class="material-symbols-rounded text-3xl text-subtext-dark">check_circle</span>
+                        <p class="text-sm text-subtext-dark mt-2">Aprovação</p>
+                        <p class="text-2xl font-bold text-green-500">94%</p>
+                    </div>
+                </div>
+
+                <div class="space-y-12">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-4">1. Clareza da Proposta</h2>
+                        <div class="p-6 rounded-2xl bg-content-dark border border-border-dark">
+                            <div class="flex justify-between text-sm mb-2"><span class="text-white">Muito Clara</span><span class="text-green-500">89%</span></div>
+                            <div class="h-2 bg-gray-800 rounded-full"><div class="h-2 bg-green-500 rounded-full" style="width: 89%"></div></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-4">2. Navegação e Fluidez</h2>
+                        <div class="p-6 rounded-2xl bg-content-dark border border-border-dark">
+                            <div class="flex justify-between text-sm mb-2"><span class="text-white">Intuitiva</span><span class="text-green-500">78%</span></div>
+                            <div class="h-2 bg-gray-800 rounded-full"><div class="h-2 bg-green-500 rounded-full" style="width: 78%"></div></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-4">3. Aceitação da Gamificação</h2>
+                        <div class="p-6 rounded-2xl bg-content-dark border border-border-dark">
+                            <div class="flex justify-between text-sm mb-2"><span class="text-white">Grande Incentivo</span><span class="text-green-500">84%</span></div>
+                            <div class="h-2 bg-gray-800 rounded-full"><div class="h-2 bg-green-500 rounded-full" style="width: 84%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
