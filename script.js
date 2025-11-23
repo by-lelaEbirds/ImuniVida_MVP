@@ -1,6 +1,6 @@
 /**
- * ImuniVida MVP v3.1 - Final Release
- * Features: Survey Modal, Hacker Mode, Voucher Confetti
+ * ImuniVida MVP v3.2 - Final
+ * Features: Survey Modal (Tailwind), Hacker Terminal, Voucher Confetti
  */
 
 const translations = {
@@ -249,7 +249,7 @@ class App {
         if(this.state.points >= cost) {
             this.state.points -= cost;
             this.renderPoints();
-            // SHOW VOUCHER MODAL
+            // SHOW VOUCHER
             this.showVoucher();
         } else {
             const msg = this.currentLang === 'it' ? 'Punti insufficienti.' : 'Pontos insuficientes.';
@@ -267,7 +267,6 @@ class App {
         const container = document.getElementById('confetti-wrapper');
         container.innerHTML = '';
         const colors = ['#EF4444', '#3B82F6', '#10B981', '#F59E0B'];
-        
         for (let i = 0; i < 50; i++) {
             const confetto = document.createElement('div');
             confetto.classList.add('confetti');
@@ -377,6 +376,9 @@ class App {
                                 this.renderPoints();
                                 output.innerHTML += `<div style="color:#00FF00">SUCCESS: Added ${pointsToAdd} points.</div>`;
                                 this.showToast('HACKED: Pontos Adicionados!', 'success');
+                                // Enable buttons immediately
+                                const rewardBtns = document.querySelectorAll('.action-redeem');
+                                rewardBtns.forEach(b => b.disabled = false);
                                 output.scrollTop = output.scrollHeight;
                             }, 800);
                         }
