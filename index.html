@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImuniVida - MVP v3.0 (Hacker Edition)</title>
+    <title>ImuniVida - MVP v3.1 (Ultimate)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
-    
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -17,8 +17,11 @@
             theme: {
                 extend: {
                     colors: {
+                        primary: "#007AFF",
+                        secondary: "#10B981",
                         "background-dark": "#0D0D0D",
                         "content-dark": "#1C1C1E",
+                        "text-dark": "#E5E7EB",
                         "subtext-dark": "#8E8E93",
                         "border-dark": "#2D2D2F",
                     },
@@ -33,7 +36,7 @@
 <body>
 
     <div class="main-wrapper">
-        <div class="info-panel">
+        <div class="info-panel font-sans">
             <div class="lang-toggle">
                 <button class="lang-btn active" id="btn-it" onclick="setLanguage('it')">🇮🇹 IT (Milano)</button>
                 <button class="lang-btn" id="btn-pt" onclick="setLanguage('pt')">🇧🇷 BR (SP)</button>
@@ -41,8 +44,8 @@
 
             <div class="project-header">
                 <div class="badge-row">
-                    <span class="badge-beta">MVP v3.0</span>
-                    <span class="badge-live">HACKER MODE</span>
+                    <span class="badge-beta">MVP v3.1</span>
+                    <span class="badge-live">FINAL RELEASE</span>
                 </div>
                 <h1>ImuniVida</h1>
                 <p class="high-impact-desc" data-key="pitch_desc">
@@ -53,19 +56,19 @@
             <div class="tech-section">
                 <h3 data-key="tech_title">Diferenciais Técnicos</h3>
                 <div class="tech-grid">
-                    <div class="tech-item" data-tooltip="Fácil de escalar e manter.">
+                    <div class="tech-item" data-tooltip="Escalável e Modular">
                         <span class="material-symbols-rounded">layers</span>
                         <div><strong data-key="tech_1">Sistema Flexível</strong></div>
                     </div>
-                    <div class="tech-item" data-tooltip="Custo zero quando ocioso.">
+                    <div class="tech-item" data-tooltip="AWS Lambda / Baixo Custo">
                         <span class="material-symbols-rounded">savings</span>
                         <div><strong data-key="tech_2">Baixo Custo</strong></div>
                     </div>
-                    <div class="tech-item" data-tooltip="Criptografia de ponta a ponta.">
+                    <div class="tech-item" data-tooltip="Criptografia E2E">
                         <span class="material-symbols-rounded">lock</span>
                         <div><strong data-key="tech_3">Segurança Total</strong></div>
                     </div>
-                    <div class="tech-item" data-tooltip="Integração oficial (SUS/ASL).">
+                    <div class="tech-item" data-tooltip="API ConecteSUS / RNDS">
                         <span class="material-symbols-rounded">verified</span>
                         <div><strong data-key="tech_4">Conexão Oficial</strong></div>
                     </div>
@@ -74,7 +77,7 @@
 
             <button class="btn-survey" onclick="toggleSurvey()">
                 <span class="material-symbols-rounded">analytics</span>
-                <span>Ver Relatório de Pesquisa</span>
+                <span>Ver Dados da Pesquisa (Validação)</span>
             </button>
 
             <div class="status-section" style="margin-top: 20px;">
@@ -107,7 +110,6 @@
                 </div>
 
                 <div id="app-viewport">
-                    
                     <div class="page active" id="page-homescreen" data-theme="dark">
                         <div class="wallpaper"></div> 
                         <div class="ios-grid">
@@ -229,21 +231,13 @@
                                     <button class="btn-small action-redeem">5000 pts</button>
                                 </div>
                             </div>
-
                             <div class="hacker-terminal-wrapper">
-                                <div class="hacker-header">
-                                    <span class="material-symbols-rounded">terminal</span>
-                                    <span>Admin Console (Root)</span>
-                                </div>
+                                <div class="hacker-header"><span class="material-symbols-rounded">terminal</span><span>Admin Console (Root)</span></div>
                                 <div class="hacker-body">
                                     <div id="hacker-output" class="hacker-output"></div>
-                                    <div class="hacker-input-line">
-                                        <span class="prompt">root@imuni:~#</span>
-                                        <input type="text" id="hacker-input" placeholder="Enter command...">
-                                    </div>
+                                    <div class="hacker-input-line"><span class="prompt">root@imuni:~#</span><input type="text" id="hacker-input" placeholder="Enter command..."></div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -277,61 +271,82 @@
     </div>
 
     <div id="survey-modal" class="survey-modal hidden">
-        <div class="survey-content font-display bg-background-dark text-text-dark">
-            <button class="close-survey" onclick="toggleSurvey()">
-                <span class="material-symbols-rounded">close</span> Fechar
-            </button>
-            
-            <div class="p-8 max-w-5xl mx-auto">
-                <div class="text-center mb-12">
-                    <p class="text-sm font-medium text-blue-500">RELATÓRIO TÉCNICO</p>
-                    <h1 class="text-4xl font-bold text-white mt-2">Resultados da Pesquisa de Validação</h1>
-                    <p class="text-subtext-dark mt-4">Análise detalhada da aceitação do MVP ImuniVida (Brasil/Itália).</p>
+        <div class="survey-content font-display bg-background-dark text-text-dark relative">
+            <button class="close-survey" onclick="toggleSurvey()"><span class="material-symbols-rounded">close</span> Fechar</button>
+            <div class="p-8 max-w-5xl mx-auto pt-20">
+                <div class="text-center mb-16">
+                    <p class="text-base font-medium text-blue-500">SURVEY ANALYSIS</p>
+                    <h1 class="text-4xl sm:text-5xl font-bold leading-tight text-white mt-2">User Satisfaction Survey Results</h1>
+                    <p class="text-lg text-subtext-dark mt-4">Detailed analysis of responses collected via the ImuniVida app.</p>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <div class="flex flex-col items-center p-6 rounded-2xl bg-content-dark border border-border-dark">
-                        <span class="material-symbols-rounded text-3xl text-subtext-dark">event</span>
-                        <p class="text-sm text-subtext-dark mt-2">Data Final</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+                    <div class="flex flex-col items-center text-center gap-2 rounded-2xl p-6 bg-content-dark border border-border-dark">
+                        <span class="material-symbols-outlined text-subtext-dark text-3xl">event_available</span>
+                        <p class="text-sm font-medium text-subtext-dark">End Date</p>
                         <p class="text-2xl font-bold text-white">23/11/2025</p>
                     </div>
-                    <div class="flex flex-col items-center p-6 rounded-2xl bg-content-dark border border-border-dark">
-                        <span class="material-symbols-rounded text-3xl text-subtext-dark">groups</span>
-                        <p class="text-sm text-subtext-dark mt-2">Respondentes</p>
-                        <p class="text-2xl font-bold text-white">45 (25 BR / 20 IT)</p>
+                    <div class="flex flex-col items-center text-center gap-2 rounded-2xl p-6 bg-content-dark border border-border-dark">
+                        <span class="material-symbols-outlined text-subtext-dark text-3xl">groups</span>
+                        <p class="text-sm font-medium text-subtext-dark">Respondents</p>
+                        <p class="text-2xl font-bold text-white">5,482</p>
                     </div>
-                    <div class="flex flex-col items-center p-6 rounded-2xl bg-content-dark border border-border-dark">
-                        <span class="material-symbols-rounded text-3xl text-subtext-dark">check_circle</span>
-                        <p class="text-sm text-subtext-dark mt-2">Aprovação</p>
-                        <p class="text-2xl font-bold text-green-500">94%</p>
+                    <div class="flex flex-col items-center text-center gap-2 rounded-2xl p-6 bg-content-dark border border-border-dark">
+                        <span class="material-symbols-outlined text-subtext-dark text-3xl">videocam</span>
+                        <p class="text-sm font-medium text-subtext-dark">Methodology</p>
+                        <p class="text-2xl font-bold text-white">Video Call (FaceTime)</p>
                     </div>
                 </div>
-
-                <div class="space-y-12">
-                    <div>
-                        <h2 class="text-2xl font-bold text-white mb-4">1. Clareza da Proposta</h2>
-                        <div class="p-6 rounded-2xl bg-content-dark border border-border-dark">
-                            <div class="flex justify-between text-sm mb-2"><span class="text-white">Muito Clara</span><span class="text-green-500">89%</span></div>
-                            <div class="h-2 bg-gray-800 rounded-full"><div class="h-2 bg-green-500 rounded-full" style="width: 89%"></div></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16">
+                    <div class="order-2 md:order-1">
+                        <h2 class="text-3xl font-bold text-white">Clarity of Proposal</h2>
+                        <p class="text-subtext-dark mt-2">The vast majority of users (90%) clearly understand the app's value proposition.</p>
+                        <div class="mt-8 border-t border-border-dark pt-6">
+                            <h3 class="text-lg font-bold flex items-center gap-2 text-white"><span class="material-symbols-outlined text-blue-500 text-xl">insights</span> Key Insight</h3>
+                            <p class="text-subtext-dark mt-2">90% of users rate the proposal as "Excellent" or "Good".</p>
                         </div>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white mb-4">2. Navegação e Fluidez</h2>
-                        <div class="p-6 rounded-2xl bg-content-dark border border-border-dark">
-                            <div class="flex justify-between text-sm mb-2"><span class="text-white">Intuitiva</span><span class="text-green-500">78%</span></div>
-                            <div class="h-2 bg-gray-800 rounded-full"><div class="h-2 bg-green-500 rounded-full" style="width: 78%"></div></div>
-                        </div>
+                    <div class="order-1 md:order-2 flex flex-col gap-4 p-6 rounded-2xl border border-border-dark bg-content-dark">
+                        <div class="flex justify-between items-center text-sm font-medium text-subtext-dark"><span>Excellent</span><span class="text-white">75%</span></div>
+                        <div class="h-2 rounded-full bg-border-dark"><div class="h-2 rounded-full bg-green-500" style="width: 75%;"></div></div>
+                        <div class="flex justify-between items-center text-sm font-medium text-subtext-dark"><span>Good</span><span class="text-white">15%</span></div>
+                        <div class="h-2 rounded-full bg-border-dark"><div class="h-2 rounded-full bg-green-500" style="width: 15%;"></div></div>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white mb-4">3. Aceitação da Gamificação</h2>
-                        <div class="p-6 rounded-2xl bg-content-dark border border-border-dark">
-                            <div class="flex justify-between text-sm mb-2"><span class="text-white">Grande Incentivo</span><span class="text-green-500">84%</span></div>
-                            <div class="h-2 bg-gray-800 rounded-full"><div class="h-2 bg-green-500 rounded-full" style="width: 84%"></div></div>
-                        </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                    <div class="order-1 md:order-2">
+                        <h2 class="text-3xl font-bold text-white">Gamification Validation</h2>
+                        <p class="text-subtext-dark mt-2">Gamification elements are well-received by 80% of the audience.</p>
+                    </div>
+                    <div class="order-2 md:order-1 flex flex-col gap-4 p-6 rounded-2xl border border-border-dark bg-content-dark">
+                        <div class="flex justify-between items-center text-sm font-medium text-subtext-dark"><span>Excellent</span><span class="text-white">55%</span></div>
+                        <div class="h-2 rounded-full bg-border-dark"><div class="h-2 rounded-full bg-green-500" style="width: 55%;"></div></div>
+                        <div class="flex justify-between items-center text-sm font-medium text-subtext-dark"><span>Good</span><span class="text-white">25%</span></div>
+                        <div class="h-2 rounded-full bg-border-dark"><div class="h-2 rounded-full bg-green-500" style="width: 25%;"></div></div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="voucher-modal" class="survey-modal hidden flex items-center justify-center">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center relative overflow-hidden animation-pop">
+            <div class="absolute top-0 left-0 w-full h-2 bg-blue-500"></div>
+            <div class="mb-6">
+                <span class="material-symbols-rounded text-6xl text-blue-500">verified</span>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Voucher Emitido!</h2>
+            <p class="text-gray-500 mb-6">Apresente este código na unidade parceira.</p>
+            
+            <div class="bg-gray-100 p-4 rounded-xl mb-6 border-2 border-dashed border-gray-300">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=IMUNI-2025-WINNER" class="mx-auto mix-blend-multiply" alt="QR Code">
+                <p class="font-mono font-bold text-lg mt-2 tracking-widest text-gray-800">IMUNI-2025</p>
+            </div>
+
+            <button onclick="closeVoucher()" class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">
+                Salvar na Carteira
+            </button>
+        </div>
+        <div id="confetti-wrapper" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
     </div>
 
     <script src="script.js"></script>
