@@ -1,6 +1,6 @@
 /**
- * ImuniVida MVP v3.2 - Final
- * Features: Survey Modal (Tailwind), Hacker Terminal, Voucher Confetti
+ * ImuniVida MVP v3.3 - Presentation Master
+ * Features: Survey Report, Full Translations, Hacker Mode
  */
 
 const translations = {
@@ -249,7 +249,6 @@ class App {
         if(this.state.points >= cost) {
             this.state.points -= cost;
             this.renderPoints();
-            // SHOW VOUCHER
             this.showVoucher();
         } else {
             const msg = this.currentLang === 'it' ? 'Punti insufficienti.' : 'Pontos insuficientes.';
@@ -376,7 +375,6 @@ class App {
                                 this.renderPoints();
                                 output.innerHTML += `<div style="color:#00FF00">SUCCESS: Added ${pointsToAdd} points.</div>`;
                                 this.showToast('HACKED: Pontos Adicionados!', 'success');
-                                // Enable buttons immediately
                                 const rewardBtns = document.querySelectorAll('.action-redeem');
                                 rewardBtns.forEach(b => b.disabled = false);
                                 output.scrollTop = output.scrollHeight;
