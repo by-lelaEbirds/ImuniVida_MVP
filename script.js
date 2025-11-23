@@ -1,6 +1,6 @@
 /**
- * ImuniVida MVP v3.0 - Hacker Edition
- * Features: Survey Modal, Hacker Terminal, Global Context
+ * ImuniVida MVP v3.1 - Final Release
+ * Features: Survey Modal, Hacker Mode, Voucher Confetti
  */
 
 const translations = {
@@ -249,12 +249,33 @@ class App {
         if(this.state.points >= cost) {
             this.state.points -= cost;
             this.renderPoints();
-            const msg = this.currentLang === 'it' ? 'Codice generato!' : 'Código gerado!';
-            this.showToast(msg);
-            btn.disabled = true;
+            // SHOW VOUCHER MODAL
+            this.showVoucher();
         } else {
             const msg = this.currentLang === 'it' ? 'Punti insufficienti.' : 'Pontos insuficientes.';
             this.showToast(msg, 'error');
+        }
+    }
+
+    showVoucher() {
+        const modal = document.getElementById('voucher-modal');
+        modal.classList.remove('hidden');
+        this.triggerConfetti();
+    }
+
+    triggerConfetti() {
+        const container = document.getElementById('confetti-wrapper');
+        container.innerHTML = '';
+        const colors = ['#EF4444', '#3B82F6', '#10B981', '#F59E0B'];
+        
+        for (let i = 0; i < 50; i++) {
+            const confetto = document.createElement('div');
+            confetto.classList.add('confetti');
+            confetto.style.left = Math.random() * 100 + '%';
+            confetto.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetto.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            confetto.style.animationDelay = (Math.random() * 2) + 's';
+            container.appendChild(confetto);
         }
     }
 
@@ -337,40 +358,25 @@ class App {
         setTimeout(() => { this.toast.classList.remove('show'); }, 3000);
     }
 
-    // --- HACKER MODE ---
     initHackerTerminal() {
         const input = document.getElementById('hacker-input');
         const output = document.getElementById('hacker-output');
-        
         if(input) {
             input.addEventListener('keypress', (e) => {
                 if(e.key === 'Enter') {
                     const cmd = input.value.trim();
                     input.value = '';
-                    
-                    // Print command
                     output.innerHTML += `<div>root@imuni:~# ${cmd}</div>`;
-                    
-                    // Parse Command
-                    if(cmd.includes('imuni.add_points') || cmd.includes('user.add_points')) {
+                    if(cmd.includes('imuni.add_points')) {
                         const match = cmd.match(/\d+/);
                         if(match) {
                             const pointsToAdd = parseInt(match[0]);
-                            
-                            // Simulate Hacking
-                            output.innerHTML += `<div style="color:yellow">Injecting points package...</div>`;
-                            output.innerHTML += `<div style="color:yellow">Bypassing backend validation...</div>`;
-                            
+                            output.innerHTML += `<div style="color:yellow">Injecting points...</div>`;
                             setTimeout(() => {
                                 this.state.points += pointsToAdd;
                                 this.renderPoints();
-                                // Force update of buttons
-                                const rewardBtns = document.querySelectorAll('.action-redeem');
-                                rewardBtns.forEach(b => b.disabled = false);
-                                
                                 output.innerHTML += `<div style="color:#00FF00">SUCCESS: Added ${pointsToAdd} points.</div>`;
                                 this.showToast('HACKED: Pontos Adicionados!', 'success');
-                                // Scroll to bottom
                                 output.scrollTop = output.scrollHeight;
                             }, 800);
                         }
@@ -384,13 +390,11 @@ class App {
     }
 }
 
-// FUNÇÕES GLOBAIS
+// Globals
 window.setLanguage = (lang) => { if(window.appInstance) window.appInstance.applyLanguage(lang); };
 window.selectUBS = (el) => { document.querySelectorAll('.ubs-item').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); };
-window.toggleSurvey = () => {
-    const modal = document.getElementById('survey-modal');
-    modal.classList.toggle('hidden');
-};
+window.toggleSurvey = () => { const modal = document.getElementById('survey-modal'); modal.classList.toggle('hidden'); };
+window.closeVoucher = () => { document.getElementById('voucher-modal').classList.add('hidden'); };
 
 const style = document.createElement('style');
 style.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
