@@ -1,6 +1,6 @@
 /**
  * ImuniVida MVP v3.3 - Presentation Master
- * Features: Survey Report, Full Translations, Hacker Mode
+ * Features: Survey Report, Full Translations, Hacker Mode, Optimized for Presentation
  */
 
 const translations = {
@@ -51,7 +51,7 @@ const translations = {
         reg_gender: "Genere",
         gender_m: "Maschio",
         gender_f: "Femmina",
-        reg_dob: "Data di Nascita",
+        reg_dob: "Data de Nascita",
         btn_save: "Salva"
     },
     pt: {
@@ -138,16 +138,25 @@ class App {
     applyLanguage(lang) {
         this.currentLang = lang;
         const texts = translations[lang];
-        document.getElementById('btn-it').classList.toggle('active', lang === 'it');
-        document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+        
+        // Toggle active button class
+        const btnIt = document.getElementById('btn-it');
+        const btnPt = document.getElementById('btn-pt');
+        if(btnIt) btnIt.classList.toggle('active', lang === 'it');
+        if(btnPt) btnPt.classList.toggle('active', lang === 'pt');
+
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
             if(texts[key]) el.innerHTML = texts[key];
         });
+
+        // Toggle Map Background
         const mapContainer = document.getElementById('dynamic-map');
         if(mapContainer) {
             mapContainer.style.backgroundImage = lang === 'it' ? "url('milano.png')" : "url('saopaolo.png')";
         }
+
+        // Toggle Dependent Names
         if (lang === 'pt') {
             this.state.dependents[0].name = "João Grandizoli";
             this.state.dependents[1].name = "Ana Clara Grandizoli";
@@ -163,8 +172,9 @@ class App {
         const target = document.getElementById(targetId);
         if(target) {
             target.classList.add('active');
-            const theme = target.dataset.theme;
-            document.querySelector('.iphone-chassis').setAttribute('data-screen-theme', theme);
+            const theme = target.dataset.theme || 'light';
+            const chassis = document.querySelector('.iphone-chassis');
+            if(chassis) chassis.setAttribute('data-screen-theme', theme);
         }
         if(targetId === 'page-dashboard' || targetId === 'page-incentives') {
             this.nav.classList.remove('hidden');
@@ -217,6 +227,7 @@ class App {
         const depIndex = this.state.dependents.findIndex(d => d.id === this.state.selectedDependentId);
         if(depIndex > -1) {
             const btn = document.getElementById('btn-confirm-schedule');
+            const originalText = btn.innerHTML;
             btn.innerHTML = '...';
             setTimeout(() => {
                 this.state.dependents[depIndex].status = 'scheduled';
@@ -226,7 +237,7 @@ class App {
                 const msg = this.currentLang === 'it' ? 'Prenotato! +200 Punti' : 'Agendado! +200 Pontos';
                 this.showToast(msg, 'success');
                 this.goTo('page-dashboard');
-                this.applyLanguage(this.currentLang);
+                btn.innerHTML = originalText;
             }, 1000);
         }
     }
@@ -264,16 +275,25 @@ class App {
 
     triggerConfetti() {
         const container = document.getElementById('confetti-wrapper');
+        // Clear previous confetti to prevent memory leaks
         container.innerHTML = '';
+        
         const colors = ['#EF4444', '#3B82F6', '#10B981', '#F59E0B'];
         for (let i = 0; i < 50; i++) {
             const confetto = document.createElement('div');
             confetto.classList.add('confetti');
             confetto.style.left = Math.random() * 100 + '%';
             confetto.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetto.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            const duration = Math.random() * 3 + 2;
+            confetto.style.animationDuration = duration + 's';
             confetto.style.animationDelay = (Math.random() * 2) + 's';
+            
             container.appendChild(confetto);
+            
+            // Clean up DOM after animation to fix memory leak on old PCs
+            setTimeout(() => {
+                confetto.remove();
+            }, (duration + 2) * 1000);
         }
     }
 
@@ -390,14 +410,10 @@ class App {
     }
 }
 
-// Globals
+// Global Exports for HTML onlick handlers
 window.setLanguage = (lang) => { if(window.appInstance) window.appInstance.applyLanguage(lang); };
-window.selectUBS = (el) => { document.querySelectorAll('.ubs-item').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); };
+window.selectUBS = (el) => { if(window.appInstance) window.appInstance.selectUBS(el); };
 window.toggleSurvey = () => { const modal = document.getElementById('survey-modal'); modal.classList.toggle('hidden'); };
 window.closeVoucher = () => { document.getElementById('voucher-modal').classList.add('hidden'); };
-
-const style = document.createElement('style');
-style.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
-document.head.appendChild(style);
 
 window.onload = () => { window.appInstance = new App(); };
